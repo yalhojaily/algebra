@@ -456,6 +456,15 @@ export function topTerms(n: Node): Node[] {
 /** Try to render user input as LaTeX; returns null if it doesn't parse yet. */
 export function tryTex(src: string, allowEquation = false): string | null {
   try {
+    if (allowEquation && /[<>≤≥]/.test(src)) {
+      const s = src.replace(/≤|=</g, '<=').replace(/≥|=>/g, '>=');
+      const m = s.match(/(<=|>=|<|>)/);
+      if (m) {
+        const [l, r] = [s.slice(0, m.index), s.slice(m.index! + m[0].length)];
+        const rel = { '<': '<', '>': '>', '<=': '\\le', '>=': '\\ge' }[m[0]]!;
+        return `${toTex(parse(l))} ${rel} ${toTex(parse(r))}`;
+      }
+    }
     if (allowEquation && src.includes('=')) {
       const e = parseEquation(src);
       return `${toTex(e.left)} = ${toTex(e.right)}`;

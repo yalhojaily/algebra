@@ -1,0 +1,94 @@
+---
+id: "2.8"
+title: Applications and Problem Solving with Inequalities
+summary: Translate phrases like "at least", "at most", and "no more than" into inequalities, then use the five-step strategy to answer real questions about budgets, limits, and averages.
+minutes: 35
+objectives:
+  - Translate phrases such as "at least", "at most", "no more than", and "exceeds" into inequality symbols.
+  - Translate sentences into inequalities and solve them.
+  - Solve real-world problems with inequalities using the five-step strategy.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import InequalityPhrases from '../../components/InequalityPhrases.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+"You must be **at least** 18." "Carry-on bags weigh **no more than** 7 kg." "Spend **less than** your budget." Rules, limits, and goals are almost always inequalities. Solving them tells you exactly which choices are allowed.
+</Callout>
+
+## Translating to inequalities
+
+The trickiest part is deciding whether the boundary itself is included.
+
+<table class="nice">
+  <thead><tr><th>Phrase</th><th>Means</th><th>Symbol</th></tr></thead>
+  <tbody>
+    <tr><td>$x$ is <strong>at least</strong> $5$</td><td>$5$ or more</td><td>$x \ge 5$</td></tr>
+    <tr><td>$x$ is <strong>no less than</strong> $5$</td><td>$5$ or more</td><td>$x \ge 5$</td></tr>
+    <tr><td>$x$ is <strong>at most</strong> $5$</td><td>$5$ or less</td><td>$x \le 5$</td></tr>
+    <tr><td>$x$ is <strong>no more than</strong> $5$</td><td>$5$ or less</td><td>$x \le 5$</td></tr>
+    <tr><td>$x$ <strong>does not exceed</strong> $5$</td><td>$5$ or less</td><td>$x \le 5$</td></tr>
+    <tr><td>$x$ is <strong>more than</strong> / <strong>exceeds</strong> $5$</td><td>bigger than $5$</td><td>$x > 5$</td></tr>
+    <tr><td>$x$ is <strong>less than</strong> $5$</td><td>smaller than $5$</td><td>$x < 5$</td></tr>
+  </tbody>
+</table>
+
+Pick a phrase and change the number. Notice when the dot is open and when it's closed.
+
+<InequalityPhrases client:visible />
+
+<Callout type="warning" title="“At least” is not “more than”">
+If you need **at least** $50$ points, then exactly $50$ is fine: $p \ge 50$. If you need **more than** $50$, then $50$ isn't enough: $p > 50$.
+</Callout>
+
+<Practice client:visible lesson="2.8" skill="translate" compact />
+
+<Practice client:visible lesson="2.8" skill="sentence" compact />
+
+## Solving problems
+
+Use the same five steps as in Lesson 2.6 — but the translation is an inequality, and the answer is a range.
+
+<StepReveal
+  client:visible
+  title="Test average"
+  problem="Your test scores are $85$, $79$, and $92$. What scores on the fourth test will give an average of at least $85$?"
+  steps={[
+    { show: '**Familiarize.** Let $s$ = the fourth score. Average = sum ÷ 4.', why: 'Guess: if $s = 80$, the average is $336 \\div 4 = 84$ — not enough.' },
+    { show: '**Translate.** $\\dfrac{85 + 79 + 92 + s}{4} \\ge 85$', why: '"At least" means $\\ge$.' },
+    { show: '**Solve.** $256 + s \\ge 340$, so $s \\ge 84$', why: 'Multiply both sides by $4$ (positive — the sign stays), then subtract $256$.' },
+    { show: '**Check.** With $s = 84$: $\\frac{340}{4} = 85$ ✓. Anything higher gives a higher average.', why: '' },
+    { show: '**State.** Any score of $84$ or higher works: $\\{s \\mid s \\ge 84\\}$.', why: '' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="A budget"
+  problem="A car rental costs $90$ riyals per day plus $0.75$ riyals per kilometer. You can spend no more than $180$ riyals for one day. How far can you drive?"
+  steps={[
+    { show: '**Familiarize.** Let $k$ = kilometers driven. Cost $= 90 + 0.75k$.', why: '' },
+    { show: '**Translate.** $90 + 0.75k \\le 180$', why: '"No more than" means $\\le$.' },
+    { show: '**Solve.** $0.75k \\le 90$, so $k \\le 120$', why: 'Subtract $90$, then divide by $0.75$.' },
+    { show: '**State.** You can drive at most $120$ km.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="2.8" skill="apply" compact />
+
+## Summary
+
+- **At least / no less than** → $\ge$. **At most / no more than / does not exceed** → $\le$.
+- **More than / exceeds** → $>$. **Less than** → $<$.
+- Use **Familiarize, Translate, Solve, Check, State**. The answer is a set of values, not a single number.
+
+## Practice
+
+<Practice client:visible lesson="2.8" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="2.8" />

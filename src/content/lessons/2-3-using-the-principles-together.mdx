@@ -1,0 +1,150 @@
+---
+id: "2.3"
+title: Using the Principles Together
+summary: Real equations need both tools. Learn a reliable order of steps for any linear equation — including variables on both sides, parentheses, fractions, and the special cases with no solution or infinitely many.
+minutes: 45
+objectives:
+  - Solve equations that need both the addition and the multiplication principles.
+  - Solve equations with the variable on both sides.
+  - Remove parentheses before solving, using the distributive law.
+  - Clear fractions and decimals by multiplying by the LCD or a power of 10.
+  - Recognize equations with no solution or with every real number as a solution.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import EquationWorkbench from '../../components/EquationWorkbench.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+A gym charges a $50$-riyal joining fee plus $120$ riyals a month. Another gym charges no joining fee but $135$ riyals a month. After how many months do they cost the same? That's $120m + 50 = 135m$ — a variable on both sides, needing both principles.
+</Callout>
+
+## Addition first, then multiplication
+
+In $3x + 4 = 13$, two things were done to $x$: multiply by $3$, then add $4$. To undo them, work in **reverse order** — like taking off your shoes before your socks.
+
+<StepReveal
+  client:visible
+  title="Two steps"
+  problem="Solve: $\;3x + 4 = 13$"
+  steps={[
+    { show: '$3x = 9$', why: 'Subtract $4$ from both sides — undo the addition first.' },
+    { show: '$x = 3$', why: 'Divide both sides by $3$ — then undo the multiplication.' },
+    { show: 'Check: $3 \\cdot 3 + 4 = 13$ ✓', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="2.3" skill="twostep" compact />
+
+## The variable on both sides
+
+Use the addition principle to move all the variable terms to **one** side and all the numbers to the **other**. It's usually easiest to collect variable terms on the side where the coefficient stays positive.
+
+<StepReveal
+  client:visible
+  title="The two gyms"
+  problem="Solve: $\;120m + 50 = 135m$"
+  steps={[
+    { show: '$50 = 15m$', why: 'Subtract $120m$ from both sides.' },
+    { show: '$m = \\dfrac{50}{15} = \\dfrac{10}{3} \\approx 3.3$', why: 'Divide both sides by $15$.' },
+  ]}
+  answer="The costs are equal after about $3\tfrac{1}{3}$ months; from month $4$ on, the first gym is cheaper."
+/>
+
+Solve these yourself. Plan your moves: first collect the $x$-terms, then the numbers, then divide.
+
+<EquationWorkbench client:visible presets={[
+  { label: 'p1', a: 4, b: -7, c: 0, d: 13 },
+  { label: 'p2', a: 5, b: 3, c: 2, d: 18 },
+  { label: 'p3', a: -2, b: 9, c: 3, d: -11 },
+  { label: 'p4', a: 2, b: 5, c: 2, d: 1 },
+]} />
+
+<Practice client:visible lesson="2.3" skill="both" compact />
+
+## Equations with parentheses
+
+Remove parentheses with the distributive law first. Then solve as before.
+
+<StepReveal
+  client:visible
+  title="Distribute, then solve"
+  problem="Solve: $\;2(2y + 3) = 14 - 3(y - 1)$"
+  steps={[
+    { show: '$4y + 6 = 14 - 3y + 3$', why: 'Distribute on both sides. Careful: $-3 \\cdot (-1) = +3$.' },
+    { show: '$4y + 6 = 17 - 3y$', why: 'Collect like terms on the right.' },
+    { show: '$7y + 6 = 17$', why: 'Add $3y$ to both sides.' },
+    { show: '$7y = 11$', why: 'Subtract $6$.' },
+    { show: '$y = \\dfrac{11}{7}$', why: 'Divide by $7$.' },
+  ]}
+/>
+
+<Practice client:visible lesson="2.3" skill="parens" compact />
+
+## Clearing fractions and decimals
+
+Fractions are where most arithmetic errors happen. Avoid them: multiply **every term on both sides** by the least common denominator (LCD). For decimals, multiply by $10$, $100$, …
+
+<StepReveal
+  client:visible
+  title="Clear the fractions"
+  problem="Solve: $\;\dfrac{2}{3}x - \dfrac{1}{6} = \dfrac{1}{2}$"
+  steps={[
+    { show: '$6 \\cdot \\dfrac{2}{3}x - 6 \\cdot \\dfrac{1}{6} = 6 \\cdot \\dfrac{1}{2}$', why: 'The LCD of $3$, $6$ and $2$ is $6$. Multiply **every** term.' },
+    { show: '$4x - 1 = 3$', why: 'No fractions left.' },
+    { show: '$4x = 4$, so $x = 1$', why: '' },
+  ]}
+/>
+
+<Callout type="warning" title="Multiply every term">
+When clearing fractions, a term without a fraction must be multiplied too. In $\frac{x}{2} + 3 = 5$, multiplying by $2$ gives $x + 6 = 10$, not $x + 3 = 10$.
+</Callout>
+
+<Practice client:visible lesson="2.3" skill="fractions" compact />
+
+## No solution, or every number?
+
+Sometimes the variable **disappears**. Look at what's left:
+
+- A **false** statement such as $5 = 2$: the equation has **no solution**.
+- A **true** statement such as $5 = 5$: **every real number** is a solution (an *identity*).
+
+<StepReveal
+  client:visible
+  title="When the variable vanishes"
+  problem="Solve: $\;3(x + 2) = 3x + 6\;$ and $\;3(x + 2) = 3x + 5$"
+  steps={[
+    { show: '$3x + 6 = 3x + 6 \\;\\Rightarrow\\; 6 = 6$', why: 'Always true: **every real number** is a solution.' },
+    { show: '$3x + 6 = 3x + 5 \\;\\Rightarrow\\; 6 = 5$', why: 'Never true: **no solution**.' },
+  ]}
+/>
+
+The fourth equation in the workbench above is one of these — try it.
+
+<Practice client:visible lesson="2.3" skill="special" compact />
+
+<Callout type="tip" title="An equation-solving procedure">
+1. **Clear** fractions or decimals (multiply by the LCD or a power of 10).
+2. **Remove** parentheses with the distributive law.
+3. **Collect** like terms on each side.
+4. Use the **addition principle** to get variable terms on one side and numbers on the other.
+5. Use the **multiplication principle** to get the variable alone.
+6. **Check** in the original equation.
+</Callout>
+
+## Summary
+
+- Undo operations in reverse order: usually addition principle first, multiplication principle last.
+- Collect variable terms on one side and numbers on the other.
+- Clear fractions with the LCD and decimals with a power of $10$ — multiply **every** term.
+- If the variable disappears: a true statement means all real numbers; a false one means no solution.
+
+## Practice
+
+<Practice client:visible lesson="2.3" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="2.3" />

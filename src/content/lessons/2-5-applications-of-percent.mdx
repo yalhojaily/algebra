@@ -1,0 +1,125 @@
+---
+id: "2.5"
+title: Applications of Percent
+summary: Percent problems are equation problems in disguise. Translate "what is 15% of 80?" into an equation, and handle discounts, tax, commission, and percent increase and decrease.
+minutes: 40
+objectives:
+  - Convert between percents, decimals, and fractions.
+  - Translate the three kinds of percent problems into equations and solve them.
+  - Solve problems about sales tax, commission, and discounts.
+  - Find a percent increase or decrease, and the amount after a change.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import PercentBar from '../../components/PercentBar.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+A store advertises "**30% off**". A bank offers "**4% interest**". Prices "rose **12%** this year." Percents are everywhere money is — and every one of these situations is a simple equation once you know how to translate it.
+</Callout>
+
+## Percent, decimal, fraction
+
+**Percent** means "per hundred": $n\% = \dfrac{n}{100} = n \times 0.01$.
+
+<table class="nice">
+  <thead><tr><th>Conversion</th><th>How</th><th>Example</th></tr></thead>
+  <tbody>
+    <tr><td>Percent → decimal</td><td>Move the decimal point 2 places <strong>left</strong></td><td>$37.5\% = 0.375$</td></tr>
+    <tr><td>Decimal → percent</td><td>Move the decimal point 2 places <strong>right</strong></td><td>$1.2 = 120\%$</td></tr>
+    <tr><td>Fraction → percent</td><td>Divide, then move 2 places right</td><td>$\frac{3}{8} = 0.375 = 37.5\%$</td></tr>
+  </tbody>
+</table>
+
+<Practice client:visible lesson="2.5" skill="convert" compact />
+
+## Translating percent problems
+
+Every basic percent problem fits one pattern:
+
+$$
+\underbrace{a}_{\text{amount}} \;=\; \underbrace{p}_{\text{percent}} \times \underbrace{b}_{\text{base (the whole)}}
+$$
+
+Use the key words: **"of"** means $\times$, **"is"** means $=$, and **"what"** is the unknown. One of the three numbers is missing; translate and solve for it.
+
+<PercentBar client:visible />
+
+<StepReveal
+  client:visible
+  title="Three types"
+  problem="(a) What is $11\%$ of $49$?  (b) $3$ is what percent of $16$?  (c) $45\%$ of what is $23.4$?"
+  steps={[
+    { show: '(a) $\\;a = 0.11 \\times 49 = 5.39$', why: 'The amount is unknown: multiply.' },
+    { show: '(b) $\\;3 = p \\times 16 \\Rightarrow p = \\dfrac{3}{16} = 0.1875 = 18.75\\%$', why: 'The percent is unknown: divide, then convert to a percent.' },
+    { show: '(c) $\\;0.45 \\times b = 23.4 \\Rightarrow b = \\dfrac{23.4}{0.45} = 52$', why: 'The base is unknown: divide by the percent.' },
+  ]}
+/>
+
+<Practice client:visible lesson="2.5" skill="basic" compact />
+
+## Increase and decrease
+
+When a quantity **increases** by $p\%$, the new amount is the original **plus** $p\%$ of it. When it **decreases** by $p\%$, subtract.
+
+<Callout type="tip" title="A one-step shortcut">
+- Increase by $15\%$: multiply by $1 + 0.15 = 1.15$.
+- Decrease by $15\%$: multiply by $1 - 0.15 = 0.85$.
+</Callout>
+
+To find the **percent** of increase or decrease:
+
+$$
+\text{percent change} = \frac{\text{amount of change}}{\text{original amount}}
+$$
+
+<StepReveal
+  client:visible
+  title="Percent decrease"
+  problem="A phone's price dropped from $2400$ riyals to $1800$ riyals. What was the percent decrease?"
+  steps={[
+    { show: 'Change: $2400 - 1800 = 600$', why: '' },
+    { show: '$\\dfrac{600}{2400} = 0.25 = 25\\%$', why: 'Divide by the **original** price.' },
+  ]}
+  answer="A $25\%$ decrease."
+/>
+
+<Callout type="warning" title="Divide by the original">
+The base of a percent change is always the **starting** value. From $2400$ to $1800$ is a $25\%$ decrease, but from $1800$ back to $2400$ is a $33\tfrac{1}{3}\%$ increase.
+</Callout>
+
+<Practice client:visible lesson="2.5" skill="change" compact />
+
+## Tax, commission, and more
+
+<StepReveal
+  client:visible
+  title="Working backward from a total"
+  problem="A total bill, including $15\%$ VAT, is $230$ riyals. What was the price before tax?"
+  steps={[
+    { show: 'Let $p$ = price before tax. Tax $= 0.15p$.', why: '' },
+    { show: '$p + 0.15p = 230$', why: 'Price + tax = total.' },
+    { show: '$1.15p = 230$', why: 'Collect like terms: $1p + 0.15p = 1.15p$.' },
+    { show: '$p = 200$', why: 'Divide by $1.15$.' },
+  ]}
+  answer="The price before tax was $200$ riyals. (Taking $15\%$ off $230$ would give the wrong answer, $195.5$.)"
+/>
+
+<Practice client:visible lesson="2.5" skill="apply" compact />
+
+## Summary
+
+- $n\% = \frac{n}{100}$. Percent → decimal: 2 places left. Decimal → percent: 2 places right.
+- **Amount = percent × base.** "of" → ×, "is" → =, "what" → the unknown.
+- Increase by $p\%$: multiply by $1 + p$. Decrease: multiply by $1 - p$.
+- Percent change = change ÷ **original**.
+
+## Practice
+
+<Practice client:visible lesson="2.5" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="2.5" />

@@ -1,0 +1,129 @@
+---
+id: "2.7"
+title: Solving Inequalities
+summary: Inequalities have infinitely many solutions. Graph them on a number line, write them in set-builder notation, and solve them with the same principles as equations — with one crucial twist.
+minutes: 40
+objectives:
+  - Decide whether a number is a solution of an inequality.
+  - Graph an inequality on a number line, and read an inequality from a graph.
+  - Write solution sets in set-builder notation.
+  - Solve inequalities with the addition and multiplication principles, reversing the sign when multiplying or dividing by a negative number.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import InequalityExplorer from '../../components/InequalityExplorer.tsx';
+import FlipDemo from '../../components/FlipDemo.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+An equation like $x + 3 = 7$ has one answer. But many real questions don't: "How many hours can I work and still have time to study?" "What speeds are legal?" The answer is a whole **range** of numbers — and ranges are described by **inequalities**.
+</Callout>
+
+## Solutions and graphs
+
+An **inequality** is a number sentence with $<$, $>$, $\le$, or $\ge$. A **solution** is any number that makes it true. Most inequalities have **infinitely many** solutions, so instead of listing them we **graph** them.
+
+<Callout type="tip" title="Reading a graph">
+- **Closed dot** ● at the boundary: the boundary **is** included ($\le$ or $\ge$).
+- **Open dot** ○ at the boundary: the boundary is **not** included ($<$ or $>$).
+- **Shade right** for greater than; **shade left** for less than.
+</Callout>
+
+We also write solution sets in **set-builder notation**: $\{x \mid x \ge -2\}$, read "the set of all $x$ such that $x$ is greater than or equal to $-2$."
+
+Build an inequality and test some values with the pointer.
+
+<InequalityExplorer client:visible />
+
+<Practice client:visible lesson="2.7" skill="check" compact />
+
+<Practice client:visible lesson="2.7" skill="graph" compact />
+
+## The addition principle for inequalities
+
+Adding or subtracting the same number on both sides moves both numbers the same distance along the number line, so their **order doesn't change**.
+
+<Callout type="definition" title="The addition principle for inequalities">
+For any real numbers $a$, $b$, $c$: $\;a < b\;$ is equivalent to $\;a + c < b + c$. (The same holds for $>$, $\le$, $\ge$.)
+</Callout>
+
+<StepReveal
+  client:visible
+  title="Just like an equation"
+  problem="Solve and graph: $\;x + 5 > 3$"
+  steps={[
+    { show: '$x + 5 - 5 > 3 - 5$', why: 'Subtract $5$ from both sides.' },
+    { show: '$x > -2$', why: 'The sign stays the same.' },
+    { show: 'Graph: open dot at $-2$, shaded to the right', why: 'Solution set: $\\{x \\mid x > -2\\}$.' },
+  ]}
+/>
+
+<Practice client:visible lesson="2.7" skill="addition" compact />
+
+## The multiplication principle — and the twist
+
+Is $2 < 5$? Yes. Multiply both sides by $-1$: is $-2 < -5$? **No!** $-2$ is to the right of $-5$, so $-2 > -5$. Multiplying by a negative number **reverses the order**. See it happen:
+
+<FlipDemo client:visible />
+
+<Callout type="definition" title="The multiplication principle for inequalities">
+For any real numbers $a$ and $b$:
+- If $c$ is **positive**, $\;a < b\;$ is equivalent to $\;ac < bc$. The sign stays the same.
+- If $c$ is **negative**, $\;a < b\;$ is equivalent to $\;ac > bc$. **The sign is reversed.**
+
+(Dividing works the same way, because dividing by $c$ is multiplying by $\frac{1}{c}$.)
+</Callout>
+
+<StepReveal
+  client:visible
+  title="Dividing by a negative"
+  problem="Solve: $\;-4y < 20$"
+  steps={[
+    { show: '$\\dfrac{-4y}{-4} > \\dfrac{20}{-4}$', why: 'Divide by $-4$ and **reverse** the sign.' },
+    { show: '$y > -5$', why: 'Check one value: $y = 0$ gives $0 < 20$ ✓.' },
+  ]}
+/>
+
+<Callout type="warning" title="The most common inequality mistake">
+Forgetting to reverse the sign. Only **multiplying or dividing by a negative** reverses it — subtracting a number, or having a negative answer, does not.
+</Callout>
+
+<Practice client:visible lesson="2.7" skill="multiplication" compact />
+
+## Using the principles together
+
+<StepReveal
+  client:visible
+  title="Several steps"
+  problem="Solve: $\;17 - 5y > 8y - 9$"
+  steps={[
+    { show: '$17 - 13y > -9$', why: 'Subtract $8y$ from both sides.' },
+    { show: '$-13y > -26$', why: 'Subtract $17$ from both sides.' },
+    { show: '$y < 2$', why: 'Divide by $-13$ and **reverse** the sign.' },
+    { show: 'Check: $y = 0$ gives $17 > -9$ ✓', why: 'A quick test value is a good habit.' },
+  ]}
+  answer="$\{y \mid y < 2\}$"
+/>
+
+<Callout type="tip" title="Check with a test value">
+Pick any number in your solution set (one that's easy, like $0$) and substitute it into the **original** inequality. If it doesn't make a true statement, look for a sign that should have been reversed.
+</Callout>
+
+<Practice client:visible lesson="2.7" skill="together" compact />
+
+## Summary
+
+- Graph: closed dot for $\le, \ge$; open dot for $<, >$; shade toward the solutions.
+- Set-builder notation: $\{x \mid x < 4\}$.
+- Add or subtract on both sides freely — the sign stays.
+- Multiply or divide by a **positive**: sign stays. By a **negative**: **reverse** the sign.
+
+## Practice
+
+<Practice client:visible lesson="2.7" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="2.7" />

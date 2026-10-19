@@ -1,0 +1,100 @@
+---
+id: "2.4"
+title: Formulas
+summary: A formula is an equation that relates several quantities. Evaluate formulas, and use the same equation-solving steps to rearrange a formula for whichever letter you need.
+minutes: 35
+objectives:
+  - Evaluate a formula by substituting values.
+  - Solve a formula for a specified letter.
+  - Rearrange a formula first, then use it to answer a question.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import FormulaSolver from '../../components/FormulaSolver.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+The formula $d = rt$ tells you how far you'll travel. But on a road trip the question is often different: *the city is $420$ km away and I drive at $105$ km/h — how long will it take?* You need $t$ by itself: $t = \dfrac{d}{r}$. Rearranging formulas lets one fact answer many different questions.
+</Callout>
+
+## Evaluating formulas
+
+A **formula** is an equation that uses letters to represent a relationship between quantities. To evaluate it, substitute the known values and follow the order of operations.
+
+<StepReveal
+  client:visible
+  title="Simple interest"
+  problem="Use $I = Prt$ to find the interest on $P = 5000$ riyals at a rate $r = 0.04$ per year for $t = 3$ years."
+  steps={[
+    { show: '$I = 5000 \\cdot 0.04 \\cdot 3$', why: 'Substitute.' },
+    { show: '$= 200 \\cdot 3 = 600$', why: 'Multiply left to right.' },
+  ]}
+  answer="The interest is $600$ riyals."
+/>
+
+<Practice client:visible lesson="2.4" skill="evaluate" compact />
+
+## Solving a formula for a letter
+
+To solve a formula for a letter, use the **same steps** as for any equation — just treat the other letters as if they were numbers. Find what's being done to the letter you want, and undo it in reverse order.
+
+<Callout type="tip" title="Compare with an equation you already know how to solve">
+$$\begin{aligned} 2x + 3 &= 11 & \qquad P &= 2l + 2w \\ 2x &= 11 - 3 & P - 2w &= 2l \\ x &= \frac{11 - 3}{2} & \frac{P - 2w}{2} &= l \end{aligned}$$
+
+Same moves on both sides: subtract, then divide.
+</Callout>
+
+Pick a formula and a letter, and step through it. The highlighted letter is the one you're solving for.
+
+<FormulaSolver client:visible />
+
+<StepReveal
+  client:visible
+  title="Solving for a letter"
+  problem="Solve $A = \dfrac{a + b}{2}$ for $b$. (This formula gives the average of two numbers.)"
+  steps={[
+    { show: '$2A = a + b$', why: 'Multiply both sides by $2$ to clear the fraction.' },
+    { show: '$2A - a = b$', why: 'Subtract $a$ from both sides.' },
+  ]}
+  answer="$b = 2A - a$"
+/>
+
+<Callout type="warning" title="Get the letter completely alone">
+$bh = 2A$ is true, but it isn't solved for $h$ — $h$ is still multiplied by $b$. The letter you're solving for must be **alone** on one side, and **must not appear** on the other side.
+</Callout>
+
+<Practice client:visible lesson="2.4" skill="solvefor" compact />
+
+## Rearrange first, then use
+
+If you need to answer the same kind of question many times, rearrange the formula once and then just substitute.
+
+<StepReveal
+  client:visible
+  title="Celsius from Fahrenheit"
+  problem="It is $95^\circ$F. What is that in degrees Celsius? Use $F = \tfrac{9}{5}C + 32$."
+  steps={[
+    { show: '$C = \\tfrac{5}{9}(F - 32)$', why: 'Solve the formula for $C$ (see the Temperature formula above).' },
+    { show: '$C = \\tfrac{5}{9}(95 - 32) = \\tfrac{5}{9} \\cdot 63$', why: 'Substitute $F = 95$.' },
+    { show: '$= 35$', why: '' },
+  ]}
+  answer="$95^\circ$F is $35^\circ$C."
+/>
+
+<Practice client:visible lesson="2.4" skill="use" compact />
+
+## Summary
+
+- A **formula** relates quantities with letters. Evaluate it by substituting.
+- To **solve for a letter**, treat the other letters as numbers and use the addition and multiplication principles.
+- The answer must have that letter alone on one side, and nowhere on the other.
+
+## Practice
+
+<Practice client:visible lesson="2.4" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="2.4" />

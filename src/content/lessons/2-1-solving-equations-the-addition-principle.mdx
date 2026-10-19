@@ -1,0 +1,142 @@
+---
+id: "2.1"
+title: "Solving Equations: The Addition Principle"
+summary: Solving an equation means finding the number that makes it true. The first tool — add (or subtract) the same number on both sides — keeps the equation balanced while you get the variable alone.
+minutes: 30
+objectives:
+  - Explain what it means to solve an equation, and what equivalent equations are.
+  - Use the addition principle to solve equations like x + 9 = 2 and x − 4.5 = 7.
+  - Simplify one side before solving.
+  - Check a solution by substituting it into the original equation.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import BalanceCheck from '../../components/BalanceCheck.tsx';
+import EquationWorkbench from '../../components/EquationWorkbench.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+In Lesson 1.1 you **checked** whether a number was a solution by trying it. That works when someone hands you a guess. But what number makes $x + 478 = 1019$ true? Guessing could take all day. This chapter gives you tools to **find** the solution directly — and the first tool is the simplest one in all of algebra.
+</Callout>
+
+## Equations, solutions, and equivalent equations
+
+A **solution** of an equation is a replacement for the variable that makes the equation true. To **solve** an equation means to find **all** its solutions.
+
+The strategy is always the same: transform the equation, one step at a time, into an equation so simple that the solution is obvious, like $x = 541$. Each step must produce an **equivalent equation** — one with exactly the same solutions as before.
+
+Remember the balance from Lesson 1.1: a value is a solution exactly when both sides weigh the same.
+
+<BalanceCheck client:visible />
+
+## The addition principle
+
+If a balance is level and you add the same weight to **both** pans, it stays level. Taking the same weight off both pans keeps it level too.
+
+<Callout type="definition" title="The addition principle for equations">
+For any real numbers $a$, $b$, and $c$:
+
+$$a = b \quad\text{is equivalent to}\quad a + c = b + c$$
+
+You may add (or subtract) the **same number on both sides** of an equation, and the solutions don't change.
+</Callout>
+
+To get $x$ alone, add the **opposite** of the number that is added to $x$. That number and its opposite make $0$, and $x + 0 = x$.
+
+<StepReveal
+  client:visible
+  title="Getting x alone"
+  problem="Solve: $\;x + 6 = -15$"
+  steps={[
+    { show: '$x + 6 - 6 = -15 - 6$', why: 'Subtract $6$ from both sides (that is, add $-6$, the opposite of $6$).' },
+    { show: '$x + 0 = -21$', why: '$6 - 6 = 0$ on the left.' },
+    { show: '$x = -21$', why: 'The variable is alone.' },
+    { show: 'Check: $-21 + 6 = -15$ ✓', why: 'Substitute into the **original** equation.' },
+  ]}
+  answer="The solution is $-21$."
+/>
+
+<StepReveal
+  client:visible
+  title="The variable on the right"
+  problem="Solve: $\;-6.5 = y - 8.4$"
+  steps={[
+    { show: '$-6.5 + 8.4 = y - 8.4 + 8.4$', why: 'Add $8.4$ to both sides.' },
+    { show: '$1.9 = y$', why: 'It doesn\'t matter which side the variable ends up on.' },
+  ]}
+  answer="$y = 1.9$"
+/>
+
+Now you be the one who decides. Choose what to add or subtract on **both** sides, and the workbench does the arithmetic. (Only $+$ and $-$ are allowed here.)
+
+<EquationWorkbench client:visible ops={['+', '−']} presets={[
+  { label: 'p1', a: 1, b: 7, c: 0, d: 3 },
+  { label: 'p2', a: 1, b: -12, c: 0, d: -20 },
+  { label: 'p3', a: 0, b: 15, c: 1, d: -4 },
+  { label: 'p4', a: 1, b: 0.5, c: 0, d: 2.25 },
+]} />
+
+<Callout type="warning" title="Do it to both sides">
+Subtracting $6$ from only the left side changes the equation — the balance tips. Every step must be done to **both** sides.
+</Callout>
+
+<Practice client:visible lesson="2.1" skill="step" compact />
+
+<Practice client:visible lesson="2.1" skill="integers" compact />
+
+## Fractions and decimals
+
+The principle is the same; only the arithmetic is different.
+
+<StepReveal
+  client:visible
+  title="Fractions"
+  problem="Solve: $\;x + \dfrac{2}{3} = \dfrac{5}{6}$"
+  steps={[
+    { show: '$x = \\dfrac{5}{6} - \\dfrac{2}{3}$', why: 'Subtract $\\frac{2}{3}$ from both sides.' },
+    { show: '$x = \\dfrac{5}{6} - \\dfrac{4}{6} = \\dfrac{1}{6}$', why: 'Use a common denominator.' },
+  ]}
+/>
+
+<Practice client:visible lesson="2.1" skill="rational" compact />
+
+## Simplify first
+
+If one side has numbers that can be combined, combine them before you solve.
+
+<StepReveal
+  client:visible
+  title="Collect, then solve"
+  problem="Solve: $\;-3 + x + 10 = 4$"
+  steps={[
+    { show: '$x + 7 = 4$', why: 'Combine $-3 + 10 = 7$.' },
+    { show: '$x = 4 - 7 = -3$', why: 'Subtract $7$ from both sides.' },
+  ]}
+/>
+
+<Practice client:visible lesson="2.1" skill="simplify" compact />
+
+## Watch out for these
+
+<Callout type="warning" title="Common mistakes">
+1. **Using the same operation instead of the opposite.** For $x + 5 = 12$, **subtract** $5$; don't add it.
+2. **Changing only one side.** Whatever you do to one side, do to the other.
+3. **Skipping the check.** Substitute your answer into the original equation — it takes seconds and catches sign errors.
+</Callout>
+
+## Summary
+
+- To **solve** an equation is to find all values that make it true.
+- **Addition principle:** $a = b$ is equivalent to $a + c = b + c$.
+- To undo "$+\,c$", add $-c$ to both sides; to undo "$-\,c$", add $c$.
+- Always check in the **original** equation.
+
+## Practice
+
+<Practice client:visible lesson="2.1" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="2.1" />

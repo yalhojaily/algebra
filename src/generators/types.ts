@@ -10,7 +10,14 @@ export type Answer =
       /** The answer must be factored, with this greatest common factor pulled out (e.g. "6"). */
       factor?: string;
     }
-  | { type: 'equation'; value: string }
+  | {
+      type: 'equation';
+      value: string;
+      /** The equation must be solved for this variable: it alone on one side, and nowhere on the other. */
+      solveFor?: string;
+    }
+  /** A solved inequality such as "x > 3" or "x <= -2". */
+  | { type: 'inequality'; value: string }
   | { type: 'choice'; options: string[]; correct: number };
 
 export interface Mistake {
@@ -31,6 +38,16 @@ export interface Problem {
   mistakes?: Mistake[];
   /** Placeholder shown in the answer box. */
   placeholder?: string;
+  /** An optional picture shown with the prompt. */
+  figure?: Figure;
+}
+
+/** A ray on a number line, the graph of a simple inequality. */
+export interface Figure {
+  kind: 'ray';
+  boundary: number;
+  closed: boolean;
+  dir: 'left' | 'right';
 }
 
 export interface Skill {

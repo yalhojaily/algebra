@@ -69,3 +69,53 @@ export function makeMasterySet(skills: Skill[]) {
 }
 
 export { pick, randInt, shuffle };
+
+// ---------- Linear expressions with exact coefficients ----------
+import { F, Frac } from '../lib/frac';
+export { F, Frac };
+
+type Num = number | Frac;
+const fr = (x: Num) => Frac.of(x);
+
+/** The term c·v as LaTeX: 3x, -x, \frac{2}{3}x, or just the number when v is ''. */
+export function termTex(c: Num, v = ''): string {
+  const f = fr(c);
+  if (!v) return f.tex();
+  if (f.eq(1)) return v;
+  if (f.eq(-1)) return `-${v}`;
+  return `${f.tex()}${v}`;
+}
+
+/** Same term as text the checker can parse: 3x, -x, (2/3)x */
+export function termText(c: Num, v = ''): string {
+  const f = fr(c);
+  if (!v) return f.text();
+  if (f.eq(1)) return v;
+  if (f.eq(-1)) return `-${v}`;
+  return f.d === 1 ? `${f.n}${v}` : `(${f.text()})${v}`;
+}
+
+/** a·v + b as LaTeX, dropping zero parts: "3x - 5", "x", "-7". */
+export function linTex(a: Num, b: Num, v = 'x'): string {
+  const A = fr(a);
+  const B = fr(b);
+  if (A.isZero()) return B.tex();
+  const first = termTex(A, v);
+  if (B.isZero()) return first;
+  return B.valueOf() < 0 ? `${first} - ${B.neg().tex()}` : `${first} + ${B.tex()}`;
+}
+
+export function linText(a: Num, b: Num, v = 'x'): string {
+  const A = fr(a);
+  const B = fr(b);
+  if (A.isZero()) return B.text();
+  const first = termText(A, v);
+  if (B.isZero()) return first;
+  return B.valueOf() < 0 ? `${first} - ${B.neg().text()}` : `${first} + ${B.text()}`;
+}
+
+/** "Add 5" / "Subtract 5" for moving a constant c off one side. */
+export const undoAdd = (c: Num) => (fr(c).valueOf() < 0 ? `Add $${fr(c).neg().tex()}$ to both sides` : `Subtract $${fr(c).tex()}$ from both sides`);
+
+/** Wording for removing the term c·v from a side: "subtract $3x$" or "add $5x$". */
+export const removeTerm = (c: number, v: string) => (c < 0 ? `add $${termTex(-c, v)}$ to` : `subtract $${termTex(c, v)}$ from`);

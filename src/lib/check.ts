@@ -1,6 +1,7 @@
 // Grades a student's answer against a Problem.
 import { equivalent, equivalentEquations, parse, parseEquation, ParseError, topTerms, variables, type Node } from './expr';
 import type { Problem } from '../generators/types';
+import { describe, parseInequality, solvedForm } from './inequality';
 
 export type Verdict =
   | { status: 'correct' }
@@ -79,14 +80,44 @@ export function check(problem: Problem, input: string | number): Verdict {
       return { status: 'correct' };
     }
 
+    if (a.type === 'inequality') {
+      const expected = solvedForm(parseInequality(a.value))!;
+      if (!/[<>≤≥]/.test(raw)) {
+        // A bare number is a common slip: they found the boundary but not the inequality.
+        if (/^[-−]?[\d.\/\s]+$/.test(raw)) return { status: 'invalid', message: `Write the whole inequality, for example ${expected.variable} > 3 — not just the number.` };
+        return { status: 'invalid', message: 'An inequality needs one of the signs <, >, ≤, ≥ (type <= or >= for ≤ and ≥).' };
+      }
+      const got = solvedForm(parseInequality(raw));
+      if (!got) return { status: 'invalid', message: `Finish solving: get ${expected.variable} alone on one side, with just a number on the other.` };
+      if (got.variable !== expected.variable) return { status: 'invalid', message: `Use the variable ${expected.variable}.` };
+      const sameBound = Math.abs(got.bound - expected.bound) < 1e-9;
+      if (sameBound && got.op === expected.op) return { status: 'correct' };
+      const m = mistake(raw);
+      if (m) return { status: 'wrong', feedback: m };
+      if (sameBound) {
+        const strictGot = got.op.length === 1;
+        const strictExp = expected.op.length === 1;
+        if (strictGot !== strictExp)
+          return { status: 'wrong', feedback: `The boundary ${expected.bound} is right, but check whether it is included: ${strictExp ? 'it is **not** a solution, so use < or >' : 'it **is** a solution, so use ≤ or ≥'}.` };
+        return { status: 'wrong', feedback: 'The boundary is right, but the inequality points the wrong way. Did you multiply or divide by a negative number? Then the sign must be reversed.' };
+      }
+      return { status: 'wrong', feedback: `Your answer says "${describe(got)}".` };
+    }
+
     // equation
     if (!raw.includes('=')) return { status: 'invalid', message: 'An equation needs an "=" sign.' };
     const expected = parseEquation(a.value);
     let got = parseEquation(raw);
     const map = renameSingleVar([got.left, got.right], [expected.left, expected.right]);
     if (map) got = { left: rename(got.left, map), right: rename(got.right, map) };
-    if (equivalentEquations(got, expected)) return { status: 'correct' };
-    return { status: 'wrong', feedback: mistake(raw) };
+    if (!equivalentEquations(got, expected)) return { status: 'wrong', feedback: mistake(raw) };
+    if (a.solveFor) {
+      const v = a.solveFor;
+      const alone = (n: Node) => n.kind === 'var' && n.name === v;
+      const ok = (alone(got.left) && !variables(got.right).has(v)) || (alone(got.right) && !variables(got.left).has(v));
+      if (!ok) return { status: 'invalid', message: `That equation is true, but it isn't solved for ${v} yet. Get ${v} alone on one side.` };
+    }
+    return { status: 'correct' };
   } catch (e) {
     if (e instanceof ParseError) return { status: 'invalid', message: e.message };
     throw e;

@@ -3,6 +3,7 @@ import type { Problem } from '../generators/types';
 import { check, type Verdict } from '../lib/check';
 import { MathInput } from './MathInput';
 import { MathText } from './MathText';
+import { RayFigure } from './RayFigure';
 
 interface Props {
   problem: Problem;
@@ -51,6 +52,7 @@ export function ProblemCard({ problem, onResult, exam = false, onNext, nextLabel
   return (
     <div className={`pc ${verdict?.status === 'correct' ? 'is-correct' : ''} ${verdict?.status === 'wrong' ? 'is-wrong' : ''}`}>
       <MathText as="div" className="pc-prompt">{problem.prompt}</MathText>
+      {problem.figure && <RayFigure {...problem.figure} />}
 
       {a.type === 'choice' ? (
         <div className="pc-choices" role="group" aria-label="Choices">
@@ -77,7 +79,7 @@ export function ProblemCard({ problem, onResult, exam = false, onNext, nextLabel
           }}
           onSubmit={() => submit(input)}
           disabled={done}
-          allowEquation={a.type === 'equation'}
+          allowEquation={a.type === 'equation' || a.type === 'inequality'}
           placeholder={problem.placeholder}
         />
       )}

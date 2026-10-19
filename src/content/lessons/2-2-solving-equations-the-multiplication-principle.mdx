@@ -1,0 +1,141 @@
+---
+id: "2.2"
+title: "Solving Equations: The Multiplication Principle"
+summary: The second tool — multiply (or divide) both sides by the same non-zero number. It undoes the multiplication in equations like 4x = 9, −x = 7, and (2/3)y = 10.
+minutes: 30
+objectives:
+  - Use the multiplication principle to solve equations like 6x = −42 and x/5 = 8.
+  - Solve −x = c correctly.
+  - Solve equations with fraction or decimal coefficients by multiplying by the reciprocal.
+  - Decide which principle — addition or multiplication — an equation needs.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import EquationWorkbench from '../../components/EquationWorkbench.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+Six friends split a restaurant bill equally and each pays $45$ riyals. What was the bill? If $b$ is the bill, then $\dfrac{b}{6} = 45$. Or: $4$ identical notebooks cost $38$ riyals — so $4n = 38$. In both equations the variable is being **multiplied or divided**, and adding or subtracting can't undo that.
+</Callout>
+
+## The multiplication principle
+
+<Callout type="definition" title="The multiplication principle for equations">
+For any real numbers $a$, $b$, and any **non-zero** number $c$:
+
+$$a = b \quad\text{is equivalent to}\quad a \cdot c = b \cdot c$$
+
+You may multiply (or divide) **both sides** by the same non-zero number.
+</Callout>
+
+Why not zero? Multiplying both sides by $0$ turns *any* equation into $0 = 0$, which throws away all the information.
+
+To undo multiplication by $a$, **divide** by $a$ (or multiply by its reciprocal $\frac{1}{a}$). To undo division by $a$, **multiply** by $a$.
+
+<StepReveal
+  client:visible
+  title="Undo multiplication"
+  problem="Solve: $\;-7x = 56$"
+  steps={[
+    { show: '$\\dfrac{-7x}{-7} = \\dfrac{56}{-7}$', why: 'Divide both sides by $-7$, the number multiplying $x$.' },
+    { show: '$x = -8$', why: '$56 \\div (-7) = -8$.' },
+    { show: 'Check: $-7 \\cdot (-8) = 56$ ✓', why: '' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="Undo division"
+  problem="Solve: $\;\dfrac{b}{6} = 45$"
+  steps={[
+    { show: '$6 \\cdot \\dfrac{b}{6} = 6 \\cdot 45$', why: 'Multiply both sides by $6$.' },
+    { show: '$b = 270$', why: '' },
+  ]}
+  answer="The bill was $270$ riyals."
+/>
+
+<Callout type="warning" title="−x is not solved">
+In $-x = 7$, the variable isn't alone — it's being multiplied by $-1$. Multiply both sides by $-1$: $\;x = -7$.
+</Callout>
+
+Try it yourself. This time all four operations are available.
+
+<EquationWorkbench client:visible presets={[
+  { label: 'p1', a: 5, b: 0, c: 0, d: -35 },
+  { label: 'p2', a: -1, b: 0, c: 0, d: 9 },
+  { label: 'p3', a: 0.25, b: 0, c: 0, d: 3 },
+  { label: 'p4', a: -0.4, b: 0, c: 0, d: 2 },
+]} />
+
+<Practice client:visible lesson="2.2" skill="step" compact />
+
+<Practice client:visible lesson="2.2" skill="integers" compact />
+
+<Practice client:visible lesson="2.2" skill="division" compact />
+
+## Fraction and decimal coefficients
+
+When the coefficient is a fraction, the fastest move is to multiply both sides by its **reciprocal**, because a number times its reciprocal is $1$.
+
+<StepReveal
+  client:visible
+  title="Multiply by the reciprocal"
+  problem="Solve: $\;\dfrac{3}{4}y = -12$"
+  steps={[
+    { show: '$\\dfrac{4}{3} \\cdot \\dfrac{3}{4}y = \\dfrac{4}{3} \\cdot (-12)$', why: 'The reciprocal of $\\frac{3}{4}$ is $\\frac{4}{3}$.' },
+    { show: '$1 \\cdot y = -16$', why: '$\\frac{4}{3} \\cdot \\frac{3}{4} = 1$ and $\\frac{4}{3} \\cdot (-12) = -16$.' },
+    { show: '$y = -16$', why: '' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="Decimal coefficient"
+  problem="Solve: $\;1.6x = 5.6$"
+  steps={[
+    { show: '$x = \\dfrac{5.6}{1.6}$', why: 'Divide both sides by $1.6$.' },
+    { show: '$x = \\dfrac{56}{16} = 3.5$', why: 'Multiply top and bottom by $10$ to clear the decimals.' },
+  ]}
+/>
+
+<Practice client:visible lesson="2.2" skill="fraction" compact />
+
+<Practice client:visible lesson="2.2" skill="decimal" compact />
+
+## Which principle?
+
+Look at what is being done **to** the variable, then undo it:
+
+<table class="nice">
+  <thead><tr><th>Equation</th><th>Done to x</th><th>Undo it by…</th></tr></thead>
+  <tbody>
+    <tr><td>$x + 9 = 4$</td><td>add $9$</td><td>subtracting $9$ (addition principle)</td></tr>
+    <tr><td>$x - 2 = 10$</td><td>subtract $2$</td><td>adding $2$ (addition principle)</td></tr>
+    <tr><td>$9x = 4$</td><td>multiply by $9$</td><td>dividing by $9$ (multiplication principle)</td></tr>
+    <tr><td>$\frac{x}{2} = 10$</td><td>divide by $2$</td><td>multiplying by $2$ (multiplication principle)</td></tr>
+  </tbody>
+</table>
+
+## Watch out for these
+
+<Callout type="warning" title="Common mistakes">
+1. **Subtracting the coefficient.** In $5x = 30$, the $5$ multiplies $x$. Divide by $5$ — don't subtract it.
+2. **Losing a sign.** $-3x = 12$ gives $x = -4$, not $4$.
+3. **Leaving $-x$.** $-x = 6$ means $x = -6$.
+</Callout>
+
+## Summary
+
+- **Multiplication principle:** $a = b$ is equivalent to $ac = bc$ for any ${c \neq 0}$.
+- Undo multiplication by dividing; undo division by multiplying.
+- With a fraction coefficient, multiply both sides by its **reciprocal**.
+
+## Practice
+
+<Practice client:visible lesson="2.2" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="2.2" />

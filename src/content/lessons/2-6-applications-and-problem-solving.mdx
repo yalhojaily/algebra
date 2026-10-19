@@ -1,0 +1,122 @@
+---
+id: "2.6"
+title: Applications and Problem Solving
+summary: A five-step strategy that turns word problems into equations — Familiarize, Translate, Solve, Check, State — applied to pieces, consecutive integers, perimeters, angles, and costs.
+minutes: 45
+objectives:
+  - Use the five-step strategy to solve word problems.
+  - Choose a variable and express the other unknowns in terms of it.
+  - Solve problems about pieces of a length, consecutive integers, perimeter, triangle angles, and fees.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import BarModel from '../../components/BarModel.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+You can now solve almost any linear equation. But a real problem doesn't arrive as an equation — it arrives as a paragraph. The hard part is **writing** the equation. This lesson gives you a method that works on problems you've never seen before.
+</Callout>
+
+## The five-step strategy
+
+<Callout type="tip" title="Five steps for problem solving">
+1. **Familiarize** yourself with the problem. Read it twice. Draw a picture. Make a guess and check it — even a wrong guess shows you how the numbers relate. Choose a letter for the unknown, and **write down what it means**.
+2. **Translate** the problem into an equation.
+3. **Solve** the equation.
+4. **Check** the answer in the **original problem** (not just in your equation — the equation itself might be wrong).
+5. **State** the answer clearly, in a complete sentence with units.
+</Callout>
+
+### Familiarize: draw it
+
+A picture often *is* the equation. Here, one piece of rope is a certain amount longer than the other. Watch what happens when you take the extra away.
+
+<BarModel client:visible />
+
+<StepReveal
+  client:visible
+  title="Cutting a board"
+  problem="A $72$-cm board is cut into two pieces. One piece is $3$ times as long as the other. How long are the pieces?"
+  steps={[
+    { show: '**Familiarize.** Let $x$ = the length of the shorter piece. Then the longer piece is $3x$.', why: 'Guess: if the short piece were $10$, the long one would be $30$, total $40$ — too small. So $x$ is bigger than $10$.' },
+    { show: '**Translate.** $x + 3x = 72$', why: 'The two pieces make the whole board.' },
+    { show: '**Solve.** $4x = 72$, so $x = 18$', why: '' },
+    { show: '**Check.** $3 \\cdot 18 = 54$, and $18 + 54 = 72$ ✓', why: 'Check against the words of the problem.' },
+    { show: '**State.** The pieces are $18$ cm and $54$ cm long.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="2.6" skill="pieces" compact />
+
+## Consecutive integers
+
+**Consecutive integers** follow each other, like $16, 17, 18$: if the first is $x$, the next are $x + 1$ and $x + 2$. **Consecutive even** (or **odd**) integers are $2$ apart: $x$, $x + 2$, $x + 4$.
+
+<StepReveal
+  client:visible
+  title="Consecutive odd integers"
+  problem="The sum of two consecutive odd integers is $76$. Find the integers."
+  steps={[
+    { show: '**Familiarize.** Let $x$ = the first. The next odd integer is $x + 2$.', why: 'Odd numbers are $2$ apart, just like even numbers.' },
+    { show: '**Translate.** $x + (x + 2) = 76$', why: '' },
+    { show: '**Solve.** $2x + 2 = 76$, $\\;2x = 74$, $\\;x = 37$', why: '' },
+    { show: '**Check.** $37$ and $39$ are consecutive odd integers, and $37 + 39 = 76$ ✓', why: '' },
+    { show: '**State.** The integers are $37$ and $39$.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="2.6" skill="consecutive" compact />
+
+## Perimeter and angles
+
+<StepReveal
+  client:visible
+  title="A rectangular garden"
+  problem="A garden is $4$ m longer than it is wide. Its perimeter is $56$ m. Find its dimensions."
+  steps={[
+    { show: '**Familiarize.** Let $w$ = the width. The length is $w + 4$. Perimeter $= 2l + 2w$.', why: '' },
+    { show: '**Translate.** $2(w + 4) + 2w = 56$', why: '' },
+    { show: '**Solve.** $4w + 8 = 56$, $\\;4w = 48$, $\\;w = 12$', why: '' },
+    { show: '**Check.** Length $16$; $2 \\cdot 16 + 2 \\cdot 12 = 56$ ✓', why: '' },
+    { show: '**State.** The garden is $12$ m wide and $16$ m long.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="2.6" skill="perimeter" compact />
+
+<Callout type="definition" title="Angles of a triangle">
+The measures of the three angles of any triangle add up to $180^\circ$.
+</Callout>
+
+<Practice client:visible lesson="2.6" skill="angles" compact />
+
+## Fees and rates
+
+Many costs are "a fixed fee plus a rate times an amount": $\;\text{cost} = \text{fee} + \text{rate} \times \text{amount}$.
+
+<Practice client:visible lesson="2.6" skill="rates" compact />
+
+## Watch out for these
+
+<Callout type="warning" title="Common mistakes">
+1. **Not saying what the variable means.** Write "Let $x$ = the shorter piece, in cm." It prevents answering the wrong question.
+2. **Answering only part of the question.** If it asks for both pieces, give both.
+3. **Checking in your equation only.** Check against the original words — your equation could be the thing that's wrong.
+</Callout>
+
+## Summary
+
+- **Familiarize → Translate → Solve → Check → State.**
+- Pick one variable and write every other unknown in terms of it.
+- Consecutive integers: $x, x + 1, x + 2$. Consecutive even/odd: $x, x + 2, x + 4$.
+- Triangle angles sum to $180^\circ$. Rectangle perimeter: $P = 2l + 2w$.
+
+## Practice
+
+<Practice client:visible lesson="2.6" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="2.6" />
