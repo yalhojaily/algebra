@@ -1,0 +1,13 @@
+---
+interface Props {
+  type?: 'definition' | 'warning' | 'tip' | 'why';
+  title?: string;
+}
+const icons = { definition: '📘', warning: '⚠️', tip: '✅', why: '🌍' };
+const defaults = { definition: 'Definition', warning: 'Common mistake', tip: 'Key idea', why: 'Why this matters' };
+const { type = 'tip', title } = Astro.props;
+---
+<aside class={`callout ${type}`}>
+  <div class="callout-title"><span aria-hidden="true">{icons[type]}</span>{title ?? defaults[type]}</div>
+  <slot />
+</aside>

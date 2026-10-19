@@ -1,0 +1,136 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import LessonStatus from '../../components/LessonStatus.tsx';
+import { chapterOf, lessonById, lessonHref, neighbors } from '../../data/curriculum';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('lessons');
+  return entries.map((entry) => {
+    const lesson = lessonById(entry.data.id);
+    if (!lesson) throw new Error(`Lesson ${entry.data.id} is not in src/data/curriculum.ts`);
+    return { params: { slug: lesson.slug }, props: { entry } };
+  });
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+const base = import.meta.env.BASE_URL;
+const lesson = lessonById(entry.data.id)!;
+const chapter = chapterOf(lesson.id);
+const available = new Set((await getCollection('lessons')).map((e) => e.data.id));
+const { prev, next } = neighbors(lesson.id);
+const href = (id: string) => lessonHref(base, lessonById(id)!);
+const toc = headings.filter((h) => h.depth === 2);
+---
+
+<Base title={`${lesson.id} ${entry.data.title} · Algebra`} description={entry.data.summary}>
+  <div class="container lesson-grid">
+    <aside class="lesson-side">
+      <div class="side-block">
+        <div class="side-label">Chapter {chapter.number}</div>
+        <div class="side-ch">{chapter.title}</div>
+        <ol class="side-lessons">
+          {chapter.lessons.map((l) => (
+            <li class={l.id === lesson.id ? 'current' : available.has(l.id) ? '' : 'soon'}>
+              {available.has(l.id) ? <a href={href(l.id)}><span>{l.id}</span>{l.title}</a> : <span class="dim"><span>{l.id}</span>{l.title}</span>}
+            </li>
+          ))}
+        </ol>
+      </div>
+      <nav class="side-block side-toc" aria-label="On this page">
+        <div class="side-label">On this page</div>
+        <ol>
+          {toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}
+        </ol>
+      </nav>
+    </aside>
+
+    <main class="lesson-main">
+      <header class="lesson-head">
+        <div class="lesson-kicker">
+          <span class="lesson-num">{lesson.id}</span>
+          <span>Chapter {chapter.number} · {chapter.title}</span>
+        </div>
+        <h1>{entry.data.title}</h1>
+        <p class="lesson-summary">{entry.data.summary}</p>
+        <div class="lesson-meta">
+          <LessonStatus client:load lesson={lesson.id} />
+          <span class="tag">≈ {entry.data.minutes} min</span>
+          <span class="tag">Book p. {lesson.page}</span>
+          {lesson.prereqs.length > 0 ? (
+            <span class="lesson-pre">Builds on: {lesson.prereqs.map((p) => {
+              const l = lessonById(p)!;
+              return available.has(p) ? <a href={href(p)}>{p} {l.title}</a> : <span>{p} {l.title}</span>;
+            })}</span>
+          ) : (
+            <span class="lesson-pre">No prerequisites — start here.</span>
+          )}
+        </div>
+        <div class="objectives">
+          <div class="objectives-title">By the end of this lesson you can</div>
+          <ul>{entry.data.objectives.map((o) => <li>{o}</li>)}</ul>
+        </div>
+      </header>
+
+      <article class="prose">
+        <Content />
+      </article>
+
+      <nav class="pager">
+        {prev ? (
+          available.has(prev.id) ? <a class="pager-link" href={href(prev.id)}><span>← Previous</span>{prev.id} {prev.title}</a> : <span class="pager-link dim"><span>← Previous</span>{prev.id} {prev.title}</span>
+        ) : <span />}
+        {next && (
+          available.has(next.id) ? <a class="pager-link next" href={href(next.id)}><span>Next →</span>{next.id} {next.title}</a> : <span class="pager-link next dim"><span>Next · coming soon</span>{next.id} {next.title}</span>
+        )}
+      </nav>
+    </main>
+  </div>
+</Base>
+
+<style>
+  .lesson-grid { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 48px; padding-top: 28px; }
+  .lesson-side { position: sticky; top: 84px; align-self: start; max-height: calc(100vh - 100px); overflow-y: auto; font-size: 0.88rem; }
+  .side-block + .side-block { margin-top: 26px; }
+  .side-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 4px; }
+  .side-ch { font-family: var(--font-serif); font-weight: 600; margin-bottom: 8px; line-height: 1.3; }
+  .side-lessons, .side-toc ol { list-style: none; margin: 0; padding: 0; }
+  .side-lessons li a, .side-lessons li .dim { display: flex; gap: 8px; padding: 5px 8px; border-radius: 8px; text-decoration: none; color: var(--ink-2); line-height: 1.35; }
+  .side-lessons li span span, .side-lessons li a span { font-family: var(--font-mono); font-size: 0.78rem; color: var(--red); min-width: 26px; }
+  .side-lessons li.current a { background: var(--card); color: var(--ink); font-weight: 650; box-shadow: var(--shadow); }
+  .side-lessons li.soon .dim { color: var(--ink-3); }
+  .side-lessons li.soon .dim span { color: var(--ink-3); }
+  .side-toc li a { display: block; padding: 4px 10px; border-left: 2px solid var(--line); color: var(--ink-2); text-decoration: none; }
+  .side-toc li a:hover { border-left-color: var(--red); color: var(--ink); }
+
+  .lesson-main { max-width: 780px; min-width: 0; overflow-x: clip; }
+  .lesson-kicker { display: flex; align-items: center; gap: 12px; color: var(--ink-3); font-size: 0.88rem; font-weight: 550; }
+  .lesson-num { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 700; color: var(--red); background: var(--olive-soft); padding: 2px 12px; border-radius: 10px; }
+  .lesson-summary { font-size: 1.15rem; color: var(--ink-2); margin: 0 0 14px; }
+  .lesson-meta { display: flex; flex-wrap: wrap; gap: 8px 10px; align-items: center; font-size: 0.85rem; }
+  .lesson-pre { color: var(--ink-3); }
+  .lesson-pre a { margin-left: 4px; }
+  .objectives { margin-top: 22px; padding: 16px 20px; border-radius: var(--radius); background: var(--olive-soft); border: 1px solid color-mix(in srgb, var(--olive) 30%, transparent); }
+  .objectives-title { font-weight: 700; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--olive); }
+  .objectives ul { margin: 6px 0 0; padding-left: 20px; }
+  .objectives li { margin: 3px 0; }
+
+  .prose :global(h2) { padding-top: 18px; border-top: 1px solid var(--line); scroll-margin-top: 80px; }
+  .prose :global(h2 .sec) { color: var(--red); font-family: var(--font-mono); font-size: 0.9rem; margin-right: 10px; vertical-align: middle; }
+  .prose :global(h3) { scroll-margin-top: 80px; }
+  .prose :global(ul), .prose :global(ol) { padding-left: 1.3em; }
+  .prose :global(li) { margin: 0.25em 0; }
+
+  .pager { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 56px; }
+  .pager-link { display: flex; flex-direction: column; padding: 14px 18px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); text-decoration: none; color: var(--ink); font-weight: 600; }
+  .pager-link span { font-size: 0.75rem; color: var(--ink-3); font-weight: 650; letter-spacing: 0.05em; text-transform: uppercase; }
+  .pager-link.next { text-align: right; grid-column: 2; }
+  .pager-link.dim { color: var(--ink-3); background: transparent; border-style: dashed; }
+  a.pager-link:hover { border-color: var(--red); }
+
+  @media (max-width: 960px) {
+    .lesson-grid { grid-template-columns: 1fr; gap: 0; }
+    .lesson-side { display: none; }
+  }
+</style>

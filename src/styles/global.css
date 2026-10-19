@@ -1,0 +1,155 @@
+/* Design tokens — inspired by the textbook: warm paper, ink, red section numbers, olive bands. */
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/fraunces';
+@import '@fontsource/jetbrains-mono/400.css';
+@import 'katex/dist/katex.min.css';
+
+:root {
+  --paper: #fbf8f1;
+  --paper-2: #f3eee2;
+  --card: #ffffff;
+  --ink: #1f1d1a;
+  --ink-2: #5b564d;
+  --ink-3: #8d877b;
+  --line: #e4ddcc;
+  --red: #c8323c;
+  --red-soft: #fbe7e6;
+  --olive: #8a8a4e;
+  --olive-soft: #eeeedc;
+  --blue: #2f62c9;
+  --blue-soft: #e5edfb;
+  --green: #2e8b57;
+  --green-soft: #e1f3e8;
+  --amber: #b7791f;
+  --amber-soft: #fbf0d9;
+  --violet: #7a4cc2;
+  --violet-soft: #efe7fa;
+  --shadow: 0 1px 2px rgb(40 30 10 / 6%), 0 6px 20px rgb(40 30 10 / 6%);
+  --radius: 14px;
+  --font-sans: 'Inter Variable', system-ui, sans-serif;
+  --font-serif: 'Fraunces Variable', Georgia, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --paper: #17161a;
+    --paper-2: #1f1e23;
+    --card: #232228;
+    --ink: #f1ede4;
+    --ink-2: #bdb6a8;
+    --ink-3: #8a8478;
+    --line: #36343b;
+    --red: #ff6b6b;
+    --red-soft: #3a2124;
+    --olive: #c4c486;
+    --olive-soft: #2c2c22;
+    --blue: #7aa2ff;
+    --blue-soft: #1e2a44;
+    --green: #5cd08d;
+    --green-soft: #19352a;
+    --amber: #f0b45a;
+    --amber-soft: #3a2e17;
+    --violet: #b794f6;
+    --violet-soft: #2d2341;
+    --shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 8px 24px rgb(0 0 0 / 25%);
+    color-scheme: dark;
+  }
+}
+:root[data-theme='dark'] {
+  --paper: #17161a;
+  --paper-2: #1f1e23;
+  --card: #232228;
+  --ink: #f1ede4;
+  --ink-2: #bdb6a8;
+  --ink-3: #8a8478;
+  --line: #36343b;
+  --red: #ff6b6b;
+  --red-soft: #3a2124;
+  --olive: #c4c486;
+  --olive-soft: #2c2c22;
+  --blue: #7aa2ff;
+  --blue-soft: #1e2a44;
+  --green: #5cd08d;
+  --green-soft: #19352a;
+  --amber: #f0b45a;
+  --amber-soft: #3a2e17;
+  --violet: #b794f6;
+  --violet-soft: #2d2341;
+  --shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 8px 24px rgb(0 0 0 / 25%);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.65;
+}
+a { color: var(--blue); text-underline-offset: 3px; }
+h1, h2, h3 { font-family: var(--font-serif); line-height: 1.2; letter-spacing: -0.01em; }
+h1 { font-size: clamp(2rem, 5vw, 2.9rem); font-weight: 650; margin: 0.2em 0 0.3em; }
+h2 { font-size: 1.65rem; font-weight: 600; margin: 2.4em 0 0.6em; }
+h3 { font-size: 1.2rem; font-weight: 600; margin: 1.8em 0 0.4em; }
+code { font-family: var(--font-mono); font-size: 0.88em; background: var(--paper-2); padding: 0.1em 0.35em; border-radius: 5px; }
+.katex { font-size: 1.08em; position: relative; }
+.katex .katex-mathml { left: 0; top: 0; }
+.katex-display { margin: 1.1em 0; overflow-x: auto; overflow-y: hidden; padding: 4px 0; }
+button { font: inherit; }
+:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+
+.container { max-width: 1180px; margin: 0 auto; padding: 0 16px; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid var(--line); background: var(--card); color: var(--ink);
+  border-radius: 10px; padding: 9px 16px; font-weight: 550; cursor: pointer;
+  transition: transform 0.08s ease, background 0.15s ease, border-color 0.15s;
+}
+.btn:hover { border-color: var(--ink-3); }
+.btn:active { transform: translateY(1px); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn-primary:hover { background: var(--red); border-color: var(--red); }
+.btn-ghost { background: transparent; border-color: transparent; color: var(--ink-2); }
+.btn-ghost:hover { background: var(--paper-2); border-color: transparent; }
+
+/* ---------- Generic card / callouts ---------- */
+.card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+
+.callout { border-radius: var(--radius); padding: 16px 20px; margin: 1.4em 0; border-left: 5px solid; }
+.callout > :first-child { margin-top: 0; }
+.callout > :last-child { margin-bottom: 0; }
+.callout-title { font-weight: 700; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; display: flex; gap: 8px; align-items: center; }
+.callout.definition { background: var(--blue-soft); border-color: var(--blue); }
+.callout.definition .callout-title { color: var(--blue); }
+.callout.warning { background: var(--red-soft); border-color: var(--red); }
+.callout.warning .callout-title { color: var(--red); }
+.callout.tip { background: var(--green-soft); border-color: var(--green); }
+.callout.tip .callout-title { color: var(--green); }
+.callout.why { background: var(--amber-soft); border-color: var(--amber); }
+.callout.why .callout-title { color: var(--amber); }
+
+/* Colors used to tie words to symbols in explanations */
+.c-var { color: var(--blue); font-weight: 650; }
+.c-num { color: var(--amber); font-weight: 650; }
+.c-op { color: var(--red); font-weight: 650; }
+.c-eq { color: var(--violet); font-weight: 650; }
+
+.tag { display: inline-block; font-size: 0.75rem; font-weight: 650; padding: 2px 9px; border-radius: 99px; background: var(--paper-2); color: var(--ink-2); }
+
+table.nice { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: 0.95rem; }
+table.nice th, table.nice td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+table.nice th { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-3); }
+
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+  table.nice { font-size: 0.88rem; }
+  table.nice th, table.nice td { padding: 8px 6px; }
+}

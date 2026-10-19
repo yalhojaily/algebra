@@ -1,0 +1,33 @@
+// Every practice problem in the site has this shape. Text fields may contain inline math as $...$.
+
+export type Answer =
+  | { type: 'number'; value: number }
+  | { type: 'expression'; value: string }
+  | { type: 'equation'; value: string }
+  | { type: 'choice'; options: string[]; correct: number };
+
+export interface Mistake {
+  /** A specific wrong answer we expect, written in the same form the student would enter it. */
+  answer: string;
+  feedback: string;
+}
+
+export interface Problem {
+  skill: string;
+  prompt: string;
+  answer: Answer;
+  /** Progressive hints: each one gives a little more away. */
+  hints: string[];
+  /** The full worked solution, one step per line. */
+  solution: string[];
+  /** Targeted feedback for common wrong answers. */
+  mistakes?: Mistake[];
+  /** Placeholder shown in the answer box. */
+  placeholder?: string;
+}
+
+export interface Skill {
+  id: string;
+  label: string;
+  generate: () => Problem;
+}
