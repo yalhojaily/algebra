@@ -16,7 +16,7 @@ for (const [lesson, gens] of Object.entries(registry)) {
           // Every piece of text must typeset without KaTeX errors.
           for (const t of [p.prompt, ...p.hints, ...p.solution, ...(p.mistakes ?? []).map((m) => m.feedback), ...(a.type === 'choice' ? a.options : [])]) {
             expect(renderMathText(t), t).not.toContain('katex-error');
-            expect(t, 'no NaN/undefined in text').not.toMatch(/NaN|undefined/);
+            expect(t, 'no NaN/undefined in text').not.toMatch(/NaN|Infinity|[$\d{}(]undefined|undefined[$\d}]|\[object/);
           }
         }
       });
@@ -40,5 +40,24 @@ describe('checker details', () => {
     expect(check(p, '0.625').status).toBe('correct');
     expect(check(p, '5/8').status).toBe('invalid');
     expect(check(p, '−0.625').status).toBe('wrong');
+  });
+});
+
+describe('simplified and factored answers', () => {
+  const base = { skill: 's', prompt: '', hints: [], solution: [] };
+  it('requires like terms combined', () => {
+    const p = { ...base, answer: { type: 'expression' as const, value: '5x + 3', maxTerms: 2 } };
+    expect(check(p, '3 + 5x').status).toBe('correct');
+    expect(check(p, '2x + 3x + 3').status).toBe('invalid');
+    expect(check(p, '5(x) + 3').status).toBe('invalid');
+    expect(check(p, '5x + 4').status).toBe('wrong');
+  });
+  it('requires the greatest common factor', () => {
+    const p = { ...base, answer: { type: 'expression' as const, value: '6(2x + 3)', factor: '6' } };
+    expect(check(p, '6(2x+3)').status).toBe('correct');
+    expect(check(p, '(3 + 2x)6').status).toBe('correct');
+    expect(check(p, '12x + 18').status).toBe('invalid');
+    expect(check(p, '2(6x + 9)').status).toBe('invalid');
+    expect(check(p, '6(2x + 4)').status).toBe('wrong');
   });
 });

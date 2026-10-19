@@ -1,0 +1,160 @@
+---
+id: "1.8"
+title: Simplifying Expressions; Order of Operations
+summary: Remove parentheses correctly (especially after a minus sign), use exponents, and simplify any expression by following the agreed order of operations.
+minutes: 45
+objectives:
+  - Find the opposite of a sum, such as −(3x − 2y + 5).
+  - Remove parentheses and collect like terms, including expressions like 5x − 3(x − 4).
+  - Write repeated multiplication with exponents, and evaluate powers of negative numbers.
+  - Simplify numeric expressions using the order of operations, including nested grouping symbols.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import OrderStepper from '../../components/OrderStepper.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+What is $2 + 3 \cdot 4$? If you go left to right you get $20$; if you multiply first you get $14$. A calculator, a spreadsheet, and a math teacher all say $14$. Mathematics needs **one** agreed reading of every expression, or nobody could communicate. That agreement is the **order of operations**.
+</Callout>
+
+## The opposite of a sum
+
+What does the minus sign in front of parentheses do? It means "the opposite of", and the opposite of a sum is the sum of the opposites:
+
+$$
+-(a + b) = -a + (-b) = -a - b
+$$
+
+This is really the distributive law with $-1$: $\;-(a + b) = -1 \cdot (a + b)$.
+
+<Callout type="tip" title="A minus sign in front of parentheses">
+Remove the parentheses and **change the sign of every term inside**.
+
+$$-(4x - 7y + 2) = -4x + 7y - 2$$
+</Callout>
+
+<Practice client:visible lesson="1.8" skill="opposite" compact />
+
+## Removing parentheses and collecting like terms
+
+Now combine this with Lesson 1.7: first remove the parentheses, then collect like terms.
+
+<StepReveal
+  client:visible
+  title="Subtracting an expression"
+  problem="Simplify: $\;6x - (4x - 9)$"
+  steps={[
+    { show: '$= 6x - 4x + 9$', why: 'The minus sign changes the sign of **both** terms: $-4x$ and $+9$.' },
+    { show: '$= 2x + 9$', why: 'Collect like terms.' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="Distributing a negative number"
+  problem="Simplify: $\;5(y + 2) - 3(y - 4)$"
+  steps={[
+    { show: '$= 5y + 10 - 3y + 12$', why: 'Distribute $5$, and distribute $-3$: $(-3)(-4) = +12$.' },
+    { show: '$= 2y + 22$', why: 'Collect like terms.' },
+  ]}
+/>
+
+<Callout type="warning" title="The sign of the last term">
+In $6x - (4x - 9)$, students often write $6x - 4x - 9$. The minus sign applies to **every** term in the parentheses, so $-(-9) = +9$.
+</Callout>
+
+<Practice client:visible lesson="1.8" skill="collect" compact />
+
+## Exponential notation
+
+An **exponent** is shorthand for repeated multiplication:
+
+$$
+\underbrace{a \cdot a \cdot a \cdot a}_{4 \text{ factors}} = a^4
+$$
+
+In $a^4$, $a$ is the **base** and $4$ is the **exponent**. Read it as "$a$ to the fourth power". Also, $a^1 = a$.
+
+<Callout type="warning" title="Where does the exponent apply?">
+An exponent applies **only to the thing directly in front of it**.
+
+$$(-3)^2 = (-3)(-3) = 9 \qquad\text{but}\qquad -3^2 = -(3 \cdot 3) = -9$$
+
+In $-3^2$ the base is $3$, not $-3$. Also, $(2x)^2 = 4x^2$, but $2x^2$ means $2 \cdot x \cdot x$.
+</Callout>
+
+<Practice client:visible lesson="1.8" skill="exponents" compact />
+
+## The order of operations
+
+<Callout type="definition" title="Rules for order of operations">
+1. Do all calculations **inside grouping symbols** — parentheses $( )$, brackets $[ ]$, braces $\{ \}$, fraction bars, and absolute-value bars — working from the **innermost** outward.
+2. Evaluate all **exponential expressions**.
+3. Do all **multiplications and divisions**, in order from **left to right**.
+4. Do all **additions and subtractions**, in order from **left to right**.
+</Callout>
+
+Multiplication does **not** come before division — they share step 3 and you go left to right. The same is true for addition and subtraction in step 4. So $36 \div 4 \cdot 3 = 9 \cdot 3 = 27$, not $36 \div 12 = 3$.
+
+Type any expression below, or pick one, and step through it. The ladder on the left shows which rule is being used.
+
+<OrderStepper client:visible />
+
+<StepReveal
+  client:visible
+  title="All four rules"
+  problem="Simplify: $\;-3^4 + 2(5 - 8)^2 \div 6$"
+  steps={[
+    { show: '$= -3^4 + 2(-3)^2 \\div 6$', why: 'Parentheses first: $5 - 8 = -3$.' },
+    { show: '$= -81 + 2 \\cdot 9 \\div 6$', why: 'Exponents: $3^4 = 81$ (so $-3^4 = -81$) and $(-3)^2 = 9$.' },
+    { show: '$= -81 + 18 \\div 6$', why: 'Multiply and divide from left to right: first $2 \\cdot 9$.' },
+    { show: '$= -81 + 3$', why: 'Then $18 \\div 6$.' },
+    { show: '$= -78$', why: 'Finally, add.' },
+  ]}
+/>
+
+<Practice client:visible lesson="1.8" skill="order" compact />
+
+## Nested grouping symbols
+
+When grouping symbols are inside other grouping symbols, start with the **innermost** pair and work outward. Brackets $[ ]$ and braces $\{ \}$ mean the same as parentheses; they just make the nesting easier to read.
+
+<StepReveal
+  client:visible
+  title="Inside out"
+  problem="Simplify: $\;16 \div 2\,\{5 - [9 - (2 + 3)]\}$"
+  steps={[
+    { show: '$= 16 \\div 2\\,\\{5 - [9 - 5]\\}$', why: 'Innermost parentheses: $2 + 3 = 5$.' },
+    { show: '$= 16 \\div 2\\,\\{5 - 4\\}$', why: 'Then the brackets: $9 - 5 = 4$.' },
+    { show: '$= 16 \\div 2 \\cdot 1$', why: 'Then the braces: $5 - 4 = 1$.' },
+    { show: '$= 8 \\cdot 1 = 8$', why: 'Divide and multiply from left to right.' },
+  ]}
+/>
+
+<Practice client:visible lesson="1.8" skill="grouping" compact />
+
+## Watch out for these
+
+<Callout type="warning" title="Common mistakes">
+1. **Going strictly left to right.** $2 + 3 \cdot 4 = 14$. Multiply before adding.
+2. **Multiplying before dividing.** $24 \div 4 \cdot 2 = 12$, not $3$. They are done left to right.
+3. **$-3^2$ vs $(-3)^2$.** The first is $-9$, the second is $9$.
+4. **Changing only one sign** when removing parentheses after a minus sign.
+</Callout>
+
+## Summary
+
+- $-(a + b - c) = -a - b + c$: a minus sign in front changes **every** sign inside.
+- $a^n$ means $n$ factors of $a$. The exponent applies only to the base right in front of it.
+- **Order of operations:** grouping (innermost first) → exponents → multiply & divide (left to right) → add & subtract (left to right).
+
+## Practice
+
+<Practice client:visible lesson="1.8" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="1.8" />

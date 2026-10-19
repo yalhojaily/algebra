@@ -6,12 +6,14 @@ interface Props {
   chapters: Chapter[];
   /** Lesson ids that have content, mapped to their URL. */
   available: Record<string, string>;
+  /** Chapter number → URL of its review & test page, for finished chapters. */
+  reviews?: Record<number, string>;
 }
 
 type Status = 'mastered' | 'started' | 'ready' | 'soon';
 
 /** The course as a map: every lesson, colored by your progress, with prerequisites shown on hover/focus. */
-export default function CourseMap({ chapters, available }: Props) {
+export default function CourseMap({ chapters, available, reviews = {} }: Props) {
   const [progress, setProgress] = useState<Record<string, LessonProgress>>({});
   const [focus, setFocus] = useState<string | null>(null);
 
@@ -87,6 +89,11 @@ export default function CourseMap({ chapters, available }: Props) {
                 );
               })}
             </ol>
+            {reviews[c.number] && (
+              <a className={`cm-review ${progress[`ch${c.number}-test`]?.mastered ? 'done' : ''}`} href={reviews[c.number]}>
+                {progress[`ch${c.number}-test`]?.mastered ? '★ Chapter test passed · review' : 'Chapter review & test →'}
+              </a>
+            )}
           </section>
         ))}
       </div>

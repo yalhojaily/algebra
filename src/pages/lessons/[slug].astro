@@ -2,7 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import LessonStatus from '../../components/LessonStatus.tsx';
-import { chapterOf, lessonById, lessonHref, neighbors } from '../../data/curriculum';
+import { chapterHref, chapterOf, lessonById, lessonHref, neighbors } from '../../data/curriculum';
 
 export async function getStaticPaths() {
   const entries = await getCollection('lessons');
@@ -22,6 +22,9 @@ const available = new Set((await getCollection('lessons')).map((e) => e.data.id)
 const { prev, next } = neighbors(lesson.id);
 const href = (id: string) => lessonHref(base, lessonById(id)!);
 const toc = headings.filter((h) => h.depth === 2);
+const chapterDone = chapter.lessons.every((l) => available.has(l.id));
+const reviewHref = chapterDone ? chapterHref(base, chapter.number) : null;
+const isLastInChapter = chapter.lessons[chapter.lessons.length - 1].id === lesson.id;
 ---
 
 <Base title={`${lesson.id} ${entry.data.title} · Algebra`} description={entry.data.summary}>
@@ -37,6 +40,7 @@ const toc = headings.filter((h) => h.depth === 2);
             </li>
           ))}
         </ol>
+        {reviewHref && <a class="side-review" href={reviewHref}>★ Chapter {chapter.number} review &amp; test</a>}
       </div>
       <nav class="side-block side-toc" aria-label="On this page">
         <div class="side-label">On this page</div>
@@ -77,6 +81,13 @@ const toc = headings.filter((h) => h.depth === 2);
         <Content />
       </article>
 
+      {isLastInChapter && reviewHref && (
+        <a class="chapter-done" href={reviewHref}>
+          <span>You've reached the end of Chapter {chapter.number}</span>
+          <strong>Review the chapter and take the chapter test →</strong>
+        </a>
+      )}
+
       <nav class="pager">
         {prev ? (
           available.has(prev.id) ? <a class="pager-link" href={href(prev.id)}><span>← Previous</span>{prev.id} {prev.title}</a> : <span class="pager-link dim"><span>← Previous</span>{prev.id} {prev.title}</span>
@@ -101,6 +112,11 @@ const toc = headings.filter((h) => h.depth === 2);
   .side-lessons li.current a { background: var(--card); color: var(--ink); font-weight: 650; box-shadow: var(--shadow); }
   .side-lessons li.soon .dim { color: var(--ink-3); }
   .side-lessons li.soon .dim span { color: var(--ink-3); }
+  .side-review { display: block; margin-top: 8px; padding: 7px 10px; border-radius: 8px; background: var(--olive-soft); color: var(--olive); font-weight: 650; text-decoration: none; }
+  .side-review:hover { filter: brightness(0.97); }
+  .chapter-done { display: flex; flex-direction: column; gap: 2px; margin-top: 48px; padding: 18px 22px; border-radius: var(--radius); background: var(--olive-soft); border: 1px solid color-mix(in srgb, var(--olive) 40%, transparent); text-decoration: none; color: var(--ink); }
+  .chapter-done span { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--olive); font-weight: 700; }
+  .chapter-done:hover strong { color: var(--red); }
   .side-toc li a { display: block; padding: 4px 10px; border-left: 2px solid var(--line); color: var(--ink-2); text-decoration: none; }
   .side-toc li a:hover { border-left-color: var(--red); color: var(--ink); }
 

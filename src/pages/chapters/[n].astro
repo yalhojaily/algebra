@@ -1,0 +1,78 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import ChapterReview from '../../components/ChapterReview.tsx';
+import ChapterTest from '../../components/ChapterTest.tsx';
+import { curriculum, lessonById, lessonHref, type Chapter } from '../../data/curriculum';
+
+// A review page exists for every chapter whose lessons are all written.
+export async function getStaticPaths() {
+  const ids = new Set((await getCollection('lessons')).map((e) => e.data.id));
+  return curriculum
+    .filter((c) => c.lessons.every((l) => ids.has(l.id)))
+    .map((c) => ({ params: { n: String(c.number) }, props: { chapter: c } }));
+}
+
+const { chapter } = Astro.props as { chapter: Chapter };
+const base = import.meta.env.BASE_URL;
+const entries = await getCollection('lessons');
+const lessons = chapter.lessons.map((l) => {
+  const e = entries.find((x) => x.data.id === l.id)!;
+  return { id: l.id, title: l.title, href: lessonHref(base, lessonById(l.id)!), summary: e.data.summary, objectives: e.data.objectives };
+});
+const refs = lessons.map(({ id, title, href }) => ({ id, title, href }));
+const next = curriculum.find((c) => c.number === chapter.number + 1);
+---
+
+<Base title={`Chapter ${chapter.number} Review & Test · Algebra`} description={`Review and test for Chapter ${chapter.number}: ${chapter.title}`}>
+  <main class="container chapter-main">
+    <header class="lesson-head">
+      <div class="lesson-kicker"><span class="lesson-num">{chapter.number}</span><span>Chapter review &amp; test</span></div>
+      <h1>{chapter.title}</h1>
+      <p class="lesson-summary">Pull the whole chapter together: skim the key ideas, practice a mix of problems from every lesson, then take the chapter test.</p>
+    </header>
+
+    <h2>Key ideas</h2>
+    <ol class="ki">
+      {lessons.map((l) => (
+        <li>
+          <a href={l.href} class="ki-title"><span>{l.id}</span>{l.title}</a>
+          <p>{l.summary}</p>
+          <details>
+            <summary>What you should be able to do</summary>
+            <ul>{l.objectives.map((o) => <li>{o}</li>)}</ul>
+          </details>
+        </li>
+      ))}
+    </ol>
+
+    <h2 id="review">Mixed review</h2>
+    <p>Problems are drawn at random from every lesson. Focus on one lesson with the tabs, or keep it mixed — mixing is harder, and it's how real tests work.</p>
+    <ChapterReview client:visible lessons={refs} />
+
+    <h2 id="test">Chapter test</h2>
+    <ChapterTest client:visible id={`ch${chapter.number}-test`} lessons={refs} />
+
+    {next && (
+      <p class="next-ch">Next up: <strong>Chapter {next.number} · {next.title}</strong> (coming soon).</p>
+    )}
+  </main>
+</Base>
+
+<style>
+  .chapter-main { max-width: 860px; padding-top: 28px; }
+  .lesson-kicker { display: flex; align-items: center; gap: 12px; color: var(--ink-3); font-size: 0.88rem; font-weight: 550; }
+  .lesson-num { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 700; color: var(--red); background: var(--olive-soft); padding: 2px 12px; border-radius: 10px; }
+  .lesson-summary { font-size: 1.15rem; color: var(--ink-2); }
+  h2 { padding-top: 18px; border-top: 1px solid var(--line); }
+  .ki { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 380px), 1fr)); gap: 12px; }
+  .ki > li { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); }
+  .ki-title { display: flex; gap: 10px; font-weight: 700; color: var(--ink); text-decoration: none; font-family: var(--font-serif); font-size: 1.05rem; }
+  .ki-title span { font-family: var(--font-mono); color: var(--red); font-size: 0.85rem; padding-top: 3px; }
+  .ki-title:hover { color: var(--red); }
+  .ki p { margin: 6px 0; font-size: 0.92rem; color: var(--ink-2); }
+  .ki details { font-size: 0.88rem; }
+  .ki summary { cursor: pointer; color: var(--blue); }
+  .ki details ul { padding-left: 18px; margin: 6px 0 0; color: var(--ink-2); }
+  .next-ch { margin-top: 40px; color: var(--ink-2); }
+</style>

@@ -1,0 +1,153 @@
+---
+id: "1.4"
+title: Subtraction of Real Numbers
+summary: There's no new rule to memorize — subtracting a number is the same as adding its opposite. Learn that one idea and subtraction becomes addition.
+minutes: 30
+objectives:
+  - Subtract real numbers by adding the opposite.
+  - Rewrite a subtraction as an equivalent addition.
+  - Simplify expressions that mix addition and subtraction.
+  - Solve problems about differences, ranges, and changes.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import JumpLine from '../../components/JumpLine.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+At dawn the temperature in a mountain town is $-6^\circ$C. By the afternoon it's $9^\circ$C. How much did it rise? The answer is $9 - (-6)$ — and if you're not sure what that equals, this lesson is for you.
+</Callout>
+
+## Subtracting means adding the opposite
+
+Compare these pairs:
+
+$$
+8 - 3 = 5 \qquad\qquad 8 + (-3) = 5
+$$
+
+$$
+10 - 7 = 3 \qquad\qquad 10 + (-7) = 3
+$$
+
+In each pair, subtracting a number gives the same result as adding its opposite. This is true for **every** pair of real numbers, so it becomes our definition.
+
+<Callout type="definition" title="Subtraction">
+For any real numbers $a$ and $b$:
+
+$$a - b = a + (-b)$$
+
+To subtract, **keep** the first number, **change** subtraction to addition, and **change** the second number to its opposite. Then add.
+</Callout>
+
+On the number line, subtracting a positive moves you **left**, and subtracting a negative moves you **right**. Set the second number to a negative and watch the arrow turn around.
+
+<JumpLine client:visible mode="subtract" />
+
+<StepReveal
+  client:visible
+  title="Subtracting a negative"
+  problem="Subtract: $\;9 - (-6)$"
+  steps={[
+    { show: '$9 - (-6) = 9 + 6$', why: 'Keep $9$, change $-$ to $+$, change $-6$ to its opposite, $6$.' },
+    { show: '$= 15$', why: 'Add.' },
+  ]}
+  answer="$9 - (-6) = 15$: the temperature rose $15$ degrees."
+/>
+
+<StepReveal
+  client:visible
+  title="Subtracting a larger number"
+  problem="Subtract: $\;-4 - 10$"
+  steps={[
+    { show: '$-4 - 10 = -4 + (-10)$', why: 'Add the opposite of $10$.' },
+    { show: '$= -14$', why: 'Same signs: add absolute values and keep the negative sign.' },
+  ]}
+/>
+
+<Callout type="warning" title="Two minus signs in a row">
+In $5 - (-2)$, the first "$-$" means **subtract** and the second means **negative**. They are different symbols doing different jobs. Rewrite before you calculate: $5 - (-2) = 5 + 2 = 7$.
+</Callout>
+
+<Practice client:visible lesson="1.4" skill="rewrite" compact />
+
+<Practice client:visible lesson="1.4" skill="integers" compact />
+
+## Fractions and decimals
+
+The same idea works for every real number.
+
+<StepReveal
+  client:visible
+  title="Subtracting fractions"
+  problem="Subtract: $\;-\dfrac{3}{8} - \dfrac{5}{8}$"
+  steps={[
+    { show: '$-\\dfrac{3}{8} + \\left(-\\dfrac{5}{8}\\right)$', why: 'Add the opposite.' },
+    { show: '$= \\dfrac{-3 + (-5)}{8} = \\dfrac{-8}{8}$', why: 'Same denominator: add the numerators.' },
+    { show: '$= -1$', why: 'Simplify.' },
+  ]}
+/>
+
+<Practice client:visible lesson="1.4" skill="rational" compact />
+
+## Addition and subtraction together
+
+When an expression has several additions and subtractions, rewrite **every** subtraction as adding the opposite. Then it's just a list of numbers to add, in any order.
+
+<StepReveal
+  client:visible
+  title="A longer expression"
+  problem="Simplify: $\;8 - (-4) - 2 - (-4) + 2$"
+  steps={[
+    { show: '$= 8 + 4 + (-2) + 4 + 2$', why: 'Change each subtraction into adding the opposite.' },
+    { show: '$= 18 + (-2)$', why: 'Add the positives: $8 + 4 + 4 + 2 = 18$.' },
+    { show: '$= 16$', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="1.4" skill="chain" compact />
+
+## Applications
+
+A **difference** or a **change** is found by subtracting:
+
+- The range between a high and a low value is $\text{high} - \text{low}$.
+- The change from an old value to a new value is $\text{new} - \text{old}$. A negative change means it went **down**.
+
+<StepReveal
+  client:visible
+  title="Elevation difference"
+  problem="The highest point in a region is $3133$ m above sea level, and the lowest point is $-28$ m. What is the difference in elevation?"
+  steps={[
+    { show: '$3133 - (-28)$', why: 'Highest minus lowest.' },
+    { show: '$= 3133 + 28 = 3161$', why: 'Add the opposite.' },
+  ]}
+  answer="The difference is $3161$ m."
+/>
+
+<Practice client:visible lesson="1.4" skill="apply" compact />
+
+## Watch out for these
+
+<Callout type="warning" title="Common mistakes">
+1. **Changing only one thing.** $7 - (-3)$ becomes $7 + 3$. You must change the operation **and** the sign of the second number.
+2. **Changing the first number.** Only the number being subtracted changes. In $-5 - 2$, the $-5$ stays $-5$: $-5 + (-2) = -7$.
+3. **Subtracting in the wrong order.** $3 - 10 \ne 10 - 3$. Subtraction is not commutative.
+</Callout>
+
+## Summary
+
+- **$a - b = a + (-b)$:** to subtract, add the opposite.
+- Subtracting a **negative** is the same as adding a positive: $a - (-b) = a + b$.
+- Rewrite every subtraction as addition, then use the addition rules from Lesson 1.3.
+- Ranges and changes are differences: high − low, new − old.
+
+## Practice
+
+<Practice client:visible lesson="1.4" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="1.4" />

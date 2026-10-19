@@ -1,0 +1,143 @@
+---
+id: "1.6"
+title: Division of Real Numbers
+summary: Division undoes multiplication, so it follows the same sign rules. Learn why you can never divide by zero, and how reciprocals turn every division into a multiplication.
+minutes: 35
+objectives:
+  - Divide integers and check the answer with multiplication.
+  - Explain why division by zero is undefined, and why zero divided by a non-zero number is zero.
+  - Find the reciprocal of a number.
+  - Divide fractions by multiplying by the reciprocal.
+  - Recognize equivalent ways of writing negative fractions.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import DivisionCheck from '../../components/DivisionCheck.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+Over $4$ days, a stock's price fell a total of $28$ riyals. What was the average change per day? That's $-28 \div 4$. Division is how you share a total — including a negative total — into equal parts.
+</Callout>
+
+## Division undoes multiplication
+
+Every division has a matching multiplication:
+
+$$
+\frac{a}{b} = c \quad \text{exactly when} \quad c \cdot b = a
+$$
+
+For example, $\dfrac{-28}{4} = -7$ because $(-7) \cdot 4 = -28$. That gives us the sign rules for free — they are the same as for multiplication.
+
+<Callout type="tip" title="The sign rules for division">
+- **Same signs** → the quotient is **positive**: $\dfrac{-42}{-6} = 7$
+- **Different signs** → the quotient is **negative**: $\dfrac{42}{-6} = -7$
+</Callout>
+
+Move the sliders and watch the check. Then set the divisor to $0$.
+
+<DivisionCheck client:visible />
+
+## Dividing with zero
+
+<Callout type="definition" title="Zero in a division">
+- **Zero divided by a non-zero number is $0$:** $\dfrac{0}{b} = 0$, because $0 \cdot b = 0$.
+- **Division by zero is undefined:** $\dfrac{a}{0}$ has no answer. If ${a \ne 0}$, no number times $0$ gives $a$. If $a = 0$, *every* number works, so there's no single answer either.
+</Callout>
+
+<Callout type="warning" title="0 on top is fine; 0 on the bottom is not">
+$\dfrac{0}{5} = 0$, but $\dfrac{5}{0}$ is undefined. It's easy to mix them up — always ask: *what times the bottom gives the top?*
+</Callout>
+
+<StepReveal
+  client:visible
+  title="Dividing integers"
+  problem="Divide: $\;\dfrac{-72}{-9}$"
+  steps={[
+    { show: '$72 \\div 9 = 8$', why: 'Divide the absolute values.' },
+    { show: '$\\dfrac{-72}{-9} = 8$', why: 'Same signs → positive.' },
+    { show: 'Check: $8 \\cdot (-9) = -72$ ✓', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="1.6" skill="integers" compact />
+
+<Practice client:visible lesson="1.6" skill="zero" compact />
+
+## Reciprocals
+
+<Callout type="definition" title="Reciprocal">
+Two numbers whose **product is $1$** are **reciprocals** (also called *multiplicative inverses*). The reciprocal of $\dfrac{a}{b}$ is $\dfrac{b}{a}$, as long as $a$ and $b$ are not $0$.
+
+$$
+\frac{2}{5} \cdot \frac{5}{2} = 1 \qquad -4 \cdot \left(-\frac{1}{4}\right) = 1 \qquad 0.25 \cdot 4 = 1
+$$
+</Callout>
+
+A number and its reciprocal always have the **same sign** (their product, $1$, is positive). And $0$ has **no** reciprocal, because $0$ times anything is $0$, never $1$.
+
+<Callout type="warning" title="Reciprocal vs. opposite">
+The **opposite** of $5$ is $-5$ (they add to $0$). The **reciprocal** of $5$ is $\tfrac{1}{5}$ (they multiply to $1$). Don't mix them up.
+</Callout>
+
+<Practice client:visible lesson="1.6" skill="reciprocal" compact />
+
+## Dividing by multiplying
+
+Dividing by a number is the same as multiplying by its reciprocal:
+
+$$
+a \div b = a \cdot \frac{1}{b}
+$$
+
+This is the familiar rule for fractions: **keep, change, flip**.
+
+<StepReveal
+  client:visible
+  title="Dividing fractions"
+  problem="Divide: $\;-\dfrac{3}{4} \div \dfrac{9}{10}$"
+  steps={[
+    { show: '$-\\dfrac{3}{4} \\cdot \\dfrac{10}{9}$', why: 'Multiply by the reciprocal of $\\frac{9}{10}$.' },
+    { show: '$= -\\dfrac{30}{36}$', why: 'Different signs → negative.' },
+    { show: '$= -\\dfrac{5}{6}$', why: 'Simplify by dividing top and bottom by $6$.' },
+  ]}
+/>
+
+<Practice client:visible lesson="1.6" skill="fractions" compact />
+
+## Signs in fractions
+
+Because a negative divided by a positive and a positive divided by a negative both give a negative, these three fractions are equal:
+
+$$
+-\frac{a}{b} \;=\; \frac{-a}{b} \;=\; \frac{a}{-b}
+$$
+
+But $\dfrac{-a}{-b} = \dfrac{a}{b}$ — two negatives cancel.
+
+<Practice client:visible lesson="1.6" skill="signs" compact />
+
+## Watch out for these
+
+<Callout type="warning" title="Common mistakes">
+1. **Saying $\tfrac{5}{0} = 0$.** Division by zero is **undefined**.
+2. **Changing the sign of a reciprocal.** The reciprocal of $-\tfrac{2}{3}$ is $-\tfrac{3}{2}$, not $\tfrac{3}{2}$.
+3. **Flipping the wrong fraction.** In $\tfrac{a}{b} \div \tfrac{c}{d}$, keep the first fraction and flip the **second**.
+</Callout>
+
+## Summary
+
+- Division has the same sign rules as multiplication: same signs → positive, different signs → negative.
+- $\frac{0}{b} = 0$ for ${b \ne 0}$; $\frac{a}{0}$ is **undefined**.
+- Reciprocals multiply to $1$. To divide, multiply by the reciprocal of the divisor.
+- $-\frac{a}{b} = \frac{-a}{b} = \frac{a}{-b}$.
+
+## Practice
+
+<Practice client:visible lesson="1.6" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="1.6" />

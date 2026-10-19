@@ -5,11 +5,21 @@
 // and decides whether two answers are mathematically the same by evaluating
 // both at many random points (so "2x + 2" and "2(x+1)" are both accepted).
 
-export type Node =
+export type Group = '(' | '[' | '{';
+
+/** Every node can remember the grouping symbol it was written in, and can be highlighted for display. */
+interface Meta {
+  group?: Group;
+  hl?: boolean;
+}
+
+export type Node = (
   | { kind: 'num'; value: number }
   | { kind: 'var'; name: string }
   | { kind: 'neg'; arg: Node }
-  | { kind: 'bin'; op: '+' | '-' | '*' | '/' | '^'; left: Node; right: Node; implicit?: boolean };
+  | { kind: 'bin'; op: '+' | '-' | '*' | '/' | '^'; left: Node; right: Node; implicit?: boolean }
+) &
+  Meta;
 
 export class ParseError extends Error {}
 
@@ -17,16 +27,16 @@ type Tok =
   | { t: 'num'; v: number; s: string }
   | { t: 'var'; v: string }
   | { t: 'op'; v: '+' | '-' | '*' | '/' | '^' }
-  | { t: '(' }
-  | { t: ')' };
+  | { t: '('; g: Group }
+  | { t: ')'; g: Group };
+
+const CLOSE: Record<Group, string> = { '(': ')', '[': ']', '{': '}' };
 
 function tokenize(src: string): Tok[] {
   const s = src
     .replace(/[−–—]/g, '-')
     .replace(/[·×⋅∙]/g, '*')
-    .replace(/÷/g, '/')
-    .replace(/[\[{]/g, '(')
-    .replace(/[\]}]/g, ')');
+    .replace(/÷/g, '/');
   const out: Tok[] = [];
   let i = 0;
   while (i < s.length) {
@@ -47,11 +57,11 @@ function tokenize(src: string): Tok[] {
     } else if ('+-*/^'.includes(c)) {
       out.push({ t: 'op', v: c as '+' });
       i++;
-    } else if (c === '(') {
-      out.push({ t: '(' });
+    } else if (c === '(' || c === '[' || c === '{') {
+      out.push({ t: '(', g: c });
       i++;
-    } else if (c === ')') {
-      out.push({ t: ')' });
+    } else if (c === ')' || c === ']' || c === '}') {
+      out.push({ t: ')', g: c === ')' ? '(' : c === ']' ? '[' : '{' });
       i++;
     } else {
       throw new ParseError(`I don't understand the symbol "${c}"`);
@@ -142,8 +152,10 @@ class Parser {
     if (t.t === 'var') return { kind: 'var', name: t.v };
     if (t.t === '(') {
       const inner = this.expr();
-      if (this.next()?.t !== ')') throw new ParseError('A "(" is missing its ")"');
-      return inner;
+      const close = this.next();
+      if (close?.t !== ')') throw new ParseError(`A "${t.g}" is missing its "${CLOSE[t.g]}"`);
+      if (close.g !== t.g) throw new ParseError(`"${t.g}" should be closed with "${CLOSE[t.g]}"`);
+      return { ...inner, group: t.g };
     }
     throw new ParseError(t.t === ')' ? 'There is an extra ")"' : `"${t.v}" needs something before it`);
   }
@@ -253,16 +265,37 @@ export function equivalentEquations(a: Equation, b: Equation): boolean {
 // ---------- Pretty printing ----------
 
 const prec = (n: Node): number => {
+  if (n.group) return 5;
   if (n.kind === 'bin') return { '+': 1, '-': 1, '*': 2, '/': 2, '^': 4 }[n.op];
   if (n.kind === 'neg') return 3;
+  if (n.kind === 'num' && n.value < 0) return 3;
   return 5;
 };
 
-/** Convert an expression to LaTeX for display with KaTeX. */
+const isNegative = (n: Node) => !n.group && (n.kind === 'neg' || (n.kind === 'num' && n.value < 0));
+
+const fmtNum = (v: number) => {
+  if (Number.isInteger(v)) return String(v);
+  return String(+v.toFixed(10));
+};
+
+const DELIM: Record<Group, [string, string]> = {
+  '(': ['\\left(', '\\right)'],
+  '[': ['\\left[', '\\right]'],
+  '{': ['\\left\\{', '\\right\\}'],
+};
+
+/** Convert an expression to LaTeX for display with KaTeX. Grouping symbols the student typed are kept. */
 export function toTex(n: Node): string {
+  let core = texCore(n);
+  if (n.group) core = `${DELIM[n.group][0]}${core}${DELIM[n.group][1]}`;
+  return n.hl ? `\\htmlClass{hl}{${core}}` : core;
+}
+
+function texCore(n: Node): string {
   switch (n.kind) {
     case 'num':
-      return String(n.value);
+      return fmtNum(n.value);
     case 'var':
       return n.name;
     case 'neg': {
@@ -271,25 +304,153 @@ export function toTex(n: Node): string {
     }
     case 'bin': {
       const wrap = (c: Node, min: number) => (prec(c) < min ? `\\left(${toTex(c)}\\right)` : toTex(c));
+      // A negative number on the right of an operation is written in parentheses: 3 + (−2), 4 · (−5).
+      const right = (c: Node, min: number) => (isNegative(c) ? `\\left(${toTex(c)}\\right)` : wrap(c, min));
       switch (n.op) {
         case '+':
-          return `${toTex(n.left)} + ${wrap(n.right, 1)}`;
+          return `${toTex(n.left)} + ${right(n.right, 1)}`;
         case '-':
-          return `${toTex(n.left)} - ${wrap(n.right, 2)}`;
+          return `${toTex(n.left)} - ${right(n.right, 2)}`;
         case '/':
           return `\\frac{${toTex(n.left)}}{${toTex(n.right)}}`;
         case '^':
           return `${wrap(n.left, 5)}^{${toTex(n.right)}}`;
         case '*': {
           const l = wrap(n.left, 2);
-          const r = wrap(n.right, 3);
-          // Number followed by number needs a visible dot: 3 · 4. Otherwise juxtapose: 3x, 2(x+1).
-          const needsDot = n.right.kind === 'num' || (n.right.kind === 'neg') || (n.right.kind === 'bin' && n.right.op === '^' && n.right.left.kind === 'num');
+          const r = right(n.right, 3);
+          const rr = n.right;
+          // Two numbers side by side need a visible dot: 3 · 4. Otherwise juxtapose: 3x, 2(x + 1), 2(−3).
+          const needsDot = !rr.group && !isNegative(rr) && (rr.kind === 'num' || (rr.kind === 'bin' && rr.op === '^' && rr.left.kind === 'num'));
           return needsDot ? `${l} \\cdot ${r}` : `${l}${r}`;
         }
       }
     }
   }
+}
+
+// ---------- Step-by-step evaluation (order of operations) ----------
+
+export interface EvalStep {
+  /** The expression before this step, with the part being worked on highlighted. */
+  before: string;
+  /** The expression after this step. */
+  after: string;
+  /** What was done, e.g. "Multiply". */
+  action: string;
+  /** The small calculation, e.g. "3 \\cdot 4 = 12". */
+  calc: string;
+}
+
+const RANK: Record<string, number> = { '^': 3, '*': 2, '/': 2, '+': 1, '-': 1 };
+const ACTION: Record<string, string> = { '^': 'Exponent', '*': 'Multiply', '/': 'Divide', '+': 'Add', '-': 'Subtract' };
+
+type Path = ('left' | 'right' | 'arg')[];
+
+function at(n: Node, path: Path): Node {
+  return path.reduce<Node>((node, k) => (node as any)[k], n);
+}
+
+function replaceAt(n: Node, path: Path, fn: (old: Node) => Node): Node {
+  if (path.length === 0) return fn(n);
+  const [k, ...rest] = path;
+  return { ...(n as any), [k]: replaceAt((n as any)[k], rest, fn) } as Node;
+}
+
+/** Turn −(number) into a negative number, keeping any grouping symbols around it. */
+function normalize(n: Node): Node {
+  switch (n.kind) {
+    case 'neg': {
+      const a = normalize(n.arg);
+      if (a.kind === 'num' && !a.group) return { kind: 'num', value: -a.value, group: n.group };
+      return { ...n, arg: a };
+    }
+    case 'bin':
+      return { ...n, left: normalize(n.left), right: normalize(n.right) };
+    default:
+      return n;
+  }
+}
+
+const isNum = (n: Node) => n.kind === 'num';
+
+/** Find the operation that order of operations says comes next. */
+function nextReducible(root: Node): Path | null {
+  let best: { path: Path; depth: number; rank: number; order: number } | null = null;
+  let order = 0;
+  const visit = (n: Node, path: Path, depth: number) => {
+    const d = depth + (n.group ? 1 : 0);
+    if (n.kind === 'bin') {
+      visit(n.left, [...path, 'left'], d);
+      const me = order++;
+      if (isNum(n.left) && isNum(n.right)) {
+        const cand = { path, depth: d, rank: RANK[n.op], order: me };
+        if (
+          !best ||
+          cand.depth > best.depth ||
+          (cand.depth === best.depth && cand.rank > best.rank) ||
+          (cand.depth === best.depth && cand.rank === best.rank && cand.order < best.order)
+        )
+          best = cand;
+      }
+      visit(n.right, [...path, 'right'], d);
+    } else if (n.kind === 'neg') {
+      visit(n.arg, [...path, 'arg'], d);
+    }
+  };
+  visit(root, [], 0);
+  return best ? (best as { path: Path }).path : null;
+}
+
+function compute(op: string, a: number, b: number) {
+  switch (op) {
+    case '+':
+      return a + b;
+    case '-':
+      return a - b;
+    case '*':
+      return a * b;
+    case '/':
+      return a / b;
+    default:
+      return a ** b;
+  }
+}
+
+/** Evaluate a numeric expression one operation at a time, following the order of operations. */
+export function evaluationSteps(src: string | Node, maxSteps = 40): { steps: EvalStep[]; result: number; start: string } {
+  let cur = normalize(typeof src === 'string' ? parse(src) : src);
+  if (variables(cur).size) throw new ParseError('Only numbers here, no variables');
+  const start = toTex(cur);
+  const steps: EvalStep[] = [];
+  for (let i = 0; i < maxSteps; i++) {
+    const path = nextReducible(cur);
+    if (!path) break;
+    const node = at(cur, path) as Extract<Node, { kind: 'bin' }>;
+    const a = (node.left as { value: number }).value;
+    const b = (node.right as { value: number }).value;
+    if (node.op === '/' && b === 0) throw new ParseError('Division by zero is undefined');
+    const value = compute(node.op, a, b);
+    const before = toTex(replaceAt(cur, path, (o) => ({ ...o, hl: true })));
+    const calcNode: Node = { ...node, group: undefined, hl: false };
+    // The result keeps grouping symbols only when it is negative and they are still needed, e.g. (−3)².
+    cur = normalize(replaceAt(cur, path, (o) => ({ kind: 'num', value, group: value < 0 && o.group && path.length > 0 ? o.group : undefined })));
+    steps.push({
+      before,
+      after: toTex(cur),
+      action: ACTION[node.op],
+      calc: `${toTex(calcNode)} = ${fmtNum(value)}`,
+    });
+  }
+  return { steps, result: evaluate(cur, {}), start };
+}
+
+/** The additive terms at the top level: 3x - 2y + 5 → [3x, -2y, 5]. */
+export function topTerms(n: Node): Node[] {
+  if (!n.group && n.kind === 'bin' && (n.op === '+' || n.op === '-')) {
+    const right = n.op === '-' ? ({ kind: 'neg', arg: n.right } as Node) : n.right;
+    return [...topTerms(n.left), right];
+  }
+  return [n];
 }
 
 /** Try to render user input as LaTeX; returns null if it doesn't parse yet. */

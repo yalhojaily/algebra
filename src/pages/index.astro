@@ -2,12 +2,15 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import CourseMap from '../components/CourseMap.tsx';
-import { allLessons, curriculum, lessonById, lessonHref } from '../data/curriculum';
+import { allLessons, chapterHref, curriculum, lessonById, lessonHref } from '../data/curriculum';
 
 const base = import.meta.env.BASE_URL;
 const entries = await getCollection('lessons');
 const available = Object.fromEntries(entries.map((e) => [e.data.id, lessonHref(base, lessonById(e.data.id)!)]));
 const first = allLessons.find((l) => available[l.id])!;
+const reviews = Object.fromEntries(
+  curriculum.filter((c) => c.lessons.every((l) => available[l.id])).map((c) => [c.number, chapterHref(base, c.number)]),
+);
 ---
 
 <Base title="Algebra, step by step">
@@ -39,7 +42,7 @@ const first = allLessons.find((l) => available[l.id])!;
 
   <section class="container" id="map">
     <h2 class="map-title">Course map</h2>
-    <CourseMap client:load chapters={curriculum} available={available} />
+    <CourseMap client:load chapters={curriculum} available={available} reviews={reviews} />
   </section>
 </Base>
 

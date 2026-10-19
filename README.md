@@ -1,6 +1,6 @@
 # Algebra, step by step
 
-An interactive companion website for a high-school / college algebra textbook (12 chapters, 84 lessons).
+An interactive companion website for a high-school / college algebra textbook (12 chapters, 84 lessons). **Chapter 1 is complete.**
 Every lesson follows the same rhythm:
 
 1. **Why?** — a real situation that needs the idea
@@ -41,7 +41,9 @@ tests/                        Vitest tests for the engine and generators
 2. Write `src/generators/<id>-<slug>.ts` exporting `skills` and `masterySet`, and register it in `src/generators/index.ts`.
 3. Use `<Practice lesson="<id>" />` and `<MasteryCheck lesson="<id>" />` in the MDX.
 
-The lesson appears on the course map automatically.
+The lesson appears on the course map automatically. When every lesson in a chapter exists, a **chapter review & test** page (`/chapters/<n>/`) is generated too: mixed review from all the chapter's lessons plus a 2-questions-per-lesson test.
+
+Helpers for generators live in `src/generators/helpers.ts` (fractions in lowest terms, shuffled multiple choice, step-by-step order-of-operations solutions). Expression answers can require a simplified form (`maxTerms`) or a factored form (`factor`).
 
 ## Commands
 

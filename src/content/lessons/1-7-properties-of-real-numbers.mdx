@@ -1,0 +1,160 @@
+---
+id: "1.7"
+title: Properties of Real Numbers
+summary: The rules that let you rearrange, regroup, and expand expressions without changing their value — and the three skills built on them — distributing, factoring, and collecting like terms.
+minutes: 45
+objectives:
+  - Recognize equivalent expressions, and use the identity properties of 0 and 1.
+  - Use the commutative and associative laws to rewrite expressions.
+  - Use the distributive law to multiply expressions such as 3(x − 4).
+  - Factor expressions such as 12x + 18 by taking out the greatest common factor.
+  - Collect like terms.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import AreaModel from '../../components/AreaModel.tsx';
+import LikeTerms from '../../components/LikeTerms.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+Quick: what is $4 \cdot 37 \cdot 25$? If you multiply left to right, it's tedious. But regroup it as $(4 \cdot 25) \cdot 37 = 100 \cdot 37 = 3700$ and it's instant. The properties in this lesson are the **legal moves** of algebra — they tell you exactly how you may rearrange an expression without changing its value.
+</Callout>
+
+## Equivalent expressions
+
+Two expressions are **equivalent** if they have the same value for **every** allowed replacement of the variables. For example, $3x + 2x$ and $5x$ are equivalent: try $x = 1, 2, -7, \ldots$ — they always match.
+
+<Callout type="definition" title="The identity properties">
+- **Identity property of 0:** $a + 0 = a$. Adding $0$ changes nothing.
+- **Identity property of 1:** $a \cdot 1 = a$. Multiplying by $1$ changes nothing.
+</Callout>
+
+The identity property of $1$ is how we write equivalent fractions: multiply by a clever form of $1$, such as $\tfrac{5}{5}$.
+
+$$
+\frac{3}{4} = \frac{3}{4} \cdot \frac{5}{5} = \frac{15}{20}
+$$
+
+## Commutative and associative laws
+
+<Callout type="definition" title="Commutative laws — order doesn't matter">
+$$a + b = b + a \qquad\qquad ab = ba$$
+</Callout>
+
+<Callout type="definition" title="Associative laws — grouping doesn't matter">
+$$a + (b + c) = (a + b) + c \qquad\qquad a(bc) = (ab)c$$
+</Callout>
+
+A memory aid: you **commute** when you travel — things change **places**. **Associates** are the people you group with — things change **groups**.
+
+<Callout type="warning" title="Not for subtraction or division">
+$7 - 3 \ne 3 - 7$ and $8 \div 2 \ne 2 \div 8$. The commutative and associative laws work only for **addition** and **multiplication**. (That's one reason to rewrite subtraction as adding the opposite.)
+</Callout>
+
+<Practice client:visible lesson="1.7" skill="property" compact />
+
+## The distributive law
+
+The distributive law connects multiplication and addition. It's the most used property in all of algebra.
+
+<Callout type="definition" title="The distributive law">
+$$a(b + c) = ab + ac \qquad\qquad a(b - c) = ab - ac$$
+
+Multiply the number outside the parentheses by **each** term inside.
+</Callout>
+
+Why is it true? Think of area. A rectangle that is $a$ wide and $(b + c)$ long can be split into two rectangles. Move the sliders — then switch one length to $x$.
+
+<AreaModel client:visible />
+
+<StepReveal
+  client:visible
+  title="Distributing a negative"
+  problem="Multiply: $\;-4(3x - 5y + 2)$"
+  steps={[
+    { show: '$(-4)(3x) + (-4)(-5y) + (-4)(2)$', why: 'Multiply $-4$ by every term inside.' },
+    { show: '$= -12x + 20y - 8$', why: 'Use the sign rules for multiplication.' },
+  ]}
+/>
+
+<Callout type="warning" title="Distribute to every term">
+$3(x + 5)$ is $3x + 15$, not $3x + 5$. The number outside multiplies **everything** inside.
+</Callout>
+
+<Practice client:visible lesson="1.7" skill="distribute" compact />
+
+## Factoring
+
+**Factoring** is the distributive law run **backwards**: you start with a sum and write it as a product.
+
+$$
+\underbrace{6(2x + 3)}_{\text{factored}} \;\xrightarrow{\text{distribute}}\; \underbrace{12x + 18}_{\text{expanded}} \;\xrightarrow{\text{factor}}\; 6(2x + 3)
+$$
+
+To factor completely, take out the **greatest common factor** (GCF) — the largest number that divides every term.
+
+<StepReveal
+  client:visible
+  title="Factoring out the GCF"
+  problem="Factor: $\;16a - 24b + 8$"
+  steps={[
+    { show: 'GCF of $16$, $24$, $8$ is $8$', why: '$8$ divides all three, and nothing larger does.' },
+    { show: '$= 8 \\cdot 2a - 8 \\cdot 3b + 8 \\cdot 1$', why: 'Write each term as $8$ times something.' },
+    { show: '$= 8(2a - 3b + 1)$', why: 'Use the distributive law backwards. Don\'t forget the $1$!' },
+  ]}
+  answer="$8(2a - 3b + 1)$. Check by distributing: $16a - 24b + 8$ ✓"
+/>
+
+<Callout type="tip" title="Always check by multiplying back">
+Distribute your answer. If you get the original expression, the factoring is right. Also check that nothing more can come out of the parentheses: $4(4a - 6b + 2)$ is equivalent, but not **completely** factored.
+</Callout>
+
+<Practice client:visible lesson="1.7" skill="factor" compact />
+
+## Collecting like terms
+
+**Terms** are the parts of an expression separated by $+$ signs (after rewriting subtraction as adding the opposite). **Like terms** have exactly the same variable part: $3x$ and $-7x$ are like terms; $3x$ and $3y$ are not; $x^2$ and $x$ are not.
+
+To **collect** (or *combine*) like terms, add their coefficients. This is the distributive law again: $3x + 5x = (3 + 5)x = 8x$.
+
+<LikeTerms client:visible />
+
+<StepReveal
+  client:visible
+  title="Collecting like terms"
+  problem="Simplify: $\;4x - 7y + 2 - x + 3y - 9$"
+  steps={[
+    { show: '$x$-terms: $4x - x = 3x$', why: '$-x$ means $-1x$.' },
+    { show: '$y$-terms: $-7y + 3y = -4y$', why: '' },
+    { show: 'Constants: $2 - 9 = -7$', why: '' },
+  ]}
+  answer="$3x - 4y - 7$"
+/>
+
+<Practice client:visible lesson="1.7" skill="like" compact />
+
+## Watch out for these
+
+<Callout type="warning" title="Common mistakes">
+1. **Distributing to only the first term.** $5(x - 2) = 5x - 10$.
+2. **Losing a negative when distributing.** $-2(x - 3) = -2x + 6$, because $(-2)(-3) = 6$.
+3. **Not factoring completely.** $18x + 12 = 6(3x + 2)$, not $2(9x + 6)$.
+4. **Combining unlike terms.** $3x + 2y$ cannot be simplified, and $x^2 + x \ne x^3$.
+</Callout>
+
+## Summary
+
+- **Identity:** $a + 0 = a$, $\;a \cdot 1 = a$.
+- **Commutative:** $a + b = b + a$, $\;ab = ba$. **Associative:** $(a + b) + c = a + (b + c)$, $\;(ab)c = a(bc)$.
+- **Distributive:** $a(b + c) = ab + ac$. Used forwards to **multiply**, and backwards to **factor**.
+- **Like terms** have the same variable part; combine them by adding coefficients.
+
+## Practice
+
+<Practice client:visible lesson="1.7" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="1.7" />

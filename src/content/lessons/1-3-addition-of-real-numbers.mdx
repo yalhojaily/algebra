@@ -1,0 +1,169 @@
+---
+id: "1.3"
+title: Addition of Real Numbers
+summary: Add positive and negative numbers with confidence — first by moving on the number line, then with two short rules that work every time.
+minutes: 35
+objectives:
+  - Add real numbers using the number line.
+  - Add real numbers without a number line, using the same-sign and different-sign rules.
+  - Find the opposite (additive inverse) of a number, and evaluate −x and −(−x).
+  - Add several numbers efficiently, and solve problems involving gains and losses.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import JumpLine from '../../components/JumpLine.tsx';
+import ZeroPairs from '../../components/ZeroPairs.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+Your bank account shows $-40$ riyals because you spent more than you had. Then your salary of $2500$ riyals arrives. What's your balance? A football team gains $7$ yards, loses $12$, then gains $3$. Where did they end up?
+
+Every one of these is an **addition** problem — just with negative numbers mixed in.
+</Callout>
+
+## Addition on the number line
+
+To find $a + b$ on a number line:
+
+1. **Start** at $a$.
+2. If $b$ is **positive**, move $b$ units to the **right**. If $b$ is **negative**, move $|b|$ units to the **left**. If $b$ is $0$, stay put.
+3. The number you **land on** is the sum.
+
+Try it. Watch which way the arrow goes when the second number is negative.
+
+<JumpLine client:visible mode="add" />
+
+## Addition without a number line
+
+Drawing a line every time is slow. Look at the patterns from the number line and you'll find just two rules.
+
+<Callout type="tip" title="The two rules of addition">
+**Same signs:** add the absolute values. The answer has that same sign.
+
+$$-5 + (-8) = -13 \qquad 5 + 8 = 13$$
+
+**Different signs:** subtract the smaller absolute value from the larger. The answer takes the sign of the number with the **larger** absolute value.
+
+$$-11 + 4 = -7 \qquad 11 + (-4) = 7$$
+
+If the numbers are opposites, the sum is $0$.
+</Callout>
+
+### Why the rules work: zero pairs
+
+Think of $+1$ and $-1$ as counters that cancel each other, because $1 + (-1) = 0$. When you add numbers with different signs, the pairs cancel and **only the extra counters are left** — that's why you subtract and keep the sign of the "bigger" group.
+
+<ZeroPairs client:visible />
+
+<StepReveal
+  client:visible
+  title="Different signs"
+  problem="Add: $\;-14 + 9$"
+  steps={[
+    { show: 'Absolute values: $14$ and $9$', why: 'The signs are different, so compare sizes.' },
+    { show: '$14 - 9 = 5$', why: 'Subtract the smaller absolute value from the larger.' },
+    { show: '$-14 + 9 = -5$', why: '$-14$ has the larger absolute value, so the answer is negative.' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="Fractions and decimals use the same rules"
+  problem="Add: $\;-\dfrac{3}{4} + \dfrac{1}{2}$"
+  steps={[
+    { show: '$-\\dfrac{3}{4} + \\dfrac{2}{4}$', why: 'Write both with the same denominator.' },
+    { show: '$\\dfrac{-3 + 2}{4}$', why: 'Add the numerators using the sign rules.' },
+    { show: '$= -\\dfrac{1}{4}$', why: '$-3 + 2 = -1$.' },
+  ]}
+/>
+
+<Practice client:visible lesson="1.3" skill="integers" compact />
+
+<Practice client:visible lesson="1.3" skill="rational" compact />
+
+## Opposites (additive inverses)
+
+Two numbers whose sum is $0$ are **opposites**, or **additive inverses**: $7$ and $-7$, $-2.5$ and $2.5$, $0$ and $0$.
+
+<Callout type="definition" title="The opposite of a number">
+The opposite of $x$ is written $-x$ (read "the opposite of $x$"). For every real number $x$:
+
+$$x + (-x) = 0 \qquad \text{and} \qquad -(-x) = x$$
+</Callout>
+
+<Callout type="warning" title="−x is not always negative">
+$-x$ means *the opposite of $x$*, not *a negative number*. If $x = -6$, then $-x = -(-6) = 6$, which is positive. Read $-x$ as "the opposite of $x$", never as "negative $x$".
+</Callout>
+
+<StepReveal
+  client:visible
+  title="Evaluating −x"
+  problem="Find $-x$ and $-(-x)$ when $x = -13$."
+  steps={[
+    { show: '$-x = -(-13) = 13$', why: 'The opposite of $-13$ is $13$.' },
+    { show: '$-(-x) = x = -13$', why: 'The opposite of the opposite is the number itself.' },
+  ]}
+/>
+
+<Practice client:visible lesson="1.3" skill="opposites" compact />
+
+## Adding several numbers
+
+Addition can be done in any order and with any grouping (you'll see why in Lesson 1.7). So when you have many numbers, a quick method is:
+
+1. Add all the **positive** numbers.
+2. Add all the **negative** numbers.
+3. Add those two results.
+
+<StepReveal
+  client:visible
+  title="Positives first, then negatives"
+  problem="Add: $\;15 + (-2) + 7 + 14 + (-5) + (-12)$"
+  steps={[
+    { show: 'Positives: $15 + 7 + 14 = 36$', why: '' },
+    { show: 'Negatives: $-2 + (-5) + (-12) = -19$', why: '' },
+    { show: '$36 + (-19) = 17$', why: 'Different signs: $36 - 19 = 17$, and $36$ is bigger, so the result is positive.' },
+  ]}
+/>
+
+<Practice client:visible lesson="1.3" skill="many" compact />
+
+## Applications
+
+<StepReveal
+  client:visible
+  title="Gains and losses"
+  problem="A football team gains $7$ yards, loses $12$ yards, then gains $3$ yards. What is the total gain or loss?"
+  steps={[
+    { show: '$7 + (-12) + 3$', why: 'Write gains as positive and losses as negative.' },
+    { show: '$= 10 + (-12) = -2$', why: 'Add the positives, then add the negative.' },
+  ]}
+  answer="A total **loss** of $2$ yards ($-2$)."
+/>
+
+<Practice client:visible lesson="1.3" skill="apply" compact />
+
+## Watch out for these
+
+<Callout type="warning" title="Common mistakes">
+1. **Adding when the signs differ.** $-9 + 4$ is $-5$, not $-13$. Different signs → subtract.
+2. **Taking the wrong sign.** In $6 + (-10)$, the negative number is "bigger", so the answer is negative: $-4$.
+3. **Reading −x as "a negative number".** If $x$ is negative, $-x$ is positive.
+</Callout>
+
+## Summary
+
+- On the number line, adding a positive moves **right**; adding a negative moves **left**.
+- **Same signs:** add absolute values, keep the sign. **Different signs:** subtract absolute values, take the sign of the larger.
+- **Opposites** add to $0$: $x + (-x) = 0$, and $-(-x) = x$.
+- With many numbers, add the positives, add the negatives, then combine.
+
+## Practice
+
+<Practice client:visible lesson="1.3" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="1.3" />

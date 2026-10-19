@@ -2,7 +2,14 @@
 
 export type Answer =
   | { type: 'number'; value: number; /** require a decimal (no fraction bar) */ decimal?: boolean }
-  | { type: 'expression'; value: string }
+  | {
+      type: 'expression';
+      value: string;
+      /** The answer must be fully simplified: at most this many terms, and no parentheses. */
+      maxTerms?: number;
+      /** The answer must be factored, with this greatest common factor pulled out (e.g. "6"). */
+      factor?: string;
+    }
   | { type: 'equation'; value: string }
   | { type: 'choice'; options: string[]; correct: number };
 

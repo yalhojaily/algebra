@@ -1,0 +1,135 @@
+---
+id: "1.5"
+title: Multiplication of Real Numbers
+summary: Discover why a negative times a negative is positive, then multiply any real numbers — including long strings of factors — by counting negative signs.
+minutes: 30
+objectives:
+  - Multiply a positive number and a negative number.
+  - Multiply two negative numbers, and explain why the product is positive.
+  - Multiply three or more numbers by counting the negative factors.
+  - Use multiplication to solve problems about repeated changes.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import SignPattern from '../../components/SignPattern.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+A water tank loses $4$ liters every hour through a leak. How has the amount of water changed after $6$ hours? Repeated change is multiplication: $6 \cdot (-4)$. And "$3$ hours **ago**, the tank had how much more water?" leads to $(-3) \cdot (-4)$ — two negatives.
+</Callout>
+
+## A positive times a negative
+
+Multiplication of whole numbers is repeated addition: $3 \cdot 5 = 5 + 5 + 5$. The same idea works with a negative:
+
+$$
+3 \cdot (-5) = (-5) + (-5) + (-5) = -15
+$$
+
+Three losses of $5$ is a loss of $15$. And because order doesn't matter in multiplication, $(-5) \cdot 3 = -15$ too.
+
+<Callout type="tip" title="Different signs">
+The product of a positive number and a negative number is **negative**. Multiply the absolute values and make the answer negative.
+</Callout>
+
+## A negative times a negative
+
+Repeated addition can't explain $(-3) \cdot (-5)$ — you can't add something "negative three times". Instead, follow a **pattern**. Pick a negative first factor, then reveal the rows one by one. Before each click, predict the next product.
+
+<SignPattern client:visible />
+
+The pattern only continues if a negative times a negative is **positive**. Mathematicians define it this way so that all the other rules of arithmetic keep working.
+
+<Callout type="tip" title="The sign rules for multiplication">
+- **Same signs** → the product is **positive**: $(-6)(-7) = 42$
+- **Different signs** → the product is **negative**: $(-6)(7) = -42$
+- Any number times $0$ is $0$.
+</Callout>
+
+<StepReveal
+  client:visible
+  title="Two negatives"
+  problem="Multiply: $\;(-1.5)(-4)$"
+  steps={[
+    { show: '$1.5 \\cdot 4 = 6$', why: 'Multiply the absolute values.' },
+    { show: '$(-1.5)(-4) = 6$', why: 'Same signs → positive.' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="Fractions"
+  problem="Multiply: $\;-\dfrac{2}{3} \cdot \dfrac{9}{10}$"
+  steps={[
+    { show: '$\\dfrac{2 \\cdot 9}{3 \\cdot 10} = \\dfrac{18}{30} = \\dfrac{3}{5}$', why: 'Multiply numerators and denominators, then simplify.' },
+    { show: '$-\\dfrac{2}{3} \\cdot \\dfrac{9}{10} = -\\dfrac{3}{5}$', why: 'Different signs → negative.' },
+  ]}
+/>
+
+<Practice client:visible lesson="1.5" skill="integers" compact />
+
+<Practice client:visible lesson="1.5" skill="rational" compact />
+
+## Three or more factors
+
+Multiply two numbers at a time — or use a shortcut: **every pair of negative factors makes a positive**. So you only need to **count** the negatives.
+
+<Callout type="tip" title="Counting negatives">
+If none of the factors is $0$:
+- an **even** number of negative factors gives a **positive** product;
+- an **odd** number of negative factors gives a **negative** product.
+</Callout>
+
+<StepReveal
+  client:visible
+  title="Four factors"
+  problem="Multiply: $\;(-2)(-3)(-1)(5)$"
+  steps={[
+    { show: 'Negative factors: $-2,\\ -3,\\ -1$ — three of them', why: 'Three is odd, so the product is negative.' },
+    { show: '$2 \\cdot 3 \\cdot 1 \\cdot 5 = 30$', why: 'Multiply the absolute values.' },
+    { show: '$(-2)(-3)(-1)(5) = -30$', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="1.5" skill="sign" compact />
+
+<Practice client:visible lesson="1.5" skill="many" compact />
+
+## Applications
+
+<StepReveal
+  client:visible
+  title="Repeated change"
+  problem="After sunset, the temperature in the desert drops $3^\circ$C every hour. What is the change in temperature after $7$ hours?"
+  steps={[
+    { show: 'Each hour: a change of $-3$', why: 'A drop is negative.' },
+    { show: '$7 \\cdot (-3) = -21$', why: 'Seven equal changes.' },
+  ]}
+  answer="The temperature changes by $-21^\circ$C — it falls $21$ degrees."
+/>
+
+<Practice client:visible lesson="1.5" skill="apply" compact />
+
+## Watch out for these
+
+<Callout type="warning" title="Common mistakes">
+1. **Using the addition rules.** $(-4)(-5) = 20$, not $-20$. With multiplication, two negatives make a **positive**.
+2. **Miscounting negatives.** In $(-1)(-1)(-1)$ there are three, so the product is $-1$.
+3. **Forgetting zero.** If **any** factor is $0$, the product is $0$, no matter how many negatives there are.
+</Callout>
+
+## Summary
+
+- Same signs → positive product. Different signs → negative product.
+- For many factors, count the negatives: even → positive, odd → negative (unless a factor is $0$).
+- Repeated change = number of times × change each time.
+
+## Practice
+
+<Practice client:visible lesson="1.5" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="1.5" />

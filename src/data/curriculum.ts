@@ -163,3 +163,5 @@ export function neighbors(id: string) {
 }
 
 export const lessonHref = (base: string, l: Lesson) => `${base.replace(/\/$/, '')}/lessons/${l.slug}/`;
+
+export const chapterHref = (base: string, n: number) => `${base.replace(/\/$/, '')}/chapters/${n}/`;

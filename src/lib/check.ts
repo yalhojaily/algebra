@@ -1,5 +1,5 @@
 // Grades a student's answer against a Problem.
-import { equivalent, equivalentEquations, parse, parseEquation, ParseError, variables, type Node } from './expr';
+import { equivalent, equivalentEquations, parse, parseEquation, ParseError, topTerms, variables, type Node } from './expr';
 import type { Problem } from '../generators/types';
 
 export type Verdict =
@@ -62,8 +62,21 @@ export function check(problem: Problem, input: string | number): Verdict {
       let got = parse(raw);
       const map = renameSingleVar([got], [expected]);
       if (map) got = rename(got, map);
-      if (equivalent(got, expected)) return { status: 'correct' };
-      return { status: 'wrong', feedback: mistake(raw) };
+      if (!equivalent(got, expected)) return { status: 'wrong', feedback: mistake(raw) };
+      if (a.maxTerms !== undefined) {
+        const terms = topTerms(got).length;
+        if (/[()[\]{}]/.test(raw) || terms > a.maxTerms)
+          return { status: 'invalid', message: 'That is equal to the right answer, but not simplified yet. Remove parentheses and combine like terms.' };
+      }
+      if (a.factor !== undefined) {
+        const gcf = parse(a.factor);
+        const g = { ...got, group: undefined } as Node;
+        const factored =
+          g.kind === 'bin' && g.op === '*' && (equivalent(g.left, gcf) || equivalent(g.right, gcf)) && /[(]/.test(raw);
+        if (!factored)
+          return { status: 'invalid', message: `That is equal to the right answer, but it is not factored completely. Take out the greatest common factor.` };
+      }
+      return { status: 'correct' };
     }
 
     // equation
