@@ -1,7 +1,7 @@
 // Every practice problem in the site has this shape. Text fields may contain inline math as $...$.
 
 export type Answer =
-  | { type: 'number'; value: number }
+  | { type: 'number'; value: number; /** require a decimal (no fraction bar) */ decimal?: boolean }
   | { type: 'expression'; value: string }
   | { type: 'equation'; value: string }
   | { type: 'choice'; options: string[]; correct: number };

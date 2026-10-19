@@ -82,7 +82,7 @@ const toc = headings.filter((h) => h.depth === 2);
           available.has(prev.id) ? <a class="pager-link" href={href(prev.id)}><span>← Previous</span>{prev.id} {prev.title}</a> : <span class="pager-link dim"><span>← Previous</span>{prev.id} {prev.title}</span>
         ) : <span />}
         {next && (
-          available.has(next.id) ? <a class="pager-link next" href={href(next.id)}><span>Next →</span>{next.id} {next.title}</a> : <span class="pager-link next dim"><span>Next · coming soon</span>{next.id} {next.title}</span>
+          available.has(next.id) ? <a class="pager-link next" href={href(next.id)} data-title={`${next.id} ${next.title}`}><span>Next →</span>{next.id} {next.title}</a> : <span class="pager-link next dim"><span>Next · coming soon</span>{next.id} {next.title}</span>
         )}
       </nav>
     </main>

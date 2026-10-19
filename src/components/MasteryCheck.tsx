@@ -18,6 +18,14 @@ export default function MasteryCheck({ lesson, size = 6, passMark = 5, nextHref,
   const [results, setResults] = useState<boolean[]>([]);
   const [mastered, setMastered] = useState(false);
 
+  // If no next lesson was passed in, use the page's "Next" link when that lesson exists.
+  const [auto, setAuto] = useState<{ href: string; title: string } | null>(null);
+  useEffect(() => {
+    const a = document.querySelector<HTMLAnchorElement>('a.pager-link.next');
+    if (a) setAuto({ href: a.href, title: a.dataset.title ?? 'next lesson' });
+  }, []);
+  const nextLink = nextHref ? { href: nextHref, title: nextTitle ?? 'next lesson' } : auto;
+
   useEffect(() => {
     const sync = () => setMastered(getLesson(lesson).mastered);
     sync();
@@ -81,9 +89,9 @@ export default function MasteryCheck({ lesson, size = 6, passMark = 5, nextHref,
           <div className="ms-score">{score} / {problems!.length}</div>
           {passed ? (
             <>
-              <p><strong>Lesson mastered.</strong> {nextHref ? "You're ready for the next lesson." : 'The next lesson is on its way.'}</p>
+              <p><strong>Lesson mastered.</strong> {nextLink ? "You're ready for the next lesson." : 'The next lesson is on its way.'}</p>
               <div className="ms-actions">
-                {nextHref && <a className="btn btn-primary" href={nextHref}>Continue: {nextTitle} →</a>}
+                {nextLink && <a className="btn btn-primary" href={nextLink.href}>Continue: {nextLink.title} →</a>}
                 <button className="btn" onClick={start}>Try a new set</button>
               </div>
             </>

@@ -1,0 +1,228 @@
+---
+id: "1.2"
+title: The Real Numbers
+summary: Meet the families of numbers — natural, whole, integers, rational, irrational — see where each lives on the number line, and learn to compare them and measure their distance from zero.
+minutes: 45
+objectives:
+  - Use integers to describe real situations such as temperatures, depths, and gains or losses.
+  - Name the sets of natural numbers, whole numbers, integers, rational numbers, irrational numbers, and real numbers, and decide which sets a number belongs to.
+  - Convert a fraction to a decimal, and tell in advance whether the decimal terminates or repeats.
+  - Compare real numbers using <, >, ≤, and ≥, and rewrite an inequality the other way around.
+  - Find the absolute value of a real number.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import NumberSets from '../../components/NumberSets.tsx';
+import NumberLineLab from '../../components/NumberLineLab.tsx';
+import DecimalMachine from '../../components/DecimalMachine.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+On a desert night in January, the temperature might drop to $8^\circ$. On a winter night in Moscow it might be **$15^\circ$ below zero**. A diver goes **$30$ m below** sea level, and a phone battery charges to **$\tfrac{3}{4}$** full. A circle's circumference is its diameter times **$\pi$**.
+
+Counting numbers alone can't describe all of this. In Lesson 1.1 the variables stood for numbers — now you'll meet *every kind* of number they can stand for.
+</Callout>
+
+## Natural numbers, whole numbers, and integers
+
+A **set** is a collection of objects. Sets are often written by listing their members between braces, with "$\ldots$" meaning *the pattern continues forever*.
+
+<table class="nice">
+  <thead><tr><th>Set</th><th>Members</th><th>Think of it as</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Natural numbers</strong></td><td>$\{1, 2, 3, 4, \ldots\}$</td><td>The numbers you count with.</td></tr>
+    <tr><td><strong>Whole numbers</strong></td><td>$\{0, 1, 2, 3, \ldots\}$</td><td>Natural numbers, plus zero.</td></tr>
+    <tr><td><strong>Integers</strong></td><td>$\{\ldots, -3, -2, -1, 0, 1, 2, 3, \ldots\}$</td><td>Whole numbers and their **opposites**.</td></tr>
+  </tbody>
+</table>
+
+On a number line, the integers are equally spaced. Numbers to the right of $0$ are **positive**; numbers to the left are **negative**. Zero is neither. Two numbers the same distance from $0$ on opposite sides, like $3$ and $-3$, are called **opposites**.
+
+<Callout type="tip" title="Negative numbers describe the “other direction”">
+Any quantity that can go two ways — above or below sea level, profit or loss, warmer or colder, deposit or withdrawal — can be described with integers. Pick one direction as positive, and the other direction becomes negative.
+</Callout>
+
+<StepReveal
+  client:visible
+  title="Integers in real situations"
+  problem="Write an integer for each: (a) a loss of 25 riyals, (b) 1200 m above sea level, (c) 7° below zero."
+  steps={[
+    { show: '(a) $\\;-25$', why: 'A loss is the negative direction of money.' },
+    { show: '(b) $\\;1200$', why: 'Above sea level is positive.' },
+    { show: '(c) $\\;-7$', why: 'Below zero is negative.' },
+  ]}
+/>
+
+<Practice client:visible lesson="1.2" skill="context" compact />
+
+## Rational numbers
+
+Between the integers there are many more numbers: $\tfrac{1}{2}$, $-\tfrac{3}{4}$, $2.75$, $0.333\ldots$ These are **rational numbers** — the word comes from *ratio*.
+
+<Callout type="definition" title="Rational number">
+A **rational number** is any number that can be written as $\dfrac{a}{b}$, where $a$ and $b$ are integers and ${b \ne 0}$.
+
+Every integer is rational, because it can be written over $1$: $\;-5 = \dfrac{-5}{1}$.
+</Callout>
+
+### Fractions as decimals
+
+Every rational number can be written as a decimal by **dividing the numerator by the denominator**. Something surprising happens: the decimal either **terminates** (stops) or **repeats** forever in a block. A bar over the digits shows the repeating block: $0.1666\ldots = 0.1\overline{6}$.
+
+Change the fraction below and watch the long division. Look for the moment a remainder shows up a second time.
+
+<DecimalMachine client:visible />
+
+<StepReveal
+  client:visible
+  title="A terminating decimal"
+  problem="Write $-\dfrac{5}{8}$ as a decimal."
+  steps={[
+    { show: '$5 \\div 8 = 0.625$', why: 'Divide the numerator by the denominator. The remainder reaches $0$, so it stops.' },
+    { show: '$-\\dfrac{5}{8} = -0.625$', why: 'Keep the negative sign.' },
+  ]}
+  answer="$-0.625$ — a terminating decimal. (Check: $8 = 2 \cdot 2 \cdot 2$, only 2s.)"
+/>
+
+<StepReveal
+  client:visible
+  title="A repeating decimal"
+  problem="Write $\dfrac{7}{11}$ as a decimal."
+  steps={[
+    { show: '$70 \\div 11 = 6 \\text{ r } 4$', why: 'The first digit after the decimal point is $6$, with remainder $4$.' },
+    { show: '$40 \\div 11 = 3 \\text{ r } 7$', why: 'Bring down a $0$. Next digit $3$, remainder $7$.' },
+    { show: 'Remainder $7$ again!', why: 'We started with $7$, so the digits $6, 3$ will repeat forever.' },
+  ]}
+  answer="$\dfrac{7}{11} = 0.636363\ldots = 0.\overline{63}$"
+/>
+
+<Practice client:visible lesson="1.2" skill="decimal" compact />
+
+## Irrational numbers and the real numbers
+
+Some numbers on the number line can **not** be written as a ratio of integers. Their decimals go on forever **without** repeating. These are the **irrational numbers**.
+
+- $\sqrt{2} = 1.41421356\ldots$ (the diagonal of a $1 \times 1$ square)
+- $\pi = 3.14159265\ldots$ (circumference ÷ diameter of any circle)
+- $\sqrt{n}$ for any whole number $n$ that is **not** a perfect square, such as $\sqrt{3}$, $\sqrt{10}$, $\sqrt{50}$
+
+<Callout type="definition" title="Real numbers">
+The **real numbers** are all the rational numbers together with all the irrational numbers. Every point on the number line is a real number, and every real number is a point on the number line.
+</Callout>
+
+The sets fit inside each other like boxes. Pick a number and see every set it belongs to.
+
+<NumberSets client:visible />
+
+<Callout type="warning" title="Simplify before you classify">
+$\sqrt{16}$ looks irrational, but $\sqrt{16} = 4$ — it's a natural number. Likewise $\dfrac{12}{3} = 4$ is an integer, even though it's written as a fraction. Always simplify first.
+</Callout>
+
+<StepReveal
+  client:visible
+  title="Classifying numbers"
+  problem="List every set each number belongs to: $\;-9,\;\; 0.8,\;\; \sqrt{7},\;\; \sqrt{49}$"
+  steps={[
+    { show: '$-9$: integer, rational, real', why: 'Negative, so not whole or natural.' },
+    { show: '$0.8$: rational, real', why: '$0.8 = \\frac{4}{5}$, a terminating decimal.' },
+    { show: '$\\sqrt{7}$: irrational, real', why: '$7$ is not a perfect square.' },
+    { show: '$\\sqrt{49}$: natural, whole, integer, rational, real', why: '$\\sqrt{49} = 7$.' },
+  ]}
+/>
+
+<Practice client:visible lesson="1.2" skill="classify" compact />
+
+## Order on the number line
+
+Real numbers are **ordered**: for any two different numbers, one is greater. The number line makes this easy.
+
+<Callout type="tip" title="The one rule">
+The number farther to the **right** is the **greater** number.
+
+$a < b$ means "$a$ is less than $b$" ($a$ is to the left). $\;a > b$ means "$a$ is greater than $b$" ($a$ is to the right). The symbol always **points at the smaller number**.
+</Callout>
+
+Drag the two points. Pay attention to what happens when both are negative.
+
+<NumberLineLab client:visible />
+
+<Callout type="warning" title="Negative numbers trip everyone up">
+$-9$ looks "bigger" than $-2$ because $9 > 2$. But on the number line $-9$ is farther **left**, so $\;-9 < -2$. Think of temperatures: $-9^\circ$ is colder than $-2^\circ$.
+</Callout>
+
+### Two ways to write the same fact
+
+Every inequality can be flipped around: $\;-3 < 5\;$ says exactly the same thing as $\;5 > -3$. When you swap the two sides, you also reverse the symbol.
+
+The symbols $\le$ ("less than **or equal to**") and $\ge$ ("greater than **or equal to**") are true if *either* part is true. So $\;4 \le 4\;$ is true, and $\;-1 \ge 3\;$ is false.
+
+<StepReveal
+  client:visible
+  title="Comparing and rewriting"
+  problem="Insert $<$ or $>$: $\;-\dfrac{3}{4} \;\square\; -0.7$. Then write the inequality the other way."
+  steps={[
+    { show: '$-\\dfrac{3}{4} = -0.75$', why: 'Write both as decimals so they are easy to compare.' },
+    { show: '$-0.75$ is to the left of $-0.70$', why: '$-0.75$ is farther from $0$ on the negative side.' },
+    { show: '$-\\dfrac{3}{4} < -0.7$', why: 'Left means less.' },
+    { show: '$-0.7 > -\\dfrac{3}{4}$', why: 'Swap the sides and reverse the symbol.' },
+  ]}
+/>
+
+<Practice client:visible lesson="1.2" skill="compare" compact />
+
+## Absolute value
+
+How far is a number from $0$? That distance is its **absolute value**, written with vertical bars: $\lvert x \rvert$.
+
+<Callout type="definition" title="Absolute value">
+The **absolute value** of a number is its distance from $0$ on the number line. A distance is never negative, so $\lvert x \rvert \ge 0$ for every real number $x$.
+
+$$
+\lvert 7 \rvert = 7 \qquad \lvert -7 \rvert = 7 \qquad \lvert 0 \rvert = 0 \qquad \left|-\tfrac{2}{3}\right| = \tfrac{2}{3}
+$$
+</Callout>
+
+Turn on "Show distance from 0" in the number line above to see absolute value as the length of an arc.
+
+<StepReveal
+  client:visible
+  title="Signs inside and outside the bars"
+  problem="Find $\;\lvert -12 \rvert + \lvert 5 \rvert\;$ and $\;-\lvert -12 \rvert$."
+  steps={[
+    { show: '$\\lvert -12 \\rvert = 12$ and $\\lvert 5 \\rvert = 5$', why: 'Each is a distance from $0$.' },
+    { show: '$\\lvert -12 \\rvert + \\lvert 5 \\rvert = 12 + 5 = 17$', why: 'Then add.' },
+    { show: '$-\\lvert -12 \\rvert = -(12) = -12$', why: 'The bars only affect what is **inside** them. The minus sign outside makes the result negative.' },
+  ]}
+/>
+
+<Practice client:visible lesson="1.2" skill="absolute" compact />
+
+## Watch out for these
+
+<Callout type="warning" title="Five mistakes to avoid">
+1. **Ordering negatives by size of the digits.** $-8 < -3$, because $-8$ is farther left.
+2. **Calling every fraction "not an integer."** $\tfrac{10}{2} = 5$ is an integer. Simplify first.
+3. **Calling every square root irrational.** $\sqrt{36} = 6$. Only non-perfect squares give irrational roots.
+4. **Thinking a long decimal must be irrational.** $\tfrac{1}{7} = 0.\overline{142857}$ repeats, so it's rational.
+5. **Making absolute value negative.** $\lvert -5 \rvert = 5$. But $-\lvert 5 \rvert = -5$, because the minus sign is outside the bars.
+</Callout>
+
+## Summary
+
+- **Natural** $\subset$ **whole** $\subset$ **integers** $\subset$ **rational** $\subset$ **real**. The **irrational** numbers are the real numbers that are not rational.
+- A **rational number** can be written as $\frac{a}{b}$ with integers $a, b$ and ${b \ne 0}$. Its decimal **terminates** or **repeats**. It terminates exactly when the simplified denominator has no prime factors other than $2$ and $5$.
+- An **irrational number** has a decimal that never ends and never repeats: $\sqrt{2}$, $\pi$.
+- On the number line, **right is greater**. $a < b$ and $b > a$ say the same thing.
+- **Absolute value** $\lvert x \rvert$ is the distance from $0$, so it is never negative.
+
+## Practice
+
+Mix all five skills, or focus on the one you find hardest.
+
+<Practice client:visible lesson="1.2" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="1.2" />

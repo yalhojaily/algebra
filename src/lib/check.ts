@@ -50,6 +50,7 @@ export function check(problem: Problem, input: string | number): Verdict {
     if (a.type === 'number') {
       const n = parse(raw);
       if (variables(n).size > 0) return { status: 'invalid', message: 'The answer should be a number, without letters.' };
+      if (a.decimal && raw.includes('/')) return { status: 'invalid', message: 'Write your answer as a decimal, like 0.75 — not as a fraction.' };
       const got = equivalent(n, { kind: 'num', value: a.value });
       if (got) return { status: 'correct' };
       return { status: 'wrong', feedback: mistake(raw) };
