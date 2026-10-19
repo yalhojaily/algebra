@@ -1,0 +1,103 @@
+---
+id: "5.5"
+title: Factoring Trinomial Squares and Differences of Squares
+summary: Two special products from Chapter 4, run backwards — recognize A² ± 2AB + B² and A² − B² on sight and factor them in one step.
+minutes: 35
+objectives:
+  - Recognize trinomial squares and differences of squares.
+  - "Factor A² ± 2AB + B² as (A ± B)²."
+  - "Factor A² − B² as (A + B)(A − B)."
+  - Factor completely, including a GCF and repeated differences of squares.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import SquareArea from '../../components/SquareArea.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+In Lesson 4.6 you learned $(A + B)^2 = A^2 + 2AB + B^2$ and $(A + B)(A - B) = A^2 - B^2$. Read them right to left and they become factoring formulas — no trial and error needed.
+</Callout>
+
+## Trinomial squares
+
+$$A^2 + 2AB + B^2 = (A + B)^2 \qquad A^2 - 2AB + B^2 = (A - B)^2$$
+
+The area picture shows why: a square of side $A + B$ is made of an $A^2$ square, a $B^2$ square, and **two** $AB$ rectangles.
+
+<SquareArea client:visible />
+
+To recognize a trinomial square, check three things:
+
+1. The first term is a square, $A^2$.
+2. The last term is a square, $B^2$ (and it's **positive**).
+3. The middle term is $\pm 2AB$.
+
+<StepReveal
+  client:visible
+  title="Trinomial square"
+  problem="Factor: $\;9x^2 - 12x + 4$"
+  steps={[
+    { show: '$9x^2 = (3x)^2$, $\\;4 = 2^2$', why: 'So $A = 3x$ and $B = 2$.' },
+    { show: '$2AB = 2 \\cdot 3x \\cdot 2 = 12x$ ✓', why: 'The middle term matches (with a minus sign).' },
+    { show: '$= (3x - 2)^2$', why: 'The sign inside matches the sign of the middle term.' },
+  ]}
+/>
+
+<Practice client:visible lesson="5.5" skill="recognize" compact />
+
+<Practice client:visible lesson="5.5" skill="square" compact />
+
+## Differences of squares
+
+$$A^2 - B^2 = (A + B)(A - B)$$
+
+Two square terms with a **minus** between them.
+
+<StepReveal
+  client:visible
+  title="Difference of squares"
+  problem="Factor: $\;25y^2 - 49$"
+  steps={[
+    { show: '$= (5y)^2 - 7^2$', why: '$A = 5y$, $B = 7$.' },
+    { show: '$= (5y + 7)(5y - 7)$', why: '' },
+  ]}
+/>
+
+<Callout type="warning" title="A sum of squares is prime">
+$x^2 + 9$ does **not** factor over the real numbers. $(x + 3)^2 = x^2 + 6x + 9$ and $(x + 3)(x - 3) = x^2 - 9$ — neither is $x^2 + 9$.
+</Callout>
+
+<StepReveal
+  client:visible
+  title="Factor again"
+  problem="Factor completely: $\;x^4 - 16$"
+  steps={[
+    { show: '$= (x^2)^2 - 4^2 = (x^2 + 4)(x^2 - 4)$', why: '' },
+    { show: '$x^2 - 4$ is a difference of squares too', why: 'Always look at each factor again. $x^2 + 4$ is a sum of squares — prime.' },
+    { show: '$= (x^2 + 4)(x + 2)(x - 2)$', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="5.5" skill="difference" compact />
+
+## Factoring completely
+
+Take out the GCF first, then look for the patterns: $3x^2 - 75 = 3(x^2 - 25) = 3(x + 5)(x - 5)$.
+
+<Practice client:visible lesson="5.5" skill="gcf" compact />
+
+## Summary
+
+- $A^2 \pm 2AB + B^2 = (A \pm B)^2$ — check the middle term.
+- $A^2 - B^2 = (A + B)(A - B)$; $A^2 + B^2$ is prime.
+- GCF first; then factor each factor again until nothing more factors.
+
+## Practice
+
+<Practice client:visible lesson="5.5" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="5.5" />

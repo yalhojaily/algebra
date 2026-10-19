@@ -2,6 +2,7 @@
 import { equivalent, equivalentEquations, parse, parseEquation, ParseError, topTerms, variables, type Node } from './expr';
 import type { Problem } from '../generators/types';
 import { describe, parseInequality, solvedForm } from './inequality';
+import { evaluate } from './expr';
 
 export type Verdict =
   | { status: 'correct' }
@@ -49,9 +50,17 @@ export function check(problem: Problem, input: string | number): Verdict {
 
   try {
     if (a.type === 'number') {
-      const n = parse(raw);
+      // In scientific notation people write "3.2 x 10^5" with an x for "times".
+      const src = a.sci ? raw.replace(/(\d)\s*[xX]\s*10/g, '$1*10') : raw;
+      const n = parse(src);
       if (variables(n).size > 0) return { status: 'invalid', message: 'The answer should be a number, without letters.' };
       if (a.decimal && raw.includes('/')) return { status: 'invalid', message: 'Write your answer as a decimal, like 0.75 — not as a fraction.' };
+      if (a.sci) {
+        const m = src.replace(/\s+/g, '').replace(/[×xX·]/g, '*').replace(/[−–]/g, '-').match(/^(-?\d+(?:\.\d+)?)\*10\^\(?(-?\d+)\)?$/);
+        if (!m) return { status: 'invalid', message: 'Write it in scientific notation, like 3.2 × 10^5 (type 3.2*10^5).' };
+        const lead = Math.abs(Number(m[1]));
+        if (lead < 1 || lead >= 10) return { status: 'invalid', message: 'In scientific notation the first number must be at least 1 and less than 10.' };
+      }
       const got = equivalent(n, { kind: 'num', value: a.value });
       if (got) return { status: 'correct' };
       return { status: 'wrong', feedback: mistake(raw) };
@@ -69,6 +78,12 @@ export function check(problem: Problem, input: string | number): Verdict {
         if (/[()[\]{}]/.test(raw) || terms > a.maxTerms)
           return { status: 'invalid', message: 'That is equal to the right answer, but not simplified yet. Remove parentheses and combine like terms.' };
       }
+      if (a.positiveExponents && /\^\s*\(?\s*[-−]/.test(raw))
+        return { status: 'invalid', message: 'That is equal to the right answer, but write it using only positive exponents.' };
+      if (a.factored) {
+        const why = notFullyFactored(got, expected);
+        if (why) return { status: 'invalid', message: why };
+      }
       if (a.factor !== undefined) {
         const gcf = parse(a.factor);
         const g = { ...got, group: undefined } as Node;
@@ -78,6 +93,45 @@ export function check(problem: Problem, input: string | number): Verdict {
           return { status: 'invalid', message: `That is equal to the right answer, but it is not factored completely. Take out the greatest common factor.` };
       }
       return { status: 'correct' };
+    }
+
+    if (a.type === 'point') {
+      const pt = parsePoint(raw);
+      if (!pt) return { status: 'invalid', message: 'Write an ordered pair like (3, -2).' };
+      if (close(pt[0], a.x) && close(pt[1], a.y)) return { status: 'correct' };
+      if (close(pt[0], a.y) && close(pt[1], a.x)) return { status: 'wrong', feedback: 'The numbers are right but in the wrong order. The **x**-coordinate comes first: (x, y).' };
+      return { status: 'wrong', feedback: mistake(raw) };
+    }
+
+    if (a.type === 'solutions') {
+      const vals = parseSolutions(raw, a.variable);
+      if (!vals) return { status: 'invalid', message: 'List the solutions separated by commas, like 2, -3 (or x = 2 or x = -3).' };
+      const want = [...new Set(a.values.map((v) => +v.toFixed(9)))];
+      const got = [...new Set(vals.map((v) => +v.toFixed(9)))];
+      const missing = want.filter((w) => !got.some((g) => close(g, w)));
+      const extra = got.filter((g) => !want.some((w) => close(g, w)));
+      if (!missing.length && !extra.length) return { status: 'correct' };
+      const m = mistake(raw);
+      if (m) return { status: 'wrong', feedback: m };
+      if (!extra.length) return { status: 'wrong', feedback: `Those are correct, but there ${missing.length === 1 ? 'is another solution' : 'are more solutions'}.` };
+      return { status: 'wrong', feedback: extra.length === got.length ? undefined : 'Some of those are right, but at least one is not a solution. Check each one.' };
+    }
+
+    if (a.type === 'plot') {
+      const pts = raw.split(';').filter(Boolean).map((s) => s.split(',').map(Number) as [number, number]);
+      if (a.mode === 'point') {
+        if (pts.length !== 1) return { status: 'invalid', message: 'Click once on the grid to place your point.' };
+        const [x, y] = pts[0];
+        if (x === a.x && y === a.y) return { status: 'correct' };
+        if (x === a.y && y === a.x) return { status: 'wrong', feedback: 'You swapped the coordinates. Move **across** by the x-coordinate first, then **up or down** by the y-coordinate.' };
+        return { status: 'wrong' };
+      }
+      if (pts.length !== 2) return { status: 'invalid', message: 'Click two points on the grid to draw your line.' };
+      const [[x1, y1], [x2, y2]] = pts;
+      if (x1 === x2 && y1 === y2) return { status: 'invalid', message: 'Pick two different points.' };
+      const on = (x: number, y: number) => close(a.a * x + a.b * y, a.c);
+      if (on(x1, y1) && on(x2, y2)) return { status: 'correct' };
+      return { status: 'wrong', feedback: on(x1, y1) || on(x2, y2) ? 'One of your points is on the line, but the other is not.' : 'Neither point is on the line. Make a table of values to find points.' };
     }
 
     if (a.type === 'inequality') {
@@ -122,4 +176,75 @@ export function check(problem: Problem, input: string | number): Verdict {
     if (e instanceof ParseError) return { status: 'invalid', message: e.message };
     throw e;
   }
+}
+
+const close = (a: number, b: number) => Math.abs(a - b) < 1e-9 * Math.max(1, Math.abs(a), Math.abs(b));
+
+/** "(3, -2)" → [3, -2]. Fractions and decimals are allowed. */
+export function parsePoint(raw: string): [number, number] | null {
+  const m = raw.replace(/[−–]/g, '-').match(/^\s*\(\s*([^,]+?)\s*,\s*([^,]+?)\s*\)\s*$/);
+  if (!m) return null;
+  try {
+    const x = evaluate(parse(m[1]), {});
+    const y = evaluate(parse(m[2]), {});
+    return Number.isFinite(x) && Number.isFinite(y) ? [x, y] : null;
+  } catch {
+    return null;
+  }
+}
+
+/** "2, -3", "x = 2 or x = -3", "{2, -3}" → [2, -3]. */
+export function parseSolutions(raw: string, v?: string): number[] | null {
+  const s = raw.replace(/[−–]/g, '-').replace(/[{}]/g, '').replace(/\band\b|\bor\b|;/gi, ',');
+  const parts = s.split(',').map((p) => p.trim()).filter(Boolean);
+  if (!parts.length) return null;
+  const out: number[] = [];
+  for (let part of parts) {
+    const eq = part.match(/^([a-zA-Z])\s*=\s*(.+)$/);
+    if (eq) {
+      if (v && eq[1] !== v) return null;
+      part = eq[2];
+    }
+    try {
+      const n = parse(part);
+      if (variables(n).size) return null;
+      out.push(evaluate(n, {}));
+    } catch {
+      return null;
+    }
+  }
+  return out;
+}
+
+// ---------- Is a product factored completely? ----------
+
+/** Split a product into its factors: 3x(x + 2)^2 → [3, x, (x+2), (x+2)]. */
+function factorsOf(n: Node): Node[] {
+  const g = { ...n, group: undefined } as Node;
+  if (g.kind === 'neg') return [{ kind: 'num', value: -1 }, ...factorsOf(g.arg)];
+  if (g.kind === 'bin' && g.op === '*') return [...factorsOf(g.left), ...factorsOf(g.right)];
+  if (g.kind === 'bin' && g.op === '^' && g.right.kind === 'num' && Number.isInteger(g.right.value) && g.right.value > 0 && topTerms({ ...g.left, group: undefined } as Node).length > 1)
+    return Array.from({ length: g.right.value }, () => g.left);
+  return [g];
+}
+
+const isMonomial = (n: Node) => topTerms({ ...n, group: undefined } as Node).length === 1;
+
+function product(ns: Node[]): Node {
+  return ns.reduce<Node>((acc, f) => ({ kind: 'bin', op: '*', left: acc, right: f }), { kind: 'num', value: 1 });
+}
+
+/** Returns why `got` is not factored as completely as `expected`, or null if it is. */
+export function notFullyFactored(got: Node, expected: Node): string | null {
+  const gf = factorsOf(got);
+  const ef = factorsOf(expected);
+  const gPoly = gf.filter((f) => !isMonomial(f));
+  const ePoly = ef.filter((f) => !isMonomial(f));
+  if (gPoly.length === 0 && ePoly.length > 0) return 'That is equal to the right answer, but it is not factored. Write it as a product.';
+  if (gPoly.length < ePoly.length) return 'That is equal to the right answer, but it can be factored further. Check each factor again.';
+  const gm = product(gf.filter(isMonomial));
+  const em = product(ef.filter(isMonomial));
+  if (!equivalent(gm, em) && !equivalent(gm, { kind: 'neg', arg: em }))
+    return 'That is equal to the right answer, but a common factor is still inside parentheses. Take out the greatest common factor first.';
+  return null;
 }

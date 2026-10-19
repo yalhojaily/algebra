@@ -1,0 +1,75 @@
+---
+id: "5.7"
+title: "Factoring: A General Strategy"
+summary: One checklist for every polynomial — common factor first, then let the number of terms tell you which method to use, and keep going until every factor is prime.
+minutes: 35
+objectives:
+  - Choose a factoring method from the number of terms.
+  - Factor polynomials completely, combining several methods.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import StrategyFlow from '../../components/StrategyFlow.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+On a test, problems aren't labeled "use the ac-method". You need a plan that works for any polynomial. Here it is.
+</Callout>
+
+## The strategy
+
+1. **Common factor?** Always factor out the GCF first (and $-1$ if the leading coefficient is negative).
+2. **Count the terms.**
+   - **Two terms:** difference of squares? sum or difference of cubes? (A sum of squares is prime.)
+   - **Three terms:** trinomial square? If not, use product–sum ($a = 1$) or FOIL / the ac-method ($a \ne 1$).
+   - **Four terms:** factor by grouping.
+3. **Factor completely.** Check every factor again — can it be factored further?
+4. **Check** by multiplying.
+
+Type any polynomial in $x$ and follow the strategy:
+
+<StrategyFlow client:visible />
+
+<Practice client:visible lesson="5.7" skill="method" compact />
+
+<StepReveal
+  client:visible
+  title="Several methods in one problem"
+  problem="Factor completely: $\;3x^4 - 48$"
+  steps={[
+    { show: '$= 3(x^4 - 16)$', why: 'Step 1: common factor $3$.' },
+    { show: '$= 3(x^2 + 4)(x^2 - 4)$', why: 'Step 2: two terms — a difference of squares.' },
+    { show: '$= 3(x^2 + 4)(x + 2)(x - 2)$', why: 'Step 3: $x^2 - 4$ factors again. $x^2 + 4$ is a sum of squares — prime.' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="Four terms"
+  problem="Factor completely: $\;x^3 + 2x^2 - 9x - 18$"
+  steps={[
+    { show: 'No common factor; four terms → grouping', why: '' },
+    { show: '$x^2(x + 2) - 9(x + 2) = (x + 2)(x^2 - 9)$', why: '' },
+    { show: '$= (x + 2)(x + 3)(x - 3)$', why: '$x^2 - 9$ is a difference of squares — keep going.' },
+  ]}
+/>
+
+<Callout type="warning" title="Stopping too early">
+The most common error in this lesson is leaving a factor that still factors — like $(x^2 - 9)$ or a GCF hiding inside parentheses, as in $(2x + 4)(x - 1)$, which is $2(x + 2)(x - 1)$.
+</Callout>
+
+<Practice client:visible lesson="5.7" skill="factor" compact />
+
+## Summary
+
+- GCF → count terms → apply the method → check each factor again → check by multiplying.
+
+## Practice
+
+<Practice client:visible lesson="5.7" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="5.7" />

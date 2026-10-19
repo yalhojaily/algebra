@@ -119,3 +119,41 @@ export const undoAdd = (c: Num) => (fr(c).valueOf() < 0 ? `Add $${fr(c).neg().te
 
 /** Wording for removing the term c·v from a side: "subtract $3x$" or "add $5x$". */
 export const removeTerm = (c: number, v: string) => (c < 0 ? `add $${termTex(-c, v)}$ to` : `subtract $${termTex(c, v)}$ from`);
+
+// ---------- Random polynomials ----------
+import { Poly } from '../lib/poly';
+export { Poly };
+
+/** A random polynomial in one variable with integer coefficients; `sparse` is the chance a non-leading term is 0. */
+export function randPoly(deg: number, v = 'x', max = 9, sparse = 0.25): Poly {
+  const coefs = Array.from({ length: deg + 1 }, (_, i) => (i === 0 ? nz(max) : Math.random() < sparse ? 0 : nz(max)));
+  return Poly.fromCoefs(coefs, v);
+}
+
+/** A random linear binomial ax + b with small coefficients. */
+export const randBinomial = (v = 'x', maxA = 5, maxB = 9) => Poly.fromCoefs([nz(maxA), nz(maxB)], v);
+
+// ---------- Factoring helpers ----------
+
+/** (a·v + b) as a Poly. */
+export const lin = (a: number, b: number, v = 'x') => Poly.fromCoefs([a, b], v);
+
+/** "(2x + 3)" style text and TeX for a polynomial factor. */
+export const par = (P: Poly) => `(${P.text()})`;
+export const parTex = (P: Poly) => `(${P.tex()})`;
+
+/** Factored-answer helper: the expected value and the standard options. */
+export const factoredAnswer = (value: string) => ({ type: 'expression' as const, value, factored: true });
+
+/** Integer factor pairs of n (positive and negative), e.g. 6 → [1,6],[2,3],[-1,-6],[-2,-3]. */
+export function factorPairs(n: number): [number, number][] {
+  const out: [number, number][] = [];
+  const m = Math.abs(n);
+  for (let a = 1; a * a <= m; a++)
+    if (m % a === 0) {
+      const b = m / a;
+      if (n > 0) out.push([a, b], [-a, -b]);
+      else out.push([a, -b], [-a, b]);
+    }
+  return out;
+}

@@ -14,6 +14,27 @@ import * as l2_4 from './2-4-formulas';
 import * as l2_5 from './2-5-applications-of-percent';
 import * as l2_6 from './2-6-applications-and-problem-solving';
 import * as l2_7 from './2-7-solving-inequalities';
+import * as l3_1 from './3-1-introduction-to-graphing';
+import * as l3_2 from './3-2-graphing-linear-equations';
+import * as l3_3 from './3-3-more-with-graphing-and-intercepts';
+import * as l4_1 from './4-1-integers-as-exponents';
+import * as l4_2 from './4-2-exponents-and-scientific-notation';
+import * as l4_3 from './4-3-introduction-to-polynomials';
+import * as l4_4 from './4-4-addition-and-subtraction-of-polynomials';
+import * as l4_5 from './4-5-multiplication-of-polynomials';
+import * as l4_6 from './4-6-special-products';
+import * as l4_7 from './4-7-operations-with-polynomials-in-several-variables';
+import * as l5_1 from './5-1-introduction-to-factoring';
+import * as l5_2 from './5-2-factoring-trinomials-of-the-type-x-bx-c';
+import * as l5_3 from './5-3-factoring-ax-bx-c-a-1-the-foil-method';
+import * as l5_4 from './5-4-factoring-ax-bx-c-a-1-the-ac-method';
+import * as l5_5 from './5-5-factoring-trinomial-squares-and-differences-of-squares';
+import * as l5_6 from './5-6-factoring-sums-or-differences-of-cubes';
+import * as l5_7 from './5-7-factoring-a-general-strategy';
+import * as l5_8 from './5-8-solving-quadratic-equations-by-factoring';
+import * as l5_9 from './5-9-applications-of-quadratic-equations';
+import * as l4_8 from './4-8-division-of-polynomials';
+import * as l3_4 from './3-4-slope-and-applications';
 import * as l2_8 from './2-8-applications-and-problem-solving-with-inequalities';
 
 interface LessonGenerators {
@@ -39,4 +60,25 @@ export const registry: Record<string, LessonGenerators> = {
   '2.6': l2_6,
   '2.7': l2_7,
   '2.8': l2_8,
+  '3.1': l3_1,
+  '3.2': l3_2,
+  '3.3': l3_3,
+  '3.4': l3_4,
+  '4.1': l4_1,
+  '4.2': l4_2,
+  '4.3': l4_3,
+  '4.4': l4_4,
+  '4.5': l4_5,
+  '4.6': l4_6,
+  '4.7': l4_7,
+  '4.8': l4_8,
+  '5.1': l5_1,
+  '5.2': l5_2,
+  '5.3': l5_3,
+  '5.4': l5_4,
+  '5.5': l5_5,
+  '5.6': l5_6,
+  '5.7': l5_7,
+  '5.8': l5_8,
+  '5.9': l5_9,
 };

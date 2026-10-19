@@ -4,6 +4,8 @@ import { check, type Verdict } from '../lib/check';
 import { MathInput } from './MathInput';
 import { MathText } from './MathText';
 import { RayFigure } from './RayFigure';
+import { Plane } from './Plane';
+import type { Figure } from '../generators/types';
 
 interface Props {
   problem: Problem;
@@ -52,7 +54,7 @@ export function ProblemCard({ problem, onResult, exam = false, onNext, nextLabel
   return (
     <div className={`pc ${verdict?.status === 'correct' ? 'is-correct' : ''} ${verdict?.status === 'wrong' ? 'is-wrong' : ''}`}>
       <MathText as="div" className="pc-prompt">{problem.prompt}</MathText>
-      {problem.figure && <RayFigure {...problem.figure} />}
+      {problem.figure && <FigureView fig={problem.figure} />}
 
       {a.type === 'choice' ? (
         <div className="pc-choices" role="group" aria-label="Choices">
@@ -70,6 +72,17 @@ export function ProblemCard({ problem, onResult, exam = false, onNext, nextLabel
             </button>
           ))}
         </div>
+      ) : a.type === 'plot' ? (
+        <GridAnswer
+          mode={a.mode}
+          value={input}
+          disabled={done}
+          answer={done ? a : undefined}
+          onChange={(v) => {
+            setInput(v);
+            if (verdict?.status === 'invalid' || (!exam && verdict?.status === 'wrong')) setVerdict(null);
+          }}
+        />
       ) : (
         <MathInput
           value={input}
@@ -130,6 +143,67 @@ export function ProblemCard({ problem, onResult, exam = false, onNext, nextLabel
           ))}
         </div>
       )}
+    </div>
+  );
+}
+
+function FigureView({ fig }: { fig: Figure }) {
+  if (fig.kind === 'ray') return <RayFigure {...fig} />;
+  return (
+    <div className="pc-plane">
+      <Plane
+        range={fig.range ?? 10}
+        size={360}
+        points={fig.points}
+        lines={fig.lines}
+        curves={fig.curves?.map((coefs) => ({ coefs }))}
+      />
+    </div>
+  );
+}
+
+/** Answer by clicking on a grid. The value is stored as "x,y;x,y". */
+function GridAnswer({
+  mode,
+  value,
+  onChange,
+  disabled,
+  answer,
+}: {
+  mode: 'point' | 'line';
+  value: string;
+  onChange: (v: string) => void;
+  disabled?: boolean;
+  answer?: Extract<Problem['answer'], { type: 'plot' }>;
+}) {
+  const pts = value.split(';').filter(Boolean).map((s) => s.split(',').map(Number) as [number, number])
+    .filter((p) => p.length === 2 && p.every(Number.isFinite));
+  const need = mode === 'point' ? 1 : 2;
+  const pick = (x: number, y: number) => {
+    if (disabled) return;
+    const next = [...pts, [x, y] as [number, number]].slice(-need);
+    onChange(next.map((p) => p.join(',')).join(';'));
+  };
+  const line = pts.length === 2 && !(pts[0][0] === pts[1][0] && pts[0][1] === pts[1][1])
+    ? { a: pts[1][1] - pts[0][1], b: pts[0][0] - pts[1][0], c: (pts[1][1] - pts[0][1]) * pts[0][0] + (pts[0][0] - pts[1][0]) * pts[0][1], cls: 'mine' }
+    : null;
+  const correct = answer ? (answer.mode === 'line' ? [{ a: answer.a, b: answer.b, c: answer.c, cls: 'answer' }] : []) : [];
+  return (
+    <div className="pc-grid">
+      <Plane
+        size={360}
+        onPick={pick}
+        lines={[...correct, ...(line ? [line] : [])]}
+        points={[
+          ...(answer?.mode === 'point' ? [{ x: answer.x, y: answer.y, cls: 'answer' }] : []),
+          ...pts.map(([x, y]) => ({ x, y, cls: 'mine', label: `(${x}, ${y})` })),
+        ]}
+        label="Click to place points"
+      />
+      <div className="pc-grid-help">
+        {mode === 'point' ? 'Click the grid to place your point.' : `Click two points on the line (${pts.length}/2 placed). Clicking again replaces the oldest point.`}
+        {pts.length > 0 && !disabled && <button className="btn btn-ghost" onClick={() => onChange('')}>Clear</button>}
+      </div>
     </div>
   );
 }

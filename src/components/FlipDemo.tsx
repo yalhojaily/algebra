@@ -37,7 +37,7 @@ export default function FlipDemo() {
       </svg>
       <div className="fd-eqs">
         <div><span className="el-step">Before</span><Tex>{`\\htmlClass{c-var}{${a}} ${rel(a, b)} \\htmlClass{c-eq}{${b}}`}</Tex></div>
-        <div><span className="el-step">× {k}</span><Tex>{`\\htmlClass{c-var}{${p(k)} \\cdot ${p(a)}} \;?\; \\htmlClass{c-eq}{${p(k)} \\cdot ${p(b)}}`}</Tex></div>
+        <div><span className="el-step">× {k}</span><Tex>{`\\htmlClass{c-var}{${p(k)} \\cdot ${p(a)}} \\;?\\; \\htmlClass{c-eq}{${p(k)} \\cdot ${p(b)}}`}</Tex></div>
         <div><span className="el-step">After</span><Tex>{`\\htmlClass{c-var}{${ka}} ${rel(ka, kb)} \\htmlClass{c-eq}{${kb}}`}</Tex></div>
       </div>
       <div className={`bc-verdict ${k < 0 && a !== b ? 'no' : 'yes'}`}>

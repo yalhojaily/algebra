@@ -1,0 +1,88 @@
+---
+id: "3.3"
+title: More with Graphing and Intercepts
+summary: The fastest way to graph Ax + By = C — find where it crosses each axis. Plus the two special lines, horizontal (y = b) and vertical (x = a).
+minutes: 30
+objectives:
+  - Find the x- and y-intercepts of a line from its equation.
+  - Graph a line using its intercepts.
+  - Graph horizontal lines y = b and vertical lines x = a, and write their equations.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import InterceptsExplorer from '../../components/InterceptsExplorer.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+A water tank holds $600$ liters and drains at $40$ liters per minute: $40t + w = 600$. When is it empty? When is it full? Those are the two **intercepts** — and for many real problems they are exactly the questions that matter.
+</Callout>
+
+## x- and y-intercepts
+
+<Callout type="definition" title="Intercepts">
+- The **$y$-intercept** is where a graph crosses the $y$-axis. There, $x = 0$. To find it, **set $x = 0$** and solve for $y$.
+- The **$x$-intercept** is where a graph crosses the $x$-axis. There, $y = 0$. To find it, **set $y = 0$** and solve for $x$.
+</Callout>
+
+For $Ax + By = C$ this is quick: setting $x = 0$ just "covers up" the $x$-term.
+
+<StepReveal
+  client:visible
+  title="Graphing with intercepts"
+  problem="Graph $\;4x + 3y = 12$ using intercepts."
+  steps={[
+    { show: '$y$-intercept: $x = 0 \\Rightarrow 3y = 12 \\Rightarrow y = 4$ → $(0, 4)$', why: 'Cover up $4x$.' },
+    { show: '$x$-intercept: $y = 0 \\Rightarrow 4x = 12 \\Rightarrow x = 3$ → $(3, 0)$', why: 'Cover up $3y$.' },
+    { show: 'Check: $x = 6 \\Rightarrow 24 + 3y = 12 \\Rightarrow y = -4$ → $(6, -4)$', why: 'A third point should land on the same line.' },
+  ]}
+  answer="Plot $(0, 4)$ and $(3, 0)$, and draw the line through them."
+/>
+
+<InterceptsExplorer client:visible />
+
+<Callout type="warning" title="Which zero goes where?">
+The $x$-intercept has the form $(a, 0)$ and the $y$-intercept has the form $(0, b)$. Mixing them up is the most common mistake in this lesson.
+</Callout>
+
+<Practice client:visible lesson="3.3" skill="intercepts" compact />
+
+<Practice client:visible lesson="3.3" skill="graph" compact />
+
+## Horizontal and vertical lines
+
+Set $A = 0$ or $B = 0$ in the explorer above and watch what happens.
+
+<Callout type="definition" title="Horizontal and vertical lines">
+- The graph of $y = b$ is a **horizontal** line through $(0, b)$. Every point on it has $y$-coordinate $b$.
+- The graph of $x = a$ is a **vertical** line through $(a, 0)$. Every point on it has $x$-coordinate $a$.
+</Callout>
+
+<StepReveal
+  client:visible
+  title="Why y = −3 is horizontal"
+  problem="Graph $\;y = -3$."
+  steps={[
+    { show: 'Think of it as $0x + y = -3$.', why: 'For **any** $x$, $y$ must be $-3$.' },
+    { show: 'Points: $(-4, -3)$, $(0, -3)$, $(5, -3)$', why: 'Same $y$, different $x$ — they line up horizontally.' },
+  ]}
+/>
+
+<Practice client:visible lesson="3.3" skill="hv" compact />
+
+<Practice client:visible lesson="3.3" skill="which" compact />
+
+## Summary
+
+- $y$-intercept: set $x = 0$. $x$-intercept: set $y = 0$. Plot both and connect them.
+- If a line passes through the origin, both intercepts are $(0, 0)$ — find one more point.
+- $y = b$ is horizontal; $x = a$ is vertical.
+
+## Practice
+
+<Practice client:visible lesson="3.3" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="3.3" />

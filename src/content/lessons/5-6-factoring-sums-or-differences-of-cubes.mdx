@@ -1,0 +1,76 @@
+---
+id: "5.6"
+title: Factoring Sums or Differences of Cubes
+summary: "Unlike squares, both sums and differences of cubes factor: A³ ± B³ = (A ± B)(A² ∓ AB + B²)."
+minutes: 30
+objectives:
+  - Recognize perfect cubes.
+  - Factor sums and differences of cubes.
+  - Factor out a GCF before using the pattern.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import CubesPattern from '../../components/CubesPattern.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+$x^2 + 8$ is prime, but $x^3 + 8$ is not: $x^3 + 8 = (x + 2)(x^2 - 2x + 4)$. Cubes come with their own pair of formulas.
+</Callout>
+
+## Perfect cubes
+
+Know the first few cubes: $1, 8, 27, 64, 125, 216, 343, 512, 729, 1000$. A term like $8x^3 = (2x)^3$ or $27y^6 = (3y^2)^3$ is also a perfect cube.
+
+<Practice client:visible lesson="5.6" skill="identify" compact />
+
+## The formulas
+
+$$A^3 + B^3 = (A + B)(A^2 - AB + B^2)$$
+$$A^3 - B^3 = (A - B)(A^2 + AB + B^2)$$
+
+A memory aid for the signs is **SOAP**: the binomial has the **S**ame sign as the original, the middle of the trinomial has the **O**pposite sign, and the last term is **A**lways **P**ositive.
+
+<CubesPattern client:visible />
+
+<StepReveal
+  client:visible
+  title="Difference of cubes"
+  problem="Factor: $\;27x^3 - 8$"
+  steps={[
+    { show: '$= (3x)^3 - 2^3$', why: '$A = 3x$, $B = 2$.' },
+    { show: '$(A - B) = (3x - 2)$', why: 'Same sign as the original.' },
+    { show: '$A^2 + AB + B^2 = 9x^2 + 6x + 4$', why: 'Opposite sign in the middle, always positive at the end.' },
+    { show: '$= (3x - 2)(9x^2 + 6x + 4)$', why: '' },
+  ]}
+/>
+
+<Callout type="warning" title="The trinomial doesn't factor">
+The trinomial factor $A^2 \mp AB + B^2$ is prime (over the integers). Don't try to factor $9x^2 + 6x + 4$ — it is **not** $(3x + 2)^2$, whose middle term would be $12x$.
+</Callout>
+
+<Practice client:visible lesson="5.6" skill="cubes" compact />
+
+## GCF first
+
+$$2x^4 + 54x = 2x(x^3 + 27) = 2x(x + 3)(x^2 - 3x + 9)$$
+
+<Practice client:visible lesson="5.6" skill="gcf" compact />
+
+## Summary
+
+| Expression | Factors? |
+|---|---|
+| $A^2 - B^2$ | $(A + B)(A - B)$ |
+| $A^2 + B^2$ | prime |
+| $A^3 - B^3$ | $(A - B)(A^2 + AB + B^2)$ |
+| $A^3 + B^3$ | $(A + B)(A^2 - AB + B^2)$ |
+
+## Practice
+
+<Practice client:visible lesson="5.6" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="5.6" />

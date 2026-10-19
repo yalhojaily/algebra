@@ -10,11 +10,12 @@ for (const [lesson, gens] of Object.entries(registry)) {
         for (let i = 0; i < 400; i++) {
           const p = skill.generate();
           const a = p.answer;
-          const input = a.type === 'choice' ? a.correct : a.type === 'number' ? String(a.value) : a.value;
+          const input = answerInput(a);
           expect(check(p, input), p.prompt).toEqual({ status: 'correct' });
           if (a.type === 'number') expect(Number.isFinite(a.value), p.prompt).toBe(true);
           // Every piece of text must typeset without KaTeX errors.
           for (const t of [p.prompt, ...p.hints, ...p.solution, ...(p.mistakes ?? []).map((m) => m.feedback), ...(a.type === 'choice' ? a.options : [])]) {
+            expect(typeof t, `text in ${p.prompt}`).toBe('string');
             expect(renderMathText(t), t).not.toContain('katex-error');
             expect(t, 'no NaN/undefined in text').not.toMatch(/NaN|Infinity|[$\d{}(]undefined|undefined[$\d}]|\[object/);
           }
@@ -61,3 +62,33 @@ describe('simplified and factored answers', () => {
     expect(check(p, '6(2x + 4)').status).toBe('wrong');
   });
 });
+
+/** The input a student would type (or click) for the correct answer. */
+function answerInput(a: import('../src/generators/types').Answer): string | number {
+  switch (a.type) {
+    case 'choice':
+      return a.correct;
+    case 'number':
+      if (a.sci) {
+        const e = Math.floor(Math.log10(Math.abs(a.value)));
+        return `${+(a.value / 10 ** e).toPrecision(12)}*10^${e}`;
+      }
+      return String(a.value);
+    case 'point':
+      return `(${a.x}, ${a.y})`;
+    case 'solutions':
+      return a.values.join(', ');
+    case 'plot': {
+      if (a.mode === 'point') return `${a.x},${a.y}`;
+      const pts: string[] = [];
+      for (let x = -10; x <= 10 && pts.length < 2; x++) {
+        if (a.b === 0) { if (a.a * x === a.c) { pts.push(`${x},0`, `${x},1`); } continue; }
+        const y = (a.c - a.a * x) / a.b;
+        if (Number.isInteger(y) && Math.abs(y) <= 10) pts.push(`${x},${y}`);
+      }
+      return pts.slice(0, 2).join(';');
+    }
+    default:
+      return a.value;
+  }
+}

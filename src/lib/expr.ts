@@ -456,6 +456,17 @@ export function topTerms(n: Node): Node[] {
 /** Try to render user input as LaTeX; returns null if it doesn't parse yet. */
 export function tryTex(src: string, allowEquation = false): string | null {
   try {
+    // Ordered pair "(3, -2)" or a list of solutions "2, -3"
+    const pt = src.match(/^\s*\(([^,()]+),([^,()]+)\)\s*$/);
+    if (pt) return `\\left(${toTex(parse(pt[1]))},\\ ${toTex(parse(pt[2]))}\\right)`;
+    if (/,\s*\S/.test(src) && !/^\s*[\d,.]+\s*$/.test(src)) {
+      return src
+        .split(/,|\bor\b/)
+        .map((p) => p.trim())
+        .filter(Boolean)
+        .map((p) => (p.includes('=') ? `${toTex(parse(p.split('=')[0]))} = ${toTex(parse(p.split('=')[1]))}` : toTex(parse(p))))
+        .join(',\\quad ');
+    }
     if (allowEquation && /[<>≤≥]/.test(src)) {
       const s = src.replace(/≤|=</g, '<=').replace(/≥|=>/g, '>=');
       const m = s.match(/(<=|>=|<|>)/);

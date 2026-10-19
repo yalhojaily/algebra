@@ -1,0 +1,84 @@
+---
+id: "4.6"
+title: Special Products
+summary: Shortcuts for the products you'll meet most often — FOIL for two binomials, the square of a binomial, and the product of a sum and a difference.
+minutes: 35
+objectives:
+  - Multiply two binomials quickly using FOIL.
+  - "Square a binomial: (A + B)² = A² + 2AB + B²."
+  - "Multiply a sum and a difference: (A + B)(A − B) = A² − B²."
+  - Recognize which pattern a product fits.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import SquareArea from '../../components/SquareArea.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+Quick: what is $49 \times 51$? Think $(50 - 1)(50 + 1) = 2500 - 1 = 2499$. The special products in this lesson are mental-math tricks — and in Chapter 5 you'll run them **backwards** to factor.
+</Callout>
+
+## FOIL
+
+To multiply two binomials, multiply the **F**irst terms, the **O**uter terms, the **I**nner terms, and the **L**ast terms:
+
+$$(A + B)(C + D) = \underbrace{AC}_{F} + \underbrace{AD}_{O} + \underbrace{BC}_{I} + \underbrace{BD}_{L}$$
+
+<StepReveal
+  client:visible
+  title="FOIL"
+  problem="Multiply: $\;(3x - 4)(2x + 5)$"
+  steps={[
+    { show: 'F: $6x^2$ O: $15x$ I: $-8x$ L: $-20$', why: '' },
+    { show: '$= 6x^2 + 7x - 20$', why: 'The outer and inner terms are like terms — combine them.' },
+  ]}
+/>
+
+<Practice client:visible lesson="4.6" skill="foil" compact />
+
+## Squares of binomials and sums times differences
+
+<SquareArea client:visible />
+
+<Callout type="tip" title="Two patterns to know by heart">
+$$(A + B)^2 = A^2 + 2AB + B^2 \qquad (A - B)^2 = A^2 - 2AB + B^2$$
+$$(A + B)(A - B) = A^2 - B^2$$
+</Callout>
+
+<Callout type="warning" title="(A + B)² is not A² + B²">
+$(x + 3)^2 = x^2 + 6x + 9$. Check with a number: if $x = 1$, then $(1 + 3)^2 = 16$, but $1^2 + 3^2 = 10$. The middle term $2AB$ makes up the difference.
+</Callout>
+
+<StepReveal
+  client:visible
+  title="Using the patterns"
+  problem="Multiply: (a) $\;(5y - 2)^2$  (b) $\;(3t + 7)(3t - 7)$"
+  steps={[
+    { show: '(a) $\\;(5y)^2 - 2(5y)(2) + 2^2 = 25y^2 - 20y + 4$', why: '$A = 5y$, $B = 2$.' },
+    { show: '(b) $\\;(3t)^2 - 7^2 = 9t^2 - 49$', why: 'Sum times difference: the middle terms cancel.' },
+  ]}
+/>
+
+<Practice client:visible lesson="4.6" skill="square" compact />
+
+<Practice client:visible lesson="4.6" skill="diff" compact />
+
+<Practice client:visible lesson="4.6" skill="mixed" compact />
+
+<Practice client:visible lesson="4.6" skill="apply" compact />
+
+## Summary
+
+- **FOIL** for any two binomials.
+- $(A \pm B)^2 = A^2 \pm 2AB + B^2$ — three terms, never two.
+- $(A + B)(A - B) = A^2 - B^2$.
+
+## Practice
+
+<Practice client:visible lesson="4.6" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="4.6" />

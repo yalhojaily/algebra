@@ -1,0 +1,79 @@
+---
+id: "4.4"
+title: Addition and Subtraction of Polynomials
+summary: Adding polynomials is collecting like terms. Subtracting is adding the opposite — change the sign of every term in the second polynomial, then add.
+minutes: 30
+objectives:
+  - Add polynomials.
+  - Find the opposite of a polynomial.
+  - Subtract polynomials.
+  - Write polynomials for perimeters and other sums.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import PolyColumns from '../../components/PolyColumns.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+A shop's revenue is $R(x)$ and its costs are $C(x)$, both polynomials in the number of items sold. Its profit is $R(x) - C(x)$. Subtracting polynomials correctly is literally the difference between profit and loss.
+</Callout>
+
+## Adding polynomials
+
+To add polynomials, remove the parentheses and **collect like terms**. Writing them in columns, one column per power of $x$, keeps like terms lined up.
+
+<PolyColumns client:visible />
+
+<StepReveal
+  client:visible
+  title="Adding"
+  problem="Add: $\;(-3x^3 + 2x - 4) + (4x^3 + 3x^2 + 2)$"
+  steps={[
+    { show: '$(-3 + 4)x^3 + 3x^2 + 2x + (-4 + 2)$', why: 'Collect like terms.' },
+    { show: '$= x^3 + 3x^2 + 2x - 2$', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="4.4" skill="add" compact />
+
+## Opposites and subtraction
+
+The **opposite** of a polynomial changes the sign of **every** term: $-(x^2 - 5x + 3) = -x^2 + 5x - 3$.
+
+To **subtract** a polynomial, add its opposite.
+
+<StepReveal
+  client:visible
+  title="Subtracting"
+  problem="Subtract: $\;(9x^5 + x^3 - 2x) - (-2x^5 + 5x^3 + 6)$"
+  steps={[
+    { show: '$= 9x^5 + x^3 - 2x + 2x^5 - 5x^3 - 6$', why: 'Change the sign of **every** term in the second polynomial.' },
+    { show: '$= 11x^5 - 4x^3 - 2x - 6$', why: 'Collect like terms.' },
+  ]}
+/>
+
+<Callout type="warning" title="Change every sign">
+The most common mistake is changing only the first sign. In $-(-2x^5 + 5x^3 + 6)$, **all three** signs change.
+</Callout>
+
+<Practice client:visible lesson="4.4" skill="opposite" compact />
+
+<Practice client:visible lesson="4.4" skill="subtract" compact />
+
+<Practice client:visible lesson="4.4" skill="apply" compact />
+
+## Summary
+
+- **Add:** collect like terms.
+- **Opposite:** change the sign of every term.
+- **Subtract:** add the opposite of the second polynomial, then collect like terms.
+
+## Practice
+
+<Practice client:visible lesson="4.4" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="4.4" />

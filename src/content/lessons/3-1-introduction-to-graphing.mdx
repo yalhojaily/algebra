@@ -1,0 +1,104 @@
+---
+id: "3.1"
+title: Introduction to Graphing
+summary: The coordinate plane turns pairs of numbers into points and equations into pictures. Plot and read points, name quadrants, and test whether an ordered pair solves an equation in two variables.
+minutes: 30
+objectives:
+  - Plot points and read their coordinates on a coordinate plane.
+  - Name the quadrant a point lies in, or the axis it lies on.
+  - Decide whether an ordered pair is a solution of an equation in two variables.
+  - Find the missing coordinate that makes an ordered pair a solution.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import PlaneExplorer from '../../components/PlaneExplorer.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+A map grid, a chessboard, a spreadsheet, a pixel on your screen — all of them locate something with **two numbers**. In algebra we do the same with the coordinate plane, and that lets us *draw* equations. A picture of an equation shows patterns at a glance that a table of numbers hides.
+</Callout>
+
+## The coordinate plane
+
+Two perpendicular number lines cross at their zeros. The horizontal one is the **$x$-axis**, the vertical one is the **$y$-axis**, and the point where they cross is the **origin**, $(0, 0)$.
+
+Every point is named by an **ordered pair** $(x, y)$:
+- the **first coordinate** $x$ says how far to move **left or right** from the origin;
+- the **second coordinate** $y$ says how far to move **up or down**.
+
+Click anywhere to plot a point.
+
+<PlaneExplorer client:visible />
+
+<Callout type="warning" title="Order matters">
+$(3, 5)$ and $(5, 3)$ are different points. Remember the alphabet: $x$ comes before $y$, and you walk **across** before you climb **up**.
+</Callout>
+
+<Practice client:visible lesson="3.1" skill="plot" compact />
+
+<Practice client:visible lesson="3.1" skill="read" compact />
+
+## Quadrants
+
+The axes divide the plane into four **quadrants**, numbered counter-clockwise starting at the upper right:
+
+<table class="nice">
+  <thead><tr><th>Quadrant</th><th>Signs</th><th>Example</th></tr></thead>
+  <tbody>
+    <tr><td>I (upper right)</td><td>$(+, +)$</td><td>$(4, 2)$</td></tr>
+    <tr><td>II (upper left)</td><td>$(-, +)$</td><td>$(-4, 2)$</td></tr>
+    <tr><td>III (lower left)</td><td>$(-, -)$</td><td>$(-4, -2)$</td></tr>
+    <tr><td>IV (lower right)</td><td>$(+, -)$</td><td>$(4, -2)$</td></tr>
+  </tbody>
+</table>
+
+Points on an axis, like $(0, 5)$ or $(-3, 0)$, are not in any quadrant.
+
+<Practice client:visible lesson="3.1" skill="quadrant" compact />
+
+## Solutions of equations in two variables
+
+An equation like $y = 2x - 1$ has **two** variables, so a solution is a **pair** of numbers: an $x$-value and a $y$-value that together make the equation true.
+
+<StepReveal
+  client:visible
+  title="Checking an ordered pair"
+  problem="Is $(3, 5)$ a solution of $y = 2x - 1$? Is $(-2, -4)$?"
+  steps={[
+    { show: '$(3, 5)$: $\\;5 \\overset{?}{=} 2(3) - 1 = 5$ ✓', why: 'Substitute $x = 3$, $y = 5$. True, so it **is** a solution.' },
+    { show: '$(-2, -4)$: $\\;-4 \\overset{?}{=} 2(-2) - 1 = -5$ ✗', why: 'False, so it is **not** a solution.' },
+  ]}
+/>
+
+Turn on "Test it in $y = 2x - 1$" in the explorer above and click around. Notice that **every** solution lands on the same straight line. That line is the **graph** of the equation — the subject of the next lesson.
+
+<Practice client:visible lesson="3.1" skill="solution" compact />
+
+<StepReveal
+  client:visible
+  title="Finding a missing coordinate"
+  problem="Find $y$ so that $(4, y)$ is a solution of $3x + 2y = 8$."
+  steps={[
+    { show: '$3(4) + 2y = 8$', why: 'Substitute $x = 4$.' },
+    { show: '$12 + 2y = 8 \\Rightarrow 2y = -4 \\Rightarrow y = -2$', why: '' },
+  ]}
+  answer="The solution is $(4, -2)$."
+/>
+
+<Practice client:visible lesson="3.1" skill="complete" compact />
+
+## Summary
+
+- An ordered pair $(x, y)$: move $x$ left/right, then $y$ up/down from the origin.
+- Quadrants I–IV go counter-clockwise from the upper right; points on axes are in no quadrant.
+- A solution of an equation in two variables is an ordered pair that makes it true. All the solutions together form its **graph**.
+
+## Practice
+
+<Practice client:visible lesson="3.1" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="3.1" />

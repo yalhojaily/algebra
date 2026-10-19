@@ -1,0 +1,97 @@
+---
+id: "5.2"
+title: "Factoring Trinomials of the Type x² + bx + c"
+summary: "To factor x² + bx + c, find two numbers whose product is c and whose sum is b."
+minutes: 35
+objectives:
+  - "Factor trinomials of the form x² + bx + c by finding a factor pair of c that adds to b."
+  - Use the sign of c and b to narrow the search.
+  - Factor out a common factor first.
+  - Recognize prime trinomials.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import FactorPairs from '../../components/FactorPairs.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+Multiply $(x + 3)(x + 5)$ and you get $x^2 + 8x + 15$. Notice: $3 + 5 = 8$ and $3 \cdot 5 = 15$. That pattern is the whole trick to factoring these trinomials.
+</Callout>
+
+## The product–sum idea
+
+$$(x + p)(x + q) = x^2 + (p + q)x + pq$$
+
+So to factor $x^2 + bx + c$, look for two integers $p$ and $q$ with
+
+$$p \cdot q = c \qquad \text{and} \qquad p + q = b.$$
+
+Then $x^2 + bx + c = (x + p)(x + q)$.
+
+<FactorPairs client:visible />
+
+<StepReveal
+  client:visible
+  title="Positive c"
+  problem="Factor: $\;x^2 - 9x + 20$"
+  steps={[
+    { show: 'Product $20$, sum $-9$', why: '$c = 20$ is positive, so both numbers have the **same** sign. The sum is negative, so both are negative.' },
+    { show: '$-1, -20$ (sum $-21$); $\\;-2, -10$ (sum $-12$); $\\;-4, -5$ (sum $-9$) ✓', why: 'List the negative pairs until one works.' },
+    { show: '$= (x - 4)(x - 5)$', why: 'Check: $x^2 - 5x - 4x + 20 = x^2 - 9x + 20$ ✓' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="Negative c"
+  problem="Factor: $\;x^2 + 3x - 28$"
+  steps={[
+    { show: 'Product $-28$, sum $3$', why: '$c$ is negative, so the numbers have **opposite** signs. The sum is positive, so the larger one (in size) is positive.' },
+    { show: '$-4, 7$: product $-28$, sum $3$ ✓', why: '' },
+    { show: '$= (x - 4)(x + 7)$', why: '' },
+  ]}
+/>
+
+<Callout type="tip" title="Sign shortcuts">
+- $c > 0$: both numbers have the sign of $b$.
+- $c < 0$: one positive, one negative; the one with the larger absolute value has the sign of $b$.
+</Callout>
+
+<Practice client:visible lesson="5.2" skill="basic" compact />
+
+## Common factor first
+
+Always check for a GCF before anything else. $2x^3 - 2x^2 - 24x = 2x(x^2 - x - 12) = 2x(x - 4)(x + 3)$.
+
+<Practice client:visible lesson="5.2" skill="gcf" compact />
+
+## Two variables
+
+The same idea works for $x^2 + bxy + cy^2$ — just attach $y$ to each number:
+
+$$x^2 - 2xy - 15y^2 = (x - 5y)(x + 3y)$$
+
+<Practice client:visible lesson="5.2" skill="twovars" compact />
+
+## Prime trinomials
+
+If **no** factor pair of $c$ adds to $b$, the trinomial cannot be factored using integers. It is **prime**. For example, $x^2 + x + 5$: the only pairs are $1, 5$ and $-1, -5$, with sums $6$ and $-6$ — never $1$.
+
+<Practice client:visible lesson="5.2" skill="prime" compact />
+
+## Summary
+
+- $x^2 + bx + c = (x + p)(x + q)$ where $pq = c$ and $p + q = b$.
+- Use the signs of $b$ and $c$ to know which pairs to try.
+- Factor out a GCF first.
+- No pair works → the trinomial is prime.
+
+## Practice
+
+<Practice client:visible lesson="5.2" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="5.2" />

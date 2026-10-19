@@ -1,0 +1,79 @@
+---
+id: "5.4"
+title: "Factoring ax² + bx + c, a ≠ 1: The ac-Method"
+summary: A systematic alternative to trial and error — multiply a·c, find a product–sum pair, split the middle term, and factor by grouping.
+minutes: 35
+objectives:
+  - "Find two numbers with product ac and sum b."
+  - Split the middle term using those numbers.
+  - Finish by factoring by grouping.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import AcMethod from '../../components/AcMethod.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+Trial and error can take many guesses when $a$ and $c$ have lots of factors. The **ac-method** (also called *grouping*) turns the problem into the product–sum search you already know from 5.2, followed by the grouping you learned in 5.1.
+</Callout>
+
+## The four steps
+
+To factor $ax^2 + bx + c$ (after taking out any GCF):
+
+1. Multiply $a \cdot c$.
+2. Find two numbers $m$ and $n$ with $m \cdot n = ac$ and $m + n = b$.
+3. Split the middle term: $bx = mx + nx$.
+4. Factor by grouping.
+
+<AcMethod client:visible />
+
+<StepReveal
+  client:visible
+  title="The ac-method"
+  problem="Factor: $\;6x^2 + 11x + 3$"
+  steps={[
+    { show: '$ac = 6 \\cdot 3 = 18$', why: '' },
+    { show: '$2 \\cdot 9 = 18$ and $2 + 9 = 11$ ✓', why: 'Look for a pair of factors of $18$ that adds to $11$.' },
+    { show: '$6x^2 + 2x + 9x + 3$', why: 'Split $11x$ into $2x + 9x$.' },
+    { show: '$2x(3x + 1) + 3(3x + 1)$', why: 'Group and factor each pair.' },
+    { show: '$= (3x + 1)(2x + 3)$', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="5.4" skill="pair" compact />
+
+<Callout type="tip" title="Order doesn't matter">
+Splitting $11x$ as $9x + 2x$ instead works too: $6x^2 + 9x + 2x + 3 = 3x(2x + 3) + 1(2x + 3) = (2x + 3)(3x + 1)$. Same factors.
+</Callout>
+
+<StepReveal
+  client:visible
+  title="With negative numbers"
+  problem="Factor: $\;8x^2 - 2x - 15$"
+  steps={[
+    { show: '$ac = 8 \\cdot (-15) = -120$', why: '' },
+    { show: '$10 \\cdot (-12) = -120$ and $10 + (-12) = -2$ ✓', why: 'Opposite signs because $ac$ is negative; the larger one is negative because $b$ is.' },
+    { show: '$8x^2 + 10x - 12x - 15$', why: '' },
+    { show: '$2x(4x + 5) - 3(4x + 5)$', why: 'Factor $-3$ from the second group so the binomials match.' },
+    { show: '$= (4x + 5)(2x - 3)$', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="5.4" skill="factor" compact />
+
+## Summary
+
+- $ac$ → product–sum pair → split $bx$ → group.
+- If no pair exists, the trinomial is prime.
+- Take out the GCF before you start, and check by multiplying.
+
+## Practice
+
+<Practice client:visible lesson="5.4" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="5.4" />

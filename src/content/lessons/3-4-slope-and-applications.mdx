@@ -1,0 +1,115 @@
+---
+id: "3.4"
+title: Slope and Applications
+summary: Slope measures how steep a line is — rise over run. Find it from two points, a graph, or an equation, recognize zero and undefined slopes, and use slope as a rate of change.
+minutes: 40
+objectives:
+  - Find the slope of a line from two points or from its graph.
+  - Find the slope from an equation, by writing it in the form y = mx + b.
+  - Recognize positive, negative, zero, and undefined slopes.
+  - Interpret slope as a rate of change, including grade.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import SlopeExplorer from '../../components/SlopeExplorer.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+A road sign warns: **8% grade**. A wheelchair ramp may rise at most $1$ cm for every $12$ cm forward. A car's speedometer reads $90$ km/h. All three are **slopes** — the steepness of a line, or how fast one quantity changes compared with another.
+</Callout>
+
+## Rise over run
+
+Pick two points on a line. Going from the first to the second, the **rise** is the change in $y$ and the **run** is the change in $x$.
+
+<Callout type="definition" title="Slope">
+The **slope** of the line through $(x_1, y_1)$ and $(x_2, y_2)$ is
+
+$$m = \frac{\text{rise}}{\text{run}} = \frac{y_2 - y_1}{x_2 - x_1}$$
+</Callout>
+
+Click the grid to move the two points. The dashed blue segment is the run; the red one is the rise.
+
+<SlopeExplorer client:visible />
+
+<StepReveal
+  client:visible
+  title="Slope from two points"
+  problem="Find the slope of the line through $(-4, 3)$ and $(2, -6)$."
+  steps={[
+    { show: '$m = \\dfrac{-6 - 3}{2 - (-4)}$', why: 'Subtract in the **same order** on top and bottom.' },
+    { show: '$= \\dfrac{-9}{6} = -\\dfrac{3}{2}$', why: 'Simplify.' },
+  ]}
+  answer="$m = -\tfrac{3}{2}$: the line falls $3$ units for every $2$ units to the right."
+/>
+
+<Callout type="tip" title="Either point can go first">
+$\dfrac{3 - (-6)}{-4 - 2} = \dfrac{9}{-6} = -\dfrac{3}{2}$ — the same answer. What matters is using the **same** order on top and bottom.
+</Callout>
+
+<Practice client:visible lesson="3.4" skill="points" compact />
+
+<Practice client:visible lesson="3.4" skill="graph" compact />
+
+## Slope from an equation
+
+In $y = mx + b$, the coefficient $m$ **is** the slope: from the $y$-intercept, each step of $1$ to the right changes $y$ by $m$. If the equation isn't in that form, solve for $y$ first.
+
+<StepReveal
+  client:visible
+  title="Solve for y, then read m"
+  problem="Find the slope of $\;2x - 3y = 9$."
+  steps={[
+    { show: '$-3y = -2x + 9$', why: 'Subtract $2x$.' },
+    { show: '$y = \\tfrac{2}{3}x - 3$', why: 'Divide every term by $-3$.' },
+  ]}
+  answer="The slope is $\tfrac{2}{3}$."
+/>
+
+<Practice client:visible lesson="3.4" skill="equation" compact />
+
+## Zero and undefined slope
+
+<Callout type="definition" title="Special slopes">
+- A **horizontal** line has slope $0$: the rise is $0$, so $m = \frac{0}{\text{run}} = 0$.
+- A **vertical** line has **undefined** slope: the run is $0$, and division by $0$ is undefined.
+</Callout>
+
+<Callout type="warning" title="Zero slope is not “no slope”">
+Avoid saying "no slope" — it's ambiguous. A horizontal line has slope **zero**. A vertical line's slope is **undefined**.
+</Callout>
+
+<Practice client:visible lesson="3.4" skill="classify" compact />
+
+## Slope as a rate of change
+
+When the axes measure real quantities, slope is a **rate**: (change in the vertical quantity) per (unit change in the horizontal quantity). The **grade** of a road is its slope written as a percent.
+
+<StepReveal
+  client:visible
+  title="Grade of a road"
+  problem="A road rises $12$ m over a horizontal distance of $150$ m. What is its grade?"
+  steps={[
+    { show: '$m = \\dfrac{12}{150} = 0.08$', why: 'Rise over run.' },
+    { show: '$= 8\\%$', why: 'Write as a percent.' },
+  ]}
+/>
+
+<Practice client:visible lesson="3.4" skill="rates" compact />
+
+## Summary
+
+- $m = \dfrac{y_2 - y_1}{x_2 - x_1}$ — rise over run.
+- Positive slope rises left to right; negative falls; zero is horizontal; undefined is vertical.
+- In $y = mx + b$, the slope is $m$.
+- Slope is a rate of change: units of $y$ per unit of $x$.
+
+## Practice
+
+<Practice client:visible lesson="3.4" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="3.4" />

@@ -1,0 +1,83 @@
+---
+id: "4.7"
+title: Operations with Polynomials in Several Variables
+summary: Everything you know about polynomials works with more than one variable — evaluating, finding degree, collecting like terms, adding, subtracting, and multiplying.
+minutes: 35
+objectives:
+  - Evaluate a polynomial in several variables.
+  - Find the degree of each term and of the polynomial.
+  - Collect like terms in several variables.
+  - Add, subtract, and multiply polynomials in several variables.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import BoxMethod from '../../components/BoxMethod.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+The volume of a box is $lwh$. The surface area of a cylinder is $2\pi r^2 + 2\pi rh$. Many real formulas involve **several** variables — and they are polynomials too.
+</Callout>
+
+## Evaluating and degree
+
+Substitute a value for **each** variable.
+
+<StepReveal
+  client:visible
+  title="Two variables"
+  problem="Evaluate $\;3x^2y - 2xy^2 + 5\;$ when $x = -1$ and $y = 2$."
+  steps={[
+    { show: '$3(-1)^2(2) - 2(-1)(2)^2 + 5$', why: '' },
+    { show: '$= 6 + 8 + 5 = 19$', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="4.7" skill="evaluate" compact />
+
+<Callout type="definition" title="Degree with several variables">
+The degree of a term is the **sum** of the exponents of its variables: $5x^2y^3$ has degree $5$. The degree of the polynomial is the largest degree of its terms.
+</Callout>
+
+<Practice client:visible lesson="4.7" skill="degree" compact />
+
+## Like terms
+
+Like terms must have **exactly the same variables with the same exponents**: $4x^2y$ and $-x^2y$ are like terms; $x^2y$ and $xy^2$ are not.
+
+<Practice client:visible lesson="4.7" skill="collect" compact />
+
+<Practice client:visible lesson="4.7" skill="addsub" compact />
+
+## Multiplying
+
+The same methods work: every term times every term, and the special products.
+
+<BoxMethod client:visible presets={[['2x + 3y', 'x - y'], ['a - 2b', 'a^2 + 2ab + 4b^2'], ['3m + n', '3m - n']]} />
+
+<StepReveal
+  client:visible
+  title="Special products with two variables"
+  problem="Multiply: (a) $\;(2x + 3y)^2$  (b) $\;(a^2b + 4)(a^2b - 4)$"
+  steps={[
+    { show: '(a) $\\;4x^2 + 12xy + 9y^2$', why: '$A = 2x$, $B = 3y$: $A^2 + 2AB + B^2$.' },
+    { show: '(b) $\\;a^4b^2 - 16$', why: '$A = a^2b$, $B = 4$: $A^2 - B^2$.' },
+  ]}
+/>
+
+<Practice client:visible lesson="4.7" skill="multiply" compact />
+
+## Summary
+
+- Degree of a term = sum of its exponents.
+- Like terms: same variables, same exponents.
+- Add, subtract, and multiply exactly as with one variable.
+
+## Practice
+
+<Practice client:visible lesson="4.7" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="4.7" />

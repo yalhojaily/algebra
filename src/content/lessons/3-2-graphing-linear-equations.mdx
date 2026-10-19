@@ -1,0 +1,99 @@
+---
+id: "3.2"
+title: Graphing Linear Equations
+summary: Every equation like y = 2x − 3 or 3x + 4y = 12 graphs as a straight line. Make a table of values, plot the points, draw the line, and read the y-intercept straight from the equation.
+minutes: 40
+objectives:
+  - Graph an equation of the form y = mx + b by making a table of values.
+  - Graph an equation of the form Ax + By = C by solving for y or choosing values.
+  - Find the y-intercept of a line from its equation.
+  - Use linear equations to model real situations.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import LineBuilder from '../../components/LineBuilder.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+A phone plan costs $30$ riyals a month plus $5$ riyals per gigabyte: $C = 5g + 30$. You could compute the cost for 1, 2, 3 … gigabytes one at a time. Or you could draw **one line** that shows every possible cost at once — and see immediately where it crosses your budget.
+</Callout>
+
+## Graphs of linear equations
+
+Equations whose graphs are straight lines are called **linear equations**. Any equation that can be written as $y = mx + b$ or $Ax + By = C$ is linear.
+
+To graph one:
+1. **Choose** several $x$-values (three is a good habit: two determine the line, the third checks your work).
+2. **Compute** $y$ for each and write a table.
+3. **Plot** the points and **draw** the line through them, with arrows on both ends — the line goes on forever.
+
+<StepReveal
+  client:visible
+  title="Graphing y = mx + b"
+  problem="Graph $\;y = 2x - 3$."
+  steps={[
+    { show: '$x = 0$: $\\;y = 2(0) - 3 = -3$ → $(0, -3)$', why: 'Choosing $x = 0$ is always easy.' },
+    { show: '$x = 2$: $\\;y = 2(2) - 3 = 1$ → $(2, 1)$', why: '' },
+    { show: '$x = -1$: $\\;y = 2(-1) - 3 = -5$ → $(-1, -5)$', why: 'A third point as a check: all three should line up.' },
+  ]}
+  answer="Plot $(0, -3)$, $(2, 1)$, $(-1, -5)$ and draw the line through them."
+/>
+
+Try changing the slope and the intercept. Watch the table and the graph change together.
+
+<LineBuilder client:visible />
+
+<Callout type="tip" title="Fractions in front of x">
+For $y = \tfrac{2}{3}x + 1$, choose $x$-values that are **multiples of 3** (like $-3, 0, 3$). Then $y$ comes out a whole number and the points are easy to plot.
+</Callout>
+
+<Practice client:visible lesson="3.2" skill="graph" compact />
+
+## The y-intercept
+
+The point where a line crosses the $y$-axis is its **$y$-intercept**. Every point on the $y$-axis has $x = 0$ — so substitute $x = 0$:
+
+$$y = m \cdot 0 + b = b$$
+
+<Callout type="definition" title="y-intercept of y = mx + b">
+The graph of $y = mx + b$ crosses the $y$-axis at $(0, b)$.
+</Callout>
+
+<Practice client:visible lesson="3.2" skill="intercept" compact />
+
+## Equations in the form Ax + By = C
+
+When the equation isn't solved for $y$, you can either solve for $y$ first, or substitute values directly.
+
+<StepReveal
+  client:visible
+  title="Solve for y first"
+  problem="Graph $\;3x + 5y = 10$."
+  steps={[
+    { show: '$5y = -3x + 10$', why: 'Subtract $3x$ from both sides.' },
+    { show: '$y = -\\tfrac{3}{5}x + 2$', why: 'Divide by $5$.' },
+    { show: 'Points: $(0, 2)$, $(5, -1)$, $(-5, 5)$', why: 'Choose multiples of $5$ for $x$.' },
+  ]}
+/>
+
+<Practice client:visible lesson="3.2" skill="standard" compact />
+
+## Linear models
+
+<Practice client:visible lesson="3.2" skill="apply" compact />
+
+## Summary
+
+- Linear equations ($y = mx + b$, $Ax + By = C$) graph as straight lines.
+- Make a table with at least three points; the third is a check.
+- The $y$-intercept of $y = mx + b$ is $(0, b)$.
+
+## Practice
+
+<Practice client:visible lesson="3.2" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="3.2" />

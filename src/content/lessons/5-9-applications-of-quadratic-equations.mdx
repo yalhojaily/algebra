@@ -1,0 +1,105 @@
+---
+id: "5.9"
+title: Applications of Quadratic Equations
+summary: Area, consecutive integers, right triangles and falling objects — translate, solve by factoring, and keep only the solutions that make sense.
+minutes: 45
+objectives:
+  - Translate word problems into quadratic equations.
+  - Use the Pythagorean theorem.
+  - Reject solutions that don't fit the situation.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import Pythagoras from '../../components/Pythagoras.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+Many real problems — areas, distances, falling objects — lead to an $x^2$. Now that you can solve quadratic equations, you can answer them. The new twist: an equation can have a solution that makes no sense in the problem, like a negative length.
+</Callout>
+
+## The five steps (again)
+
+The problem-solving steps from Lesson 2.5 still apply: **Familiarize, Translate, Solve, Check, State.** In the *Check* step, ask: does each solution make sense here?
+
+## Area problems
+
+<StepReveal
+  client:visible
+  title="Area"
+  problem="A rectangle is $3$ m longer than it is wide, and its area is $40$ m². Find its dimensions."
+  steps={[
+    { show: 'Width $w$, length $w + 3$', why: 'Familiarize: name the unknowns.' },
+    { show: '$w(w + 3) = 40$', why: 'Translate: length × width = area.' },
+    { show: '$w^2 + 3w - 40 = 0 \\;\\Rightarrow\\; (w + 8)(w - 5) = 0$', why: 'Get 0 on one side and factor.' },
+    { show: '$w = -8$ or $w = 5$', why: 'A width cannot be negative, so reject $-8$.' },
+    { show: 'The rectangle is $5$ m wide and $8$ m long.', why: 'Check: $5 \\cdot 8 = 40$ ✓' },
+  ]}
+/>
+
+<Practice client:visible lesson="5.9" skill="area" compact />
+
+## Consecutive integers
+
+Consecutive integers are $x$ and $x + 1$; consecutive **even** (or odd) integers are $x$ and $x + 2$.
+
+<StepReveal
+  client:visible
+  title="Consecutive integers"
+  problem="The product of two consecutive positive integers is $156$. Find them."
+  steps={[
+    { show: '$x(x + 1) = 156$', why: '' },
+    { show: '$x^2 + x - 156 = 0 \\;\\Rightarrow\\; (x + 13)(x - 12) = 0$', why: '' },
+    { show: '$x = 12$ (reject $-13$, which is not positive)', why: '' },
+    { show: 'The integers are $12$ and $13$.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="5.9" skill="consecutive" compact />
+
+## The Pythagorean theorem
+
+In a right triangle with legs $a$ and $b$ and hypotenuse $c$ (the side opposite the right angle):
+
+$$a^2 + b^2 = c^2$$
+
+<Pythagoras client:visible />
+
+<StepReveal
+  client:visible
+  title="Right triangle"
+  problem="One leg of a right triangle is $7$ cm longer than the other. The hypotenuse is $13$ cm. Find the legs."
+  steps={[
+    { show: '$x^2 + (x + 7)^2 = 13^2$', why: 'Legs $x$ and $x + 7$, hypotenuse $13$.' },
+    { show: '$2x^2 + 14x + 49 = 169 \\;\\Rightarrow\\; 2x^2 + 14x - 120 = 0$', why: 'Expand and get 0 on one side.' },
+    { show: '$2(x^2 + 7x - 60) = 0 \\;\\Rightarrow\\; 2(x + 12)(x - 5) = 0$', why: '' },
+    { show: 'The legs are $5$ cm and $12$ cm.', why: 'Reject $x = -12$. Check: $25 + 144 = 169$ ✓' },
+  ]}
+/>
+
+<Practice client:visible lesson="5.9" skill="pythagorean" compact />
+
+## Falling objects
+
+When an object is dropped, the distance it has fallen after $t$ seconds is about $5t^2$ meters (ignoring air resistance). If it is dropped from $80$ m, it hits the ground when $5t^2 = 80$:
+
+$$5t^2 - 80 = 0 \;\Rightarrow\; 5(t + 4)(t - 4) = 0 \;\Rightarrow\; t = 4 \text{ s}$$
+
+(The solution $t = -4$ is rejected — time can't be negative.)
+
+<Practice client:visible lesson="5.9" skill="falling" compact />
+
+## Summary
+
+- Translate → standard form → factor → zero products.
+- Check each solution against the situation: lengths, times and counts can't be negative.
+- Right triangles: $a^2 + b^2 = c^2$, with $c$ the hypotenuse.
+
+## Practice
+
+<Practice client:visible lesson="5.9" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="5.9" />

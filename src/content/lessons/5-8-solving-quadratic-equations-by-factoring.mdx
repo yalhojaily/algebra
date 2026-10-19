@@ -1,0 +1,87 @@
+---
+id: "5.8"
+title: Solving Quadratic Equations by Factoring
+summary: "If a product is zero, one of the factors must be zero. Get 0 on one side, factor, and set each factor equal to 0."
+minutes: 40
+objectives:
+  - Use the principle of zero products.
+  - Solve quadratic equations by factoring.
+  - Connect solutions to the x-intercepts of a graph.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import ParabolaRoots from '../../components/ParabolaRoots.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+The equation $x^2 = 5x + 14$ can't be solved by the "isolate $x$" moves of Chapter 2 — $x$ appears squared and unsquared. Factoring is what unlocks it.
+</Callout>
+
+## The principle of zero products
+
+> If $ab = 0$, then $a = 0$ or $b = 0$ (or both).
+
+This works **only** for $0$. If $ab = 6$, $a$ and $b$ could be anything that multiplies to $6$.
+
+<StepReveal
+  client:visible
+  title="Zero products"
+  problem="Solve: $\;(x - 4)(2x + 3) = 0$"
+  steps={[
+    { show: '$x - 4 = 0 \\quad$ or $\\quad 2x + 3 = 0$', why: 'One of the factors must be zero.' },
+    { show: '$x = 4 \\quad$ or $\\quad x = -\\frac{3}{2}$', why: 'Solve each small equation.' },
+  ]}
+/>
+
+<Practice client:visible lesson="5.8" skill="zero" compact />
+
+## Solving by factoring
+
+A **quadratic equation** has the form $ax^2 + bx + c = 0$ with $a \ne 0$. To solve one:
+
+1. Get $0$ on one side (standard form).
+2. Factor the other side.
+3. Set each factor equal to $0$ and solve.
+4. Check in the original equation.
+
+<StepReveal
+  client:visible
+  title="Get 0 on one side first"
+  problem="Solve: $\;x^2 = 5x + 14$"
+  steps={[
+    { show: '$x^2 - 5x - 14 = 0$', why: 'Subtract $5x$ and $14$ from both sides.' },
+    { show: '$(x - 7)(x + 2) = 0$', why: 'Product $-14$, sum $-5$: the numbers are $-7$ and $2$.' },
+    { show: '$x = 7 \\quad$ or $\\quad x = -2$', why: 'Check: $49 = 35 + 14$ ✓ and $4 = -10 + 14$ ✓' },
+  ]}
+/>
+
+<Callout type="warning" title="Don't divide by x">
+In $x^2 = 3x$, dividing both sides by $x$ gives just $x = 3$ and **loses** the solution $x = 0$. Instead: $x^2 - 3x = 0$, so $x(x - 3) = 0$, so $x = 0$ or $x = 3$.
+</Callout>
+
+<Practice client:visible lesson="5.8" skill="solve" compact />
+
+## Solutions and x-intercepts
+
+The solutions of $ax^2 + bx + c = 0$ are the $x$-values where the graph of $y = ax^2 + bx + c$ crosses the $x$-axis — because those are the points where $y = 0$.
+
+<ParabolaRoots client:visible />
+
+<Practice client:visible lesson="5.8" skill="intercepts" compact />
+
+## Summary
+
+- $ab = 0 \Rightarrow a = 0$ or $b = 0$.
+- Standard form → factor → set each factor to $0$ → check.
+- Never divide by a variable expression; you may lose solutions.
+- Solutions = $x$-intercepts of $y = ax^2 + bx + c$.
+
+## Practice
+
+<Practice client:visible lesson="5.8" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="5.8" />

@@ -1,0 +1,110 @@
+---
+id: "4.2"
+title: Exponents and Scientific Notation
+summary: Three more exponent rules — power of a power, of a product, of a quotient — and scientific notation, the compact way scientists write huge and tiny numbers.
+minutes: 40
+objectives:
+  - Use the power rule (a^m)^n = a^{mn}.
+  - Raise a product or a quotient to a power.
+  - Convert between standard notation and scientific notation.
+  - Multiply and divide numbers in scientific notation.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import ExponentLab from '../../components/ExponentLab.tsx';
+import SciNotation from '../../components/SciNotation.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+The Sun is about $149{,}600{,}000$ km away. A virus is about $0.0000001$ m wide. Counting zeros in numbers like these is slow and error-prone. Scientific notation — $1.496 \times 10^8$ and $1 \times 10^{-7}$ — makes them readable, and the exponent rules make them easy to calculate with.
+</Callout>
+
+## Raising powers to powers
+
+The "Power rule" tab shows it: $(x^3)^2 = x^3 \cdot x^3 = x^6$ — **two groups of three** factors.
+
+<ExponentLab client:visible />
+
+<Callout type="tip" title="Three power rules">
+$$(a^m)^n = a^{mn} \qquad (ab)^n = a^n b^n \qquad \left(\frac{a}{b}\right)^n = \frac{a^n}{b^n}$$
+
+To raise a product or quotient to a power, raise **every factor** to that power.
+</Callout>
+
+<StepReveal
+  client:visible
+  title="Raise every factor"
+  problem="Simplify: $\;(-2x^4y^2)^3$"
+  steps={[
+    { show: '$(-2)^3 (x^4)^3 (y^2)^3$', why: 'Raise each factor to the 3rd power.' },
+    { show: '$= -8x^{12}y^6$', why: '$(-2)^3 = -8$; multiply exponents.' },
+  ]}
+/>
+
+<Callout type="warning" title="Don't forget the number">
+$(3x^2)^2 = 9x^4$, not $3x^4$. The coefficient is a factor too, so it gets squared.
+</Callout>
+
+<Practice client:visible lesson="4.2" skill="power" compact />
+
+<Practice client:visible lesson="4.2" skill="product" compact />
+
+<Practice client:visible lesson="4.2" skill="quotient" compact />
+
+## Scientific notation
+
+<Callout type="definition" title="Scientific notation">
+A number is in scientific notation when it is written as
+
+$$M \times 10^n, \qquad 1 \le M < 10, \;\; n \text{ an integer}$$
+</Callout>
+
+Multiplying by $10^n$ just moves the decimal point $n$ places: right for positive $n$, left for negative $n$.
+
+<SciNotation client:visible />
+
+<StepReveal
+  client:visible
+  title="Converting"
+  problem="Write $0.000\,047$ in scientific notation, and write $3.08 \times 10^6$ in standard notation."
+  steps={[
+    { show: '$0.000\\,047 = 4.7 \\times 10^{-5}$', why: 'Move the point 5 places right to get $4.7$; a small number gets a negative exponent.' },
+    { show: '$3.08 \\times 10^6 = 3{,}080{,}000$', why: 'Move the point 6 places right.' },
+  ]}
+/>
+
+<Practice client:visible lesson="4.2" skill="tosci" compact />
+
+<Practice client:visible lesson="4.2" skill="fromsci" compact />
+
+## Calculating in scientific notation
+
+Multiply (or divide) the decimal parts and use the product (or quotient) rule on the powers of 10. If the decimal part ends up outside $[1, 10)$, adjust.
+
+<StepReveal
+  client:visible
+  title="Multiply, then adjust"
+  problem="Multiply: $\;(6.3 \times 10^5)(4 \times 10^{-2})$"
+  steps={[
+    { show: '$(6.3 \\times 4) \\times 10^{5 + (-2)} = 25.2 \\times 10^3$', why: '' },
+    { show: '$= 2.52 \\times 10^1 \\times 10^3 = 2.52 \\times 10^4$', why: '$25.2$ is too big — move the point left one place and add $1$ to the exponent.' },
+  ]}
+/>
+
+<Practice client:visible lesson="4.2" skill="arith" compact />
+
+## Summary
+
+- $(a^m)^n = a^{mn}$, $\;(ab)^n = a^nb^n$, $\;(a/b)^n = a^n/b^n$.
+- Scientific notation: $M \times 10^n$ with $1 \le M < 10$.
+- Large numbers have positive exponents; numbers between 0 and 1 have negative exponents.
+
+## Practice
+
+<Practice client:visible lesson="4.2" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="4.2" />

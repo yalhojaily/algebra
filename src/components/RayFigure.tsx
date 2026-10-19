@@ -1,6 +1,6 @@
-import type { Figure } from '../generators/types';
+import type { RayFig } from '../generators/types';
 
-interface Props extends Omit<Figure, 'kind'> {
+interface Props extends Omit<RayFig, 'kind'> {
   /** Override the visible range. */
   min?: number;
   max?: number;

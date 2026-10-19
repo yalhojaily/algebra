@@ -1,0 +1,84 @@
+---
+id: "5.3"
+title: "Factoring ax² + bx + c, a ≠ 1: The FOIL Method"
+summary: When the leading coefficient isn't 1, run FOIL backwards — try the possible first and last terms and keep the arrangement that gives the right middle term.
+minutes: 40
+objectives:
+  - "Factor ax² + bx + c by trial and error (reverse FOIL)."
+  - Factor out a common factor — including −1 — before trying.
+  - Check a factorization by multiplying.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import TrialFactor from '../../components/TrialFactor.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+$3x^2 - 5x - 2$ doesn't start with a plain $x^2$, so the product–sum shortcut from 5.2 doesn't apply directly. But FOIL still describes how it was built: the **F**irst terms give $3x^2$, the **L**ast terms give $-2$, and **O**uter + **I**nner give $-5x$.
+</Callout>
+
+## Reverse FOIL
+
+$$(\underline{\;\;}x + \underline{\;\;})(\underline{\;\;}x + \underline{\;\;})$$
+
+1. Factor out any common factor first.
+2. List the ways to make the **first** term $ax^2$ (factor pairs of $a$).
+3. List the ways to make the **last** term $c$ (factor pairs of $c$, with signs).
+4. Try combinations. Keep the one where **Outer + Inner = $bx$**.
+
+Click the candidates below and watch the middle term change.
+
+<TrialFactor client:visible />
+
+<StepReveal
+  client:visible
+  title="Trial and error"
+  problem="Factor: $\;3x^2 - 5x - 2$"
+  steps={[
+    { show: 'First terms: $(3x \\quad)(x \\quad)$', why: '$3 = 3 \\cdot 1$ is the only option.' },
+    { show: 'Last terms: $1, -2$ or $-1, 2$ (in either order)', why: '$c = -2$, so the signs are opposite.' },
+    { show: '$(3x + 1)(x - 2)$: Outer $-6x$, Inner $x$, total $-5x$ ✓', why: 'Try each arrangement. Swapping the last terms changes the outer and inner products, so order matters.' },
+    { show: '$= (3x + 1)(x - 2)$', why: '' },
+  ]}
+/>
+
+<Callout type="tip" title="Narrow the search">
+If $a$, $b$, $c$ have no common factor, then **neither binomial** can have a common factor. So $(2x + 4)$ is never a candidate when factoring $2x^2 + \ldots$ with no GCF — skip it.
+</Callout>
+
+<Practice client:visible lesson="5.3" skill="foil" compact />
+
+## GCF first, and negative leading coefficients
+
+<StepReveal
+  client:visible
+  title="GCF first"
+  problem="Factor completely: $\;12x^3 + 10x^2 - 8x$"
+  steps={[
+    { show: '$= 2x(6x^2 + 5x - 4)$', why: 'The GCF is $2x$.' },
+    { show: '$6x^2 + 5x - 4 = (3x + 4)(2x - 1)$', why: 'Check: Outer $-3x$, Inner $8x$, total $5x$ ✓' },
+    { show: '$= 2x(3x + 4)(2x - 1)$', why: "Don't forget the GCF in the final answer." },
+  ]}
+/>
+
+<Practice client:visible lesson="5.3" skill="gcf" compact />
+
+When the leading coefficient is negative, factor out $-1$ first: $-2x^2 + x + 6 = -(2x^2 - x - 6) = -(2x + 3)(x - 2)$.
+
+<Practice client:visible lesson="5.3" skill="negative" compact />
+
+## Summary
+
+- GCF (and $-1$) first.
+- Try first-term pairs × last-term pairs; keep the one where Outer + Inner $= bx$.
+- Always check by multiplying.
+
+## Practice
+
+<Practice client:visible lesson="5.3" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="5.3" />

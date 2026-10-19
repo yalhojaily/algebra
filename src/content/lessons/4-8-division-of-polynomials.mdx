@@ -1,0 +1,80 @@
+---
+id: "4.8"
+title: Division of Polynomials
+summary: Divide a polynomial by a monomial term by term, and by a binomial with long division — the same divide, multiply, subtract, bring down cycle you know from arithmetic.
+minutes: 40
+objectives:
+  - Divide a polynomial by a monomial.
+  - Divide a polynomial by a binomial using long division.
+  - Write the result with a remainder as quotient + remainder/divisor.
+  - Handle missing terms by inserting zero coefficients.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import LongDivision from '../../components/LongDivision.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+A rectangle has area $x^2 + 7x + 10$ and width $x + 2$. How long is it? You need $(x^2 + 7x + 10) \div (x + 2)$. Polynomial division undoes multiplication — and it's the tool you'll use to check factoring in Chapter 5.
+</Callout>
+
+## Dividing by a monomial
+
+Divide **each term** of the polynomial by the monomial:
+
+$$\frac{a + b}{c} = \frac{a}{c} + \frac{b}{c}$$
+
+<StepReveal
+  client:visible
+  title="Term by term"
+  problem="Divide: $\;\dfrac{12x^4 - 8x^3 + 6x^2}{2x^2}$"
+  steps={[
+    { show: '$\\dfrac{12x^4}{2x^2} - \\dfrac{8x^3}{2x^2} + \\dfrac{6x^2}{2x^2}$', why: '' },
+    { show: '$= 6x^2 - 4x + 3$', why: 'Divide coefficients; subtract exponents.' },
+  ]}
+/>
+
+<Practice client:visible lesson="4.8" skill="monomial" compact />
+
+## Long division by a binomial
+
+The cycle is the same as long division with numbers:
+
+1. **Divide** the first term of what's left by the first term of the divisor.
+2. **Multiply** that result by the whole divisor.
+3. **Subtract** (change all the signs!).
+4. **Bring down** and repeat until the remainder has lower degree than the divisor.
+
+<LongDivision client:visible />
+
+<Callout type="warning" title="Subtract every term">
+After multiplying, you subtract the **whole** product. Writing the product with its signs changed, then adding, prevents sign mistakes.
+</Callout>
+
+<Practice client:visible lesson="4.8" skill="long" compact />
+
+## Remainders and missing terms
+
+If the remainder isn't $0$, write the answer as $\;\text{quotient} + \dfrac{\text{remainder}}{\text{divisor}}$.
+
+If a power of $x$ is missing in the dividend, write it with a $0$ coefficient so the columns line up: $x^3 - 8 = x^3 + 0x^2 + 0x - 8$.
+
+<Practice client:visible lesson="4.8" skill="remainder" compact />
+
+<Practice client:visible lesson="4.8" skill="missing" compact />
+
+## Summary
+
+- By a monomial: divide each term.
+- By a binomial: divide, multiply, subtract, bring down — repeat.
+- Answer with remainder: $Q + \frac{R}{\text{divisor}}$. Check: divisor × quotient + remainder = dividend.
+
+## Practice
+
+<Practice client:visible lesson="4.8" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="4.8" />

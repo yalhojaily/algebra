@@ -1,0 +1,94 @@
+---
+id: "4.3"
+title: Introduction to Polynomials
+summary: Polynomials are sums of terms like 3x² or −5x. Learn their vocabulary — term, coefficient, degree, leading term — evaluate them, and tidy them up by collecting like terms.
+minutes: 35
+objectives:
+  - Evaluate a polynomial for a given value of the variable.
+  - Identify the terms, coefficients, degree, and leading term of a polynomial.
+  - Classify polynomials as monomials, binomials, or trinomials.
+  - Collect like terms and write polynomials in descending order.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import PolyAnatomy from '../../components/PolyAnatomy.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+Throw a ball up at $15$ m/s and its height after $t$ seconds is about $-5t^2 + 15t + 2$ meters. A company's profit, the area of a garden, the volume of a box — all are modeled by **polynomials**. They are the main objects of study for the next two chapters.
+</Callout>
+
+## What is a polynomial?
+
+A **monomial** is a number, a variable, or a product of numbers and variables with **whole-number exponents**: $7$, $x$, $-3x^2$, $\tfrac{1}{2}a^3b$. A **polynomial** is a monomial or a sum of monomials:
+
+$$4x^3 - 2x^2 + x - 9 \qquad\qquad -5t^2 + 15t + 2$$
+
+Expressions like $\frac{1}{x}$ or $x^{-2}$ are **not** polynomials (the exponent must be $0, 1, 2, \ldots$).
+
+<Callout type="definition" title="Polynomial vocabulary">
+- **Terms** are the monomials being added: $4x^3$, $-2x^2$, $x$, $-9$.
+- The **coefficient** of a term is its number part: $4$, $-2$, $1$, $-9$.
+- The **degree of a term** is its exponent (a constant has degree $0$).
+- The **degree of the polynomial** is the largest degree of its terms.
+- The **leading term** has the highest degree; its coefficient is the **leading coefficient**.
+- One term: **monomial**. Two: **binomial**. Three: **trinomial**.
+</Callout>
+
+Type any polynomial to see it taken apart — then slide $x$ to evaluate it.
+
+<PolyAnatomy client:visible />
+
+<Practice client:visible lesson="4.3" skill="anatomy" compact />
+
+## Evaluating polynomials
+
+<StepReveal
+  client:visible
+  title="Substitute carefully"
+  problem="Evaluate $\;-x^2 + 3x - 4\;$ when $x = -2$."
+  steps={[
+    { show: '$-(-2)^2 + 3(-2) - 4$', why: 'Use parentheses around the negative number.' },
+    { show: '$= -4 - 6 - 4 = -14$', why: '$(-2)^2 = 4$, so $-(-2)^2 = -4$.' },
+  ]}
+/>
+
+<Callout type="warning" title="−x² when x is negative">
+$-x^2$ means $-(x^2)$. With $x = -2$: $-(-2)^2 = -4$, **not** $+4$.
+</Callout>
+
+<Practice client:visible lesson="4.3" skill="evaluate" compact />
+
+<Practice client:visible lesson="4.3" skill="apply" compact />
+
+## Collecting like terms
+
+Like terms have the same variable raised to the **same power**. Collect them by adding coefficients, then write the result in **descending order** (highest degree first).
+
+<StepReveal
+  client:visible
+  title="Collect and order"
+  problem="Simplify: $\;3x^2 - 5 + 2x^3 - x^2 + 7x + 8$"
+  steps={[
+    { show: '$2x^3 + (3x^2 - x^2) + 7x + (-5 + 8)$', why: 'Group like terms.' },
+    { show: '$= 2x^3 + 2x^2 + 7x + 3$', why: 'Descending order.' },
+  ]}
+/>
+
+<Practice client:visible lesson="4.3" skill="collect" compact />
+
+## Summary
+
+- A polynomial is a sum of terms with whole-number exponents.
+- Degree of a polynomial = highest degree of its terms. Leading term = term of highest degree.
+- Evaluate by substituting (in parentheses!) and using the order of operations.
+
+## Practice
+
+<Practice client:visible lesson="4.3" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="4.3" />

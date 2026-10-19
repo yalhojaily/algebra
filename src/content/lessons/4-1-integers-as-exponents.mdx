@@ -1,0 +1,105 @@
+---
+id: "4.1"
+title: Integers as Exponents
+summary: Exponents are shorthand for repeated multiplication. Discover the product and quotient rules by writing out the factors, and find out what zero and negative exponents really mean.
+minutes: 40
+objectives:
+  - Evaluate expressions with exponents of 0 and 1.
+  - Use the product rule to multiply powers with the same base.
+  - Use the quotient rule to divide powers with the same base.
+  - Rewrite negative exponents as positive ones, and simplify expressions using the rules together.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import ExponentLab from '../../components/ExponentLab.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+Bacteria in a dish double every hour: after $h$ hours there are $2^h$ times as many. After $3$ more hours *on top of* $5$ hours, there are $2^5 \cdot 2^3$ times as many. And $2$ hours *before* we started? That needs $2^{-2}$. The rules in this lesson make calculations like these instant.
+</Callout>
+
+## Exponential notation, and exponents 0 and 1
+
+In $a^n$, the **base** $a$ is used as a factor $n$ times: $a^4 = a \cdot a \cdot a \cdot a$. Two special cases follow from the patterns below:
+
+<Callout type="definition" title="Exponents of 1 and 0">
+$$a^1 = a \qquad\qquad a^0 = 1 \;\;\text{(for } a \ne 0\text{)}$$
+</Callout>
+
+## The product and quotient rules
+
+Pick a rule and change the exponents. Every rule comes straight from writing out the factors.
+
+<ExponentLab client:visible />
+
+<Callout type="tip" title="Product rule and quotient rule">
+For any number $a$ (with $a \ne 0$ when dividing) and integers $m$, $n$:
+
+$$a^m \cdot a^n = a^{m+n} \qquad\qquad \frac{a^m}{a^n} = a^{m-n}$$
+
+Multiplying powers of the **same base**: **add** exponents. Dividing: **subtract** them.
+</Callout>
+
+<StepReveal
+  client:visible
+  title="Using the rules"
+  problem="Simplify: (a) $\;x^4 \cdot x^6$  (b) $\;(5y^3)(-2y^8)$  (c) $\;\dfrac{t^9}{t^4}$"
+  steps={[
+    { show: '(a) $\\;x^{4+6} = x^{10}$', why: 'Same base: add the exponents.' },
+    { show: '(b) $\\;5 \\cdot (-2) \\cdot y^{3+8} = -10y^{11}$', why: 'Multiply the coefficients; add the exponents.' },
+    { show: '(c) $\\;t^{9-4} = t^5$', why: 'Same base: subtract the exponents.' },
+  ]}
+/>
+
+<Callout type="warning" title="Same base only">
+$x^3 \cdot y^4$ can't be combined — the bases are different. And $2^3 \cdot 2^4 = 2^7$, **not** $4^7$: the base stays the same.
+</Callout>
+
+<Practice client:visible lesson="4.1" skill="product" compact />
+
+<Practice client:visible lesson="4.1" skill="quotient" compact />
+
+## Negative exponents
+
+Look at the "Negative exponents" tab above: going down the pattern divides by the base each time, so a negative exponent means a **reciprocal**.
+
+<Callout type="definition" title="Negative exponents">
+For any non-zero $a$ and integer $n$:
+
+$$a^{-n} = \frac{1}{a^n} \qquad\qquad \frac{1}{a^{-n}} = a^n$$
+</Callout>
+
+<Callout type="warning" title="A negative exponent is not a negative number">
+$2^{-3} = \frac{1}{8}$, not $-8$. And in $5x^{-2} = \frac{5}{x^2}$, only the $x$ moves — the exponent belongs to $x$, not to $5$.
+</Callout>
+
+<StepReveal
+  client:visible
+  title="Positive exponents only"
+  problem="Simplify and write with positive exponents: $\;\dfrac{x^{-2} \cdot x^5}{x^7}$"
+  steps={[
+    { show: '$\\dfrac{x^{3}}{x^7}$', why: 'Product rule on top: $-2 + 5 = 3$.' },
+    { show: '$= x^{3-7} = x^{-4}$', why: 'Quotient rule.' },
+    { show: '$= \\dfrac{1}{x^4}$', why: 'Rewrite the negative exponent.' },
+  ]}
+/>
+
+<Practice client:visible lesson="4.1" skill="evaluate" compact />
+
+<Practice client:visible lesson="4.1" skill="negative" compact />
+
+## Summary
+
+- $a^1 = a$, $\;a^0 = 1$ ($a \ne 0$), $\;a^{-n} = \frac{1}{a^n}$.
+- **Product rule:** $a^m a^n = a^{m+n}$. **Quotient rule:** $\frac{a^m}{a^n} = a^{m-n}$.
+- Final answers are usually written with **positive** exponents.
+
+## Practice
+
+<Practice client:visible lesson="4.1" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="4.1" />

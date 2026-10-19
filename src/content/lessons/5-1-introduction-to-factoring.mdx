@@ -1,0 +1,108 @@
+---
+id: "5.1"
+title: Introduction to Factoring
+summary: Factoring is multiplication run backwards. Start by pulling out the greatest common factor, and learn to factor four-term polynomials by grouping.
+minutes: 35
+objectives:
+  - Find the greatest common factor (GCF) of several monomials.
+  - Factor out the GCF of a polynomial.
+  - Factor out a negative common factor.
+  - Factor four-term polynomials by grouping.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import GcfFinder from '../../components/GcfFinder.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+In Chapter 4 you multiplied: $3x(x + 5) = 3x^2 + 15x$. **Factoring** goes the other way — from $3x^2 + 15x$ back to $3x(x + 5)$. It's the key to solving equations like $x^2 = 5x$, which you'll do in Lesson 5.8.
+</Callout>
+
+## What it means to factor
+
+To **factor** a polynomial means to write it as a **product**. A **factorization** of $15x^3$ is $3x \cdot 5x^2$; another is $15 \cdot x^3$. For a polynomial with several terms, the first thing to look for is a factor that **every term** shares.
+
+The **greatest common factor (GCF)** of some monomials is:
+
+- the largest whole number that divides every coefficient, times
+- each variable that appears in **every** term, raised to its **smallest** exponent.
+
+<GcfFinder client:visible />
+
+<StepReveal
+  client:visible
+  title="Find the GCF"
+  problem="Find the GCF of $\;20x^4,\; 30x^3,\; 50x^2$"
+  steps={[
+    { show: '$20 = 2 \\cdot 2 \\cdot 5,\\quad 30 = 2 \\cdot 3 \\cdot 5,\\quad 50 = 2 \\cdot 5 \\cdot 5$', why: 'Break each coefficient into primes. The primes in **every** list are $2$ and $5$, so the number part is $10$.' },
+    { show: 'Lowest power of $x$: $x^2$', why: 'Every term has at least $x^2$, and the last term has no more than that.' },
+    { show: 'GCF $= 10x^2$', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="5.1" skill="gcf" compact />
+
+## Factoring out the GCF
+
+Divide each term by the GCF, and write the GCF in front of parentheses. This is the distributive law in reverse.
+
+<StepReveal
+  client:visible
+  title="Factor out the GCF"
+  problem="Factor: $\;12x^5 - 18x^3 + 6x^2$"
+  steps={[
+    { show: 'GCF $= 6x^2$', why: 'The GCF of $12, 18, 6$ is $6$; the lowest power of $x$ is $x^2$.' },
+    { show: '$12x^5 \\div 6x^2 = 2x^3,\\quad -18x^3 \\div 6x^2 = -3x,\\quad 6x^2 \\div 6x^2 = 1$', why: 'Divide every term by the GCF.' },
+    { show: '$= 6x^2(2x^3 - 3x + 1)$', why: 'Check by multiplying back out.' },
+  ]}
+/>
+
+<Callout type="warning" title="Don't lose the 1">
+When the GCF is a whole term, that term leaves a $1$ behind: $6x^2(2x^3 - 3x + 1)$, not $6x^2(2x^3 - 3x)$. Multiply back to check — you should get the same number of terms you started with.
+</Callout>
+
+<Practice client:visible lesson="5.1" skill="factor" compact />
+
+When the leading coefficient is negative, it is often useful to factor out a **negative** GCF. Every sign inside the parentheses flips:
+
+$$-4x^3 + 8x - 12 = -4(x^3 - 2x + 3)$$
+
+<Practice client:visible lesson="5.1" skill="negative" compact />
+
+## Factoring by grouping
+
+Sometimes the common factor is a whole **binomial**: $x^2(x + 3) + 5(x + 3) = (x + 3)(x^2 + 5)$. With four terms, try grouping them in pairs.
+
+<StepReveal
+  client:visible
+  title="Factor by grouping"
+  problem="Factor: $\;x^3 + 4x^2 - 3x - 12$"
+  steps={[
+    { show: '$(x^3 + 4x^2) + (-3x - 12)$', why: 'Group the first two terms and the last two terms.' },
+    { show: '$x^2(x + 4) - 3(x + 4)$', why: 'Factor the GCF from each group. Factoring out $-3$ (not $3$) makes the two binomials match.' },
+    { show: '$= (x + 4)(x^2 - 3)$', why: 'Now $(x + 4)$ is a common factor — factor it out.' },
+  ]}
+/>
+
+<Callout type="tip" title="Match the binomials">
+If the two groups give different binomials, like $(x + 4)$ and $(-x - 4)$, factor a negative out of the second group. If they still don't match, grouping in that order doesn't work.
+</Callout>
+
+<Practice client:visible lesson="5.1" skill="grouping" compact />
+
+## Summary
+
+- Factoring writes a polynomial as a product.
+- **GCF** = largest common number × each shared variable to its lowest power.
+- Factor it out by dividing each term; check by multiplying back.
+- Four terms → try **grouping** in pairs, then factor out the common binomial.
+
+## Practice
+
+<Practice client:visible lesson="5.1" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="5.1" />

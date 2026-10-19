@@ -1,0 +1,88 @@
+---
+id: "4.5"
+title: Multiplication of Polynomials
+summary: Multiply monomials with the product rule, then extend the distributive law until every term of one polynomial has multiplied every term of the other.
+minutes: 40
+objectives:
+  - Multiply monomials.
+  - Multiply a monomial and a polynomial.
+  - Multiply two binomials.
+  - Multiply any two polynomials, using a table to stay organized.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import BoxMethod from '../../components/BoxMethod.tsx';
+import AreaModel from '../../components/AreaModel.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+A rectangular garden is $x + 3$ m long and $x + 2$ m wide. Its area is $(x + 3)(x + 2)$ — but what is that as a polynomial? Multiplying polynomials is the distributive law from Lesson 1.7, used over and over.
+</Callout>
+
+## Multiplying monomials
+
+Multiply the coefficients, and multiply the variable parts with the product rule ($a^m \cdot a^n = a^{m+n}$).
+
+$$(-4x^3)(6x^5) = -24x^8 \qquad (3a^2)(-a) = -3a^3$$
+
+<Practice client:visible lesson="4.5" skill="monomials" compact />
+
+## A monomial times a polynomial
+
+Use the distributive law: multiply the monomial by **each** term.
+
+<StepReveal
+  client:visible
+  title="Distribute"
+  problem="Multiply: $\;2x^2(x^3 - 4x + 5)$"
+  steps={[
+    { show: '$2x^2 \\cdot x^3 - 2x^2 \\cdot 4x + 2x^2 \\cdot 5$', why: '' },
+    { show: '$= 2x^5 - 8x^3 + 10x^2$', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="4.5" skill="distribute" compact />
+
+## Multiplying any two polynomials
+
+**Every term of the first polynomial multiplies every term of the second.** Then collect like terms. A table makes sure nothing is missed — the area model from Lesson 1.7 is exactly this idea:
+
+<AreaModel client:visible />
+
+Type any two polynomials below. Same-colored cells are like terms.
+
+<BoxMethod client:visible />
+
+<StepReveal
+  client:visible
+  title="Binomial times trinomial"
+  problem="Multiply: $\;(x + 2)(x^2 - 3x + 4)$"
+  steps={[
+    { show: '$x(x^2 - 3x + 4) + 2(x^2 - 3x + 4)$', why: 'Distribute each term of the binomial.' },
+    { show: '$= x^3 - 3x^2 + 4x + 2x^2 - 6x + 8$', why: 'Six products.' },
+    { show: '$= x^3 - x^2 - 2x + 8$', why: 'Collect like terms.' },
+  ]}
+/>
+
+<Callout type="warning" title="Count the products">
+A binomial times a binomial gives $2 \times 2 = 4$ products before collecting; a binomial times a trinomial gives $6$. If you have fewer, something is missing.
+</Callout>
+
+<Practice client:visible lesson="4.5" skill="binomials" compact />
+
+<Practice client:visible lesson="4.5" skill="general" compact />
+
+## Summary
+
+- Monomials: multiply coefficients, add exponents.
+- Polynomials: every term times every term, then collect like terms.
+
+## Practice
+
+<Practice client:visible lesson="4.5" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="4.5" />
