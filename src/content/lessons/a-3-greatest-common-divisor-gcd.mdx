@@ -1,0 +1,138 @@
+---
+id: "A.3"
+title: Greatest Common Divisor (GCD)
+summary: "The GCD is the largest number that divides both numbers. Find it by listing factors or from prime factorizations (shared primes, lowest power). Use it to reduce fractions."
+minutes: 30
+objectives:
+  - Find the GCD by listing factors.
+  - Find the GCD from prime factorizations.
+  - Use the GCD to reduce fractions to lowest terms.
+  - Solve problems that ask for the largest equal grouping.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import PrimeVenn from '../../components/PrimeVenn.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+Reducing $\frac{36}{60}$ to lowest terms in one step means dividing by the largest number that goes into both — the greatest common divisor. The GCD is also the "greatest common factor" you pull out when factoring polynomials in Chapter 5. (It is also called the GCF or HCF.)
+</Callout>
+
+## Factors and common factors
+
+A **factor** (or **divisor**) of a number divides it with no remainder.
+
+- Factors of 18: $\mathbf{1}, \mathbf{2}, \mathbf{3}, \mathbf{6}, 9, 18$
+- Factors of 24: $\mathbf{1}, \mathbf{2}, \mathbf{3}, 4, \mathbf{6}, 8, 12, 24$
+
+The **common factors** are $1, 2, 3, 6$, and the greatest is $\text{GCD}(18, 24) = 6$.
+
+<StepReveal
+  client:visible
+  title="Listing method"
+  problem="Find the GCD of 28 and 42."
+  steps={[
+    { show: '$28: 1, 2, 4, 7, 14, 28$', why: 'List factors in pairs: $1 \\cdot 28$, $2 \\cdot 14$, $4 \\cdot 7$.' },
+    { show: '$42: 1, 2, 3, 6, 7, 14, 21, 42$', why: '$1 \\cdot 42$, $2 \\cdot 21$, $3 \\cdot 14$, $6 \\cdot 7$.' },
+    { show: '$\\text{GCD}(28, 42) = 14$', why: 'The largest number in both lists.' },
+  ]}
+/>
+
+<Practice client:visible lesson="A.3" skill="list" compact />
+
+## Using prime factorizations
+
+The GCD is built only from primes the numbers **share**, each to the **lowest** power it appears in both.
+
+<StepReveal
+  client:visible
+  title="Prime-factorization method"
+  problem="Find the GCD of 72 and 120."
+  steps={[
+    { show: '$72 = 2^3 \\cdot 3^2 \\qquad 120 = 2^3 \\cdot 3 \\cdot 5$', why: '' },
+    { show: '$\\text{shared primes: } 2, 3$', why: '5 is only in 120, so it is not a common factor.' },
+    { show: '$2^3 \\cdot 3^1 = 24$', why: 'Lowest power of each shared prime: $2^3$ in both, $3^1$ (120 has only one 3).' },
+  ]}
+/>
+
+In the Venn diagram, the GCD is the product of the **middle** — the primes both numbers share. Compare with the LCM, which multiplies everything.
+
+<PrimeVenn client:visible focus="gcd" />
+
+| | GCD | LCM |
+|---|---|---|
+| Which primes | only the shared ones | all of them |
+| Which power | lowest | highest |
+| Size | at most the smaller number | at least the larger number |
+
+And always: $\text{GCD}(a, b) \cdot \text{LCM}(a, b) = a \cdot b$.
+
+<Practice client:visible lesson="A.3" skill="prime" compact />
+
+## Reducing fractions with the GCD
+
+Divide the numerator and denominator by their GCD and the fraction is in lowest terms in one step.
+
+<StepReveal
+  client:visible
+  title="Reduce a fraction"
+  problem="Write $\dfrac{36}{60}$ in lowest terms."
+  steps={[
+    { show: '$36 = 2^2 \\cdot 3^2 \\qquad 60 = 2^2 \\cdot 3 \\cdot 5$', why: '' },
+    { show: '$\\text{GCD} = 2^2 \\cdot 3 = 12$', why: '' },
+    { show: '$\\dfrac{36 \\div 12}{60 \\div 12} = \\dfrac{3}{5}$', why: 'Dividing top and bottom by the same number doesn\'t change the value.' },
+  ]}
+/>
+
+If you divide by a smaller common factor (say 6) you get $\frac{6}{10}$ — still not done. Dividing by the GCD finishes the job at once.
+
+<Practice client:visible lesson="A.3" skill="simplify" compact />
+
+## GCD in problems
+
+"What is the **largest** group size / tile size / number of identical kits that uses everything exactly?" is a GCD question.
+
+<StepReveal
+  client:visible
+  title="Identical kits"
+  problem="You have 48 pencils and 36 erasers. What is the greatest number of identical kits you can make using all of them, and what's in each kit?"
+  steps={[
+    { show: '$48 = 2^4 \\cdot 3 \\qquad 36 = 2^2 \\cdot 3^2$', why: 'The number of kits must divide both 48 and 36.' },
+    { show: '$\\text{GCD} = 2^2 \\cdot 3 = 12$ kits', why: 'The greatest such number is the GCD.' },
+    { show: '$48 \\div 12 = 4$ pencils and $36 \\div 12 = 3$ erasers per kit', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="A.3" skill="apply" compact />
+
+## Common mistakes
+
+<Callout type="warning">
+**Mixing up GCD and LCM.** The GCD divides both numbers, so it can't be larger than the smaller number. If your "GCD" of 12 and 18 is 36, you found the LCM. ($\text{GCD} = 6$.)
+</Callout>
+
+<Callout type="warning">
+**Using highest powers or unshared primes.** For $\text{GCD}(72, 120)$, don't include the 5 (only 120 has it) and don't use $3^2$ (120 has only one 3).
+</Callout>
+
+<Callout type="warning">
+**Saying the GCD is 0 when nothing is shared.** If two numbers share no prime factor — like 14 and 25 — their GCD is **1**. They are called *relatively prime*.
+</Callout>
+
+## Summary
+
+- A common factor divides every number; the GCD is the greatest one.
+- Listing: list factors in pairs and pick the largest common one.
+- Primes: take only the shared primes, each to the lowest power.
+- Divide numerator and denominator by their GCD to reduce a fraction in one step.
+- $\text{GCD}(a, b) \cdot \text{LCM}(a, b) = a \cdot b$.
+
+## Practice
+
+<Practice client:visible lesson="A.3" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="A.3" />

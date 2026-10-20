@@ -3,14 +3,14 @@ import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import ChapterReview from '../../components/ChapterReview.tsx';
 import ChapterTest from '../../components/ChapterTest.tsx';
-import { curriculum, lessonById, lessonHref, type Chapter } from '../../data/curriculum';
+import { curriculum, lessonById, lessonHref, nextChapter, type Chapter } from '../../data/curriculum';
 
 // A review page exists for every chapter whose lessons are all written.
 export async function getStaticPaths() {
   const ids = new Set((await getCollection('lessons')).map((e) => e.data.id));
   return curriculum
     .filter((c) => c.lessons.every((l) => ids.has(l.id)))
-    .map((c) => ({ params: { n: String(c.number) }, props: { chapter: c } }));
+    .map((c) => ({ params: { n: c.key }, props: { chapter: c } }));
 }
 
 const { chapter } = Astro.props as { chapter: Chapter };
@@ -21,13 +21,13 @@ const lessons = chapter.lessons.map((l) => {
   return { id: l.id, title: l.title, href: lessonHref(base, lessonById(l.id)!), summary: e.data.summary, objectives: e.data.objectives };
 });
 const refs = lessons.map(({ id, title, href }) => ({ id, title, href }));
-const next = curriculum.find((c) => c.number === chapter.number + 1);
+const next = nextChapter(chapter);
 ---
 
-<Base title={`Chapter ${chapter.number} Review & Test · Algebra`} description={`Review and test for Chapter ${chapter.number}: ${chapter.title}`}>
+<Base title={`${chapter.label} Review & Test · Algebra`} description={`Review and test for ${chapter.label}: ${chapter.title}`}>
   <main class="container chapter-main">
     <header class="lesson-head">
-      <div class="lesson-kicker"><span class="lesson-num">{chapter.number}</span><span>Chapter review &amp; test</span></div>
+      <div class="lesson-kicker"><span class="lesson-num">{chapter.number}</span><span>{chapter.label} · review &amp; test</span></div>
       <h1>{chapter.title}</h1>
       <p class="lesson-summary">Pull the whole chapter together: skim the key ideas, practice a mix of problems from every lesson, then take the chapter test.</p>
     </header>
@@ -54,9 +54,9 @@ const next = curriculum.find((c) => c.number === chapter.number + 1);
     <ChapterTest client:visible id={`ch${chapter.number}-test`} lessons={refs} />
 
     {next ? (
-      <p class="next-ch">Next up: <a href={lessonHref(base, next.lessons[0])}><strong>Chapter {next.number} · {next.title}</strong> →</a></p>
+      <p class="next-ch">Next up: <a href={lessonHref(base, next.lessons[0])}><strong>{next.label} · {next.title}</strong> →</a></p>
     ) : (
-      <p class="next-ch">🎓 This is the last chapter of the course. Pass this test and you've worked through the whole book — every chapter from real numbers to logarithms.</p>
+      <p class="next-ch">🎓 This is the end of the course. Pass this test and you've worked through the whole book — every chapter from real numbers to logarithms, plus the appendix.</p>
     )}
   </main>
 </Base>

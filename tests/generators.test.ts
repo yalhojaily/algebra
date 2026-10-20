@@ -73,6 +73,9 @@ function answerInput(a: import('../src/generators/types').Answer): string | numb
         const e = Math.floor(Math.log10(Math.abs(a.value)));
         return `${+(a.value / 10 ** e).toPrecision(12)}*10^${e}`;
       }
+      if (a.lowest && !Number.isInteger(a.value)) {
+        for (let d = 2; d < 2000; d++) if (Math.abs(Math.round(a.value * d) - a.value * d) < 1e-9) return `${Math.round(a.value * d)}/${d}`;
+      }
       return String(a.value);
     case 'point':
       return `(${a.x}, ${a.y})`;

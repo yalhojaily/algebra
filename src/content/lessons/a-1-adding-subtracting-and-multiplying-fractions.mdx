@@ -1,0 +1,142 @@
+---
+id: "A.1"
+title: Adding, Subtracting and Multiplying Fractions
+summary: "Same denominators: combine the numerators. Different denominators: rewrite with the LCD first. Multiplying: top × top, bottom × bottom."
+minutes: 35
+objectives:
+  - Add and subtract fractions with the same denominator.
+  - Add and subtract fractions with different denominators using the LCD.
+  - Multiply fractions and simplify the result.
+  - Combine whole numbers and fractions.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import FractionBars from '../../components/FractionBars.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+Fractions are everywhere in algebra: slopes, rational expressions, solving equations with $\frac{1}{2}$ in them. Every rule for rational expressions in Chapter 6 is the fraction rule from this lesson with variables in it. If fractions feel shaky, this is the place to fix them.
+</Callout>
+
+## What a fraction means
+
+In $\dfrac{3}{8}$ the **denominator** $8$ says the whole is cut into 8 equal pieces; the **numerator** $3$ says how many pieces you have. The denominator names the *size* of the pieces, the numerator *counts* them.
+
+Try the bars below. Change the denominators and watch what happens to the piece sizes.
+
+<FractionBars client:visible />
+
+## Same denominator: count the pieces
+
+When the denominators match, the pieces are the same size, so you just add or subtract the counts:
+
+$$\frac{a}{d} + \frac{b}{d} = \frac{a + b}{d} \qquad \frac{a}{d} - \frac{b}{d} = \frac{a - b}{d}$$
+
+<StepReveal
+  client:visible
+  title="Same denominator"
+  problem="Add and simplify: $\dfrac{5}{12} + \dfrac{3}{12}$"
+  steps={[
+    { show: '$\\dfrac{5 + 3}{12} = \\dfrac{8}{12}$', why: 'Same size pieces (twelfths): add the numerators, keep the denominator.' },
+    { show: '$\\dfrac{8 \\div 4}{12 \\div 4} = \\dfrac{2}{3}$', why: '8 and 12 share a factor of 4, so reduce to lowest terms.' },
+  ]}
+/>
+
+<Practice client:visible lesson="A.1" skill="same" compact />
+
+## Different denominators: make the pieces match
+
+You can't add thirds to quarters directly — they're different sizes. Cut both into a common size first. The best choice is the **least common denominator (LCD)**: the least common multiple of the denominators (see [A.2](../a-2-least-common-multiple-lcm/)).
+
+1. Find the LCD.
+2. Rewrite each fraction with the LCD by multiplying top and bottom by the same number.
+3. Add or subtract the numerators.
+4. Simplify.
+
+<StepReveal
+  client:visible
+  title="Different denominators"
+  problem="Add and simplify: $\dfrac{5}{6} + \dfrac{3}{4}$"
+  steps={[
+    { show: '$\\text{LCD} = \\text{LCM}(6, 4) = 12$', why: 'Multiples of 6: 6, 12, … Multiples of 4: 4, 8, 12, … The first match is 12.' },
+    { show: '$\\dfrac{5 \\cdot 2}{6 \\cdot 2} + \\dfrac{3 \\cdot 3}{4 \\cdot 3} = \\dfrac{10}{12} + \\dfrac{9}{12}$', why: 'Multiply top and bottom by the same number — that is multiplying by 1, so the value doesn\'t change.' },
+    { show: '$\\dfrac{19}{12}$', why: 'Now the pieces match: add the numerators. 19 and 12 share no factor, so this is in lowest terms.' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="Subtracting"
+  problem="Subtract and simplify: $\dfrac{7}{10} - \dfrac{4}{15}$"
+  steps={[
+    { show: '$\\text{LCD} = \\text{LCM}(10, 15) = 30$', why: '$10 = 2 \\cdot 5$ and $15 = 3 \\cdot 5$, so the LCM is $2 \\cdot 3 \\cdot 5 = 30$.' },
+    { show: '$\\dfrac{21}{30} - \\dfrac{8}{30} = \\dfrac{13}{30}$', why: '$\\tfrac{7}{10} = \\tfrac{21}{30}$ (×3) and $\\tfrac{4}{15} = \\tfrac{8}{30}$ (×2).' },
+  ]}
+/>
+
+<Practice client:visible lesson="A.1" skill="different" compact />
+
+## Multiplying: no common denominator needed
+
+$$\frac{a}{b} \cdot \frac{c}{d} = \frac{a \cdot c}{b \cdot d}$$
+
+"$\frac{1}{2}$ of $\frac{3}{4}$" means $\frac{1}{2} \cdot \frac{3}{4}$. Switch the bars widget to **Multiply** to see why: the overlap of the two shaded strips is the product.
+
+You can simplify **before** multiplying by canceling a factor from any numerator with any denominator — it keeps the numbers small.
+
+<StepReveal
+  client:visible
+  title="Multiply and simplify"
+  problem="Multiply and simplify: $\dfrac{4}{9} \cdot \dfrac{3}{10}$"
+  steps={[
+    { show: '$\\dfrac{4 \\cdot 3}{9 \\cdot 10} = \\dfrac{12}{90}$', why: 'Top × top, bottom × bottom.' },
+    { show: '$\\dfrac{12 \\div 6}{90 \\div 6} = \\dfrac{2}{15}$', why: 'The GCD of 12 and 90 is 6 (see A.3).' },
+    { show: '$\\text{Or first: } \\dfrac{\\cancel{4}^{\\,2}}{\\cancel{9}_{\\,3}} \\cdot \\dfrac{\\cancel{3}^{\\,1}}{\\cancel{10}_{\\,5}} = \\dfrac{2}{15}$', why: 'Cancel 3 from 3 and 9, and 2 from 4 and 10, before multiplying. Same answer, smaller numbers.' },
+  ]}
+/>
+
+<Practice client:visible lesson="A.1" skill="multiply" compact />
+
+## Whole numbers and fractions
+
+A whole number is a fraction with denominator 1: $5 = \frac{5}{1}$.
+
+- **Multiplying:** $5 \cdot \frac{2}{15} = \frac{10}{15} = \frac{2}{3}$.
+- **Adding or subtracting:** rewrite the whole number with the fraction's denominator: $2 + \frac{3}{4} = \frac{8}{4} + \frac{3}{4} = \frac{11}{4}$.
+
+<Practice client:visible lesson="A.1" skill="whole" compact />
+
+## Common mistakes
+
+<Callout type="warning">
+**Adding the denominators.** $\frac{1}{3} + \frac{1}{4} \neq \frac{2}{7}$. The denominator is the piece size — it doesn't get added. Correct: $\frac{4}{12} + \frac{3}{12} = \frac{7}{12}$.
+</Callout>
+
+<Callout type="warning">
+**Changing only the denominator.** Rewriting $\frac{2}{3}$ as $\frac{2}{12}$ changes its value. Whatever you multiply the bottom by, multiply the top by the same number: $\frac{2}{3} = \frac{8}{12}$.
+</Callout>
+
+<Callout type="warning">
+**Finding a common denominator to multiply.** Multiplication doesn't need one. $\frac{2}{3} \cdot \frac{1}{4} = \frac{2}{12} = \frac{1}{6}$ directly.
+</Callout>
+
+<Callout type="warning">
+**Leaving the answer unreduced.** $\frac{8}{12}$ is correct but not finished: divide by the GCD to get $\frac{2}{3}$.
+</Callout>
+
+## Summary
+
+- Same denominator: add or subtract the numerators; keep the denominator.
+- Different denominators: rewrite with the LCD, then combine the numerators.
+- Multiply: numerator × numerator over denominator × denominator; cancel common factors first if you like.
+- Always reduce the answer to lowest terms.
+
+## Practice
+
+<Practice client:visible lesson="A.1" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="A.1" />

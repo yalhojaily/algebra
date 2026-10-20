@@ -63,3 +63,17 @@ describe('solutions with ± and complex solutions', () => {
     expect(check(p, '1 + 2i')).toMatchObject({ status: 'wrong', feedback: expect.stringContaining('conjugate') });
   });
 });
+
+describe('fractions in lowest terms', () => {
+  const p = P({ type: 'number', value: 3 / 4, lowest: true });
+  it('accepts lowest terms and rejects the rest', () => {
+    expect(check(p, '3/4').status).toBe('correct');
+    expect(check(p, '6/8').status).toBe('invalid');
+    expect(check(p, '0.75').status).toBe('invalid');
+    expect(check(p, '1/2 + 1/4').status).toBe('invalid');
+    expect(check(p, '2/3').status).toBe('wrong');
+    expect(check(P({ type: 'number', value: -5 / 6, lowest: true }), '-5/6').status).toBe('correct');
+    expect(check(P({ type: 'number', value: 2, lowest: true }), '2').status).toBe('correct');
+    expect(check(P({ type: 'number', value: 2, lowest: true }), '4/2').status).toBe('invalid');
+  });
+});

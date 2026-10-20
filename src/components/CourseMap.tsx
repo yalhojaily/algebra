@@ -7,7 +7,7 @@ interface Props {
   /** Lesson ids that have content, mapped to their URL. */
   available: Record<string, string>;
   /** Chapter number → URL of its review & test page, for finished chapters. */
-  reviews?: Record<number, string>;
+  reviews?: Record<string, string>;
 }
 
 type Status = 'mastered' | 'started' | 'ready' | 'soon';
@@ -59,10 +59,10 @@ export default function CourseMap({ chapters, available, reviews = {} }: Props) 
 
       <div className="cm-chapters">
         {chapters.map((c) => (
-          <section key={c.number} className="cm-ch">
+          <section key={c.key} className={`cm-ch ${typeof c.number === 'string' ? 'appendix' : ''}`}>
             <header className="cm-ch-head">
               <span className="cm-ch-num">{c.number}</span>
-              <span className="cm-ch-title">{c.title}</span>
+              <span className="cm-ch-title">{typeof c.number === 'string' && <span className="cm-ch-kind">Appendix · </span>}{c.title}</span>
             </header>
             <ol className="cm-lessons">
               {c.lessons.map((l) => {
@@ -91,7 +91,7 @@ export default function CourseMap({ chapters, available, reviews = {} }: Props) 
             </ol>
             {reviews[c.number] && (
               <a className={`cm-review ${progress[`ch${c.number}-test`]?.mastered ? 'done' : ''}`} href={reviews[c.number]}>
-                {progress[`ch${c.number}-test`]?.mastered ? '★ Chapter test passed · review' : 'Chapter review & test →'}
+                {progress[`ch${c.number}-test`]?.mastered ? `★ ${typeof c.number === 'string' ? 'Appendix' : 'Chapter'} test passed · review` : `${typeof c.number === 'string' ? 'Appendix' : 'Chapter'} review & test →`}
               </a>
             )}
           </section>

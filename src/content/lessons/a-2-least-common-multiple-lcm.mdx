@@ -1,0 +1,130 @@
+---
+id: "A.2"
+title: Least Common Multiple (LCM)
+summary: "The LCM is the smallest number that both numbers divide into. Find it by listing multiples or from prime factorizations (every prime, highest power)."
+minutes: 30
+objectives:
+  - Find the LCM by listing multiples.
+  - Find the LCM from prime factorizations.
+  - Find the LCM of three numbers.
+  - Use the LCM to solve problems and to find least common denominators.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import MultiplesRace from '../../components/MultiplesRace.tsx';
+import PrimeVenn from '../../components/PrimeVenn.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+To add $\frac{5}{6} + \frac{3}{8}$ you need a common denominator, and the smallest one keeps the arithmetic easy. That smallest common denominator is the least common multiple of 6 and 8. The same idea gives the LCD of rational expressions in Chapter 6 and answers "when will these two things line up again?" questions.
+</Callout>
+
+## Multiples and common multiples
+
+The **multiples** of a number are what you get by multiplying it by $1, 2, 3, \ldots$:
+
+- Multiples of 6: $6, 12, 18, \mathbf{24}, 30, 36, 42, \mathbf{48}, \ldots$
+- Multiples of 8: $8, 16, \mathbf{24}, 32, 40, \mathbf{48}, \ldots$
+
+Numbers in both lists are **common multiples**. The smallest is the **least common multiple**: $\text{LCM}(6, 8) = 24$.
+
+<MultiplesRace client:visible />
+
+<StepReveal
+  client:visible
+  title="Listing method"
+  problem="Find the LCM of 9 and 12."
+  steps={[
+    { show: '$12, 24, 36, \\ldots$', why: 'List multiples of the larger number — you\'ll reach the answer faster.' },
+    { show: '$12 \\div 9$ no, $24 \\div 9$ no, $36 \\div 9 = 4$ yes', why: 'Stop at the first one the smaller number divides evenly.' },
+    { show: '$\\text{LCM}(9, 12) = 36$', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="A.2" skill="list" compact />
+
+## Using prime factorizations
+
+Listing gets slow for numbers like 84 and 90. Instead, write each number as a product of primes. The LCM must contain each number's factorization, so it takes **every prime that appears, to the highest power that appears**.
+
+<StepReveal
+  client:visible
+  title="Prime-factorization method"
+  problem="Find the LCM of 84 and 90."
+  steps={[
+    { show: '$84 = 2^2 \\cdot 3 \\cdot 7 \\qquad 90 = 2 \\cdot 3^2 \\cdot 5$', why: 'Factor each number into primes (a factor tree helps).' },
+    { show: '$\\text{primes: } 2, 3, 5, 7$', why: 'Collect every prime that appears in either number.' },
+    { show: '$2^2 \\cdot 3^2 \\cdot 5 \\cdot 7$', why: 'Use the highest power of each: $2^2$ (from 84), $3^2$ (from 90), $5$, $7$.' },
+    { show: '$\\text{LCM}(84, 90) = 4 \\cdot 9 \\cdot 5 \\cdot 7 = 1260$', why: '' },
+  ]}
+/>
+
+In a Venn diagram of prime factors, the LCM is the product of **everything** in the picture — shared primes counted once.
+
+<PrimeVenn client:visible focus="lcm" />
+
+<Practice client:visible lesson="A.2" skill="prime" compact />
+
+## The LCM of three numbers
+
+The same rule works for any number of numbers: every prime, highest power.
+
+<StepReveal
+  client:visible
+  title="Three numbers"
+  problem="Find the LCM of 12, 18 and 20."
+  steps={[
+    { show: '$12 = 2^2 \\cdot 3 \\quad 18 = 2 \\cdot 3^2 \\quad 20 = 2^2 \\cdot 5$', why: '' },
+    { show: '$2^2 \\cdot 3^2 \\cdot 5 = 180$', why: 'Highest power of 2 is $2^2$, of 3 is $3^2$, and 5 appears once.' },
+  ]}
+/>
+
+<Practice client:visible lesson="A.2" skill="three" compact />
+
+## LCM in problems
+
+"When will things happen at the same time again?" is an LCM question. So is "what is the smallest number of items that can be split evenly into packs of $a$ or packs of $b$?"
+
+<StepReveal
+  client:visible
+  title="Two buses"
+  problem="One bus leaves the station every 15 minutes and another every 20 minutes. Both leave at 8:00. When do they next leave together?"
+  steps={[
+    { show: '$15 = 3 \\cdot 5 \\qquad 20 = 2^2 \\cdot 5$', why: 'They meet at a time that is a multiple of both 15 and 20.' },
+    { show: '$\\text{LCM} = 2^2 \\cdot 3 \\cdot 5 = 60$', why: 'The first such time is the least common multiple.' },
+    { show: '$60$ minutes later: at 9:00', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="A.2" skill="apply" compact />
+
+## Common mistakes
+
+<Callout type="warning">
+**Always multiplying the numbers.** $6 \cdot 8 = 48$ is a common multiple, but not the least. The product is the LCM only when the numbers share no factors (like 4 and 9).
+</Callout>
+
+<Callout type="warning">
+**Taking the lowest power.** For the LCM use the *highest* power of each prime. Taking the lowest powers of the shared primes gives the GCD instead (see [A.3](../a-3-greatest-common-divisor-gcd/)).
+</Callout>
+
+<Callout type="warning">
+**Dropping primes that appear in only one number.** In $\text{LCM}(84, 90)$, the 7 comes only from 84 and the 5 only from 90 — both must be included.
+</Callout>
+
+## Summary
+
+- A common multiple is divisible by every number; the LCM is the smallest one.
+- Listing: go through multiples of the largest number until the others divide it.
+- Primes: take every prime that appears, raised to the highest power that appears.
+- The least common denominator of fractions is the LCM of the denominators.
+
+## Practice
+
+<Practice client:visible lesson="A.2" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="A.2" />

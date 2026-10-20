@@ -10,23 +10,30 @@ export interface Lesson {
 }
 
 export interface Chapter {
-  number: number;
+  /** 1–12 for chapters, 'A' for the appendix */
+  number: number | string;
+  /** "Chapter 3" or "Appendix A" */
+  label: string;
+  /** URL segment: "3" or "a" */
+  key: string;
   title: string;
   page: number;
   lessons: Lesson[];
 }
 
 const slugify = (id: string, title: string) =>
-  `${id.replace('.', '-')}-${title
+  `${id.replace('.', '-').toLowerCase()}-${title
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '')}`;
 
 type Raw = [id: string, title: string, page: number, prereqs?: string[]];
 
-function chapter(number: number, title: string, page: number, raw: Raw[]): Chapter {
+function chapter(number: number | string, title: string, page: number, raw: Raw[]): Chapter {
   return {
     number,
+    label: typeof number === 'number' ? `Chapter ${number}` : `Appendix ${number}`,
+    key: String(number).toLowerCase(),
     title,
     page,
     lessons: raw.map(([id, t, p, prereqs], i) => ({
@@ -149,7 +156,16 @@ export const curriculum: Chapter[] = [
     ['12.6', 'Solving Exponential and Logarithmic Equations', 933],
     ['12.7', 'Mathematical Modeling with Exponential and Logarithmic Functions', 940],
   ]),
+  // Appendix: arithmetic refreshers that many lessons rely on.
+  chapter('A', 'Fraction Skills: Fractions, LCM and GCD', 0, [
+    ['A.1', 'Adding, Subtracting and Multiplying Fractions', 0, []],
+    ['A.2', 'Least Common Multiple (LCM)', 0, []],
+    ['A.3', 'Greatest Common Divisor (GCD)', 0, ['A.2']],
+  ]),
 ];
+
+/** The chapter after this one in the course, if any. */
+export const nextChapter = (c: Chapter) => curriculum[curriculum.indexOf(c) + 1];
 
 export const allLessons: Lesson[] = curriculum.flatMap((c) => c.lessons);
 
@@ -164,4 +180,4 @@ export function neighbors(id: string) {
 
 export const lessonHref = (base: string, l: Lesson) => `${base.replace(/\/$/, '')}/lessons/${l.slug}/`;
 
-export const chapterHref = (base: string, n: number) => `${base.replace(/\/$/, '')}/chapters/${n}/`;
+export const chapterHref = (base: string, n: number | string) => `${base.replace(/\/$/, '')}/chapters/${String(n).toLowerCase()}/`;

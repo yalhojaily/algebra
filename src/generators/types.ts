@@ -10,6 +10,8 @@ export type Answer =
       sci?: boolean;
       /** Accept answers within this distance of the value (for rounded decimals). */
       tol?: number;
+      /** Must be written as an integer or a fraction in lowest terms (no decimals, no unreduced fractions). */
+      lowest?: boolean;
     }
   | {
       type: 'expression';

@@ -31,7 +31,7 @@ const isLastInChapter = chapter.lessons[chapter.lessons.length - 1].id === lesso
   <div class="container lesson-grid">
     <aside class="lesson-side">
       <div class="side-block">
-        <div class="side-label">Chapter {chapter.number}</div>
+        <div class="side-label">{chapter.label}</div>
         <div class="side-ch">{chapter.title}</div>
         <ol class="side-lessons">
           {chapter.lessons.map((l) => (
@@ -40,7 +40,7 @@ const isLastInChapter = chapter.lessons[chapter.lessons.length - 1].id === lesso
             </li>
           ))}
         </ol>
-        {reviewHref && <a class="side-review" href={reviewHref}>★ Chapter {chapter.number} review &amp; test</a>}
+        {reviewHref && <a class="side-review" href={reviewHref}>★ {chapter.label} review &amp; test</a>}
       </div>
       <nav class="side-block side-toc" aria-label="On this page">
         <div class="side-label">On this page</div>
@@ -54,7 +54,7 @@ const isLastInChapter = chapter.lessons[chapter.lessons.length - 1].id === lesso
       <header class="lesson-head">
         <div class="lesson-kicker">
           <span class="lesson-num">{lesson.id}</span>
-          <span>Chapter {chapter.number} · {chapter.title}</span>
+          <span>{chapter.label} · {chapter.title}</span>
         </div>
         <h1>{entry.data.title}</h1>
         <p class="lesson-summary">{entry.data.summary}</p>
@@ -83,7 +83,7 @@ const isLastInChapter = chapter.lessons[chapter.lessons.length - 1].id === lesso
 
       {isLastInChapter && reviewHref && (
         <a class="chapter-done" href={reviewHref}>
-          <span>You've reached the end of Chapter {chapter.number}</span>
+          <span>You've reached the end of {chapter.label}</span>
           <strong>Review the chapter and take the chapter test →</strong>
         </a>
       )}

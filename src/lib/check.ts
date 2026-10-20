@@ -66,6 +66,14 @@ export function check(problem: Problem, input: string | number): Verdict {
         if (lead < 1 || lead >= 10) return { status: 'invalid', message: 'In scientific notation the first number must be at least 1 and less than 10.' };
       }
       const got = equivalent(n, { kind: 'num', value: a.value });
+      if (got && a.lowest) {
+        const t = raw.replace(/\s+/g, '').replace(/[−–]/g, '-');
+        if (/\./.test(t) && !Number.isInteger(a.value)) return { status: 'invalid', message: 'That is equal to the right answer, but write it as a fraction, like 3/4 — not as a decimal.' };
+        const fr = t.match(/^\(?-?\(?(\d+)\)?\/\(?(\d+)\)?\)?$/);
+        const g = (x: number, y: number): number => (y ? g(y, x % y) : x);
+        if (fr && g(Number(fr[1]), Number(fr[2])) > 1) return { status: 'invalid', message: `That is equal to the right answer, but it is not in lowest terms: ${fr[1]} and ${fr[2]} are both divisible by ${g(Number(fr[1]), Number(fr[2]))}.` };
+        if (!fr && !/^-?\d+$/.test(t)) return { status: 'invalid', message: 'That is equal to the right answer, but simplify it to a single fraction, like 5/6.' };
+      }
       if (got) return { status: 'correct' };
       if (a.tol !== undefined && Math.abs(evaluate(n, {}) - a.value) <= a.tol + 1e-12) return { status: 'correct' };
       return { status: 'wrong', feedback: mistake(raw) };

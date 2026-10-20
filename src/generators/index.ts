@@ -80,6 +80,9 @@ import * as l12_4 from './12-4-properties-of-logarithmic-functions';
 import * as l12_5 from './12-5-natural-logarithmic-functions';
 import * as l12_6 from './12-6-solving-exponential-and-logarithmic-equations';
 import * as l12_7 from './12-7-mathematical-modeling-with-exponential-and-logarithmic-functions';
+import * as lA_1 from './a-1-adding-subtracting-and-multiplying-fractions';
+import * as lA_2 from './a-2-least-common-multiple-lcm';
+import * as lA_3 from './a-3-greatest-common-divisor-gcd';
 import * as l4_8 from './4-8-division-of-polynomials';
 import * as l3_4 from './3-4-slope-and-applications';
 import * as l2_8 from './2-8-applications-and-problem-solving-with-inequalities';
@@ -175,4 +178,7 @@ export const registry: Record<string, LessonGenerators> = {
   '12.5': l12_5,
   '12.6': l12_6,
   '12.7': l12_7,
+  'A.1': lA_1,
+  'A.2': lA_2,
+  'A.3': lA_3,
 };
