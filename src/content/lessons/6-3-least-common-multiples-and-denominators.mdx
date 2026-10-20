@@ -1,0 +1,85 @@
+---
+id: "6.3"
+title: Least Common Multiples and Denominators
+summary: Before you can add fractions with different denominators you need their least common denominator — built from prime factors, or from polynomial factors.
+minutes: 30
+objectives:
+  - Find the LCM of whole numbers using prime factorizations.
+  - Find the LCM of monomials and polynomials.
+  - Rewrite a rational expression with the LCD as its denominator.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import LcdBuilder from '../../components/LcdBuilder.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+To add $\frac{1}{12} + \frac{1}{18}$ you rewrite both with the denominator $36$. To add $\frac{1}{x^2 - 4} + \frac{1}{x^2 + 4x + 4}$, you need the same idea with polynomials. This lesson is the setup for adding and subtracting in 6.4 and 6.5.
+</Callout>
+
+## LCM of numbers
+
+The **least common multiple (LCM)** is the smallest number that each of the numbers divides into.
+
+1. Write each number as a product of primes.
+2. Use each prime the **greatest** number of times it occurs in any **one** factorization.
+
+<StepReveal
+  client:visible
+  title="LCM of 12 and 18"
+  problem="Find the LCM of $12$ and $18$."
+  steps={[
+    { show: '$12 = 2 \\cdot 2 \\cdot 3,\\quad 18 = 2 \\cdot 3 \\cdot 3$', why: '' },
+    { show: 'Most 2s in one list: two. Most 3s: two.', why: '' },
+    { show: 'LCM $= 2 \\cdot 2 \\cdot 3 \\cdot 3 = 36$', why: 'Check: $36 \\div 12 = 3$ and $36 \\div 18 = 2$.' },
+  ]}
+/>
+
+<Practice client:visible lesson="6.3" skill="lcm" compact />
+
+## LCM of expressions
+
+The same rule works for algebraic factors. For monomials, take the LCM of the numbers and the **highest power** of each variable: the LCM of $6x^2y$ and $4xy^3$ is $12x^2y^3$.
+
+<Practice client:visible lesson="6.3" skill="monomial" compact />
+
+For polynomials, factor each one completely first. Try it — each column counts one factor:
+
+<LcdBuilder client:visible />
+
+<StepReveal
+  client:visible
+  title="LCD of polynomial denominators"
+  problem="Find the LCD of $\;\dfrac{1}{x^2 - 4}\;$ and $\;\dfrac{3}{x^2 + 4x + 4}$."
+  steps={[
+    { show: '$x^2 - 4 = (x - 2)(x + 2)$', why: '' },
+    { show: '$x^2 + 4x + 4 = (x + 2)^2$', why: '' },
+    { show: 'LCD $= (x - 2)(x + 2)^2$', why: '$(x + 2)$ appears twice in the second denominator, so the LCD needs it twice.' },
+  ]}
+/>
+
+<Practice client:visible lesson="6.3" skill="lcd" compact />
+
+## Rewriting with the LCD
+
+To give a fraction the LCD as its denominator, multiply its top and bottom by the **missing factors** — this is multiplying by $1$:
+
+$$\frac{5}{x + 3} = \frac{5}{x + 3} \cdot \frac{x - 1}{x - 1} = \frac{5(x - 1)}{(x + 3)(x - 1)}$$
+
+<Practice client:visible lesson="6.3" skill="rename" compact />
+
+## Summary
+
+- Factor each denominator completely.
+- The LCD uses each factor the greatest number of times it appears in any one denominator.
+- Rename a fraction by multiplying top and bottom by the factors its denominator is missing.
+
+## Practice
+
+<Practice client:visible lesson="6.3" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="6.3" />

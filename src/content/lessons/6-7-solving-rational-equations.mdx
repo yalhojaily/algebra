@@ -1,0 +1,85 @@
+---
+id: "6.7"
+title: Solving Rational Equations
+summary: Multiply both sides by the LCD to clear the fractions, solve — and then check, because some "solutions" make a denominator zero.
+minutes: 40
+objectives:
+  - Clear fractions by multiplying both sides of an equation by the LCD.
+  - Solve rational equations that lead to linear or quadratic equations.
+  - Reject values that make a denominator zero.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import RationalEquation from '../../components/RationalEquation.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+In 6.4–6.6 you **simplified expressions** — no equals sign, and the denominators had to stay. An **equation** is different: you may multiply both sides by the LCD and make every fraction disappear at once.
+</Callout>
+
+## Expression or equation?
+
+| Expression | Equation |
+|---|---|
+| $\frac{x}{2} + \frac{x}{3}$ | $\frac{x}{2} + \frac{x}{3} = 5$ |
+| Simplify: rewrite with the LCD, keep it | Solve: multiply both sides by the LCD |
+| Answer: $\frac{5x}{6}$ | Answer: $x = 6$ |
+
+## Clearing fractions
+
+<StepReveal
+  client:visible
+  title="Clear the fractions"
+  problem="Solve: $\;\dfrac{x}{4} + \dfrac{x}{6} = 5$"
+  steps={[
+    { show: '$12 \\cdot \\dfrac{x}{4} + 12 \\cdot \\dfrac{x}{6} = 12 \\cdot 5$', why: 'The LCD is $12$. Multiply **every** term on both sides.' },
+    { show: '$3x + 2x = 60$', why: 'Every fraction is gone.' },
+    { show: '$x = 12$', why: 'Check: $3 + 2 = 5$ ✓' },
+  ]}
+/>
+
+<Practice client:visible lesson="6.7" skill="clear" compact />
+
+## The variable in a denominator
+
+When the variable appears in a denominator, start by noting which values are **not allowed**. After you solve, any answer equal to one of those values must be thrown out.
+
+<RationalEquation client:visible />
+
+<StepReveal
+  client:visible
+  title="A solution that fails the check"
+  problem="Solve: $\;\dfrac{x^2}{x - 1} = \dfrac{7x - 6}{x - 1}$"
+  steps={[
+    { show: '$x \\ne 1$', why: 'It would make the denominator $0$.' },
+    { show: '$x^2 = 7x - 6$', why: 'Multiply both sides by $x - 1$.' },
+    { show: '$x^2 - 7x + 6 = 0 \\;\\Rightarrow\\; (x - 1)(x - 6) = 0$', why: '' },
+    { show: '$x = 1$ or $x = 6$ — but $x = 1$ is not allowed. The solution is $x = 6$.', why: 'Multiplying by an expression that can be $0$ may add a false solution. Always check.' },
+  ]}
+/>
+
+<Practice client:visible lesson="6.7" skill="variable" compact />
+
+<Practice client:visible lesson="6.7" skill="quadratic" compact />
+
+<Practice client:visible lesson="6.7" skill="extraneous" compact />
+
+<Callout type="warning" title="No solution is possible">
+Sometimes every candidate fails the check — for example $\frac{x}{x - 2} = \frac{2}{x - 2} + 3$ leads only to $x = 2$, which is not allowed. Then the equation has **no solution**.
+</Callout>
+
+## Summary
+
+- List the values that make a denominator $0$.
+- Multiply **both sides** by the LCD; solve the equation that's left.
+- Check every candidate. Reject any that make a denominator $0$.
+
+## Practice
+
+<Practice client:visible lesson="6.7" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="6.7" />

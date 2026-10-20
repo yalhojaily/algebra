@@ -1,0 +1,111 @@
+---
+id: "6.1"
+title: Multiplying and Simplifying Rational Expressions
+summary: A rational expression is a fraction of polynomials. Factor, cancel common factors, and keep track of the values that are not allowed.
+minutes: 40
+objectives:
+  - Find the values that make a rational expression undefined.
+  - Simplify rational expressions by cancelling common factors.
+  - Recognize opposite factors, like a − b and b − a.
+  - Multiply rational expressions and simplify.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import RationalLab from '../../components/RationalLab.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+You already know $\frac{6}{8} = \frac{3 \cdot \cancel{2}}{4 \cdot \cancel{2}} = \frac{3}{4}$. A **rational expression** like $\frac{x^2 - 9}{x^2 + x - 6}$ simplifies the same way: factor the top and bottom, then cancel what they share. Everything you learned about factoring in Chapter 5 pays off here.
+</Callout>
+
+## Values that are not allowed
+
+A **rational expression** is a quotient of two polynomials, such as $\frac{x + 1}{x - 4}$. Since division by $0$ is undefined, any value of the variable that makes the **denominator** $0$ is not allowed.
+
+<StepReveal
+  client:visible
+  title="Find the excluded values"
+  problem="For which values of $x$ is $\;\dfrac{x + 2}{x^2 - 5x - 14}\;$ undefined?"
+  steps={[
+    { show: '$x^2 - 5x - 14 = 0$', why: 'Set the **denominator** equal to $0$. The numerator does not matter.' },
+    { show: '$(x - 7)(x + 2) = 0$', why: 'Factor.' },
+    { show: '$x = 7$ or $x = -2$', why: 'These two values are not allowed.' },
+  ]}
+/>
+
+<Practice client:visible lesson="6.1" skill="excluded" compact />
+
+## Simplifying
+
+To **simplify** a rational expression:
+
+1. Factor the numerator and the denominator completely.
+2. Cancel the factors they have in common (because $\frac{A}{A} = 1$).
+
+Try it below. Use the slider to test the original and the simplified expression with numbers — they agree everywhere except at the excluded values.
+
+<RationalLab client:visible />
+
+<StepReveal
+  client:visible
+  title="Simplify"
+  problem="Simplify: $\;\dfrac{3x^2 - 12}{x^2 + 4x + 4}$"
+  steps={[
+    { show: '$= \\dfrac{3(x - 2)(x + 2)}{(x + 2)(x + 2)}$', why: 'Factor: a GCF and a difference of squares on top, a trinomial square on the bottom.' },
+    { show: '$= \\dfrac{3(x - 2)\\cancel{(x + 2)}}{(x + 2)\\cancel{(x + 2)}}$', why: 'One factor of $(x + 2)$ cancels.' },
+    { show: '$= \\dfrac{3(x - 2)}{x + 2}$', why: 'You may leave the answer factored.' },
+  ]}
+/>
+
+<Callout type="warning" title="Cancel factors, never terms">
+$\dfrac{x + 3}{x}$ is **not** $3$. The $x$ on top is a *term* (it is added), not a factor of the whole numerator. Only things that **multiply** the entire numerator and the entire denominator can cancel. Check with a number: if $x = 1$, then $\frac{1 + 3}{1} = 4$, not $3$.
+</Callout>
+
+<Practice client:visible lesson="6.1" skill="simplify" compact />
+
+## Opposite factors
+
+$a - b$ and $b - a$ are **opposites**: $b - a = -(a - b)$. So they cancel to $-1$:
+
+$$\frac{x - 5}{5 - x} = \frac{x - 5}{-(x - 5)} = -1$$
+
+<Practice client:visible lesson="6.1" skill="opposite" compact />
+
+## Multiplying
+
+Multiply rational expressions like fractions — numerators times numerators, denominators times denominators — but **factor first and cancel before multiplying out**.
+
+<RationalLab client:visible mode="multiply" />
+
+<StepReveal
+  client:visible
+  title="Multiply and simplify"
+  problem="Multiply: $\;\dfrac{x^2 - 4}{x^2 + 3x} \cdot \dfrac{x}{x + 2}$"
+  steps={[
+    { show: '$= \\dfrac{(x - 2)(x + 2) \\cdot x}{x(x + 3) \\cdot (x + 2)}$', why: 'Factor everything and write one fraction.' },
+    { show: '$= \\dfrac{x - 2}{x + 3}$', why: 'Cancel $x$ and $(x + 2)$.' },
+  ]}
+/>
+
+<Practice client:visible lesson="6.1" skill="multiply" compact />
+
+## Summary
+
+- Values that make a denominator $0$ are not allowed.
+- Simplify by factoring completely and cancelling common **factors**.
+- $b - a = -(a - b)$, so opposites cancel to $-1$.
+- To multiply: factor, cancel, then multiply what's left.
+
+<Callout type="tip" title="Typing fractions">
+Type answers with parentheses around the whole numerator and denominator: `(x - 2)/(x + 3)`. Without them, `x - 2/x + 3` means $x - \frac{2}{x} + 3$.
+</Callout>
+
+## Practice
+
+<Practice client:visible lesson="6.1" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="6.1" />

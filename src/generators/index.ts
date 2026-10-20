@@ -33,6 +33,15 @@ import * as l5_6 from './5-6-factoring-sums-or-differences-of-cubes';
 import * as l5_7 from './5-7-factoring-a-general-strategy';
 import * as l5_8 from './5-8-solving-quadratic-equations-by-factoring';
 import * as l5_9 from './5-9-applications-of-quadratic-equations';
+import * as l6_1 from './6-1-multiplying-and-simplifying-rational-expressions';
+import * as l6_2 from './6-2-division-and-reciprocals';
+import * as l6_3 from './6-3-least-common-multiples-and-denominators';
+import * as l6_4 from './6-4-adding-rational-expressions';
+import * as l6_5 from './6-5-subtracting-rational-expressions';
+import * as l6_6 from './6-6-complex-rational-expressions';
+import * as l6_7 from './6-7-solving-rational-equations';
+import * as l6_8 from './6-8-applications-using-rational-equations-and-proportions';
+import * as l6_9 from './6-9-variation-and-applications';
 import * as l4_8 from './4-8-division-of-polynomials';
 import * as l3_4 from './3-4-slope-and-applications';
 import * as l2_8 from './2-8-applications-and-problem-solving-with-inequalities';
@@ -81,4 +90,13 @@ export const registry: Record<string, LessonGenerators> = {
   '5.7': l5_7,
   '5.8': l5_8,
   '5.9': l5_9,
+  '6.1': l6_1,
+  '6.2': l6_2,
+  '6.3': l6_3,
+  '6.4': l6_4,
+  '6.5': l6_5,
+  '6.6': l6_6,
+  '6.7': l6_7,
+  '6.8': l6_8,
+  '6.9': l6_9,
 };

@@ -157,3 +157,58 @@ export function factorPairs(n: number): [number, number][] {
     }
   return out;
 }
+
+// ---------- Rational expressions (Chapter 6) ----------
+import { parse as parseExpr } from '../lib/expr';
+import { factored, factoredTex, product, ratFromNode, ratTex, ratText, simplify, type Simplified } from '../lib/rational';
+export { factored, factoredTex, product, ratTex, ratText, simplify, type Simplified };
+
+/** \frac{n}{d} */
+export const dfrac = (n: string, d: string) => `\\frac{${n}}{${d}}`;
+
+/** A polynomial written in factored form as TeX. */
+export const ftex = (P: Poly, v = 'x') => factoredTex(factored(P, v));
+
+/** The polynomial fraction N/D written with both parts factored, the cancelled factors highlighted. */
+export function cancelTex(N: Poly, D: Poly, v = 'x') {
+  const s = simplify(N, D, v);
+  const fn = factored(N, v), fd = factored(D, v);
+  return `\\frac{${factoredTex(fn, { highlight: s.common })}}{${factoredTex(fd, { highlight: s.common })}}`;
+}
+
+/** Combine an expression typed as text into one reduced fraction. */
+export function reduceText(src: string, v = 'x'): Simplified {
+  const r = ratFromNode(parseExpr(src));
+  return simplify(r.num, r.den, v);
+}
+
+/** The expected answer for a "simplify to one fraction" problem. */
+export const ratAnswer = (s: Simplified) => ({ type: 'expression' as const, value: ratText(s), rational: true });
+
+/** n distinct random monic linear factors x + b (b ≠ 0, all b different). */
+export function monicFactors(n: number, v = 'x', max = 7): Poly[] {
+  const bs = new Set<number>();
+  while (bs.size < n) bs.add(nz(max));
+  return [...bs].map((b) => lin(1, b, v));
+}
+
+/** Least common multiple of whole numbers. */
+export const lcm = (...ns: number[]) => ns.reduce((a, b) => (a * b) / gcdN(a, b));
+
+/** A polynomial written with the constant first, e.g. 8 − x (for "opposite" binomials). */
+export function ascTex(P: Poly): string {
+  const ts = P.ordered().reverse();
+  return ts
+    .map(([c, vars], i) => {
+      const s = Poly.mono(c, vars).tex();
+      if (i === 0) return s;
+      return s.startsWith('-') ? ` - ${s.slice(1)}` : ` + ${s}`;
+    })
+    .join('');
+}
+
+/** Factored TeX, wrapped in parentheses when it is a single sum (so it can be multiplied). */
+export function ptex(P: Poly, v = 'x') {
+  const t = ftex(P, v);
+  return P.size > 1 && !t.includes('(') ? `(${t})` : t;
+}

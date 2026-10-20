@@ -1,0 +1,67 @@
+---
+id: "6.2"
+title: Division and Reciprocals
+summary: To divide by a rational expression, multiply by its reciprocal — then factor and cancel as before.
+minutes: 30
+objectives:
+  - Find the reciprocal of a rational expression.
+  - Divide rational expressions and simplify.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import RationalLab from '../../components/RationalLab.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+$\frac{3}{4} \div \frac{1}{2} = \frac{3}{4} \cdot \frac{2}{1} = \frac{3}{2}$ — "keep, change, flip." Dividing rational expressions works exactly the same way.
+</Callout>
+
+## Reciprocals
+
+Two expressions are **reciprocals** if their product is $1$. The reciprocal of $\frac{A}{B}$ is $\frac{B}{A}$, and the reciprocal of a polynomial $P$ is $\frac{1}{P}$.
+
+$$\frac{x + 2}{x - 5} \cdot \frac{x - 5}{x + 2} = 1 \qquad (x^2 - 3) \cdot \frac{1}{x^2 - 3} = 1$$
+
+<Practice client:visible lesson="6.2" skill="reciprocal" compact />
+
+## Dividing
+
+$$\frac{A}{B} \div \frac{C}{D} = \frac{A}{B} \cdot \frac{D}{C}$$
+
+Flip **only the second** fraction (the divisor), then multiply, factor and cancel.
+
+<RationalLab client:visible mode="divide" />
+
+<StepReveal
+  client:visible
+  title="Divide"
+  problem="Divide: $\;\dfrac{x^2 - 9}{x^2 + x} \div \dfrac{x - 3}{x + 1}$"
+  steps={[
+    { show: '$= \\dfrac{x^2 - 9}{x^2 + x} \\cdot \\dfrac{x + 1}{x - 3}$', why: 'Multiply by the reciprocal of the divisor.' },
+    { show: '$= \\dfrac{(x - 3)(x + 3)(x + 1)}{x(x + 1)(x - 3)}$', why: 'Factor everything.' },
+    { show: '$= \\dfrac{x + 3}{x}$', why: 'Cancel $(x - 3)$ and $(x + 1)$.' },
+  ]}
+/>
+
+<Callout type="warning" title="Flip the right fraction">
+Only the fraction **after** the $\div$ sign is flipped. Flipping the first one (or both) gives a different answer.
+</Callout>
+
+<Practice client:visible lesson="6.2" skill="monomial" compact />
+
+<Practice client:visible lesson="6.2" skill="divide" compact />
+
+## Summary
+
+- Reciprocal of $\frac{A}{B}$ is $\frac{B}{A}$.
+- $\frac{A}{B} \div \frac{C}{D} = \frac{A}{B} \cdot \frac{D}{C}$ — then factor and cancel.
+
+## Practice
+
+<Practice client:visible lesson="6.2" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="6.2" />

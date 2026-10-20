@@ -1,0 +1,79 @@
+---
+id: "6.8"
+title: Applications Using Rational Equations and Proportions
+summary: Work problems, motion problems and proportions all lead to rational equations — add rates, divide distance by speed, and cross-multiply.
+minutes: 45
+objectives:
+  - Solve work problems by adding rates.
+  - Solve motion problems using time = distance ÷ speed.
+  - Solve problems with proportions.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import WorkRate from '../../components/WorkRate.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+If one painter takes 3 hours and another takes 6, how long do they take together? Not 9 hours, and not 4.5 — together they must be faster than either one. Rational equations give the exact answer: 2 hours.
+</Callout>
+
+## Work problems
+
+If a job takes $a$ hours, then in one hour you do $\frac{1}{a}$ of it, and in $t$ hours you do $\frac{t}{a}$ of it. Two workers together finish the job when their parts add up to one whole job:
+
+$$\frac{t}{a} + \frac{t}{b} = 1$$
+
+<WorkRate client:visible />
+
+<StepReveal
+  client:visible
+  title="Work together"
+  problem="Ana can paint a fence in 4 hours; Ben takes 12 hours. How long working together?"
+  steps={[
+    { show: '$\\dfrac{t}{4} + \\dfrac{t}{12} = 1$', why: 'Each does a fraction of the job; together the fractions make $1$.' },
+    { show: '$3t + t = 12$', why: 'Multiply by the LCD, $12$.' },
+    { show: '$t = 3$ hours', why: 'Check: less than both 4 and 12 ✓' },
+  ]}
+/>
+
+<Practice client:visible lesson="6.8" skill="work" compact />
+
+## Motion problems
+
+Use $\text{time} = \dfrac{\text{distance}}{\text{speed}}$. When two trips take the **same time**, set their times equal.
+
+<StepReveal
+  client:visible
+  title="Downstream and upstream"
+  problem="A boat goes 24 km downstream in the same time it goes 12 km upstream. The current is 4 km/h. Find the boat's speed in still water."
+  steps={[
+    { show: 'Speed in still water $r$: downstream $r + 4$, upstream $r - 4$', why: 'The current helps one way and slows the other.' },
+    { show: '$\\dfrac{24}{r + 4} = \\dfrac{12}{r - 4}$', why: 'The times are equal.' },
+    { show: '$24(r - 4) = 12(r + 4) \\;\\Rightarrow\\; 24r - 96 = 12r + 48$', why: 'Cross-multiply.' },
+    { show: '$12r = 144,\\quad r = 12$ km/h', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="6.8" skill="motion" compact />
+
+## Proportions
+
+A **proportion** says two ratios are equal: $\frac{a}{b} = \frac{c}{d}$. Cross-multiplying gives $ad = bc$. Keep the same order in both ratios (cups to cookies on both sides, for example).
+
+<Practice client:visible lesson="6.8" skill="proportion" compact />
+
+## Summary
+
+- Work: add the rates, $\frac{t}{a} + \frac{t}{b} = 1$. The combined time is less than either time alone.
+- Motion: $t = \frac{d}{r}$; equal times give a rational equation.
+- Proportions: same order on both sides, then cross-multiply.
+
+## Practice
+
+<Practice client:visible lesson="6.8" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="6.8" />

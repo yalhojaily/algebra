@@ -658,3 +658,40 @@ a.tag:hover { color: var(--ink); }
 .sf-steps li.no { opacity: 0.75; }
 .py-tri { fill: var(--card); stroke: var(--ink); stroke-width: 2.5; }
 .py-right { fill: none; stroke: var(--ink); stroke-width: 1.5; }
+
+/* ---------- Chapter 6 rational-expression widgets ---------- */
+.rl, .lcd, .wr, .ve { padding: 16px 20px; margin: 1.4em 0; }
+.rl-inputs, .lcd-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin: 10px 0; align-items: end; }
+.rl-inputs .mi-label, .lcd-inputs .mi-label { display: flex; flex-direction: column; gap: 4px; }
+.rl-steps li { font-size: 1.12rem; }
+.rl-result { background: var(--green-soft) !important; }
+.rl-bad { font-size: 0.9rem; color: var(--ink-2); margin-top: 4px; }
+.rl-test { border-top: 1px solid var(--line); padding-top: 12px; margin-top: 6px; }
+.rl-vals { display: flex; gap: 24px; flex-wrap: wrap; margin: 8px 0; font-size: 1.05rem; }
+.rl-undef { color: var(--red); }
+.katex .cancel { color: var(--red); }
+.lcd-btns { display: flex; gap: 8px; }
+.lcd-scroll { overflow-x: auto; }
+.lcd-table td, .lcd-table th { text-align: center; white-space: nowrap; }
+.lcd-table td:first-child, .lcd-table th:first-child { text-align: left; }
+.lcd-table td.hit { background: var(--green-soft); font-weight: 700; color: var(--green); }
+.lcd-table td.zero { color: var(--ink-3); }
+.lcd-table tr.lcd-max td { font-weight: 700; border-top: 2px solid var(--ink); }
+.re-cands { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+.re-cand { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; padding: 6px 10px; border-radius: 8px; font-size: 0.95rem; }
+.re-cand.right { background: var(--green-soft); color: var(--green); }
+.re-cand.wrong { background: var(--red-soft); color: var(--red); }
+.wr-bars { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+.wr-row { display: grid; grid-template-columns: 80px 1fr 64px; gap: 10px; align-items: center; }
+.wr-lab { font-size: 0.85rem; color: var(--ink-2); font-weight: 600; }
+.wr-bar { position: relative; height: 18px; background: var(--paper-2); border-radius: 6px; overflow: hidden; border: 1px solid var(--line); }
+.wr-bar.big { height: 28px; }
+.wr-fill { position: absolute; top: 0; bottom: 0; left: 0; transition: width .2s, left .2s; }
+.wr-fill.a { background: var(--blue); opacity: .75; }
+.wr-fill.b { background: var(--red); opacity: .65; }
+.wr-num { font-size: 0.9rem; text-align: right; }
+.wr-num.full { color: var(--green); font-weight: 700; }
+.wr .pb-row { margin-top: 6px; }
+.ve-table td, .ve-table th { text-align: center; }
+.ve-table td.hit { font-weight: 700; color: var(--green); }
+.lcd-table th { text-transform: none; letter-spacing: 0; }

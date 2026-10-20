@@ -1,0 +1,84 @@
+---
+id: "6.9"
+title: Variation and Applications
+summary: "Direct variation: y = kx — when x grows, y grows in proportion. Inverse variation: y = k/x — when x grows, y shrinks."
+minutes: 35
+objectives:
+  - Find the constant of variation and the equation of variation.
+  - Tell direct and inverse variation apart.
+  - Solve applied problems involving variation.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import VariationExplorer from '../../components/VariationExplorer.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+Your pay grows with the hours you work. A trip takes less time when you drive faster. These two everyday patterns — **direct** and **inverse** variation — are described by the simplest rational equations.
+</Callout>
+
+## Direct and inverse variation
+
+- $y$ **varies directly** as $x$ if $y = kx$ for some positive constant $k$. Then $\frac{y}{x} = k$ stays the same.
+- $y$ **varies inversely** as $x$ if $y = \dfrac{k}{x}$. Then $xy = k$ stays the same.
+
+$k$ is called the **constant of variation**.
+
+<VariationExplorer client:visible />
+
+## Finding the equation
+
+<StepReveal
+  client:visible
+  title="Direct variation"
+  problem="$y$ varies directly as $x$, and $y = 12$ when $x = 8$. Find the equation of variation."
+  steps={[
+    { show: '$12 = k \\cdot 8$', why: 'Substitute into $y = kx$.' },
+    { show: '$k = \\dfrac{12}{8} = \\dfrac{3}{2}$', why: '' },
+    { show: '$y = \\dfrac{3}{2}x$', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="6.9" skill="direct" compact />
+
+<StepReveal
+  client:visible
+  title="Inverse variation"
+  problem="$y$ varies inversely as $x$, and $y = 5$ when $x = 6$. Find the equation of variation."
+  steps={[
+    { show: '$k = xy = 6 \\cdot 5 = 30$', why: 'In $y = \\frac{k}{x}$, multiplying both sides by $x$ gives $k = xy$.' },
+    { show: '$y = \\dfrac{30}{x}$', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="6.9" skill="inverse" compact />
+
+## Applications
+
+1. Decide: direct ($y = kx$) or inverse ($y = \frac{k}{x}$)?
+2. Use the given pair of values to find $k$.
+3. Use the equation to answer the question.
+
+<Callout type="tip" title="Sense check">
+Direct: more of one means **more** of the other. Inverse: more of one means **less** of the other. If 4 workers need 6 hours, 8 workers should need **fewer** hours — 3, not 12.
+</Callout>
+
+<Practice client:visible lesson="6.9" skill="apply" compact />
+
+<Practice client:visible lesson="6.9" skill="inverseapply" compact />
+
+## Summary
+
+- Direct: $y = kx$, $\frac{y}{x} = k$; the graph is a line through the origin.
+- Inverse: $y = \frac{k}{x}$, $xy = k$; as $x$ increases, $y$ decreases.
+- Find $k$ from one pair of values, then use the equation.
+
+## Practice
+
+<Practice client:visible lesson="6.9" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="6.9" />

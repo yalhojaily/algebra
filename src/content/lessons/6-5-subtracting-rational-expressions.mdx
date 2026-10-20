@@ -1,0 +1,88 @@
+---
+id: "6.5"
+title: Subtracting Rational Expressions
+summary: Subtraction works like addition — with one trap. The minus sign applies to the whole second numerator.
+minutes: 40
+objectives:
+  - Subtract rational expressions with the same, opposite, or different denominators.
+  - Subtract every term of the second numerator.
+  - Combine additions and subtractions in one problem.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import AddRational from '../../components/AddRational.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+$\dfrac{5x}{x + 1} - \dfrac{2x - 3}{x + 1}$ is **not** $\dfrac{3x - 3}{x + 1}$. The $-$ sign subtracts the *whole* numerator $2x - 3$, so the $-3$ becomes $+3$. This one sign error accounts for most wrong answers in this lesson.
+</Callout>
+
+## Same denominator
+
+$$\frac{A}{C} - \frac{B}{C} = \frac{A - (B)}{C}$$
+
+Put the second numerator in **parentheses** before you subtract.
+
+<StepReveal
+  client:visible
+  title="Subtract the whole numerator"
+  problem="Subtract: $\;\dfrac{5x}{x + 1} - \dfrac{2x - 3}{x + 1}$"
+  steps={[
+    { show: '$= \\dfrac{5x - (2x - 3)}{x + 1}$', why: 'Parentheses around the second numerator.' },
+    { show: '$= \\dfrac{5x - 2x + 3}{x + 1}$', why: 'The minus sign changes **every** sign inside.' },
+    { show: '$= \\dfrac{3x + 3}{x + 1} = \\dfrac{3(x + 1)}{x + 1} = 3$', why: 'Factor and cancel.' },
+  ]}
+/>
+
+<Practice client:visible lesson="6.5" skill="same" compact />
+
+## Opposite denominators
+
+Multiplying the second fraction by $\frac{-1}{-1}$ turns the subtraction into an addition:
+
+$$\frac{x}{x - 5} - \frac{5}{5 - x} = \frac{x}{x - 5} + \frac{5}{x - 5} = \frac{x + 5}{x - 5}$$
+
+<Practice client:visible lesson="6.5" skill="opposite" compact />
+
+## Different denominators
+
+The steps are the same as for adding: factor, find the LCD, rewrite each fraction, then subtract the numerators (with parentheses!) and simplify.
+
+<AddRational client:visible op="-" />
+
+<Practice client:visible lesson="6.5" skill="different" compact />
+
+<Practice client:visible lesson="6.5" skill="factor" compact />
+
+## Adding and subtracting together
+
+With three or more fractions, rewrite **all** of them with one LCD, then combine all the numerators at once.
+
+<StepReveal
+  client:visible
+  title="Three fractions"
+  problem="Simplify: $\;\dfrac{2}{x} + \dfrac{3}{x - 1} - \dfrac{1}{x^2 - x}$"
+  steps={[
+    { show: 'LCD $= x(x - 1)$', why: '$x^2 - x = x(x - 1)$ already contains the other two denominators.' },
+    { show: '$= \\dfrac{2(x - 1) + 3x - 1}{x(x - 1)}$', why: 'Rewrite each fraction with the LCD and combine the numerators.' },
+    { show: '$= \\dfrac{5x - 3}{x(x - 1)}$', why: 'Nothing cancels.' },
+  ]}
+/>
+
+<Practice client:visible lesson="6.5" skill="mixed" compact />
+
+## Summary
+
+- $\frac{A}{C} - \frac{B}{C} = \frac{A - (B)}{C}$ — subtract every term of $B$.
+- Opposite denominators: subtracting becomes adding.
+- Different denominators: factor → LCD → rewrite → combine → simplify.
+
+## Practice
+
+<Practice client:visible lesson="6.5" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="6.5" />

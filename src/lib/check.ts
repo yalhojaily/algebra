@@ -3,6 +3,7 @@ import { equivalent, equivalentEquations, parse, parseEquation, ParseError, topT
 import type { Problem } from '../generators/types';
 import { describe, parseInequality, solvedForm } from './inequality';
 import { evaluate } from './expr';
+import { notSimplifiedFraction } from './rational';
 
 export type Verdict =
   | { status: 'correct' }
@@ -80,6 +81,10 @@ export function check(problem: Problem, input: string | number): Verdict {
       }
       if (a.positiveExponents && /\^\s*\(?\s*[-−]/.test(raw))
         return { status: 'invalid', message: 'That is equal to the right answer, but write it using only positive exponents.' };
+      if (a.rational) {
+        const why = notSimplifiedFraction(got, expected);
+        if (why) return { status: 'invalid', message: why };
+      }
       if (a.factored) {
         const why = notFullyFactored(got, expected);
         if (why) return { status: 'invalid', message: why };

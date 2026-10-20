@@ -1,0 +1,79 @@
+---
+id: "6.4"
+title: Adding Rational Expressions
+summary: Same denominators — add the numerators. Different denominators — rewrite with the LCD first. Then simplify.
+minutes: 40
+objectives:
+  - Add rational expressions with the same denominator.
+  - Add rational expressions whose denominators are opposites.
+  - Add rational expressions with different denominators using the LCD.
+  - Simplify the result.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import AddRational from '../../components/AddRational.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+$\frac{2}{7} + \frac{3}{7} = \frac{5}{7}$, but $\frac{1}{2} + \frac{1}{3}$ needs a common denominator first. Rational expressions follow the same two rules — the only new work is factoring.
+</Callout>
+
+## Same denominator
+
+$$\frac{A}{C} + \frac{B}{C} = \frac{A + B}{C}$$
+
+Add the numerators, keep the denominator — then check whether the result simplifies.
+
+<StepReveal
+  client:visible
+  title="Same denominator"
+  problem="Add: $\;\dfrac{x - 2}{x^2 + 7x + 10} + \dfrac{2x + 17}{x^2 + 7x + 10}$"
+  steps={[
+    { show: '$= \\dfrac{3x + 15}{x^2 + 7x + 10}$', why: 'Add the numerators.' },
+    { show: '$= \\dfrac{3(x + 5)}{(x + 2)(x + 5)}$', why: 'Factor the top and bottom.' },
+    { show: '$= \\dfrac{3}{x + 2}$', why: 'Cancel $(x + 5)$.' },
+  ]}
+/>
+
+<Practice client:visible lesson="6.4" skill="same" compact />
+
+## Opposite denominators
+
+When the denominators are opposites, like $x - 4$ and $4 - x$, multiply one fraction by $\frac{-1}{-1}$:
+
+$$\frac{3x}{x - 4} + \frac{5}{4 - x} = \frac{3x}{x - 4} + \frac{-5}{x - 4} = \frac{3x - 5}{x - 4}$$
+
+<Practice client:visible lesson="6.4" skill="opposite" compact />
+
+## Different denominators
+
+1. Factor the denominators and find the LCD.
+2. Rewrite each fraction with the LCD (multiply top and bottom by the missing factors).
+3. Add the numerators.
+4. Simplify if possible.
+
+<AddRational client:visible op="+" />
+
+<Callout type="warning" title="Never add the denominators">
+$\dfrac{3}{x + 2} + \dfrac{5}{x - 1} \ne \dfrac{8}{2x + 1}$. Check with $x = 0$: the left side is $\frac{3}{2} - 5 = -\frac{7}{2}$; the right side is $8$.
+</Callout>
+
+<Practice client:visible lesson="6.4" skill="different" compact />
+
+<Practice client:visible lesson="6.4" skill="factor" compact />
+
+## Summary
+
+- Same denominator: add numerators, keep the denominator.
+- Opposite denominators: multiply one fraction by $\frac{-1}{-1}$.
+- Different denominators: factor → LCD → rewrite → add → simplify.
+
+## Practice
+
+<Practice client:visible lesson="6.4" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="6.4" />

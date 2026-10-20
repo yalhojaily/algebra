@@ -1,0 +1,72 @@
+---
+id: "6.6"
+title: Complex Rational Expressions
+summary: A fraction whose numerator or denominator contains fractions. Multiply the top and bottom by the LCD of all the little fractions, and they disappear.
+minutes: 35
+objectives:
+  - Recognize complex rational expressions.
+  - Simplify them by multiplying by the LCD.
+  - Simplify them by dividing (writing the top and bottom as single fractions).
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import ComplexFraction from '../../components/ComplexFraction.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+Expressions like $\dfrac{1 + \frac{1}{x}}{1 - \frac{1}{x^2}}$ show up when you combine rates or average speeds. They look messy, but one move — multiplying by the LCD — cleans them up.
+</Callout>
+
+## Method 1: multiply by the LCD
+
+A **complex rational expression** has rational expressions in its numerator, its denominator, or both.
+
+1. Find the LCD of **all** the little denominators.
+2. Multiply the numerator and the denominator of the big fraction by that LCD (this is multiplying by $1$).
+3. Distribute — every little fraction clears.
+4. Factor and simplify.
+
+<ComplexFraction client:visible />
+
+<StepReveal
+  client:visible
+  title="Multiply by the LCD"
+  problem="Simplify: $\;\dfrac{1 + \frac{1}{x}}{1 - \frac{1}{x^2}}$"
+  steps={[
+    { show: 'LCD $= x^2$', why: 'The little denominators are $x$ and $x^2$.' },
+    { show: '$= \\dfrac{x^2 + x}{x^2 - 1}$', why: 'Multiply top and bottom by $x^2$: $x^2 \\cdot 1 + x^2 \\cdot \\frac{1}{x} = x^2 + x$.' },
+    { show: '$= \\dfrac{x(x + 1)}{(x + 1)(x - 1)} = \\dfrac{x}{x - 1}$', why: 'Factor and cancel.' },
+  ]}
+/>
+
+<Practice client:visible lesson="6.6" skill="numeric" compact />
+
+<Practice client:visible lesson="6.6" skill="lcd" compact />
+
+## Method 2: divide
+
+You can also write the top and the bottom as **single** fractions, then divide (multiply by the reciprocal):
+
+$$\frac{1 + \frac{1}{x}}{1 - \frac{1}{x^2}} = \frac{\frac{x + 1}{x}}{\frac{x^2 - 1}{x^2}} = \frac{x + 1}{x} \cdot \frac{x^2}{(x + 1)(x - 1)} = \frac{x}{x - 1}$$
+
+Both methods give the same answer — use whichever feels easier.
+
+<Practice client:visible lesson="6.6" skill="squares" compact />
+
+<Practice client:visible lesson="6.6" skill="twovar" compact />
+
+## Summary
+
+- LCD method: multiply top and bottom by the LCD of all the little fractions.
+- Division method: make the top and bottom single fractions, then multiply by the reciprocal.
+- Finish by factoring and cancelling.
+
+## Practice
+
+<Practice client:visible lesson="6.6" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="6.6" />

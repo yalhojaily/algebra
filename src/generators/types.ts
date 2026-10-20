@@ -20,6 +20,8 @@ export type Answer =
       factored?: boolean;
       /** The answer must not use negative exponents. */
       positiveExponents?: boolean;
+      /** The answer must be one fraction in lowest terms (numerator and denominator have no common factor). */
+      rational?: boolean;
     }
   | {
       type: 'equation';
