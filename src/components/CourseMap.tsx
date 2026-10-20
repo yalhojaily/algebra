@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import type React from 'react';
 import type { Chapter } from '../data/curriculum';
 import { getAll, onProgress, type LessonProgress } from '../lib/progress';
 
@@ -55,7 +56,7 @@ export default function CourseMap({ chapters, available, reviews = {} }: Props) 
           {focused.prereqs.length ? <> builds on <span className="cm-pre-chip">{focused.prereqs.join(', ')}</span></> : <> is a starting point</>}
           {unlocks.size > 0 && <> · leads to <span className="cm-next-chip">{[...unlocks].join(', ')}</span></>}
         </>
-      ) : 'Hover or focus a lesson to see what it builds on and what it leads to.'}</div>
+      ) : 'Hover over a lesson (or Tab to it) to see what it builds on and what it leads to.'}</div>
 
       <div className="cm-chapters">
         {chapters.map((c) => (
@@ -75,11 +76,14 @@ export default function CourseMap({ chapters, available, reviews = {} }: Props) 
                     {st === 'mastered' && <span className="cm-star" aria-label="mastered">★</span>}
                   </>
                 );
+                // Highlight prerequisites only for a real mouse hover or keyboard focus. On phones a tap also
+                // fires hover/focus events; changing the page then makes iOS Safari swallow the tap, so the
+                // link would need a second tap (or a long press) to open.
                 const common = {
                   className: `cm-lesson ${st} ${rel}`,
-                  onMouseEnter: () => setFocus(l.id),
-                  onMouseLeave: () => setFocus(null),
-                  onFocus: () => setFocus(l.id),
+                  onPointerEnter: (e: React.PointerEvent) => { if (e.pointerType === 'mouse') setFocus(l.id); },
+                  onPointerLeave: (e: React.PointerEvent) => { if (e.pointerType === 'mouse') setFocus(null); },
+                  onFocus: (e: React.FocusEvent<HTMLElement>) => { if (e.currentTarget.matches(':focus-visible')) setFocus(l.id); },
                   onBlur: () => setFocus(null),
                 };
                 return (
