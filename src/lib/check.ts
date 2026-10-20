@@ -4,6 +4,7 @@ import type { Problem } from '../generators/types';
 import { describe, parseInequality, solvedForm } from './inequality';
 import { evaluate } from './expr';
 import { notSimplifiedFraction } from './rational';
+import { fromNode, Poly } from './poly';
 
 export type Verdict =
   | { status: 'correct' }
@@ -30,6 +31,8 @@ function rename(n: Node, map: Record<string, string>): Node {
       return { kind: 'var', name: map[n.name] ?? n.name };
     case 'neg':
       return { kind: 'neg', arg: rename(n.arg, map) };
+    case 'fn':
+      return { ...n, arg: rename(n.arg, map) };
     case 'bin':
       return { ...n, left: rename(n.left, map), right: rename(n.right, map) };
     default:
@@ -81,6 +84,16 @@ export function check(problem: Problem, input: string | number): Verdict {
       }
       if (a.positiveExponents && /\^\s*\(?\s*[-−]/.test(raw))
         return { status: 'invalid', message: 'That is equal to the right answer, but write it using only positive exponents.' };
+      if (a.radical) {
+        const why = notSimplifiedRadical(got, expected);
+        if (why) return { status: 'invalid', message: why };
+      }
+      if (a.combined) {
+        const counts = new Map<string, number>();
+        for (const ch of raw.replace(/sqrt|cbrt|abs/gi, '')) if (/[a-zA-Z]/.test(ch)) counts.set(ch, (counts.get(ch) ?? 0) + 1);
+        if ([...counts.values()].some((c) => c > 1)) return { status: 'invalid', message: 'That is equal to the right answer, but simplify it: each variable should appear only once.' };
+      }
+      if (a.noRadicals && /sqrt|cbrt|√|∛/i.test(raw)) return { status: 'invalid', message: 'Write the answer with a rational exponent, like x^(2/3), instead of a radical sign.' };
       if (a.rational) {
         const why = notSimplifiedFraction(got, expected);
         if (why) return { status: 'invalid', message: why };
@@ -141,6 +154,18 @@ export function check(problem: Problem, input: string | number): Verdict {
 
     if (a.type === 'interval') return checkInterval(a, raw);
     if (a.type === 'intervals') return checkIntervals(a.parts, raw);
+
+    if (a.type === 'complex') {
+      const z = parseComplex(raw);
+      if (!z) return { status: 'invalid', message: 'Write a complex number like 3 - 2i (use i for the imaginary unit).' };
+      if ('error' in z) return { status: 'invalid', message: z.error };
+      if (close(z.re, a.re) && close(z.im, a.im)) return { status: 'correct' };
+      const m = mistake(raw);
+      if (m) return { status: 'wrong', feedback: m };
+      if (close(z.re, a.re)) return { status: 'wrong', feedback: 'The real part is right; check the imaginary part.' };
+      if (close(z.im, a.im)) return { status: 'wrong', feedback: 'The imaginary part is right; check the real part.' };
+      return { status: 'wrong' };
+    }
 
     if (a.type === 'tuple') {
       const n = a.values.length;
@@ -368,4 +393,73 @@ export function checkIntervals(want: Interval[], raw: string): Verdict {
   if (ends(g) === ends(w)) return { status: 'wrong', feedback: 'The endpoints are right, but check the brackets: [ ] when the endpoint is included, ( ) when it is not.' };
   if (g.length !== w.length) return { status: 'wrong', feedback: w.length > 1 ? 'The solution set has two separate pieces — write them as a union with U.' : 'The solution is a single interval.' };
   return { status: 'wrong' };
+}
+
+// ---------- Radicals ----------
+
+function walk(n: Node, f: (m: Node) => void) {
+  f(n);
+  if (n.kind === 'neg' || n.kind === 'fn') walk(n.arg, f);
+  else if (n.kind === 'bin') {
+    walk(n.left, f);
+    walk(n.right, f);
+  }
+}
+const hasRoot = (n: Node) => {
+  let found = false;
+  walk(n, (m) => {
+    if (m.kind === 'fn' && m.name !== 'abs') found = true;
+    if (m.kind === 'bin' && m.op === '^' && m.right.kind !== 'num') found = true;
+    if (m.kind === 'bin' && m.op === '^' && m.right.kind === 'num' && !Number.isInteger(m.right.value)) found = true;
+  });
+  return found;
+};
+
+/** Why `got` (equal to `expected`) is not in simplified radical form — or null if it is. */
+export function notSimplifiedRadical(got: Node, expected: Node): string | null {
+  let why: string | null = null;
+  walk(got, (m) => {
+    if (why) return;
+    if (m.kind === 'bin' && m.op === '/' && hasRoot(m.right)) why = 'That is equal to the right answer, but rationalize the denominator: no radicals in the denominator.';
+    if (m.kind === 'fn' && (m.name === 'sqrt' || m.name === 'cbrt')) {
+      const k = m.name === 'sqrt' ? 2 : 3;
+      let P: Poly;
+      try {
+        P = fromNode(m.arg);
+      } catch {
+        why = 'That is equal to the right answer, but simplify what is under the radical.';
+        return;
+      }
+      if (P.size !== 1) return; // a sum under the radical: nothing to pull out term by term
+      const [[key, c]] = [...P.terms];
+      if (!Number.isInteger(c)) { why = 'That is equal to the right answer, but there should be no fraction under the radical — rationalize it.'; return; }
+      for (let p = 2; p ** k <= Math.abs(c); p++)
+        if (c % p ** k === 0) { why = `That is equal to the right answer, but it is not simplified: ${p ** k} is a perfect ${k === 2 ? 'square' : 'cube'} factor under the radical.`; return; }
+      if ([...key.matchAll(/\^(\d+)/g)].some((e) => Number(e[1]) >= k)) why = `That is equal to the right answer, but a power of a variable under the radical can still come out (its exponent is ${k} or more).`;
+    }
+  });
+  if (why) return why;
+  if (topTerms(got).length > topTerms(expected).length) return 'That is equal to the right answer, but combine like terms (like radicals).';
+  return null;
+}
+
+// ---------- Complex numbers ----------
+
+/** "3 - 2i", "-4i", "5", "(1/2) + (3/2)i" → { re, im }. */
+export function parseComplex(raw: string): { re: number; im: number } | { error: string } | null {
+  let n: Node;
+  try {
+    n = parse(raw.replace(/[−–]/g, '-'));
+  } catch {
+    return null;
+  }
+  const vs = [...variables(n)];
+  if (vs.some((v) => v !== 'i')) return null;
+  const f = (i: number) => evaluate(n, { i });
+  const f0 = f(0), f1 = f(1), f2 = f(2), f3 = f(-1.5);
+  if (![f0, f1, f2, f3].every(Number.isFinite)) return /sqrt|√/.test(raw) ? { error: 'Write square roots of negative numbers using i: √(−9) = 3i.' } : null;
+  const im = f1 - f0;
+  if (Math.abs(f2 - f0 - 2 * im) > 1e-9 * Math.max(1, Math.abs(im)) || Math.abs(f3 - f0 + 1.5 * im) > 1e-9 * Math.max(1, Math.abs(im)))
+    return { error: 'Simplify to the form a + bi: replace i² with −1, and don\'t leave i in a denominator.' };
+  return { re: f0, im };
 }

@@ -1,0 +1,76 @@
+---
+id: "10.4"
+title: "Addition, Subtraction, and More Multiplication"
+summary: Like radicals combine like like terms. Multiply radical expressions with the distributive law and FOIL — and watch conjugates make the radicals vanish.
+minutes: 35
+objectives:
+  - Add and subtract like radicals (after simplifying).
+  - Multiply radical expressions using the distributive law and FOIL.
+  - Multiply conjugates.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import RadicalSteps from '../../components/RadicalSteps.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+$3\sqrt{2} + 5\sqrt{2}$ works exactly like $3x + 5x$: the answer is $8\sqrt{2}$. But $\sqrt{2} + \sqrt{3}$ is like $x + y$ — it doesn't combine. The trick is to simplify first, so you can see which radicals really are alike.
+</Callout>
+
+## Like radicals
+
+**Like radicals** have the same index and the same radicand. Combine their coefficients:
+
+$$7\sqrt{5} - 2\sqrt{5} = 5\sqrt{5}$$
+
+<RadicalSteps client:visible set="combine" />
+
+<Callout type="warning" title="Never add radicands">
+$\sqrt{9} + \sqrt{16} = 3 + 4 = 7$, but $\sqrt{9 + 16} = \sqrt{25} = 5$. So $\sqrt{a} + \sqrt{b} \ne \sqrt{a + b}$.
+</Callout>
+
+<Practice client:visible lesson="10.4" skill="like" compact />
+
+## Multiplying
+
+Use the distributive law and FOIL exactly as with polynomials, and remember $\sqrt{a}\cdot\sqrt{a} = a$.
+
+<StepReveal
+  client:visible
+  title="Distribute"
+  problem="Multiply: $\;\sqrt{2}\,(\sqrt{6} + 5)$"
+  steps={[
+    { show: '$= \\sqrt{12} + 5\\sqrt{2}$', why: 'Multiply $\\sqrt{2}$ by each term.' },
+    { show: '$= 2\\sqrt{3} + 5\\sqrt{2}$', why: 'Simplify $\\sqrt{12}$.' },
+  ]}
+/>
+
+<Practice client:visible lesson="10.4" skill="distribute" compact />
+
+<Practice client:visible lesson="10.4" skill="foil" compact />
+
+## Conjugates
+
+$\sqrt{a} + b$ and $\sqrt{a} - b$ are **conjugates**. Their product is a difference of squares, and the radical disappears:
+
+$$(\sqrt{7} + 2)(\sqrt{7} - 2) = 7 - 4 = 3$$
+
+You'll use this in 10.5 to clear radicals from denominators.
+
+<Practice client:visible lesson="10.4" skill="conjugate" compact />
+
+## Summary
+
+- Simplify every radical first; then combine like radicals.
+- Distribute and FOIL as usual; $\sqrt{a}\sqrt{a} = a$.
+- Conjugates multiply to a rational number.
+
+## Practice
+
+<Practice client:visible lesson="10.4" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="10.4" />

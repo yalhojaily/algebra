@@ -1,0 +1,81 @@
+---
+id: "10.2"
+title: Rational Numbers as Exponents
+summary: "Fractional exponents are roots in disguise: a^(1/n) is the nth root of a, and a^(m/n) is that root raised to the m. All the laws of exponents still work."
+minutes: 35
+objectives:
+  - Convert between radical notation and rational exponents.
+  - Evaluate expressions with rational (and negative rational) exponents.
+  - Simplify using the laws of exponents.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import ExponentBridge from '../../components/ExponentBridge.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+What should $9^{1/2}$ mean? If the product rule still works, $9^{1/2} \cdot 9^{1/2} = 9^{1} = 9$. So $9^{1/2}$ is a number whose square is $9$ — it must be $\sqrt{9} = 3$. Rational exponents are defined so that the old rules keep working.
+</Callout>
+
+## The definitions
+
+$$a^{1/n} = \sqrt[n]{a} \qquad a^{m/n} = \left(\sqrt[n]{a}\right)^m = \sqrt[n]{a^m} \qquad a^{-m/n} = \frac{1}{a^{m/n}}$$
+
+The **denominator** is the root; the **numerator** is the power.
+
+<ExponentBridge client:visible />
+
+<StepReveal
+  client:visible
+  title="Evaluate"
+  problem="Evaluate $\;27^{-2/3}$."
+  steps={[
+    { show: '$= \\dfrac{1}{27^{2/3}}$', why: 'Negative exponent: reciprocal.' },
+    { show: '$= \\dfrac{1}{(\\sqrt[3]{27})^2} = \\dfrac{1}{3^2}$', why: 'Root first (the denominator $3$), then the power.' },
+    { show: '$= \\dfrac{1}{9}$', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="10.2" skill="evaluate" compact />
+
+## Converting
+
+To type a rational exponent, use parentheses: `x^(2/3)`. Without them, `x^2/3` means $\frac{x^2}{3}$.
+
+<Practice client:visible lesson="10.2" skill="toradical" compact />
+
+<Practice client:visible lesson="10.2" skill="toexponent" compact />
+
+## Laws of exponents
+
+The laws from Chapter 4 hold for rational exponents (with positive bases):
+
+$$a^m a^n = a^{m+n} \qquad \frac{a^m}{a^n} = a^{m-n} \qquad (a^m)^n = a^{mn}$$
+
+<StepReveal
+  client:visible
+  title="Add the exponents"
+  problem="Simplify $\;x^{1/2} \cdot x^{1/3}$."
+  steps={[
+    { show: '$= x^{1/2 + 1/3}$', why: 'Same base: add the exponents.' },
+    { show: '$= x^{3/6 + 2/6} = x^{5/6}$', why: 'Common denominator.' },
+  ]}
+/>
+
+<Practice client:visible lesson="10.2" skill="laws" compact />
+
+## Summary
+
+- $a^{m/n} = (\sqrt[n]{a})^m$: denominator → root, numerator → power.
+- $a^{-m/n}$ is the reciprocal of $a^{m/n}$.
+- The usual exponent laws apply; fractions need common denominators.
+
+## Practice
+
+<Practice client:visible lesson="10.2" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="10.2" />

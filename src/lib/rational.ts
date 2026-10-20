@@ -18,6 +18,8 @@ export function ratFromNode(n: Node): Rat {
       return { num: Poly.const(n.value), den: Poly.const(1) };
     case 'var':
       return { num: Poly.v(n.name), den: Poly.const(1) };
+    case 'fn':
+      throw new ParseError('Not a rational expression');
     case 'neg': {
       const a = ratFromNode(n.arg);
       return { num: a.num.neg(), den: a.den };

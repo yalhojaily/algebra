@@ -1,0 +1,82 @@
+---
+id: "10.1"
+title: Radical Expressions and Functions
+summary: Square roots, cube roots and radical functions — principal roots, domains, and why √(x²) is |x|.
+minutes: 40
+objectives:
+  - Find principal square roots and cube roots.
+  - Evaluate radical functions and find their domains.
+  - "Simplify √(a²) = |a| and ∛(a³) = a."
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import RootGraph from '../../components/RootGraph.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+How long is the side of a square with area 50? How fast was a car going if it left a 40-foot skid mark? Questions like these run squaring backwards — they need **roots**.
+</Callout>
+
+## Square roots
+
+$c$ is a **square root** of $a$ if $c^2 = a$. Every positive number has two square roots: $5$ and $-5$ are both square roots of $25$. The symbol $\sqrt{a}$ means the **principal** (nonnegative) one: $\sqrt{25} = 5$, and $-\sqrt{25} = -5$.
+
+$\sqrt{-25}$ is **not a real number** — no real number squared is negative. (Lesson 10.8 deals with it.)
+
+To type a root, write `sqrt(25)` or `√25`; for cube roots write `cbrt(8)`.
+
+## Cube roots
+
+$c$ is the **cube root** of $a$ if $c^3 = a$. Every real number has exactly one real cube root, and negative numbers have negative cube roots: $\sqrt[3]{-8} = -2$.
+
+<Practice client:visible lesson="10.1" skill="roots" compact />
+
+## Radical functions and their domains
+
+A function like $f(x) = \sqrt{x + 2} + 1$ is a **radical function**. Because the radicand of a square root cannot be negative, its domain is restricted.
+
+<RootGraph client:visible />
+
+<StepReveal
+  client:visible
+  title="Domain of a square-root function"
+  problem="Find the domain of $\;f(x) = \sqrt{2x - 6}$."
+  steps={[
+    { show: '$2x - 6 \\ge 0$', why: 'The radicand must be nonnegative.' },
+    { show: '$x \\ge 3$', why: '' },
+    { show: 'Domain: $[3, \\infty)$', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="10.1" skill="function" compact />
+
+<Practice client:visible lesson="10.1" skill="domain" compact />
+
+## Roots of powers
+
+For any real number $a$:
+
+$$\sqrt{a^2} = |a| \qquad \sqrt[3]{a^3} = a$$
+
+<Callout type="warning" title="Why the absolute value?">
+Try $a = -3$: $\sqrt{(-3)^2} = \sqrt{9} = 3$, not $-3$. A principal square root is never negative, so it equals $|a|$. Odd roots like cube roots keep the sign, so they need no absolute value. Type absolute values as `|x|` or `abs(x)`.
+</Callout>
+
+<Practice client:visible lesson="10.1" skill="abs" compact />
+
+## Summary
+
+- $\sqrt{a}$ is the nonnegative square root; $\sqrt{\text{negative}}$ is not real.
+- Cube roots exist for every real number.
+- Domain of $\sqrt{\ldots}$: radicand $\ge 0$.
+- $\sqrt{a^2} = |a|$, $\sqrt[3]{a^3} = a$.
+
+## Practice
+
+<Practice client:visible lesson="10.1" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="10.1" />

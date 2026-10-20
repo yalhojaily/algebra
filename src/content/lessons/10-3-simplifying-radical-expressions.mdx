@@ -1,0 +1,82 @@
+---
+id: "10.3"
+title: Simplifying Radical Expressions
+summary: "Pull perfect squares (or cubes) out from under the radical using √(ab) = √a·√b, and multiply radicals by multiplying radicands."
+minutes: 35
+objectives:
+  - Simplify square and cube roots of numbers by factoring out perfect powers.
+  - Simplify radicals containing variables.
+  - Multiply radicals and simplify the result.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import RadicalSimplifier from '../../components/RadicalSimplifier.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+$\sqrt{72}$ and $6\sqrt{2}$ are the same number, but $6\sqrt{2}$ tells you much more: it's a bit more than $6 \times 1.4 \approx 8.5$. **Simplified form** also makes it possible to spot like radicals and combine them in 10.4.
+</Callout>
+
+## The product rule
+
+$$\sqrt{ab} = \sqrt{a}\cdot\sqrt{b} \qquad \sqrt[3]{ab} = \sqrt[3]{a}\cdot\sqrt[3]{b}$$
+
+To simplify, write the radicand as a **perfect square** (or cube) times what's left:
+
+<RadicalSimplifier client:visible />
+
+<StepReveal
+  client:visible
+  title="Simplify a square root"
+  problem="Simplify $\;\sqrt{180}$."
+  steps={[
+    { show: '$180 = 36 \\cdot 5$', why: '$36$ is the largest perfect-square factor.' },
+    { show: '$\\sqrt{180} = \\sqrt{36}\\cdot\\sqrt{5} = 6\\sqrt{5}$', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="10.3" skill="numeric" compact />
+
+<Practice client:visible lesson="10.3" skill="cube" compact />
+
+## Variables under the radical
+
+Assuming the variables are nonnegative, $\sqrt{x^2} = x$, $\sqrt{x^4} = x^2$, and in general an even power comes out with half its exponent. An odd power leaves one factor inside: $\sqrt{x^5} = \sqrt{x^4}\sqrt{x} = x^2\sqrt{x}$.
+
+<StepReveal
+  client:visible
+  title="Variables"
+  problem="Simplify $\;\sqrt{50x^3}$ ($x \ge 0$)."
+  steps={[
+    { show: '$= \\sqrt{25x^2 \\cdot 2x}$', why: 'Split into a perfect square and what remains.' },
+    { show: '$= 5x\\sqrt{2x}$', why: '' },
+  ]}
+/>
+
+<Callout type="tip" title="Typing radicals">
+Type `5x sqrt(2x)` — the parentheses show exactly what is under the radical. `sqrt2x` would mean $\sqrt{2}\cdot x$.
+</Callout>
+
+<Practice client:visible lesson="10.3" skill="variables" compact />
+
+## Multiplying radicals
+
+$\sqrt{a}\cdot\sqrt{b} = \sqrt{ab}$ — then simplify: $\sqrt{6}\cdot\sqrt{10} = \sqrt{60} = 2\sqrt{15}$.
+
+<Practice client:visible lesson="10.3" skill="product" compact />
+
+## Summary
+
+- $\sqrt{ab} = \sqrt{a}\sqrt{b}$: take out perfect-square (perfect-cube) factors.
+- Simplified form: no perfect-power factors left under the radical.
+- Multiply radicals by multiplying radicands, then simplify.
+
+## Practice
+
+<Practice client:visible lesson="10.3" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="10.3" />

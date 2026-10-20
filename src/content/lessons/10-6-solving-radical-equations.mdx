@@ -1,0 +1,78 @@
+---
+id: "10.6"
+title: Solving Radical Equations
+summary: Isolate the radical, raise both sides to a power, solve — and check every answer, because squaring can create false solutions.
+minutes: 40
+objectives:
+  - Solve equations with one radical by isolating it and squaring (or cubing).
+  - Identify and reject extraneous solutions.
+  - Solve equations with two radicals.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import RadicalEqGraph from '../../components/RadicalEqGraph.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+A pendulum's period is $T = 2\pi\sqrt{L/9.8}$. To find the length that gives a 2-second swing you must solve an equation with $L$ under a radical.
+</Callout>
+
+## The principle of powers
+
+> If $a = b$, then $a^n = b^n$.
+
+But the converse fails: $(-3)^2 = 3^2$ even though $-3 \ne 3$. So raising both sides to an even power can introduce solutions that don't satisfy the original equation — **extraneous** solutions. Every answer must be checked.
+
+## One radical
+
+1. Isolate the radical on one side.
+2. Square (or cube) both sides.
+3. Solve.
+4. **Check** in the original equation.
+
+<StepReveal
+  client:visible
+  title="Isolate, then square"
+  problem="Solve: $\;\sqrt{x - 3} + 5 = 9$"
+  steps={[
+    { show: '$\\sqrt{x - 3} = 4$', why: 'Subtract $5$ to isolate the radical.' },
+    { show: '$x - 3 = 16 \\;\\Rightarrow\\; x = 19$', why: 'Square both sides.' },
+    { show: 'Check: $\\sqrt{16} + 5 = 9$ ✓', why: '' },
+  ]}
+/>
+
+<Callout type="warning" title="Isolate first">
+Squaring $\sqrt{x - 3} + 5$ as it stands gives $(x - 3) + 10\sqrt{x - 3} + 25$ — the radical doesn't go away. Get the radical alone **before** squaring.
+</Callout>
+
+<Practice client:visible lesson="10.6" skill="basic" compact />
+
+<Practice client:visible lesson="10.6" skill="cube" compact />
+
+## Extraneous solutions
+
+<RadicalEqGraph client:visible />
+
+<Practice client:visible lesson="10.6" skill="extraneous" compact />
+
+## Two radicals
+
+If each side has one radical, squaring removes both: $\sqrt{3x - 4} = \sqrt{2x + 3}$ gives $3x - 4 = 2x + 3$, so $x = 7$. Check that the radicands are not negative.
+
+<Practice client:visible lesson="10.6" skill="two" compact />
+
+## Summary
+
+- Isolate the radical, then raise both sides to the index.
+- Squaring can create extraneous solutions — check every answer in the original equation.
+- Cube roots: cube both sides; no extraneous solutions arise.
+
+## Practice
+
+<Practice client:visible lesson="10.6" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="10.6" />

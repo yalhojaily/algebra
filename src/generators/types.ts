@@ -22,6 +22,12 @@ export type Answer =
       positiveExponents?: boolean;
       /** The answer must be one fraction in lowest terms (numerator and denominator have no common factor). */
       rational?: boolean;
+      /** Simplified radical form: no square (cube) factors left under a root, no roots in a denominator, like radicals combined. */
+      radical?: boolean;
+      /** Each variable may appear only once (e.g. x^(5/6), not x^(1/2)·x^(1/3)). */
+      combined?: boolean;
+      /** Write it with rational exponents — no √ or ∛. */
+      noRadicals?: boolean;
     }
   | {
       type: 'equation';
@@ -33,6 +39,8 @@ export type Answer =
   | { type: 'inequality'; value: string }
   /** An ordered pair (x, y). */
   | { type: 'point'; x: number; y: number }
+  /** A complex number a + bi. */
+  | { type: 'complex'; re: number; im: number }
   /** An ordered triple (x, y, z) — or any ordered list in parentheses. */
   | { type: 'tuple'; values: number[] }
   /** All solutions of an equation, e.g. [2, -3]. */

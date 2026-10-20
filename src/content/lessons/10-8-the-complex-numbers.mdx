@@ -1,0 +1,94 @@
+---
+id: "10.8"
+title: The Complex Numbers
+summary: "Define i = √(−1), and square roots of negative numbers make sense. Add, subtract, multiply and divide complex numbers a + bi, and find powers of i."
+minutes: 40
+objectives:
+  - Write square roots of negative numbers using i.
+  - Add, subtract and multiply complex numbers.
+  - Find powers of i.
+  - Divide complex numbers using conjugates.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import ComplexPlane from '../../components/ComplexPlane.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+The equation $x^2 + 1 = 0$ has no real solution. Mathematicians invented a number $i$ with $i^2 = -1$ — and it turned out to be indispensable in electrical engineering, signal processing and quantum physics. In Chapter 11 it will let every quadratic equation have solutions.
+</Callout>
+
+## The number i
+
+$$i = \sqrt{-1}, \qquad i^2 = -1$$
+
+For $p > 0$: $\sqrt{-p} = i\sqrt{p}$. So $\sqrt{-49} = 7i$ and $\sqrt{-5} = i\sqrt{5}$.
+
+A **complex number** has the form $a + bi$: $a$ is the **real part**, $b$ the **imaginary part**. Type answers like `3 - 2i`.
+
+<Practice client:visible lesson="10.8" skill="imaginary" compact />
+
+## Adding, subtracting, multiplying
+
+Treat $i$ like a variable — then replace $i^2$ by $-1$.
+
+<StepReveal
+  client:visible
+  title="Multiply"
+  problem="Multiply: $\;(2 + 3i)(4 - i)$"
+  steps={[
+    { show: '$= 8 - 2i + 12i - 3i^2$', why: 'FOIL.' },
+    { show: '$= 8 + 10i + 3$', why: '$-3i^2 = -3(-1) = 3$.' },
+    { show: '$= 11 + 10i$', why: '' },
+  ]}
+/>
+
+<Callout type="warning" title="√a · √b needs care">
+$\sqrt{-4}\cdot\sqrt{-9}$ is **not** $\sqrt{36} = 6$. Write each in terms of $i$ first: $2i \cdot 3i = 6i^2 = -6$.
+</Callout>
+
+<Practice client:visible lesson="10.8" skill="addsub" compact />
+
+<Practice client:visible lesson="10.8" skill="multiply" compact />
+
+## Powers of i
+
+<ComplexPlane client:visible />
+
+$i^1 = i,\ i^2 = -1,\ i^3 = -i,\ i^4 = 1$, then the pattern repeats. To simplify $i^n$, divide $n$ by $4$ and use the remainder.
+
+<Practice client:visible lesson="10.8" skill="powers" compact />
+
+## Dividing
+
+The **conjugate** of $a + bi$ is $a - bi$, and $(a + bi)(a - bi) = a^2 + b^2$ — a real number. Multiply the top and bottom by the conjugate of the denominator:
+
+<StepReveal
+  client:visible
+  title="Divide"
+  problem="Divide: $\;\dfrac{5 + i}{1 - i}$"
+  steps={[
+    { show: '$= \\dfrac{(5 + i)(1 + i)}{(1 - i)(1 + i)}$', why: 'Multiply by the conjugate $1 + i$.' },
+    { show: '$= \\dfrac{5 + 6i + i^2}{1 - i^2} = \\dfrac{4 + 6i}{2}$', why: '' },
+    { show: '$= 2 + 3i$', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="10.8" skill="divide" compact />
+
+## Summary
+
+- $i = \sqrt{-1}$, $i^2 = -1$; $\sqrt{-p} = i\sqrt{p}$.
+- Add/subtract real and imaginary parts separately; multiply with FOIL and $i^2 = -1$.
+- Powers of $i$ cycle with period 4.
+- Divide using the conjugate of the denominator.
+
+## Practice
+
+<Practice client:visible lesson="10.8" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="10.8" />

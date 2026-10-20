@@ -1,0 +1,67 @@
+---
+id: "10.5"
+title: More on Division of Radical Expressions
+summary: Divide radicals with the quotient rule, and rationalize denominators — with the radical itself for one-term denominators, with the conjugate for two-term ones.
+minutes: 35
+objectives:
+  - "Use √a / √b = √(a/b) to divide and simplify."
+  - Rationalize denominators containing one term.
+  - Rationalize denominators containing two terms, using conjugates.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import RadicalSteps from '../../components/RadicalSteps.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+$\dfrac{1}{\sqrt{2}}$ and $\dfrac{\sqrt{2}}{2}$ are the same number. The second form is the standard one: it's easier to estimate ($1.414 \div 2$), easier to compare, and it's what answers in the back of the book look like.
+</Callout>
+
+## The quotient rule
+
+$$\frac{\sqrt{a}}{\sqrt{b}} = \sqrt{\frac{a}{b}} \qquad\text{e.g.}\quad \frac{\sqrt{75}}{\sqrt{3}} = \sqrt{25} = 5$$
+
+<Practice client:visible lesson="10.5" skill="quotient" compact />
+
+## Rationalizing one-term denominators
+
+To **rationalize** a denominator means to rewrite the expression so the denominator has no radicals. Multiply the top and bottom by the radical in the denominator — this is multiplying by $1$.
+
+<RadicalSteps client:visible set="rationalize" />
+
+<Practice client:visible lesson="10.5" skill="rationalize" compact />
+
+<Practice client:visible lesson="10.5" skill="fraction" compact />
+
+## Two-term denominators: use the conjugate
+
+Multiplying $\sqrt{3} + 1$ by $\sqrt{3}$ doesn't remove the radical. Multiplying by its **conjugate** $\sqrt{3} - 1$ does:
+
+<StepReveal
+  client:visible
+  title="Conjugate"
+  problem="Rationalize: $\;\dfrac{6}{\sqrt{5} - 1}$"
+  steps={[
+    { show: '$= \\dfrac{6}{\\sqrt{5} - 1}\\cdot\\dfrac{\\sqrt{5} + 1}{\\sqrt{5} + 1}$', why: 'Multiply by the conjugate over itself.' },
+    { show: '$= \\dfrac{6(\\sqrt{5} + 1)}{5 - 1} = \\dfrac{6(\\sqrt{5} + 1)}{4}$', why: '$(\\sqrt{5} - 1)(\\sqrt{5} + 1) = 5 - 1$.' },
+    { show: '$= \\dfrac{3\\sqrt{5} + 3}{2}$', why: 'Reduce by $2$.' },
+  ]}
+/>
+
+<Practice client:visible lesson="10.5" skill="conjugate" compact />
+
+## Summary
+
+- $\sqrt{a}/\sqrt{b} = \sqrt{a/b}$.
+- One-term denominator $\sqrt{b}$: multiply by $\frac{\sqrt{b}}{\sqrt{b}}$.
+- Two-term denominator: multiply by the conjugate over itself.
+
+## Practice
+
+<Practice client:visible lesson="10.5" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="10.5" />

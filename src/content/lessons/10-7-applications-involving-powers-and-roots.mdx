@@ -1,0 +1,68 @@
+---
+id: "10.7"
+title: Applications Involving Powers and Roots
+summary: "The Pythagorean theorem, the distance formula, and the special 45°–45°–90° and 30°–60°–90° triangles — with exact answers in radical form."
+minutes: 35
+objectives:
+  - Use the Pythagorean theorem to find missing sides, giving exact answers.
+  - Find the distance between two points.
+  - Use the side ratios of special right triangles.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import DistanceGrid from '../../components/DistanceGrid.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+A TV's size is its diagonal. A ramp's length depends on its height and run. A GPS computes straight-line distance from coordinates. All three are the Pythagorean theorem — and the answers are usually square roots.
+</Callout>
+
+## Right triangles
+
+In a right triangle with legs $a$, $b$ and hypotenuse $c$: $a^2 + b^2 = c^2$. Give **exact** answers as simplified radicals; type them like `2sqrt(17)` or `sqrt(68)` (both are accepted here).
+
+<StepReveal
+  client:visible
+  title="Exact answer"
+  problem="A ladder 10 ft long leans against a wall with its foot 4 ft from the wall. How high does it reach?"
+  steps={[
+    { show: '$4^2 + h^2 = 10^2$', why: 'The ladder is the hypotenuse.' },
+    { show: '$h^2 = 84$', why: '' },
+    { show: '$h = \\sqrt{84} = 2\\sqrt{21} \\approx 9.17$ ft', why: 'Take the positive root — a length is positive.' },
+  ]}
+/>
+
+<Practice client:visible lesson="10.7" skill="hypotenuse" compact />
+
+<Practice client:visible lesson="10.7" skill="leg" compact />
+
+## Distance between two points
+
+$$d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$$
+
+<DistanceGrid client:visible />
+
+<Practice client:visible lesson="10.7" skill="distance" compact />
+
+## Special right triangles
+
+- **45°–45°–90°:** legs $a$ and $a$, hypotenuse $a\sqrt{2}$.
+- **30°–60°–90°:** shorter leg $a$, longer leg $a\sqrt{3}$, hypotenuse $2a$.
+
+<Practice client:visible lesson="10.7" skill="special" compact />
+
+## Summary
+
+- $a^2 + b^2 = c^2$; give exact answers in simplified radical form.
+- Distance formula = Pythagorean theorem on the grid.
+- 45°–45°–90°: $a, a, a\sqrt{2}$. 30°–60°–90°: $a, a\sqrt{3}, 2a$.
+
+## Practice
+
+<Practice client:visible lesson="10.7" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="10.7" />

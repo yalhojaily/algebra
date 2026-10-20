@@ -57,6 +57,14 @@ import * as l9_1 from './9-1-sets-inequalities-and-interval-notation';
 import * as l9_2 from './9-2-intersections-unions-and-compound-inequalities';
 import * as l9_3 from './9-3-absolute-value-equations-and-inequalities';
 import * as l9_4 from './9-4-systems-of-inequalities-in-two-variables';
+import * as l10_1 from './10-1-radical-expressions-and-functions';
+import * as l10_2 from './10-2-rational-numbers-as-exponents';
+import * as l10_3 from './10-3-simplifying-radical-expressions';
+import * as l10_4 from './10-4-addition-subtraction-and-more-multiplication';
+import * as l10_5 from './10-5-more-on-division-of-radical-expressions';
+import * as l10_6 from './10-6-solving-radical-equations';
+import * as l10_7 from './10-7-applications-involving-powers-and-roots';
+import * as l10_8 from './10-8-the-complex-numbers';
 import * as l4_8 from './4-8-division-of-polynomials';
 import * as l3_4 from './3-4-slope-and-applications';
 import * as l2_8 from './2-8-applications-and-problem-solving-with-inequalities';
@@ -129,4 +137,12 @@ export const registry: Record<string, LessonGenerators> = {
   '9.2': l9_2,
   '9.3': l9_3,
   '9.4': l9_4,
+  '10.1': l10_1,
+  '10.2': l10_2,
+  '10.3': l10_3,
+  '10.4': l10_4,
+  '10.5': l10_5,
+  '10.6': l10_6,
+  '10.7': l10_7,
+  '10.8': l10_8,
 };

@@ -18,15 +18,20 @@ export type Node = (
   | { kind: 'var'; name: string }
   | { kind: 'neg'; arg: Node }
   | { kind: 'bin'; op: '+' | '-' | '*' | '/' | '^'; left: Node; right: Node; implicit?: boolean }
+  | { kind: 'fn'; name: FnName; arg: Node }
 ) &
   Meta;
 
 export class ParseError extends Error {}
 
+/** Functions students can type: sqrt(x) or √x, cbrt(x) or ∛x, abs(x). */
+export type FnName = 'sqrt' | 'cbrt' | 'abs';
+
 type Tok =
   | { t: 'num'; v: number; s: string }
   | { t: 'var'; v: string }
   | { t: 'op'; v: '+' | '-' | '*' | '/' | '^' }
+  | { t: 'fn'; v: FnName }
   | { t: '('; g: Group }
   | { t: ')'; g: Group };
 
@@ -36,7 +41,9 @@ function tokenize(src: string): Tok[] {
   const s = src
     .replace(/[−–—]/g, '-')
     .replace(/[·×⋅∙]/g, '*')
-    .replace(/÷/g, '/');
+    .replace(/÷/g, '/')
+    // |x - 1| → abs(x - 1) (pairs of bars, innermost first)
+    .replace(/\|([^|]+)\|/g, 'abs($1)');
   const out: Tok[] = [];
   let i = 0;
   while (i < s.length) {
@@ -51,6 +58,13 @@ function tokenize(src: string): Tok[] {
       if (!Number.isFinite(v) || raw === '.') throw new ParseError(`"${s.slice(i, j)}" is not a number`);
       out.push({ t: 'num', v, s: raw });
       i = j;
+    } else if (/^(sqrt|cbrt|abs)/i.test(s.slice(i))) {
+      const name = s.slice(i, i + 4).toLowerCase().startsWith('abs') ? 'abs' : (s.slice(i, i + 4).toLowerCase() as FnName);
+      out.push({ t: 'fn', v: name });
+      i += name.length;
+    } else if (c === '√' || c === '∛') {
+      out.push({ t: 'fn', v: c === '√' ? 'sqrt' : 'cbrt' });
+      i++;
     } else if (/[a-zA-Z]/.test(c)) {
       out.push({ t: 'var', v: c }); // single-letter variables, so "xy" means x·y
       i++;
@@ -120,7 +134,7 @@ class Parser {
 
   private startsFactor() {
     const t = this.peek();
-    return !!t && (t.t === 'num' || t.t === 'var' || t.t === '(');
+    return !!t && (t.t === 'num' || t.t === 'var' || t.t === '(' || t.t === 'fn');
   }
 
   private unary(): Node {
@@ -150,6 +164,13 @@ class Parser {
     if (!t) throw new ParseError('The expression ends too early');
     if (t.t === 'num') return { kind: 'num', value: t.v };
     if (t.t === 'var') return { kind: 'var', name: t.v };
+    if (t.t === 'fn') {
+      // sqrt(x + 1), √x, √2x (= √2 · x), sqrt x^2 (= √(x²))
+      const next = this.peek();
+      if (!next) throw new ParseError(`${t.v} needs something to act on`);
+      const arg = next.t === '(' ? this.atom() : this.power();
+      return { kind: 'fn', name: t.v, arg };
+    }
     if (t.t === '(') {
       const inner = this.expr();
       const close = this.next();
@@ -167,7 +188,7 @@ export function parse(src: string): Node {
 
 export function variables(n: Node, acc = new Set<string>()): Set<string> {
   if (n.kind === 'var') acc.add(n.name);
-  else if (n.kind === 'neg') variables(n.arg, acc);
+  else if (n.kind === 'neg' || n.kind === 'fn') variables(n.arg, acc);
   else if (n.kind === 'bin') {
     variables(n.left, acc);
     variables(n.right, acc);
@@ -184,6 +205,10 @@ export function evaluate(n: Node, env: Record<string, number>): number {
       return env[n.name];
     case 'neg':
       return -evaluate(n.arg, env);
+    case 'fn': {
+      const a = evaluate(n.arg, env);
+      return n.name === 'sqrt' ? (a < 0 ? NaN : Math.sqrt(a)) : n.name === 'cbrt' ? Math.cbrt(a) : Math.abs(a);
+    }
     case 'bin': {
       const a = evaluate(n.left, env);
       const b = evaluate(n.right, env);
@@ -301,6 +326,10 @@ function texCore(n: Node): string {
     case 'neg': {
       const inner = toTex(n.arg);
       return prec(n.arg) <= 3 ? `-\\left(${inner}\\right)` : `-${inner}`;
+    }
+    case 'fn': {
+      const inner = toTex({ ...n.arg, group: undefined } as Node);
+      return n.name === 'sqrt' ? `\\sqrt{${inner}}` : n.name === 'cbrt' ? `\\sqrt[3]{${inner}}` : `\\left|${inner}\\right|`;
     }
     case 'bin': {
       const wrap = (c: Node, min: number) => (prec(c) < min ? `\\left(${toTex(c)}\\right)` : toTex(c));

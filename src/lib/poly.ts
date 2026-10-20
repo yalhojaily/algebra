@@ -193,6 +193,8 @@ export function fromNode(n: Node): Poly {
       return Poly.v(n.name);
     case 'neg':
       return fromNode(n.arg).neg();
+    case 'fn':
+      throw new ParseError('Not a polynomial');
     case 'bin': {
       const a = fromNode(n.left);
       if (n.op === '^') {
