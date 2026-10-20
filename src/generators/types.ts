@@ -8,6 +8,8 @@ export type Answer =
       decimal?: boolean;
       /** require scientific notation: a × 10^n with 1 ≤ |a| < 10 */
       sci?: boolean;
+      /** Accept answers within this distance of the value (for rounded decimals). */
+      tol?: number;
     }
   | {
       type: 'expression';
@@ -28,6 +30,10 @@ export type Answer =
       combined?: boolean;
       /** Write it with rational exponents — no √ or ∛. */
       noRadicals?: boolean;
+      /** Condensed: a single logarithm. */
+      singleLog?: boolean;
+      /** Expanded: every logarithm has a single variable or number inside. */
+      expandedLogs?: boolean;
     }
   | {
       type: 'equation';

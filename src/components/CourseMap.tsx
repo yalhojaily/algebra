@@ -46,7 +46,7 @@ export default function CourseMap({ chapters, available, reviews = {} }: Props) 
         </div>
         <span className="cm-count">{masteredCount} / {all.length} lessons mastered</span>
         <span className="cm-legend">
-          <i className="lg mastered" /> Mastered <i className="lg started" /> In progress <i className="lg ready" /> Ready <i className="lg soon" /> Coming soon
+          <i className="lg mastered" /> Mastered <i className="lg started" /> In progress <i className="lg ready" /> Not started
         </span>
       </div>
       <div className="cm-hint">{focused ? (

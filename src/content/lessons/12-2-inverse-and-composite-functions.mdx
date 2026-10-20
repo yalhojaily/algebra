@@ -1,0 +1,88 @@
+---
+id: "12.2"
+title: Inverse and Composite Functions
+summary: "Composition feeds one function's output into another: (f ∘ g)(x) = f(g(x)). An inverse function undoes f, and exists exactly when f is one-to-one."
+minutes: 40
+objectives:
+  - Find composite functions and their values.
+  - Decide whether a function is one-to-one.
+  - Find a formula for the inverse of a one-to-one function.
+  - Understand the graph of an inverse as a reflection in y = x.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import InverseMirror from '../../components/InverseMirror.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+Converting euros to dollars and then dollars to yen is a **composition** of two conversions. Converting back from yen to euros needs **inverse** functions. Logarithms, coming in 12.3, are defined as inverses of exponential functions.
+</Callout>
+
+## Composite functions
+
+$$(f \circ g)(x) = f(g(x))$$
+
+Apply $g$ first, then $f$. Order matters: usually $f(g(x)) \ne g(f(x))$.
+
+<StepReveal
+  client:visible
+  title="Compose"
+  problem="$f(x) = 3x - 1$, $g(x) = x^2$. Find $(f \circ g)(x)$ and $(g \circ f)(x)$."
+  steps={[
+    { show: '$(f \\circ g)(x) = f(x^2) = 3x^2 - 1$', why: 'Put $g(x)$ into $f$.' },
+    { show: '$(g \\circ f)(x) = g(3x - 1) = (3x - 1)^2 = 9x^2 - 6x + 1$', why: 'Put $f(x)$ into $g$ — a different result.' },
+  ]}
+/>
+
+<Practice client:visible lesson="12.2" skill="value" compact />
+
+<Practice client:visible lesson="12.2" skill="expr" compact />
+
+## One-to-one functions and inverses
+
+A function is **one-to-one** if different inputs always give different outputs. Graphically: no horizontal line crosses the graph more than once (the **horizontal-line test**). Only one-to-one functions have inverses.
+
+<InverseMirror client:visible />
+
+<Practice client:visible lesson="12.2" skill="onetoone" compact />
+
+## Finding a formula for the inverse
+
+1. Replace $f(x)$ with $y$.
+2. **Swap** $x$ and $y$.
+3. Solve for $y$.
+4. Replace $y$ with $f^{-1}(x)$.
+
+<StepReveal
+  client:visible
+  title="Find the inverse"
+  problem="Find $f^{-1}(x)$ for $\;f(x) = 2x + 3$."
+  steps={[
+    { show: '$y = 2x + 3$', why: '' },
+    { show: '$x = 2y + 3$', why: 'Swap $x$ and $y$.' },
+    { show: '$y = \\dfrac{x - 3}{2}$', why: 'Solve for $y$.' },
+    { show: '$f^{-1}(x) = \\dfrac{x - 3}{2}$', why: 'Check: $f(f^{-1}(x)) = 2 \\cdot \\frac{x - 3}{2} + 3 = x$ ✓' },
+  ]}
+/>
+
+<Callout type="warning" title="f⁻¹ is not 1/f">
+The $-1$ in $f^{-1}$ is not an exponent. $f^{-1}$ is the function that undoes $f$, not the reciprocal $\frac{1}{f(x)}$.
+</Callout>
+
+<Practice client:visible lesson="12.2" skill="inverse" compact />
+
+## Summary
+
+- $(f \circ g)(x) = f(g(x))$ — inside first.
+- One-to-one ⇔ passes the horizontal-line test ⇔ has an inverse.
+- Find $f^{-1}$ by swapping $x$ and $y$ and solving; its graph is $f$ reflected in $y = x$.
+
+## Practice
+
+<Practice client:visible lesson="12.2" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="12.2" />

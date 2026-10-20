@@ -1,0 +1,78 @@
+---
+id: "12.4"
+title: Properties of Logarithmic Functions
+summary: "Because logarithms are exponents, the exponent laws become log laws: products become sums, quotients become differences, powers become multiples."
+minutes: 40
+objectives:
+  - Use the product, quotient and power rules for logarithms.
+  - Expand logarithmic expressions.
+  - Condense sums and differences into a single logarithm.
+  - "Use log_b bˣ = x and b^(log_b x) = x."
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import LogRules from '../../components/LogRules.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+Before calculators, logarithm tables let scientists multiply huge numbers by **adding** their logarithms. The rules in this lesson are why that worked — and they're the key tools for solving exponential equations in 12.6.
+</Callout>
+
+## The rules
+
+For $M, N > 0$:
+
+$$\log_b(MN) = \log_b M + \log_b N \qquad \log_b\frac{M}{N} = \log_b M - \log_b N \qquad \log_b M^p = p\log_b M$$
+
+$$\log_b b^x = x \qquad b^{\log_b x} = x$$
+
+<LogRules client:visible />
+
+<Practice client:visible lesson="12.4" skill="numeric" compact />
+
+<Practice client:visible lesson="12.4" skill="inverse" compact />
+
+## Expanding
+
+<StepReveal
+  client:visible
+  title="Expand"
+  problem="Expand $\;\log \dfrac{x^3 y}{z^2}$."
+  steps={[
+    { show: '$= \\log(x^3y) - \\log z^2$', why: 'Quotient rule.' },
+    { show: '$= \\log x^3 + \\log y - \\log z^2$', why: 'Product rule.' },
+    { show: '$= 3\\log x + \\log y - 2\\log z$', why: 'Power rule.' },
+  ]}
+/>
+
+Type logs with parentheses: `3log(x) + log(y)`, `2log_3(x) - log_3(y)`.
+
+<Practice client:visible lesson="12.4" skill="expand" compact />
+
+## Condensing
+
+Run the rules backwards: powers first, then combine sums and differences.
+
+$$2\log x + \log y = \log x^2 + \log y = \log(x^2y)$$
+
+<Practice client:visible lesson="12.4" skill="condense" compact />
+
+<Callout type="warning" title="Rules that don't exist">
+$\log(M + N) \ne \log M + \log N$, and $\dfrac{\log M}{\log N} \ne \log\dfrac{M}{N}$. Test with numbers if you're unsure — the table above does exactly that.
+</Callout>
+
+## Summary
+
+- Product → sum, quotient → difference, power → multiple.
+- Expand: break the argument apart. Condense: powers first, then combine.
+- $\log_b b^x = x$ and $b^{\log_b x} = x$.
+
+## Practice
+
+<Practice client:visible lesson="12.4" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="12.4" />

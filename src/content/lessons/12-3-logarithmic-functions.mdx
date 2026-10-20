@@ -1,0 +1,71 @@
+---
+id: "12.3"
+title: Logarithmic Functions
+summary: "log_b a is the exponent you put on b to get a. Logarithmic functions are the inverses of exponential functions."
+minutes: 40
+objectives:
+  - Convert between exponential and logarithmic form.
+  - Evaluate logarithms.
+  - Solve simple logarithmic equations.
+  - Find the domain of a logarithmic function.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import LogExpPair from '../../components/LogExpPair.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+$2^x = 8$ is easy: $x = 3$. But what about $2^x = 10$? We need a name for "the exponent on 2 that gives 10." That name is $\log_2 10$.
+</Callout>
+
+## The definition
+
+$$\log_b a = c \quad\text{means}\quad b^c = a \qquad (b > 0,\ b \ne 1,\ a > 0)$$
+
+**A logarithm is an exponent.** $\log_{10} a$ is written simply $\log a$ (the **common logarithm**).
+
+<LogExpPair client:visible />
+
+<Practice client:visible lesson="12.3" skill="convert" compact />
+
+## Evaluating logarithms
+
+To find $\log_b a$, ask: "**$b$ to what power is $a$?**"
+
+<StepReveal
+  client:visible
+  title="Evaluate"
+  problem="Find $\;\log_2 \tfrac{1}{8}$."
+  steps={[
+    { show: '$2^c = \\tfrac{1}{8}$', why: 'Exponential form.' },
+    { show: '$\\tfrac{1}{8} = 2^{-3}$, so $c = -3$', why: '' },
+  ]}
+/>
+
+Type logarithms as `log_2(8)`, `log(1000)` (base 10) or `ln(x)`.
+
+<Practice client:visible lesson="12.3" skill="evaluate" compact />
+
+<Practice client:visible lesson="12.3" skill="solve" compact />
+
+## The logarithmic function
+
+$f(x) = \log_b x$ is the inverse of $g(x) = b^x$. So its domain is $(0, \infty)$ — you can only take the logarithm of a positive number — and its range is all real numbers.
+
+<Practice client:visible lesson="12.3" skill="domain" compact />
+
+## Summary
+
+- $\log_b a = c \iff b^c = a$.
+- $\log a$ means $\log_{10} a$.
+- $\log_b 1 = 0$, $\log_b b = 1$; logs of zero or negative numbers are undefined.
+
+## Practice
+
+<Practice client:visible lesson="12.3" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="12.3" />

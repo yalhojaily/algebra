@@ -53,8 +53,10 @@ const next = curriculum.find((c) => c.number === chapter.number + 1);
     <h2 id="test">Chapter test</h2>
     <ChapterTest client:visible id={`ch${chapter.number}-test`} lessons={refs} />
 
-    {next && (
-      <p class="next-ch">Next up: <strong>Chapter {next.number} · {next.title}</strong> (coming soon).</p>
+    {next ? (
+      <p class="next-ch">Next up: <a href={lessonHref(base, next.lessons[0])}><strong>Chapter {next.number} · {next.title}</strong> →</a></p>
+    ) : (
+      <p class="next-ch">🎓 This is the last chapter of the course. Pass this test and you've worked through the whole book — every chapter from real numbers to logarithms.</p>
     )}
   </main>
 </Base>

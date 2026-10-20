@@ -1,0 +1,67 @@
+---
+id: "12.5"
+title: Natural Logarithmic Functions
+summary: "The number e ≈ 2.71828 appears naturally in continuous growth. Logarithms base e are natural logarithms, written ln, and the change-of-base formula turns any logarithm into ln."
+minutes: 35
+objectives:
+  - Understand the number e.
+  - Evaluate natural logarithms and powers of e, exactly and with a calculator.
+  - Use the change-of-base formula.
+  - Find domains of natural-log functions.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import EApproach from '../../components/EApproach.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+Calculators have only two log keys: LOG (base 10) and LN (base $e$). With the change-of-base formula, those two are enough to compute any logarithm.
+</Callout>
+
+## The number e
+
+<EApproach client:visible />
+
+## Natural logarithms
+
+$$\ln x = \log_e x \qquad \ln e^x = x \qquad e^{\ln x} = x \qquad \ln 1 = 0 \qquad \ln e = 1$$
+
+All the rules from 12.4 hold for $\ln$. Type `ln(x)` and `e^(2x)`.
+
+<Practice client:visible lesson="12.5" skill="exact" compact />
+
+<Practice client:visible lesson="12.5" skill="calc" compact />
+
+## Change of base
+
+$$\log_b M = \frac{\ln M}{\ln b} = \frac{\log M}{\log b}$$
+
+<StepReveal
+  client:visible
+  title="Change of base"
+  problem="Find $\;\log_3 20$."
+  steps={[
+    { show: '$= \\dfrac{\\ln 20}{\\ln 3}$', why: '' },
+    { show: '$\\approx \\dfrac{2.9957}{1.0986} \\approx 2.7268$', why: 'Check: $3^{2.7268} \\approx 20$ ✓' },
+  ]}
+/>
+
+<Practice client:visible lesson="12.5" skill="base" compact />
+
+<Practice client:visible lesson="12.5" skill="domain" compact />
+
+## Summary
+
+- $e \approx 2.71828$; $\ln x = \log_e x$.
+- $\ln e^x = x$, $e^{\ln x} = x$.
+- $\log_b M = \frac{\ln M}{\ln b}$.
+
+## Practice
+
+<Practice client:visible lesson="12.5" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="12.5" />

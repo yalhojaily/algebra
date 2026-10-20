@@ -18,20 +18,20 @@ export type Node = (
   | { kind: 'var'; name: string }
   | { kind: 'neg'; arg: Node }
   | { kind: 'bin'; op: '+' | '-' | '*' | '/' | '^'; left: Node; right: Node; implicit?: boolean; pm?: boolean }
-  | { kind: 'fn'; name: FnName; arg: Node }
+  | { kind: 'fn'; name: FnName; arg: Node; base?: number }
 ) &
   Meta;
 
 export class ParseError extends Error {}
 
 /** Functions students can type: sqrt(x) or √x, cbrt(x) or ∛x, abs(x). */
-export type FnName = 'sqrt' | 'cbrt' | 'abs';
+export type FnName = 'sqrt' | 'cbrt' | 'abs' | 'ln' | 'log';
 
 type Tok =
   | { t: 'num'; v: number; s: string }
   | { t: 'var'; v: string }
   | { t: 'op'; v: '+' | '-' | '*' | '/' | '^'; pm?: boolean }
-  | { t: 'fn'; v: FnName }
+  | { t: 'fn'; v: FnName; base?: number }
   | { t: '('; g: Group }
   | { t: ')'; g: Group };
 
@@ -58,6 +58,22 @@ function tokenize(src: string): Tok[] {
       if (!Number.isFinite(v) || raw === '.') throw new ParseError(`"${s.slice(i, j)}" is not a number`);
       out.push({ t: 'num', v, s: raw });
       i = j;
+    } else if (/^ln/i.test(s.slice(i)) && !/^ln[a-z]/i.test(s.slice(i, i + 3).replace(/^ln[(\s]/i, 'ln('))) {
+      out.push({ t: 'fn', v: 'ln' });
+      i += 2;
+    } else if (/^log/i.test(s.slice(i))) {
+      // log(x) is base 10; log_2(x) or log_2 x has base 2
+      const m = s.slice(i).match(/^log_\{?(\d+(?:\.\d+)?)\}?/i);
+      if (m) {
+        out.push({ t: 'fn', v: 'log', base: Number(m[1]) });
+        i += m[0].length;
+      } else {
+        out.push({ t: 'fn', v: 'log' });
+        i += 3;
+      }
+    } else if (/^pi/i.test(s.slice(i)) || c === 'π') {
+      out.push({ t: 'var', v: 'π' });
+      i += c === 'π' ? 1 : 2;
     } else if (/^(sqrt|cbrt|abs)/i.test(s.slice(i))) {
       const name = s.slice(i, i + 4).toLowerCase().startsWith('abs') ? 'abs' : (s.slice(i, i + 4).toLowerCase() as FnName);
       out.push({ t: 'fn', v: name });
@@ -172,7 +188,7 @@ class Parser {
       const next = this.peek();
       if (!next) throw new ParseError(`${t.v} needs something to act on`);
       const arg = next.t === '(' ? this.atom() : this.power();
-      return { kind: 'fn', name: t.v, arg };
+      return { kind: 'fn', name: t.v, arg, ...(t.base !== undefined ? { base: t.base } : {}) };
     }
     if (t.t === '(') {
       const inner = this.expr();
@@ -190,7 +206,9 @@ export function parse(src: string): Node {
 }
 
 export function variables(n: Node, acc = new Set<string>()): Set<string> {
-  if (n.kind === 'var') acc.add(n.name);
+  if (n.kind === 'var') {
+    if (n.name !== 'e' && n.name !== 'π') acc.add(n.name);
+  }
   else if (n.kind === 'neg' || n.kind === 'fn') variables(n.arg, acc);
   else if (n.kind === 'bin') {
     variables(n.left, acc);
@@ -204,13 +222,29 @@ export function evaluate(n: Node, env: Record<string, number>): number {
     case 'num':
       return n.value;
     case 'var':
-      if (!(n.name in env)) throw new ParseError(`No value for ${n.name}`);
+      if (!(n.name in env)) {
+        // e and π are constants unless a value is supplied
+        if (n.name === 'e') return Math.E;
+        if (n.name === 'π') return Math.PI;
+        throw new ParseError(`No value for ${n.name}`);
+      }
       return env[n.name];
     case 'neg':
       return -evaluate(n.arg, env);
     case 'fn': {
       const a = evaluate(n.arg, env);
-      return n.name === 'sqrt' ? (a < 0 ? NaN : Math.sqrt(a)) : n.name === 'cbrt' ? Math.cbrt(a) : Math.abs(a);
+      switch (n.name) {
+        case 'sqrt':
+          return a < 0 ? NaN : Math.sqrt(a);
+        case 'cbrt':
+          return Math.cbrt(a);
+        case 'abs':
+          return Math.abs(a);
+        case 'ln':
+          return a <= 0 ? NaN : Math.log(a);
+        case 'log':
+          return a <= 0 ? NaN : Math.log(a) / Math.log(n.base ?? 10);
+      }
     }
     case 'bin': {
       const a = evaluate(n.left, env);
@@ -239,7 +273,11 @@ function samples(vars: string[], count = 24): Record<string, number>[] {
   for (let k = 0; k < count; k++) {
     const env: Record<string, number> = {};
     // Mix of awkward values so coincidences are essentially impossible.
-    for (const v of vars) env[v] = Math.round((Math.random() * 20 - 10) * 1000) / 1000 + 0.137;
+    // Every other sample uses only positive values, so roots and logarithms always get checked somewhere.
+    for (const v of vars) {
+      const r = Math.round((Math.random() * 20 - 10) * 1000) / 1000 + 0.137;
+      env[v] = k % 2 ? Math.abs(r) + 0.01 : r;
+    }
     out.push(env);
   }
   return out;
@@ -325,13 +363,18 @@ function texCore(n: Node): string {
     case 'num':
       return fmtNum(n.value);
     case 'var':
-      return n.name;
+      return n.name === 'π' ? '\\pi ' : n.name;
     case 'neg': {
       const inner = toTex(n.arg);
       return prec(n.arg) <= 3 ? `-\\left(${inner}\\right)` : `-${inner}`;
     }
     case 'fn': {
       const inner = toTex({ ...n.arg, group: undefined } as Node);
+      if (n.name === 'ln' || n.name === 'log') {
+        const name = n.name === 'ln' ? '\\ln' : n.base !== undefined ? `\\log_{${n.base}}` : '\\log';
+        const simple = n.arg.kind === 'num' || n.arg.kind === 'var';
+        return simple ? `${name} ${inner}` : `${name}\\left(${inner}\\right)`;
+      }
       return n.name === 'sqrt' ? `\\sqrt{${inner}}` : n.name === 'cbrt' ? `\\sqrt[3]{${inner}}` : `\\left|${inner}\\right|`;
     }
     case 'bin': {
@@ -346,7 +389,7 @@ function texCore(n: Node): string {
         case '/':
           return `\\frac{${toTex(n.left)}}{${toTex(n.right)}}`;
         case '^':
-          return `${wrap(n.left, 5)}^{${toTex(n.right)}}`;
+          return `${wrap(n.left, 5)}^{${toTex({ ...n.right, group: n.right.group === '(' ? undefined : n.right.group } as Node)}}`;
         case '*': {
           const l = wrap(n.left, 2);
           const r = right(n.right, 3);

@@ -1,0 +1,71 @@
+---
+id: "12.7"
+title: Mathematical Modeling with Exponential and Logarithmic Functions
+summary: "P(t) = P₀e^{kt} models growth (k > 0) and decay (k < 0). Doubling time and half-life are ln 2 / |k|."
+minutes: 40
+objectives:
+  - Use exponential growth and decay models.
+  - Find doubling time, half-life and growth rates.
+  - Solve applied problems with logarithms.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import GrowthDecay from '../../components/GrowthDecay.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+Carbon dating, population projections, drug levels in the bloodstream and continuously compounded interest all use the same model. This last lesson puts the whole chapter — exponentials, logarithms and their rules — to work.
+</Callout>
+
+## The exponential model
+
+$$P(t) = P_0 e^{kt}$$
+
+$P_0$ is the amount at $t = 0$. If $k > 0$ it's **exponential growth** with rate $k$; if $k < 0$ it's **exponential decay**.
+
+<GrowthDecay client:visible />
+
+<Practice client:visible lesson="12.7" skill="growth" compact />
+
+## Doubling time and half-life
+
+Setting $P(t) = 2P_0$ gives $e^{kT} = 2$, so
+
+$$T = \frac{\ln 2}{k} \qquad\text{(doubling time; for decay, the half-life is } \tfrac{\ln 2}{|k|})$$
+
+<StepReveal
+  client:visible
+  title="Find the rate"
+  problem="A town's population doubles every 25 years. Find the growth rate $k$."
+  steps={[
+    { show: '$2P_0 = P_0 e^{25k}$', why: '' },
+    { show: '$\\ln 2 = 25k$', why: 'Divide by $P_0$, take ln.' },
+    { show: '$k = \\dfrac{\\ln 2}{25} \\approx 0.0277$, about $2.77\\%$ per year', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="12.7" skill="doubling" compact />
+
+<Practice client:visible lesson="12.7" skill="rate" compact />
+
+## Half-life
+
+A substance with half-life $H$ satisfies $A(t) = A_0\left(\frac{1}{2}\right)^{t/H}$ — the same model, written with base $\frac{1}{2}$.
+
+<Practice client:visible lesson="12.7" skill="halflife" compact />
+
+## Summary
+
+- $P(t) = P_0e^{kt}$: growth for $k > 0$, decay for $k < 0$.
+- Doubling time / half-life $= \frac{\ln 2}{|k|}$.
+- Use logarithms to solve for $t$ or $k$.
+
+## Practice
+
+<Practice client:visible lesson="12.7" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="12.7" />

@@ -67,6 +67,7 @@ export function check(problem: Problem, input: string | number): Verdict {
       }
       const got = equivalent(n, { kind: 'num', value: a.value });
       if (got) return { status: 'correct' };
+      if (a.tol !== undefined && Math.abs(evaluate(n, {}) - a.value) <= a.tol + 1e-12) return { status: 'correct' };
       return { status: 'wrong', feedback: mistake(raw) };
     }
 
@@ -92,6 +93,12 @@ export function check(problem: Problem, input: string | number): Verdict {
         const counts = new Map<string, number>();
         for (const ch of raw.replace(/sqrt|cbrt|abs/gi, '')) if (/[a-zA-Z]/.test(ch)) counts.set(ch, (counts.get(ch) ?? 0) + 1);
         if ([...counts.values()].some((c) => c > 1)) return { status: 'invalid', message: 'That is equal to the right answer, but simplify it: each variable should appear only once.' };
+      }
+      if (a.singleLog && (raw.match(/log|ln/gi)?.length ?? 0) !== 1) return { status: 'invalid', message: 'That is equal to the right answer, but write it as a single logarithm.' };
+      if (a.expandedLogs) {
+        let bad = false;
+        walk(got, (m) => { if (m.kind === 'fn' && (m.name === 'log' || m.name === 'ln')) { const g = { ...m.arg, group: undefined } as Node; if (!(g.kind === 'var' || g.kind === 'num')) bad = true; } });
+        if (bad) return { status: 'invalid', message: 'That is equal to the right answer, but expand it fully: each logarithm should contain just one variable (or number).' };
       }
       if (a.noRadicals && /sqrt|cbrt|√|∛/i.test(raw)) return { status: 'invalid', message: 'Write the answer with a rational exponent, like x^(2/3), instead of a radical sign.' };
       if (a.rational) {

@@ -1,0 +1,78 @@
+---
+id: "12.6"
+title: Solving Exponential and Logarithmic Equations
+summary: "Variable in an exponent? Match the bases or take logarithms. Variable inside a log? Rewrite in exponential form — and check the answers."
+minutes: 40
+objectives:
+  - Solve exponential equations by writing both sides with the same base.
+  - Solve exponential equations by taking logarithms.
+  - Solve logarithmic equations, rejecting answers outside the domain.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import ExpEquationGraph from '../../components/ExpEquationGraph.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+How long until an investment doubles? When will a population reach a million? Questions about **when** an exponential process reaches a value need these techniques.
+</Callout>
+
+## Same base
+
+If $b^M = b^N$, then $M = N$.
+
+<StepReveal
+  client:visible
+  title="Match the bases"
+  problem="Solve: $\;2^{3x - 1} = 32$"
+  steps={[
+    { show: '$2^{3x - 1} = 2^5$', why: '$32 = 2^5$.' },
+    { show: '$3x - 1 = 5 \\;\\Rightarrow\\; x = 2$', why: 'Set the exponents equal.' },
+  ]}
+/>
+
+<Practice client:visible lesson="12.6" skill="same" compact />
+
+## Taking logarithms
+
+When the bases can't be matched, take $\ln$ (or $\log$) of both sides and use the power rule to bring the exponent down.
+
+<ExpEquationGraph client:visible />
+
+<Practice client:visible lesson="12.6" skill="logs" compact />
+
+## Logarithmic equations
+
+Rewrite in exponential form (combining logs first if needed). Then **check**: each logarithm's argument must be positive.
+
+<StepReveal
+  client:visible
+  title="Combine, then convert"
+  problem="Solve: $\;\log x + \log(x - 3) = 1$"
+  steps={[
+    { show: '$\\log[x(x - 3)] = 1$', why: 'Product rule.' },
+    { show: '$x(x - 3) = 10^1$', why: 'Exponential form.' },
+    { show: '$x^2 - 3x - 10 = 0 \\;\\Rightarrow\\; (x - 5)(x + 2) = 0$', why: '' },
+    { show: '$x = 5$ (reject $x = -2$: $\\log(-2)$ is undefined)', why: 'Always check.' },
+  ]}
+/>
+
+<Practice client:visible lesson="12.6" skill="log" compact />
+
+<Practice client:visible lesson="12.6" skill="sum" compact />
+
+## Summary
+
+- Same base: set exponents equal.
+- Otherwise: take logs, use the power rule, divide.
+- Log equations: condense, convert to exponential form, solve, check the domain.
+
+## Practice
+
+<Practice client:visible lesson="12.6" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="12.6" />

@@ -73,6 +73,13 @@ import * as l11_5 from './11-5-graphing-f-x-a-x-h-k';
 import * as l11_6 from './11-6-graphing-f-x-ax-bx-c';
 import * as l11_7 from './11-7-mathematical-modeling-with-quadratic-functions';
 import * as l11_8 from './11-8-polynomial-inequalities-and-rational-inequalities';
+import * as l12_1 from './12-1-exponential-functions';
+import * as l12_2 from './12-2-inverse-and-composite-functions';
+import * as l12_3 from './12-3-logarithmic-functions';
+import * as l12_4 from './12-4-properties-of-logarithmic-functions';
+import * as l12_5 from './12-5-natural-logarithmic-functions';
+import * as l12_6 from './12-6-solving-exponential-and-logarithmic-equations';
+import * as l12_7 from './12-7-mathematical-modeling-with-exponential-and-logarithmic-functions';
 import * as l4_8 from './4-8-division-of-polynomials';
 import * as l3_4 from './3-4-slope-and-applications';
 import * as l2_8 from './2-8-applications-and-problem-solving-with-inequalities';
@@ -161,4 +168,11 @@ export const registry: Record<string, LessonGenerators> = {
   '11.6': l11_6,
   '11.7': l11_7,
   '11.8': l11_8,
+  '12.1': l12_1,
+  '12.2': l12_2,
+  '12.3': l12_3,
+  '12.4': l12_4,
+  '12.5': l12_5,
+  '12.6': l12_6,
+  '12.7': l12_7,
 };

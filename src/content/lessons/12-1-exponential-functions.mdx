@@ -1,0 +1,69 @@
+---
+id: "12.1"
+title: Exponential Functions
+summary: "In f(x) = bˣ the variable is in the exponent. Each step in x multiplies the output by b — growth when b > 1, decay when 0 < b < 1."
+minutes: 40
+objectives:
+  - Evaluate exponential functions, including negative exponents.
+  - Identify exponential growth and decay.
+  - Find y-intercepts and describe the asymptote.
+  - Use the compound-interest formula.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import ExpGraph from '../../components/ExpGraph.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+Fold a sheet of paper in half 10 times and it is $2^{10} = 1024$ sheets thick. Money in a bank, bacteria, and the number of people who've seen a viral video all grow this way: by **multiplying** at a steady rate, not adding.
+</Callout>
+
+## Exponential functions
+
+The function $f(x) = b^x$, with $b > 0$ and $b \ne 1$, is an **exponential function** with base $b$.
+
+- $f(0) = b^0 = 1$, so the graph passes through $(0, 1)$.
+- $b^x > 0$ for every $x$: the graph stays above the $x$-axis, which is a horizontal **asymptote**.
+- Domain: all real numbers. Range: $(0, \infty)$.
+
+<ExpGraph client:visible />
+
+<StepReveal
+  client:visible
+  title="Evaluate"
+  problem="For $f(x) = 3 \cdot 2^x$, find $f(-2)$."
+  steps={[
+    { show: '$f(-2) = 3 \\cdot 2^{-2}$', why: '' },
+    { show: '$= 3 \\cdot \\dfrac{1}{4} = \\dfrac{3}{4}$', why: '$2^{-2} = \\frac{1}{2^2}$.' },
+  ]}
+/>
+
+<Practice client:visible lesson="12.1" skill="evaluate" compact />
+
+<Practice client:visible lesson="12.1" skill="type" compact />
+
+<Practice client:visible lesson="12.1" skill="intercept" compact />
+
+## Compound interest
+
+If $P$ dollars is invested at annual rate $r$, compounded $n$ times per year, then after $t$ years the amount is
+
+$$A = P\left(1 + \frac{r}{n}\right)^{nt}$$
+
+<Practice client:visible lesson="12.1" skill="interest" compact />
+
+## Summary
+
+- $f(x) = b^x$: growth if $b > 1$, decay if $0 < b < 1$.
+- Passes through $(0, 1)$; the $x$-axis is an asymptote.
+- $A = P(1 + \frac{r}{n})^{nt}$.
+
+## Practice
+
+<Practice client:visible lesson="12.1" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="12.1" />
