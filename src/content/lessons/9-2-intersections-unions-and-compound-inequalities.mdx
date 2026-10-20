@@ -1,0 +1,85 @@
+---
+id: "9.2"
+title: Intersections, Unions, and Compound Inequalities
+summary: '"And" means both conditions at once — the intersection. "Or" means at least one — the union. Solve compound inequalities and write the answers in interval notation.'
+minutes: 40
+objectives:
+  - Find intersections and unions of sets.
+  - Solve conjunctions ("and" inequalities), including double inequalities.
+  - Solve disjunctions ("or" inequalities).
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import CompoundLine from '../../components/CompoundLine.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+A ride requires riders to be at least 120 cm **and** at most 200 cm tall. A discount applies if you are under 12 **or** over 65. "And" and "or" change the answer completely.
+</Callout>
+
+## Intersection and union
+
+- The **intersection** $A \cap B$ is the set of elements in **both** $A$ and $B$.
+- The **union** $A \cup B$ is the set of elements in $A$, in $B$, or in both.
+- The **empty set** $\varnothing$ has no elements.
+
+$\{1, 2, 3, 4\} \cap \{3, 4, 5\} = \{3, 4\}$, and $\{1, 2, 3, 4\} \cup \{3, 4, 5\} = \{1, 2, 3, 4, 5\}$.
+
+<Practice client:visible lesson="9.2" skill="sets" compact />
+
+## "And" and "or" on the number line
+
+<CompoundLine client:visible />
+
+To type a union, use the letter U: `(-inf, -2) U [3, inf)`. For the empty set type `∅` or `no solution`.
+
+<Practice client:visible lesson="9.2" skill="combine" compact />
+
+## Conjunctions
+
+A **conjunction** joins two inequalities with **and**. A double inequality like $-3 < 2x + 1 \le 7$ is a conjunction: you can solve it by doing the same thing to **all three parts**.
+
+<StepReveal
+  client:visible
+  title="Double inequality"
+  problem="Solve: $\;-3 < 2x + 1 \le 7$"
+  steps={[
+    { show: '$-4 < 2x \\le 6$', why: 'Subtract $1$ from all three parts.' },
+    { show: '$-2 < x \\le 3$', why: 'Divide all three parts by $2$.' },
+    { show: '$(-2, 3]$', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="9.2" skill="and" compact />
+
+## Disjunctions
+
+A **disjunction** joins two inequalities with **or**. Solve each one separately and take the **union**.
+
+<StepReveal
+  client:visible
+  title="Or"
+  problem="Solve: $\;2x - 1 < -5\;$ or $\;3x + 2 \ge 8$"
+  steps={[
+    { show: '$x < -2$ or $x \\ge 2$', why: 'Solve each inequality.' },
+    { show: '$(-\\infty, -2) \\cup [2, \\infty)$', why: 'Everything that satisfies at least one of them.' },
+  ]}
+/>
+
+<Practice client:visible lesson="9.2" skill="or" compact />
+
+## Summary
+
+- **And** → intersection (overlap). **Or** → union (everything shaded).
+- Solve a double inequality by working on all three parts.
+- An "and" with no overlap has the empty set $\varnothing$ as its solution.
+
+## Practice
+
+<Practice client:visible lesson="9.2" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="9.2" />

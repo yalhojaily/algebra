@@ -78,6 +78,11 @@ function answerInput(a: import('../src/generators/types').Answer): string | numb
       return `(${a.x}, ${a.y})`;
     case 'tuple':
       return `(${a.values.join(', ')})`;
+    case 'intervals': {
+      if (!a.parts.length) return '∅';
+      const e = (v: number) => (v === Infinity ? 'inf' : v === -Infinity ? '-inf' : String(v));
+      return a.parts.map((q) => `${q.loClosed ? '[' : '('}${e(q.lo)}, ${e(q.hi)}${q.hiClosed ? ']' : ')'}`).join(' U ');
+    }
     case 'interval': {
       const e = (v: number) => (v === Infinity ? 'inf' : v === -Infinity ? '-inf' : String(v));
       return `${a.loClosed ? '[' : '('}${e(a.lo)}, ${e(a.hi)}${a.hiClosed ? ']' : ')'}`;

@@ -53,6 +53,10 @@ import * as l8_3 from './8-3-solving-by-elimination';
 import * as l8_4 from './8-4-solving-applied-problems-two-equations';
 import * as l8_5 from './8-5-systems-of-equations-in-three-variables';
 import * as l8_6 from './8-6-solving-applied-problems-three-equations';
+import * as l9_1 from './9-1-sets-inequalities-and-interval-notation';
+import * as l9_2 from './9-2-intersections-unions-and-compound-inequalities';
+import * as l9_3 from './9-3-absolute-value-equations-and-inequalities';
+import * as l9_4 from './9-4-systems-of-inequalities-in-two-variables';
 import * as l4_8 from './4-8-division-of-polynomials';
 import * as l3_4 from './3-4-slope-and-applications';
 import * as l2_8 from './2-8-applications-and-problem-solving-with-inequalities';
@@ -121,4 +125,8 @@ export const registry: Record<string, LessonGenerators> = {
   '8.4': l8_4,
   '8.5': l8_5,
   '8.6': l8_6,
+  '9.1': l9_1,
+  '9.2': l9_2,
+  '9.3': l9_3,
+  '9.4': l9_4,
 };

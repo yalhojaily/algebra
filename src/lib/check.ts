@@ -140,6 +140,7 @@ export function check(problem: Problem, input: string | number): Verdict {
     }
 
     if (a.type === 'interval') return checkInterval(a, raw);
+    if (a.type === 'intervals') return checkIntervals(a.parts, raw);
 
     if (a.type === 'tuple') {
       const n = a.values.length;
@@ -322,5 +323,49 @@ export function checkInterval(a: Interval, raw: string): Verdict {
   const endsOk = same(got.lo, a.lo) && same(got.hi, a.hi);
   if (endsOk && got.loClosed === a.loClosed && got.hiClosed === a.hiClosed) return { status: 'correct' };
   if (endsOk) return { status: 'wrong', feedback: 'The endpoints are right, but check the brackets: use [ ] when the endpoint is included (a solid dot) and ( ) when it is not (an open dot).' };
+  return { status: 'wrong' };
+}
+
+/** Sort and merge overlapping or touching intervals. */
+export function normalizeIntervals(parts: Interval[]): Interval[] {
+  const xs = [...parts].sort((p, q) => p.lo - q.lo || Number(q.loClosed) - Number(p.loClosed));
+  const out: Interval[] = [];
+  for (const p of xs) {
+    const last = out[out.length - 1];
+    if (last && (p.lo < last.hi || (p.lo === last.hi && (p.loClosed || last.hiClosed)))) {
+      if (p.hi > last.hi || (p.hi === last.hi && p.hiClosed)) { last.hi = p.hi; last.hiClosed = p.hiClosed || (p.hi === last.hi && last.hiClosed); }
+      if (p.lo === last.lo) last.loClosed = last.loClosed || p.loClosed;
+    } else out.push({ ...p });
+  }
+  return out;
+}
+
+/** "(-inf, -1) U [3, inf)", "∅", "no solution", or a single interval. */
+export function parseIntervals(raw: string): Interval[] | { error: string } | null {
+  const s = raw.trim();
+  if (/^(∅|\{\s*\}|no solution|empty( set)?|none)$/i.test(s)) return [];
+  const pieces = s.split(/\s*(?:∪|\bU\b|\bu\b)\s*/);
+  const out: Interval[] = [];
+  for (const piece of pieces) {
+    const iv = parseInterval(piece);
+    if (!iv) return null;
+    if ('error' in iv) return iv;
+    out.push(iv);
+  }
+  return out;
+}
+
+export function checkIntervals(want: Interval[], raw: string): Verdict {
+  const got = parseIntervals(raw);
+  if (!got) return { status: 'invalid', message: 'Write intervals like (−∞, −1) U [3, ∞) — type U for ∪ and inf for ∞. Write ∅ (or "no solution") for the empty set.' };
+  if ('error' in got) return { status: 'invalid', message: got.error };
+  const g = normalizeIntervals(got), w = normalizeIntervals(want);
+  const same = (p: Interval, q: Interval) => p.lo === q.lo && p.hi === q.hi && p.loClosed === q.loClosed && p.hiClosed === q.hiClosed;
+  if (g.length === w.length && g.every((p, i) => same(p, w[i]))) return { status: 'correct' };
+  if (!w.length) return { status: 'wrong', feedback: 'Check again: is there any number that satisfies the condition?' };
+  if (!g.length) return { status: 'wrong', feedback: 'There are solutions — look again.' };
+  const ends = (xs: Interval[]) => xs.map((p) => `${p.lo},${p.hi}`).join(';');
+  if (ends(g) === ends(w)) return { status: 'wrong', feedback: 'The endpoints are right, but check the brackets: [ ] when the endpoint is included, ( ) when it is not.' };
+  if (g.length !== w.length) return { status: 'wrong', feedback: w.length > 1 ? 'The solution set has two separate pieces — write them as a union with U.' : 'The solution is a single interval.' };
   return { status: 'wrong' };
 }

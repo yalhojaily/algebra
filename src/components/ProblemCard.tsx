@@ -1,3 +1,4 @@
+import { NumberLineSet } from './NumberLineSet';
 import { useEffect, useRef, useState } from 'react';
 import type { Problem } from '../generators/types';
 import { check, type Verdict } from '../lib/check';
@@ -149,6 +150,7 @@ export function ProblemCard({ problem, onResult, exam = false, onNext, nextLabel
 
 function FigureView({ fig }: { fig: Figure }) {
   if (fig.kind === 'ray') return <RayFigure {...fig} />;
+  if (fig.kind === 'numberline') return <div className="pc-nl"><NumberLineSet parts={fig.parts} points={fig.points} min={fig.min} max={fig.max} /></div>;
   return (
     <div className="pc-plane">
       <Plane
@@ -160,6 +162,7 @@ function FigureView({ fig }: { fig: Figure }) {
         xcurves={fig.xcurves?.map((coefs) => ({ coefs }))}
         segments={fig.segments}
         circles={fig.circles}
+        regions={fig.regions}
       />
     </div>
   );

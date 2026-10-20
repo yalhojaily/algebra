@@ -42,7 +42,9 @@ export type Answer =
   | { type: 'plot'; mode: 'line'; a: number; b: number; c: number }
   | { type: 'choice'; options: string[]; correct: number }
   /** An interval such as [−3, 5) or (−∞, 2]. Use ±Infinity for unbounded ends. */
-  | { type: 'interval'; lo: number; hi: number; loClosed: boolean; hiClosed: boolean };
+  | { type: 'interval'; lo: number; hi: number; loClosed: boolean; hiClosed: boolean }
+  /** A union of intervals, e.g. (−∞, −1) ∪ [3, ∞). No parts means the empty set ∅. */
+  | { type: 'intervals'; parts: { lo: number; hi: number; loClosed: boolean; hiClosed: boolean }[] };
 
 export interface Mistake {
   /** A specific wrong answer we expect, written in the same form the student would enter it. */
@@ -89,10 +91,22 @@ export interface PlaneFig {
   circles?: { cx: number; cy: number; r: number }[];
   /** Draw y = f(x) only for lo ≤ x ≤ hi. */
   pieces?: { coefs: number[]; lo: number; hi: number }[];
+  /** Shade half-planes: the side of a x + b y = c where a x + b y (op) c; dashed when strict. */
+  regions?: { a: number; b: number; c: number; op: '<' | '<=' | '>' | '>='; cls?: string }[];
   range?: number;
 }
 
-export type Figure = RayFig | PlaneFig;
+/** A number line with shaded intervals (closed/open endpoints, arrows for infinite ends). */
+export interface LineFig {
+  kind: 'numberline';
+  parts: { lo: number; hi: number; loClosed: boolean; hiClosed: boolean }[];
+  /** Also mark single points (e.g. the solutions of an equation). */
+  points?: number[];
+  min?: number;
+  max?: number;
+}
+
+export type Figure = RayFig | PlaneFig | LineFig;
 
 export interface Skill {
   id: string;

@@ -13,6 +13,8 @@ export interface PlaneProps {
   xcurves?: { coefs: number[]; cls?: string }[];
   segments?: { x1: number; y1: number; x2: number; y2: number; cls?: string }[];
   circles?: { cx: number; cy: number; r: number; cls?: string }[];
+  /** Shaded half-planes a x + b y (op) c, with a dashed boundary when the inequality is strict. */
+  regions?: { a: number; b: number; c: number; op: '<' | '<=' | '>' | '>='; cls?: string }[];
   /** Pixel size of the square drawing (viewBox units). */
   size?: number;
   onPick?: (x: number, y: number) => void;
@@ -31,7 +33,7 @@ export interface PlaneMap {
 }
 
 /** A coordinate plane with grid, axes, points, lines and curves. Click handling snaps to integer points. */
-export function Plane({ range = 10, yRange, points = [], lines = [], curves = [], xcurves = [], segments = [], circles = [], size = 420, onPick, children, label, every }: PlaneProps) {
+export function Plane({ range = 10, yRange, points = [], lines = [], curves = [], xcurves = [], segments = [], circles = [], regions = [], size = 420, onPick, children, label, every }: PlaneProps) {
   const r = range;
   const ry = yRange ?? range;
   const pad = 24;
@@ -51,6 +53,25 @@ export function Plane({ range = 10, yRange, points = [], lines = [], curves = []
     }
     const y = (x: number) => (c - a * x) / b;
     return [-big, y(-big), big, y(big)];
+  };
+
+  /** The part of the window where a x + b y (op) c, as a polygon (Sutherland–Hodgman clip against one line). */
+  const halfPlane = (a: number, b: number, c: number, op: string) => {
+    const big = Math.max(r, ry) + 2;
+    const sq: [number, number][] = [[-big, -big], [big, -big], [big, big], [-big, big]];
+    const sgn = op.startsWith('<') ? -1 : 1;
+    const val = (p: [number, number]) => sgn * (a * p[0] + b * p[1] - c);
+    const out: [number, number][] = [];
+    for (let i = 0; i < sq.length; i++) {
+      const P = sq[i], Q = sq[(i + 1) % sq.length];
+      const vp = val(P), vq = val(Q);
+      if (vp >= 0) out.push(P);
+      if ((vp >= 0) !== (vq >= 0)) {
+        const t = vp / (vp - vq);
+        out.push([P[0] + t * (Q[0] - P[0]), P[1] + t * (Q[1] - P[1])]);
+      }
+    }
+    return out.map(([x, y]) => `${X(x).toFixed(1)},${Y(y).toFixed(1)}`).join(' ');
   };
 
   const xcurvePath = (coefs: number[]) => {
@@ -105,6 +126,11 @@ export function Plane({ range = 10, yRange, points = [], lines = [], curves = []
       {xs.filter((x) => x !== 0 && x % step === 0).map((x) => <text key={`lx${x}`} x={X(x)} y={Y(0) + 15} className="pl-num">{x}</text>)}
       {ys.filter((y) => y !== 0 && y % step === 0).map((y) => <text key={`ly${y}`} x={X(0) - 6} y={Y(y) + 4} className="pl-num" style={{ textAnchor: 'end' }}>{y}</text>)}
       <g clipPath={`url(#plane-clip-${size}-${r}-${ry})`}>
+        {regions.map((g, i) => <polygon key={`r${i}`} points={halfPlane(g.a, g.b, g.c, g.op)} className={`pl-region ${g.cls ?? ''}`} />)}
+        {regions.map((g, i) => {
+          const [x1, y1, x2, y2] = segment(g.a, g.b, g.c);
+          return <line key={`rl${i}`} x1={X(x1)} y1={Y(y1)} x2={X(x2)} y2={Y(y2)} className={`pl-line ${g.op.length === 1 ? 'dashed' : ''} ${g.cls ?? ''}`} />;
+        })}
         {lines.map((l, i) => {
           const [x1, y1, x2, y2] = segment(l.a, l.b, l.c);
           return <line key={`l${i}`} x1={X(x1)} y1={Y(y1)} x2={X(x2)} y2={Y(y2)} className={`pl-line ${l.cls ?? ''}`} />;

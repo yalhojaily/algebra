@@ -456,6 +456,12 @@ export function topTerms(n: Node): Node[] {
 /** Try to render user input as LaTeX; returns null if it doesn't parse yet. */
 export function tryTex(src: string, allowEquation = false): string | null {
   try {
+    // Union of intervals "(-inf, 1) U [3, inf)" and the empty set
+    if (/^\s*(∅|no solution)\s*$/i.test(src)) return '\\varnothing';
+    if (/\s(U|∪)\s/.test(src)) {
+      const parts = src.split(/\s*(?:∪|\bU\b)\s*/).map((p) => tryTex(p));
+      if (parts.every(Boolean)) return parts.join(' \\cup ');
+    }
     // Interval "[−3, 5)" or "(-inf, 2]"
     const iv = src.replace(/infinity|inf|∞/gi, '∞').match(/^\s*([[(])\s*([^,]+?)\s*,\s*([^,]+?)\s*([\])])\s*$/);
     if (iv && (iv[1] === '[' || iv[4] === ']' || iv[2].includes('∞') || iv[3].includes('∞'))) {

@@ -1,0 +1,73 @@
+---
+id: "9.4"
+title: Systems of Inequalities in Two Variables
+summary: The solutions of an inequality in x and y fill a half-plane. Draw the boundary, test a point, shade — and for a system, find where the shadings overlap.
+minutes: 40
+objectives:
+  - Determine whether an ordered pair is a solution of a linear inequality.
+  - Graph linear inequalities in two variables.
+  - Graph systems of linear inequalities and find their vertices.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import HalfPlane from '../../components/HalfPlane.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+A bakery has 40 hours of oven time and 30 hours of decorating time. Which combinations of cakes and pies can it make? Each limit is an inequality in two variables, and together they form a system whose solutions are a whole **region** of the plane.
+</Callout>
+
+## Solutions are regions
+
+A solution of $y > 2x - 1$ is an ordered pair that makes it true, such as $(0, 0)$: $0 > -1$ ✓. The line $y = 2x - 1$ splits the plane in two; every point on one side is a solution.
+
+<Practice client:visible lesson="9.4" skill="test" compact />
+
+## Graphing an inequality
+
+1. Graph the boundary line. Use a **solid** line for $\le$ or $\ge$, a **dashed** line for $<$ or $>$.
+2. Test a point not on the line (the origin is easiest).
+3. Shade the side containing the test point if it works, otherwise the other side.
+
+<HalfPlane client:visible />
+
+<Callout type="tip" title="Shortcut for y = mx + b form">
+When the inequality is solved for $y$: $y >$ or $y \ge$ means shade **above** the line; $y <$ or $y \le$ means shade **below**.
+</Callout>
+
+<Practice client:visible lesson="9.4" skill="graph" compact />
+
+## Systems of inequalities
+
+Graph each inequality; the solution set of the system is where **all** the shaded regions overlap. The corners of that region are its **vertices** — find each one by solving the system of the two boundary **equations** that meet there.
+
+<StepReveal
+  client:visible
+  title="Find a vertex"
+  problem="Find the vertex of the region $\;y \le -x + 4,\; y \ge 2x - 2$."
+  steps={[
+    { show: '$-x + 4 = 2x - 2$', why: 'The vertex is on both boundary lines.' },
+    { show: '$x = 2$, $y = 2$', why: '' },
+    { show: 'Vertex: $(2, 2)$', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="9.4" skill="system" compact />
+
+<Practice client:visible lesson="9.4" skill="vertex" compact />
+
+## Summary
+
+- Boundary line: solid for $\le, \ge$; dashed for $<, >$.
+- Test a point to decide which side to shade.
+- A system's solutions are the overlap; vertices are where boundary lines cross.
+
+## Practice
+
+<Practice client:visible lesson="9.4" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="9.4" />

@@ -1,6 +1,6 @@
 # Algebra, step by step
 
-An interactive companion website for a high-school / college algebra textbook (12 chapters, 84 lessons). **Chapters 1–8 are complete** (real numbers, equations & inequalities, graphing, polynomials, factoring, rational expressions, functions, systems of equations).
+An interactive companion website for a high-school / college algebra textbook (12 chapters, 84 lessons). **Chapters 1–9 are complete** (real numbers, equations & inequalities, graphing, polynomials, factoring, rational expressions, functions, systems of equations, more on inequalities).
 Every lesson follows the same rhythm:
 
 1. **Why?** — a real situation that needs the idea

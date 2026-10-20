@@ -1,0 +1,80 @@
+---
+id: "9.1"
+title: Sets, Inequalities, and Interval Notation
+summary: Describe solution sets three ways — with an inequality, on a number line, and in interval notation — and solve inequalities with the addition and multiplication principles.
+minutes: 35
+objectives:
+  - Write solution sets in set-builder and interval notation.
+  - Graph sets on a number line and read sets from graphs.
+  - Solve linear inequalities, reversing the sign when multiplying or dividing by a negative.
+  - Solve applied problems with inequalities.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import IntervalBuilder from '../../components/IntervalBuilder.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+An equation like $2x + 1 = 7$ has one answer. An inequality like $2x + 1 < 7$ has infinitely many — every number less than $3$. We need compact ways to write such **sets** of numbers.
+</Callout>
+
+## Three ways to write a set
+
+| Inequality | Set-builder notation | Interval notation |
+|---|---|---|
+| $-2 \le x < 4$ | $\{x \mid -2 \le x < 4\}$ | $[-2, 4)$ |
+| $x > 1$ | $\{x \mid x > 1\}$ | $(1, \infty)$ |
+| $x \le 3$ | $\{x \mid x \le 3\}$ | $(-\infty, 3]$ |
+
+Brackets $[\ ]$ mean the endpoint is **included**; parentheses $(\ )$ mean it is **not**. $\infty$ always takes a parenthesis. Build your own:
+
+<IntervalBuilder client:visible />
+
+<Practice client:visible lesson="9.1" skill="notation" compact />
+
+<Practice client:visible lesson="9.1" skill="graph" compact />
+
+## Solving inequalities
+
+The **addition principle** — add or subtract the same number on both sides — works exactly as for equations. The **multiplication principle** has one twist:
+
+> Multiplying or dividing both sides by a **negative** number **reverses** the inequality sign.
+
+<StepReveal
+  client:visible
+  title="Reverse the sign"
+  problem="Solve: $\;-3x + 5 \le 17$"
+  steps={[
+    { show: '$-3x \\le 12$', why: 'Subtract $5$ from both sides.' },
+    { show: '$x \\ge -4$', why: 'Divide by $-3$ — and reverse $\\le$ to $\\ge$.' },
+    { show: '$[-4, \\infty)$', why: 'Check: $x = 0$ gives $5 \\le 17$ ✓; $x = -5$ gives $20 \\le 17$ ✗.' },
+  ]}
+/>
+
+<Callout type="warning" title="Why the sign flips">
+$2 < 5$ is true. Multiply both sides by $-1$: $-2$ and $-5$. Now $-2 > -5$. Multiplying by a negative mirrors the number line, so the order reverses.
+</Callout>
+
+<Practice client:visible lesson="9.1" skill="solve" compact />
+
+## Applications
+
+Words like **at least** ($\ge$), **at most** ($\le$), **more than** ($>$) and **less than** ($<$) signal inequalities.
+
+<Practice client:visible lesson="9.1" skill="apply" compact />
+
+## Summary
+
+- Inequality, set-builder and interval notation describe the same set.
+- $[\ ]$ includes the endpoint, $(\ )$ excludes it; $\pm\infty$ always gets $(\ )$.
+- Reverse the sign when multiplying or dividing by a negative.
+
+## Practice
+
+<Practice client:visible lesson="9.1" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="9.1" />

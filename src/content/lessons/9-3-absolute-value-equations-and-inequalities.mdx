@@ -1,0 +1,97 @@
+---
+id: "9.3"
+title: Absolute-Value Equations and Inequalities
+summary: "|X| is a distance from 0. |X| = d gives two points, |X| < d gives the stretch between them, and |X| > d gives everything outside."
+minutes: 40
+objectives:
+  - Solve equations with one or two absolute values.
+  - Solve absolute-value inequalities of the forms |X| < d and |X| > d.
+  - Recognize absolute-value problems with no solution.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import AbsDistance from '../../components/AbsDistance.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+A machine part must be $50$ mm long, give or take $0.2$ mm: $|L - 50| \le 0.2$. Absolute value is the natural language of **tolerance** — how far something is from a target.
+</Callout>
+
+## Absolute value as distance
+
+$|a|$ is the distance from $a$ to $0$, and $|x - h|$ is the distance from $x$ to $h$. For $d > 0$:
+
+| | means | solution |
+|---|---|---|
+| $\lvert X \rvert = d$ | $X = d$ or $X = -d$ | two points |
+| $\lvert X \rvert < d$ | $-d < X < d$ | one interval |
+| $\lvert X \rvert > d$ | $X < -d$ or $X > d$ | two pieces |
+
+<AbsDistance client:visible />
+
+## Equations
+
+<StepReveal
+  client:visible
+  title="Absolute-value equation"
+  problem="Solve: $\;|2x - 3| = 7$"
+  steps={[
+    { show: '$2x - 3 = 7$ or $2x - 3 = -7$', why: 'The inside is $7$ units from $0$: either $7$ or $-7$.' },
+    { show: '$x = 5$ or $x = -2$', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="9.3" skill="equation" compact />
+
+<Callout type="warning" title="Negative right side">
+$|X| = -4$ has **no solution**: a distance is never negative. $|X| = 0$ has exactly one solution, $X = 0$.
+</Callout>
+
+<Practice client:visible lesson="9.3" skill="special" compact />
+
+When two absolute values are equal, $|A| = |B|$, the insides are equal or opposite: $A = B$ or $A = -B$.
+
+<Practice client:visible lesson="9.3" skill="two" compact />
+
+## Inequalities
+
+<StepReveal
+  client:visible
+  title="Less than: one interval"
+  problem="Solve: $\;|x - 4| < 3$"
+  steps={[
+    { show: '$-3 < x - 4 < 3$', why: '$x$ is less than $3$ units from $4$.' },
+    { show: '$1 < x < 7$, that is $(1, 7)$', why: 'Add $4$ to all three parts.' },
+  ]}
+/>
+
+<Practice client:visible lesson="9.3" skill="less" compact />
+
+<StepReveal
+  client:visible
+  title="Greater than: two pieces"
+  problem="Solve: $\;|2x + 1| \ge 5$"
+  steps={[
+    { show: '$2x + 1 \\le -5$ or $2x + 1 \\ge 5$', why: 'Far from $0$ in either direction.' },
+    { show: '$x \\le -3$ or $x \\ge 2$', why: '' },
+    { show: '$(-\\infty, -3] \\cup [2, \\infty)$', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="9.3" skill="greater" compact />
+
+## Summary
+
+- $|X| = d$: $X = \pm d$ (no solution if $d < 0$).
+- $|X| < d$: $-d < X < d$ — "less than" gives one interval ("and").
+- $|X| > d$: $X < -d$ or $X > d$ — "greater than" gives two pieces ("or").
+
+## Practice
+
+<Practice client:visible lesson="9.3" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="9.3" />
