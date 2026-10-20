@@ -1,0 +1,82 @@
+---
+id: "11.2"
+title: The Quadratic Formula
+summary: Completing the square once, for the general equation ax² + bx + c = 0, gives a formula that solves every quadratic equation.
+minutes: 40
+objectives:
+  - Use the quadratic formula to solve quadratic equations.
+  - Write equations in standard form before using the formula.
+  - Find complex solutions.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import QuadFormulaLab from '../../components/QuadFormulaLab.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+Completing the square works every time, but it is the same sequence of steps every time. Do those steps once with letters instead of numbers and you get a formula you can simply plug into.
+</Callout>
+
+## The formula
+
+The solutions of $ax^2 + bx + c = 0$ (with $a \ne 0$) are
+
+$$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
+
+<QuadFormulaLab client:visible />
+
+<StepReveal
+  client:visible
+  title="Use the formula"
+  problem="Solve: $\;2x^2 + 3x - 1 = 0$"
+  steps={[
+    { show: '$a = 2,\\ b = 3,\\ c = -1$', why: 'Identify the coefficients — including signs.' },
+    { show: '$x = \\dfrac{-3 \\pm \\sqrt{9 - 4(2)(-1)}}{2(2)} = \\dfrac{-3 \\pm \\sqrt{17}}{4}$', why: '' },
+  ]}
+/>
+
+<Callout type="tip" title="Typing the answer">
+Type `(-3 +- sqrt(17))/4`, or list both: `(-3 + sqrt(17))/4, (-3 - sqrt(17))/4`. The parentheses around the numerator matter.
+</Callout>
+
+<Practice client:visible lesson="11.2" skill="rational" compact />
+
+<Practice client:visible lesson="11.2" skill="irrational" compact />
+
+## Standard form first
+
+The formula needs the equation in the form $ax^2 + bx + c = 0$. Move everything to one side first: $x^2 + 2x = 5 - 2x$ becomes $x^2 + 4x - 5 = 0$.
+
+<Practice client:visible lesson="11.2" skill="standard" compact />
+
+## Complex solutions
+
+When $b^2 - 4ac < 0$, the square root is imaginary and the solutions are complex conjugates $p \pm qi$.
+
+<StepReveal
+  client:visible
+  title="Complex solutions"
+  problem="Solve: $\;x^2 - 2x + 5 = 0$"
+  steps={[
+    { show: '$x = \\dfrac{2 \\pm \\sqrt{4 - 20}}{2} = \\dfrac{2 \\pm \\sqrt{-16}}{2}$', why: '' },
+    { show: '$= \\dfrac{2 \\pm 4i}{2} = 1 \\pm 2i$', why: '$\\sqrt{-16} = 4i$.' },
+  ]}
+/>
+
+<Practice client:visible lesson="11.2" skill="complex" compact />
+
+## Summary
+
+- $x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a}$ solves every quadratic equation in standard form.
+- Simplify the radical and reduce the fraction.
+- A negative discriminant gives complex conjugate solutions.
+
+## Practice
+
+<Practice client:visible lesson="11.2" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="11.2" />

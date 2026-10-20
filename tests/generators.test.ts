@@ -76,6 +76,8 @@ function answerInput(a: import('../src/generators/types').Answer): string | numb
       return String(a.value);
     case 'point':
       return `(${a.x}, ${a.y})`;
+    case 'csolutions':
+      return a.values.map((z) => `${z.re} + (${z.im})i`).join(', ');
     case 'complex':
       return `${a.re} + (${a.im})i`;
     case 'tuple':

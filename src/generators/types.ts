@@ -39,6 +39,8 @@ export type Answer =
   | { type: 'inequality'; value: string }
   /** An ordered pair (x, y). */
   | { type: 'point'; x: number; y: number }
+  /** All solutions of an equation, which may be complex: 1 ± 2i. */
+  | { type: 'csolutions'; values: { re: number; im: number }[]; variable?: string }
   /** A complex number a + bi. */
   | { type: 'complex'; re: number; im: number }
   /** An ordered triple (x, y, z) — or any ordered list in parentheses. */

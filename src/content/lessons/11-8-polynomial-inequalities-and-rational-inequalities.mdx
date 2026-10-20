@@ -1,0 +1,67 @@
+---
+id: "11.8"
+title: Polynomial Inequalities and Rational Inequalities
+summary: Find where an expression is zero or undefined, split the number line there, test each interval, and keep the intervals with the right sign.
+minutes: 40
+objectives:
+  - Solve quadratic and higher-degree polynomial inequalities.
+  - Solve rational inequalities.
+  - Use sign charts and test values.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import SignChart from '../../components/SignChart.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+When is a thrown ball higher than 50 feet? When does a business make a profit? Questions like "when is this expression positive?" are inequalities, and the answer is usually one or more intervals.
+</Callout>
+
+## The method
+
+1. Get $0$ on one side and factor.
+2. Find the **critical values**: zeros of the numerator, and zeros of the denominator (for rational expressions).
+3. They split the number line into intervals. Pick a **test value** in each interval and find the sign.
+4. Keep the intervals with the sign you want. Include numerator zeros for $\le$ or $\ge$; **never** include denominator zeros.
+
+<SignChart client:visible />
+
+<StepReveal
+  client:visible
+  title="Quadratic inequality"
+  problem="Solve: $\;x^2 - x - 6 > 0$"
+  steps={[
+    { show: '$(x + 2)(x - 3) > 0$', why: 'Factor.' },
+    { show: 'Critical values $-2$ and $3$: test $-3$, $0$, $4$', why: '' },
+    { show: 'Signs: $+,\\ -,\\ +$', why: '$(-1)(-6) > 0$; $(2)(-3) < 0$; $(6)(1) > 0$.' },
+    { show: '$(-\\infty, -2) \\cup (3, \\infty)$', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="11.8" skill="quadratic" compact />
+
+<Practice client:visible lesson="11.8" skill="cubic" compact />
+
+## Rational inequalities
+
+<Callout type="warning" title="Don't multiply by the denominator">
+Multiplying both sides by $x - 3$ would require knowing whether it's positive or negative. Use the sign chart instead.
+</Callout>
+
+<Practice client:visible lesson="11.8" skill="rational" compact />
+
+## Summary
+
+- Critical values split the line; test one value per interval.
+- Numerator zeros: included for $\le, \ge$. Denominator zeros: never included.
+- Write the answer as a union of intervals.
+
+## Practice
+
+<Practice client:visible lesson="11.8" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="11.8" />

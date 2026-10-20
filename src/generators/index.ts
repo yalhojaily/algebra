@@ -65,6 +65,14 @@ import * as l10_5 from './10-5-more-on-division-of-radical-expressions';
 import * as l10_6 from './10-6-solving-radical-equations';
 import * as l10_7 from './10-7-applications-involving-powers-and-roots';
 import * as l10_8 from './10-8-the-complex-numbers';
+import * as l11_1 from './11-1-the-basics-of-solving-quadratic-equations';
+import * as l11_2 from './11-2-the-quadratic-formula';
+import * as l11_3 from './11-3-applications-involving-quadratic-equations';
+import * as l11_4 from './11-4-more-on-quadratic-equations';
+import * as l11_5 from './11-5-graphing-f-x-a-x-h-k';
+import * as l11_6 from './11-6-graphing-f-x-ax-bx-c';
+import * as l11_7 from './11-7-mathematical-modeling-with-quadratic-functions';
+import * as l11_8 from './11-8-polynomial-inequalities-and-rational-inequalities';
 import * as l4_8 from './4-8-division-of-polynomials';
 import * as l3_4 from './3-4-slope-and-applications';
 import * as l2_8 from './2-8-applications-and-problem-solving-with-inequalities';
@@ -145,4 +153,12 @@ export const registry: Record<string, LessonGenerators> = {
   '10.6': l10_6,
   '10.7': l10_7,
   '10.8': l10_8,
+  '11.1': l11_1,
+  '11.2': l11_2,
+  '11.3': l11_3,
+  '11.4': l11_4,
+  '11.5': l11_5,
+  '11.6': l11_6,
+  '11.7': l11_7,
+  '11.8': l11_8,
 };

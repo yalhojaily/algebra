@@ -786,3 +786,15 @@ a.tag:hover { color: var(--ink); }
 .cpx-cycle { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 10px 0; }
 .cpx-pow { text-align: center; padding: 6px; background: var(--paper-2); border-radius: 8px; font-size: 0.95rem; }
 .cpx .btn { align-self: flex-start; margin: 6px 0; }
+
+/* ---------- Chapter 11 quadratics ---------- */
+.csa, .qf, .pj, .vf, .sv, .fl, .sc { padding: 16px 20px; margin: 1.4em 0; }
+.csa-svg { max-width: 300px; }
+.csa-corner { fill: none; stroke: var(--red); stroke-width: 2; stroke-dasharray: 5 4; }
+.csa-corner.on { fill: var(--amber-soft, #fbeccd); stroke: var(--amber); stroke-dasharray: none; }
+.sc-scroll { overflow-x: auto; }
+.sc-table td, .sc-table th { text-align: center; white-space: nowrap; }
+.sc-table td:first-child { text-align: left; }
+.sc-table td.hit { background: var(--green-soft); color: var(--green); font-weight: 700; }
+.fl-best { fill: var(--green-soft); stroke: var(--green); }
+.sv .ac-steps li { font-size: 1rem; }

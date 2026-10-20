@@ -1,0 +1,68 @@
+---
+id: "11.6"
+title: "Graphing f(x) = ax² + bx + c"
+summary: "Find the vertex with x = −b/(2a) (or by completing the square), find the intercepts, and sketch."
+minutes: 35
+objectives:
+  - Find the vertex of f(x) = ax² + bx + c.
+  - Rewrite f(x) = ax² + bx + c in vertex form by completing the square.
+  - Find x- and y-intercepts and graph.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import StandardToVertex from '../../components/StandardToVertex.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+Quadratic functions usually show up as $ax^2 + bx + c$, not in vertex form. You don't need to convert every time: the vertex's $x$-coordinate is always $-\frac{b}{2a}$.
+</Callout>
+
+## The vertex
+
+For $f(x) = ax^2 + bx + c$ the vertex is
+
+$$\left(-\frac{b}{2a},\ f\!\left(-\frac{b}{2a}\right)\right)$$
+
+<StandardToVertex client:visible />
+
+<Practice client:visible lesson="11.6" skill="vertex" compact />
+
+<Practice client:visible lesson="11.6" skill="plot" compact />
+
+## Vertex form by completing the square
+
+<StepReveal
+  client:visible
+  title="Complete the square inside a function"
+  problem="Write $\;f(x) = 2x^2 - 12x + 13\;$ in vertex form."
+  steps={[
+    { show: '$= 2(x^2 - 6x) + 13$', why: 'Factor $a = 2$ out of the $x$-terms.' },
+    { show: '$= 2(x^2 - 6x + 9 - 9) + 13$', why: 'Add and subtract $\\left(\\frac{-6}{2}\\right)^2 = 9$ inside.' },
+    { show: '$= 2(x - 3)^2 - 18 + 13 = 2(x - 3)^2 - 5$', why: 'The $-9$ is multiplied by $2$ when it leaves the parentheses.' },
+  ]}
+/>
+
+<Practice client:visible lesson="11.6" skill="form" compact />
+
+## Intercepts
+
+- **$y$-intercept:** $(0, c)$.
+- **$x$-intercepts:** solve $ax^2 + bx + c = 0$. There may be two, one or none.
+
+<Practice client:visible lesson="11.6" skill="intercepts" compact />
+
+## Summary
+
+- Vertex: $x = -\frac{b}{2a}$, then $y = f(x)$.
+- Vertex form via completing the square (factor out $a$ first).
+- $y$-intercept $(0, c)$; $x$-intercepts from $f(x) = 0$.
+
+## Practice
+
+<Practice client:visible lesson="11.6" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="11.6" />

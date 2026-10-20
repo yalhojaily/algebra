@@ -1,0 +1,89 @@
+---
+id: "11.1"
+title: The Basics of Solving Quadratic Equations
+summary: "Solve x² = k with the principle of square roots, and turn any quadratic into that form by completing the square."
+minutes: 40
+objectives:
+  - Solve quadratic equations using the principle of square roots, including complex solutions.
+  - "Solve (x − h)² = k."
+  - Complete the square for x² + bx.
+  - Solve quadratic equations by completing the square.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import CompleteSquareArea from '../../components/CompleteSquareArea.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+Factoring (Lesson 5.8) solves only the quadratic equations that happen to factor nicely. $x^2 - 6x + 4 = 0$ doesn't. This lesson builds a method that works for **every** quadratic — and leads straight to the quadratic formula in 11.2.
+</Callout>
+
+## The principle of square roots
+
+> If $x^2 = k$, then $x = \sqrt{k}$ or $x = -\sqrt{k}$ — written $x = \pm\sqrt{k}$.
+
+If $k < 0$, the solutions are imaginary: $x^2 = -9$ gives $x = \pm 3i$.
+
+Type $\pm$ as `+-`, for example `+- 2sqrt(3)` or `3 +- sqrt(5)`.
+
+<Practice client:visible lesson="11.1" skill="principle" compact />
+
+The same idea solves $(x - h)^2 = k$: take square roots, then add $h$.
+
+<StepReveal
+  client:visible
+  title="Shifted square"
+  problem="Solve: $\;(x - 4)^2 = 7$"
+  steps={[
+    { show: '$x - 4 = \\pm\\sqrt{7}$', why: 'Principle of square roots.' },
+    { show: '$x = 4 \\pm \\sqrt{7}$', why: 'Add $4$ to both sides.' },
+  ]}
+/>
+
+<Practice client:visible lesson="11.1" skill="shifted" compact />
+
+## Completing the square
+
+$x^2 + bx$ becomes a perfect square when you add $\left(\frac{b}{2}\right)^2$:
+
+$$x^2 + bx + \left(\tfrac{b}{2}\right)^2 = \left(x + \tfrac{b}{2}\right)^2$$
+
+<CompleteSquareArea client:visible />
+
+<Practice client:visible lesson="11.1" skill="term" compact />
+
+## Solving by completing the square
+
+1. Get $x^2 + bx$ alone on one side (divide by $a$ first if $a \ne 1$).
+2. Add $\left(\frac{b}{2}\right)^2$ to **both** sides.
+3. Write the left side as a square, then use the principle of square roots.
+
+<StepReveal
+  client:visible
+  title="Complete the square"
+  problem="Solve: $\;x^2 - 6x + 4 = 0$"
+  steps={[
+    { show: '$x^2 - 6x = -4$', why: 'Move the constant.' },
+    { show: '$x^2 - 6x + 9 = -4 + 9$', why: '$\\left(\\frac{-6}{2}\\right)^2 = 9$. Add it to both sides.' },
+    { show: '$(x - 3)^2 = 5$', why: '' },
+    { show: '$x = 3 \\pm \\sqrt{5}$', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="11.1" skill="complete" compact />
+
+## Summary
+
+- $x^2 = k \Rightarrow x = \pm\sqrt{k}$ (imaginary if $k < 0$).
+- Completing the square: add $\left(\frac{b}{2}\right)^2$ to both sides.
+- Every quadratic equation can be solved this way.
+
+## Practice
+
+<Practice client:visible lesson="11.1" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="11.1" />

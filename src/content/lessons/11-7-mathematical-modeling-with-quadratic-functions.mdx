@@ -1,0 +1,64 @@
+---
+id: "11.7"
+title: Mathematical Modeling with Quadratic Functions
+summary: "Maximum and minimum problems are vertex problems: area with fixed fencing, highest point of a throw, best price for revenue. And three data points determine a quadratic model."
+minutes: 40
+objectives:
+  - Solve maximum and minimum problems using the vertex.
+  - Fit a quadratic function to three data points.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import FenceLab from '../../components/FenceLab.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+"What is the biggest…?" and "What is the smallest…?" are some of the most useful questions in business and engineering. When the quantity is a quadratic function, the answer is at its vertex.
+</Callout>
+
+## Maximum and minimum problems
+
+1. Write the quantity to optimize as a function of one variable.
+2. If it is quadratic, find the vertex: $x = -\frac{b}{2a}$.
+3. Answer the question asked (the input, the output, or both).
+
+<FenceLab client:visible />
+
+<Practice client:visible lesson="11.7" skill="fence" compact />
+
+<Practice client:visible lesson="11.7" skill="projectile" compact />
+
+<StepReveal
+  client:visible
+  title="Best price"
+  problem="A theater sells 300 tickets at 10 dollars. Each 1-dollar increase loses 20 sales. What price maximizes revenue?"
+  steps={[
+    { show: '$R(x) = (10 + x)(300 - 20x)$', why: '$x$ = number of 1-dollar increases; revenue = price × number sold.' },
+    { show: '$= -20x^2 + 100x + 3000$', why: '' },
+    { show: '$x = -\\dfrac{100}{2(-20)} = 2.5$', why: 'Vertex.' },
+    { show: 'Price $= 10 + 2.5 = 12.50$ dollars', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="11.7" skill="revenue" compact />
+
+## Fitting a quadratic to data
+
+Three points determine a quadratic $f(x) = ax^2 + bx + c$. Substituting each point gives three equations in $a$, $b$, $c$ — a system like those in Lesson 8.5.
+
+<Practice client:visible lesson="11.7" skill="fit" compact />
+
+## Summary
+
+- Optimization with a quadratic: find the vertex.
+- Three points → three equations → $(a, b, c)$.
+
+## Practice
+
+<Practice client:visible lesson="11.7" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="11.7" />

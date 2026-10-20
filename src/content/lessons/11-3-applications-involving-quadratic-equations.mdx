@@ -1,0 +1,65 @@
+---
+id: "11.3"
+title: Applications Involving Quadratic Equations
+summary: Falling objects, areas, trips at two speeds, and formulas solved for a squared variable — and the habit of rejecting solutions that make no sense.
+minutes: 40
+objectives:
+  - Solve applied problems that lead to quadratic equations.
+  - Solve formulas for a variable that is squared.
+  - Reject solutions that don't fit the situation.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import ProjectileLab from '../../components/ProjectileLab.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+Gravity, area and travel time all produce squares. With the quadratic formula you can now solve these problems even when the numbers don't factor.
+</Callout>
+
+## Falling and thrown objects
+
+An object dropped from rest falls $s = 16t^2$ feet in $t$ seconds. One thrown upward from height $h_0$ at $v$ ft/s has height $h(t) = -16t^2 + vt + h_0$.
+
+<ProjectileLab client:visible />
+
+<Practice client:visible lesson="11.3" skill="falling" compact />
+
+## Solving formulas
+
+To solve $A = \pi r^2$ for $r$: isolate $r^2$, then take the **positive** square root (a radius can't be negative): $r = \sqrt{\dfrac{A}{\pi}}$.
+
+<Practice client:visible lesson="11.3" skill="formula" compact />
+
+## Area and motion
+
+<StepReveal
+  client:visible
+  title="Two speeds"
+  problem="A cyclist rides 60 km, then 50 km at a speed 5 km/h faster. The trip takes 5 hours. Find the first speed."
+  steps={[
+    { show: '$\\dfrac{60}{r} + \\dfrac{50}{r + 5} = 5$', why: 'Time = distance ÷ speed for each part.' },
+    { show: '$60(r + 5) + 50r = 5r(r + 5)$', why: 'Multiply by $r(r + 5)$.' },
+    { show: '$5r^2 - 85r - 300 = 0 \\;\\Rightarrow\\; r^2 - 17r - 60 = 0$', why: '' },
+    { show: '$(r - 20)(r + 3) = 0$, so $r = 20$ km/h', why: 'Reject $r = -3$: a speed is positive.' },
+  ]}
+/>
+
+<Practice client:visible lesson="11.3" skill="area" compact />
+
+<Practice client:visible lesson="11.3" skill="motion" compact />
+
+## Summary
+
+- Translate, write in standard form, solve (factor or formula).
+- Check each solution against the situation; reject negative lengths, times and speeds.
+
+## Practice
+
+<Practice client:visible lesson="11.3" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="11.3" />

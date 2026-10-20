@@ -1,0 +1,73 @@
+---
+id: "11.4"
+title: More on Quadratic Equations
+summary: The discriminant predicts the kind of solutions; solutions let you rebuild the equation; and equations "quadratic in form" yield to a substitution.
+minutes: 35
+objectives:
+  - Use the discriminant to determine the number and type of solutions.
+  - Write a quadratic equation with given solutions.
+  - Solve equations that are quadratic in form.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import QuadFormulaLab from '../../components/QuadFormulaLab.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+Before doing any work, the number $b^2 - 4ac$ already tells you what kind of answer to expect. And an equation like $x^4 - 13x^2 + 36 = 0$, which looks like a fourth-degree monster, is really just a quadratic in disguise.
+</Callout>
+
+## The discriminant
+
+| $b^2 - 4ac$ | Solutions | Graph of $y = ax^2 + bx + c$ |
+|---|---|---|
+| positive | two real | crosses the $x$-axis twice |
+| zero | one real (repeated) | touches the $x$-axis at the vertex |
+| negative | two complex conjugates | doesn't reach the $x$-axis |
+
+<QuadFormulaLab client:visible />
+
+<Practice client:visible lesson="11.4" skill="discriminant" compact />
+
+## Writing equations from solutions
+
+If the solutions are $r$ and $s$, then $(x - r)(x - s) = 0$ is an equation with those solutions. Multiply it out.
+
+<Practice client:visible lesson="11.4" skill="write" compact />
+
+## Equations quadratic in form
+
+An equation is **quadratic in form** if a substitution $u = (\text{something})$ makes it $au^2 + bu + c = 0$.
+
+<StepReveal
+  client:visible
+  title="Let u = x²"
+  problem="Solve: $\;x^4 - 13x^2 + 36 = 0$"
+  steps={[
+    { show: '$u^2 - 13u + 36 = 0$', why: 'Let $u = x^2$, so $x^4 = u^2$.' },
+    { show: '$(u - 4)(u - 9) = 0 \\;\\Rightarrow\\; u = 4$ or $u = 9$', why: '' },
+    { show: '$x^2 = 4$ or $x^2 = 9$, so $x = \\pm 2$ or $x = \\pm 3$', why: 'Go back to $x$ — four solutions.' },
+  ]}
+/>
+
+<Practice client:visible lesson="11.4" skill="form" compact />
+
+With $u = \sqrt{x}$, an equation like $x - 5\sqrt{x} + 6 = 0$ becomes $u^2 - 5u + 6 = 0$. (Check answers — $u$ must be $\ge 0$.)
+
+<Practice client:visible lesson="11.4" skill="sqrtform" compact />
+
+## Summary
+
+- $b^2 - 4ac > 0$: two real; $= 0$: one; $< 0$: two complex.
+- Solutions $r, s$ → $(x - r)(x - s) = 0$.
+- Substitute to reveal a hidden quadratic; then substitute back.
+
+## Practice
+
+<Practice client:visible lesson="11.4" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="11.4" />

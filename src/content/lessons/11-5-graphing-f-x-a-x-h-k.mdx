@@ -1,0 +1,73 @@
+---
+id: "11.5"
+title: "Graphing f(x) = a(x − h)² + k"
+summary: "Every parabola is y = x² stretched (or flipped) by a, shifted right by h and up by k. The vertex is (h, k), the axis of symmetry is x = h."
+minutes: 35
+objectives:
+  - Describe how a, h and k transform the graph of y = x².
+  - Find the vertex, axis of symmetry and maximum or minimum value.
+  - Graph functions in vertex form.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import VertexFormExplorer from '../../components/VertexFormExplorer.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+The path of a basketball, the cable of a suspension bridge and the cross-section of a satellite dish are all parabolas. In vertex form you can read the most important point — the top or bottom — directly from the equation.
+</Callout>
+
+## The effect of a, h and k
+
+$$f(x) = a(x - h)^2 + k$$
+
+- $a$: if $|a| > 1$ the graph is narrower, if $|a| < 1$ wider; if $a < 0$ it opens **down**.
+- $h$: shifts the graph **right** $h$ units (left if $h < 0$).
+- $k$: shifts the graph **up** $k$ units (down if $k < 0$).
+
+<VertexFormExplorer client:visible />
+
+<Callout type="warning" title="The sign of h">
+$f(x) = (x + 3)^2$ is $(x - (-3))^2$: it moves **left** 3, and the vertex is $(-3, 0)$.
+</Callout>
+
+<Practice client:visible lesson="11.5" skill="vertex" compact />
+
+<Practice client:visible lesson="11.5" skill="plot" compact />
+
+## Axis of symmetry and extreme values
+
+The parabola is symmetric about the vertical line $x = h$. If $a > 0$, the vertex is the lowest point, so $k$ is the **minimum** value; if $a < 0$, $k$ is the **maximum** value.
+
+<StepReveal
+  client:visible
+  title="Read it off"
+  problem="Describe $\;f(x) = -2(x - 1)^2 + 5$."
+  steps={[
+    { show: 'Vertex $(1, 5)$; axis $x = 1$', why: '$h = 1$, $k = 5$.' },
+    { show: 'Opens down, narrower than $y = x^2$', why: '$a = -2$.' },
+    { show: 'Maximum value $5$', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="11.5" skill="axis" compact />
+
+<Practice client:visible lesson="11.5" skill="maxmin" compact />
+
+<Practice client:visible lesson="11.5" skill="transform" compact />
+
+## Summary
+
+- Vertex $(h, k)$, axis $x = h$.
+- $a > 0$: opens up, minimum $k$; $a < 0$: opens down, maximum $k$.
+- $|a|$ controls the width.
+
+## Practice
+
+<Practice client:visible lesson="11.5" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="11.5" />

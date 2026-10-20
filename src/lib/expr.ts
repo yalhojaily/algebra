@@ -17,7 +17,7 @@ export type Node = (
   | { kind: 'num'; value: number }
   | { kind: 'var'; name: string }
   | { kind: 'neg'; arg: Node }
-  | { kind: 'bin'; op: '+' | '-' | '*' | '/' | '^'; left: Node; right: Node; implicit?: boolean }
+  | { kind: 'bin'; op: '+' | '-' | '*' | '/' | '^'; left: Node; right: Node; implicit?: boolean; pm?: boolean }
   | { kind: 'fn'; name: FnName; arg: Node }
 ) &
   Meta;
@@ -30,7 +30,7 @@ export type FnName = 'sqrt' | 'cbrt' | 'abs';
 type Tok =
   | { t: 'num'; v: number; s: string }
   | { t: 'var'; v: string }
-  | { t: 'op'; v: '+' | '-' | '*' | '/' | '^' }
+  | { t: 'op'; v: '+' | '-' | '*' | '/' | '^'; pm?: boolean }
   | { t: 'fn'; v: FnName }
   | { t: '('; g: Group }
   | { t: ')'; g: Group };
@@ -67,6 +67,9 @@ function tokenize(src: string): Tok[] {
       i++;
     } else if (/[a-zA-Z]/.test(c)) {
       out.push({ t: 'var', v: c }); // single-letter variables, so "xy" means x·y
+      i++;
+    } else if (c === '±') {
+      out.push({ t: 'op', v: '+', pm: true });
       i++;
     } else if ('+-*/^'.includes(c)) {
       out.push({ t: 'op', v: c as '+' });
@@ -113,8 +116,8 @@ class Parser {
   private expr(): Node {
     let left = this.term();
     while (this.isOp('+') || this.isOp('-')) {
-      const op = (this.next() as { v: '+' | '-' }).v;
-      left = { kind: 'bin', op, left, right: this.term() };
+      const tok = this.next() as { v: '+' | '-'; pm?: boolean };
+      left = { kind: 'bin', op: tok.v, left, right: this.term(), ...(tok.pm ? { pm: true } : {}) };
     }
     return left;
   }
@@ -337,7 +340,7 @@ function texCore(n: Node): string {
       const right = (c: Node, min: number) => (isNegative(c) ? `\\left(${toTex(c)}\\right)` : wrap(c, min));
       switch (n.op) {
         case '+':
-          return `${toTex(n.left)} + ${right(n.right, 1)}`;
+          return `${toTex(n.left)} ${n.pm ? '\\pm' : '+'} ${right(n.right, 1)}`;
         case '-':
           return `${toTex(n.left)} - ${right(n.right, 2)}`;
         case '/':
@@ -485,6 +488,8 @@ export function topTerms(n: Node): Node[] {
 /** Try to render user input as LaTeX; returns null if it doesn't parse yet. */
 export function tryTex(src: string, allowEquation = false): string | null {
   try {
+    // "2 ± sqrt(3)" (also typed +- or +/-): the parser understands ± directly
+    if (/\+\/-|\+-/.test(src)) return tryTex(src.replace(/\+\/-|\+-/g, '±'), allowEquation);
     // Union of intervals "(-inf, 1) U [3, inf)" and the empty set
     if (/^\s*(∅|no solution)\s*$/i.test(src)) return '\\varnothing';
     if (/\s(U|∪)\s/.test(src)) {

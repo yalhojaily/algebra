@@ -47,3 +47,19 @@ describe('combined and noRadicals', () => {
     expect(check(q, 'x^(1/2)').status).toBe('correct');
   });
 });
+
+describe('solutions with ± and complex solutions', () => {
+  it('expands ±', () => {
+    const p = P({ type: 'solutions', values: [2 + Math.sqrt(3), 2 - Math.sqrt(3)], variable: 'x' });
+    expect(check(p, '2 ± sqrt(3)').status).toBe('correct');
+    expect(check(p, 'x = 2 +- sqrt(3)').status).toBe('correct');
+    expect(check(p, '2 + sqrt(3), 2 - sqrt(3)').status).toBe('correct');
+    expect(check(p, '2 + sqrt(3)').status).toBe('wrong');
+  });
+  it('checks complex solutions', () => {
+    const p = P({ type: 'csolutions', values: [{ re: 1, im: 2 }, { re: 1, im: -2 }], variable: 'x' });
+    expect(check(p, '1 ± 2i').status).toBe('correct');
+    expect(check(p, 'x = 1 + 2i or x = 1 - 2i').status).toBe('correct');
+    expect(check(p, '1 + 2i')).toMatchObject({ status: 'wrong', feedback: expect.stringContaining('conjugate') });
+  });
+});

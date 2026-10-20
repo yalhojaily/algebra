@@ -167,6 +167,20 @@ export function check(problem: Problem, input: string | number): Verdict {
       return { status: 'wrong' };
     }
 
+    if (a.type === 'csolutions') {
+      const got = parseComplexSolutions(raw, a.variable);
+      if (!got) return { status: 'invalid', message: 'List the solutions separated by commas, like 1 + 2i, 1 - 2i (or use ±: 1 ± 2i).' };
+      if ('error' in got) return { status: 'invalid', message: got.error };
+      const key = (z: { re: number; im: number }) => `${+z.re.toFixed(9)},${+z.im.toFixed(9)}`;
+      const want = new Set(a.values.map(key)), have = new Set(got.map(key));
+      const missing = [...want].filter((k) => !have.has(k)), extra = [...have].filter((k) => !want.has(k));
+      if (!missing.length && !extra.length) return { status: 'correct' };
+      const m = mistake(raw);
+      if (m) return { status: 'wrong', feedback: m };
+      if (!extra.length) return { status: 'wrong', feedback: 'Those are correct, but there is another solution — complex solutions come in conjugate pairs a ± bi.' };
+      return { status: 'wrong' };
+    }
+
     if (a.type === 'tuple') {
       const n = a.values.length;
       const got = parseTuple(raw);
@@ -250,10 +264,38 @@ export function parseTuple(raw: string): number[] | null {
   }
 }
 
+/** "2 ± sqrt(3)" (also "+-" or "+/-") → ["2 + sqrt(3)", "2 - sqrt(3)"]. */
+export function expandPlusMinus(parts: string[]): string[] {
+  return parts.flatMap((p) => {
+    const q = p.replace(/\+\/-|\+-/g, '±');
+    return q.includes('±') ? [q.replace('±', '+'), q.replace('±', '-')] : [p];
+  });
+}
+
+/** Complex solutions: "1 ± 2i", "x = 3i or x = -3i" → [{re, im}]. */
+export function parseComplexSolutions(raw: string, v?: string): { re: number; im: number }[] | { error: string } | null {
+  const s = raw.replace(/[−–]/g, '-').replace(/[{}]/g, '').replace(/\band\b|\bor\b|;/gi, ',');
+  const parts = expandPlusMinus(s.split(',').map((p) => p.trim()).filter(Boolean));
+  if (!parts.length) return null;
+  const out: { re: number; im: number }[] = [];
+  for (let part of parts) {
+    const eq = part.match(/^([a-zA-Z])\s*=\s*(.+)$/);
+    if (eq) {
+      if (v && eq[1] !== v) return null;
+      part = eq[2];
+    }
+    const z = parseComplex(part);
+    if (!z) return null;
+    if ('error' in z) return z;
+    out.push(z);
+  }
+  return out;
+}
+
 /** "2, -3", "x = 2 or x = -3", "{2, -3}" → [2, -3]. */
 export function parseSolutions(raw: string, v?: string): number[] | null {
   const s = raw.replace(/[−–]/g, '-').replace(/[{}]/g, '').replace(/\band\b|\bor\b|;/gi, ',');
-  const parts = s.split(',').map((p) => p.trim()).filter(Boolean);
+  const parts = expandPlusMinus(s.split(',').map((p) => p.trim()).filter(Boolean));
   if (!parts.length) return null;
   const out: number[] = [];
   for (let part of parts) {
