@@ -1,0 +1,76 @@
+---
+id: "8.5"
+title: Systems of Equations in Three Variables
+summary: "Three equations, three unknowns: eliminate the same variable twice to get a 2 × 2 system, solve it, then back-substitute."
+minutes: 45
+objectives:
+  - Check whether an ordered triple is a solution.
+  - Solve triangular systems by back-substitution.
+  - Solve systems in three variables by elimination.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import ThreeVarSteps from '../../components/ThreeVarSteps.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+Some situations have three unknowns — three angles of a triangle, three investments, three ingredients. You need three equations, and the method is the one you already know, used twice.
+</Callout>
+
+## Ordered triples
+
+A solution of a system in $x$, $y$ and $z$ is an **ordered triple** $(x, y, z)$ that makes every equation true. Type it with parentheses, like `(1, -2, 3)`.
+
+<Practice client:visible lesson="8.5" skill="check" compact />
+
+## Back-substitution
+
+If the last equation has one variable and the middle one has two, solve from the bottom up:
+
+<StepReveal
+  client:visible
+  title="Back-substitution"
+  problem="Solve: $\;\begin{cases} x + y - z = 2 \\ y + 2z = 7 \\ 3z = 9 \end{cases}$"
+  steps={[
+    { show: '$z = 3$', why: 'From the last equation.' },
+    { show: '$y + 6 = 7 \\;\\Rightarrow\\; y = 1$', why: 'Substitute $z$ into the middle equation.' },
+    { show: '$x + 1 - 3 = 2 \\;\\Rightarrow\\; x = 4$', why: 'Substitute both into the first.' },
+    { show: 'Solution: $(4, 1, 3)$', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="8.5" skill="back" compact />
+
+## Elimination with three variables
+
+1. Choose a variable to eliminate.
+2. Use **two different pairs** of equations to eliminate it. You get two equations in the other two variables.
+3. Solve that 2 × 2 system.
+4. Substitute back to find the third variable.
+5. Check in all three equations.
+
+<ThreeVarSteps client:visible />
+
+<Callout type="warning" title="Eliminate the same variable twice">
+Both new equations must be missing the **same** variable. If one has only $x$ and $y$ and the other has only $x$ and $z$, you haven't made progress.
+</Callout>
+
+<Practice client:visible lesson="8.5" skill="eliminate" compact />
+
+<Practice client:visible lesson="8.5" skill="solve" compact />
+
+## Summary
+
+- Solutions are ordered triples $(x, y, z)$.
+- Eliminate one variable from two pairs of equations → a 2 × 2 system → back-substitute.
+- Always check in all three equations.
+
+## Practice
+
+<Practice client:visible lesson="8.5" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="8.5" />

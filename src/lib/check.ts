@@ -141,6 +141,16 @@ export function check(problem: Problem, input: string | number): Verdict {
 
     if (a.type === 'interval') return checkInterval(a, raw);
 
+    if (a.type === 'tuple') {
+      const n = a.values.length;
+      const got = parseTuple(raw);
+      if (!got || got.length !== n) return { status: 'invalid', message: `Write an ordered ${n === 3 ? 'triple like (1, -2, 3)' : `list of ${n} numbers in parentheses`}.` };
+      if (got.every((v, i) => close(v, a.values[i]))) return { status: 'correct' };
+      const sorted = (xs: number[]) => [...xs].sort((u, v) => u - v);
+      if (sorted(got).every((v, i) => close(v, sorted(a.values)[i]))) return { status: 'wrong', feedback: 'Those are the right numbers, but in the wrong order. Write them in alphabetical order of the variables: (x, y, z).' };
+      return { status: 'wrong', feedback: mistake(raw) };
+    }
+
     if (a.type === 'inequality') {
       const expected = solvedForm(parseInequality(a.value))!;
       if (!/[<>≤≥]/.test(raw)) {
@@ -195,6 +205,20 @@ export function parsePoint(raw: string): [number, number] | null {
     const x = evaluate(parse(m[1]), {});
     const y = evaluate(parse(m[2]), {});
     return Number.isFinite(x) && Number.isFinite(y) ? [x, y] : null;
+  } catch {
+    return null;
+  }
+}
+
+/** "(1, -2, 3)" → [1, -2, 3]. */
+export function parseTuple(raw: string): number[] | null {
+  const m = raw.replace(/[−–]/g, '-').match(/^\s*\((.*)\)\s*$/);
+  if (!m) return null;
+  const parts = m[1].split(',').map((t) => t.trim());
+  if (parts.some((t) => !t)) return null;
+  try {
+    const vs = parts.map((t) => evaluate(parse(t), {}));
+    return vs.every(Number.isFinite) ? vs : null;
   } catch {
     return null;
   }

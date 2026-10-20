@@ -463,8 +463,8 @@ export function tryTex(src: string, allowEquation = false): string | null {
       return `\\left${iv[1]}${end(iv[2])},\\ ${end(iv[3])}\\right${iv[4]}`;
     }
     // Ordered pair "(3, -2)" or a list of solutions "2, -3"
-    const pt = src.match(/^\s*\(([^,()]+),([^,()]+)\)\s*$/);
-    if (pt) return `\\left(${toTex(parse(pt[1]))},\\ ${toTex(parse(pt[2]))}\\right)`;
+    const tup = src.match(/^\s*\(([^()]*,[^()]*)\)\s*$/);
+    if (tup) return `\\left(${tup[1].split(',').map((t) => toTex(parse(t))).join(',\\ ')}\\right)`;
     if (/,\s*\S/.test(src) && !/^\s*[\d,.]+\s*$/.test(src)) {
       return src
         .split(/,|\bor\b/)

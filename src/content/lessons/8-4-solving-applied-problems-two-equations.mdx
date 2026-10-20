@@ -1,0 +1,73 @@
+---
+id: "8.4"
+title: "Solving Applied Problems: Two Equations"
+summary: Many word problems have two unknowns and two facts. Organize the facts in a table, write one equation for each, and solve the system.
+minutes: 45
+objectives:
+  - Translate problems with two unknowns into a system of equations.
+  - Solve total-value, mixture and motion problems.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import MixtureLab from '../../components/MixtureLab.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+Problems with two unknowns are often easier with two variables than with one: each fact in the problem becomes its own simple equation.
+</Callout>
+
+## The five steps, with two variables
+
+1. **Familiarize** — name the two unknowns.
+2. **Translate** — write **two** equations (often: one counts *how many*, the other counts *how much*).
+3. **Solve** the system.
+4. **Check** in the original words.
+5. **State** the answer.
+
+<Practice client:visible lesson="8.4" skill="numbers" compact />
+
+## Total value
+
+<StepReveal
+  client:visible
+  title="Tickets"
+  problem="A theater sold 200 tickets for a total of 1600 dollars. Adult tickets cost 10 dollars, child tickets 5 dollars. How many of each were sold?"
+  steps={[
+    { show: '$a$ = adult tickets, $c$ = child tickets', why: '' },
+    { show: '$\\begin{cases} a + c = 200 & \\text{(tickets)} \\\\ 10a + 5c = 1600 & \\text{(dollars)} \\end{cases}$', why: 'One equation counts tickets, the other counts money.' },
+    { show: '$-5a - 5c = -1000$, add: $5a = 600$, $a = 120$', why: 'Multiply the first by $-5$ and add.' },
+    { show: '$c = 80$. Check: $120 + 80 = 200$, $1200 + 400 = 1600$ ✓', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="8.4" skill="tickets" compact />
+
+## Mixtures
+
+A mixture problem has the same structure: one equation for the **amount** of liquid, one for the **amount of the ingredient** (acid, salt, …).
+
+<MixtureLab client:visible />
+
+<Practice client:visible lesson="8.4" skill="mixture" compact />
+
+## Motion
+
+With a current (or wind), speeds add one way and subtract the other: downstream $b + c$, upstream $b - c$. Use $d = rt$ for each trip.
+
+<Practice client:visible lesson="8.4" skill="motion" compact />
+
+## Summary
+
+- Two unknowns → two variables → two equations.
+- Tables help: one row per item, columns for amount, rate, and total.
+- Check the answer against the words of the problem.
+
+## Practice
+
+<Practice client:visible lesson="8.4" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="8.4" />

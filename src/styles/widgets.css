@@ -719,3 +719,25 @@ a.tag:hover { color: var(--ink); }
 .pp-blue { color: var(--blue) !important; } .pp-red { color: var(--red) !important; } .pp-green { color: var(--green) !important; }
 .tp .px-body { align-items: start; }
 .tp-steps { min-width: 0; }
+
+/* ---------- Chapter 8 systems widgets ---------- */
+.sg, .el, .mx { padding: 16px 20px; margin: 1.4em 0; }
+.elim-grid { display: grid; grid-template-columns: auto auto auto 1fr; gap: 8px 12px; align-items: center; margin: 12px 0; font-size: 1.1rem; }
+.elim-k { color: var(--ink-3); font-size: 0.95rem; }
+.elim-arrow { color: var(--ink-3); font-size: 0.85rem; text-align: center; }
+.elim-eq { padding: 6px 10px; background: var(--paper-2); border-radius: 8px; overflow-x: auto; }
+.elim-sum { border-top: 2px solid var(--ink); }
+.elim-sum.hit { background: var(--green-soft); }
+@media (max-width: 560px) { .elim-grid { grid-template-columns: auto 1fr; } .elim-arrow { display: none; } .elim-grid > :nth-child(4n + 2) { display: none; } .elim-grid > :nth-child(9), .elim-grid > :nth-child(10) { display: none; } .elim-sum { grid-column: 1 / -1; } }
+.mx-q { margin-top: 0; }
+.mx-tanks { display: flex; align-items: flex-end; justify-content: center; gap: 12px; margin: 12px 0; flex-wrap: wrap; }
+.mx-tank { position: relative; width: 90px; height: 120px; border: 2px solid var(--ink-3); border-top: none; border-radius: 0 0 12px 12px; display: flex; align-items: flex-end; justify-content: center; overflow: hidden; }
+.mx-tank.big { width: 120px; }
+.mx-tank.hit { border-color: var(--green); }
+.mx-tank span { position: relative; font-size: 0.78rem; font-weight: 600; padding: 4px; text-align: center; z-index: 1; }
+.mx-fill { position: absolute; left: 0; right: 0; bottom: 0; transition: height .2s; }
+.mx-fill.a { background: var(--blue-soft); }
+.mx-fill.b { background: var(--red-soft); }
+.mx-fill.mix { background: var(--violet); }
+.mx-plus { font-size: 1.4rem; color: var(--ink-3); padding-bottom: 50px; }
+.mx-table td, .mx-table th { font-size: 0.9rem; }

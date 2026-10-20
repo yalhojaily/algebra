@@ -1,0 +1,82 @@
+---
+id: "8.3"
+title: Solving by Elimination
+summary: Add the equations so one variable cancels — multiplying first, if needed, to make its coefficients opposites.
+minutes: 40
+objectives:
+  - Solve systems by adding equations to eliminate a variable.
+  - Multiply one or both equations to create opposite coefficients.
+  - Recognize special cases.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import EliminationLab from '../../components/EliminationLab.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+Substitution gets messy when no variable has a coefficient of $1$ — you end up with fractions right away. **Elimination** (also called the addition method) avoids that: you add whole equations so one variable vanishes.
+</Callout>
+
+## Adding equations
+
+If $A = B$ and $C = D$, then $A + C = B + D$. When the coefficients of one variable are **opposites**, adding the equations eliminates it.
+
+<StepReveal
+  client:visible
+  title="Add the equations"
+  problem="Solve: $\;\begin{cases} 2x + 3y = 7 \\ 5x - 3y = 7 \end{cases}$"
+  steps={[
+    { show: '$7x = 14 \\;\\Rightarrow\\; x = 2$', why: 'Add: $3y$ and $-3y$ cancel.' },
+    { show: '$2(2) + 3y = 7 \\;\\Rightarrow\\; y = 1$', why: 'Substitute back.' },
+    { show: 'Solution: $(2, 1)$', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="8.3" skill="add" compact />
+
+## Multiplying first
+
+When no coefficients are opposites, multiply one or both equations by numbers that **make** them opposites. Try it — choose multipliers until a variable cancels:
+
+<EliminationLab client:visible />
+
+<StepReveal
+  client:visible
+  title="Multiply both equations"
+  problem="Solve: $\;\begin{cases} 4x + 3y = 5 \\ 3x + 5y = 12 \end{cases}$"
+  steps={[
+    { show: '$12x + 9y = 15$', why: 'Multiply the first equation by $3$.' },
+    { show: '$-12x - 20y = -48$', why: 'Multiply the second by $-4$, so the $x$-terms are opposites ($12$ is the LCM of $4$ and $3$).' },
+    { show: '$-11y = -33 \\;\\Rightarrow\\; y = 3$', why: 'Add.' },
+    { show: '$4x + 9 = 5 \\;\\Rightarrow\\; x = -1$. Solution: $(-1, 3)$', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="8.3" skill="multiply" compact />
+
+<Practice client:visible lesson="8.3" skill="both" compact />
+
+## Special cases
+
+As with substitution: if **both** variables cancel, $0 = 0$ means infinitely many solutions and $0 = 7$ (false) means no solution.
+
+<Practice client:visible lesson="8.3" skill="special" compact />
+
+<Callout type="tip" title="Which method?">
+Use substitution when a variable is already isolated or has coefficient $\pm 1$. Otherwise elimination is usually quicker.
+</Callout>
+
+## Summary
+
+- Make one variable's coefficients opposites (multiply if needed), then add.
+- Solve, substitute back, check.
+
+## Practice
+
+<Practice client:visible lesson="8.3" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="8.3" />

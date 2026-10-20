@@ -1,0 +1,76 @@
+---
+id: "8.1"
+title: Systems of Equations in Two Variables
+summary: A system asks for the points that make every equation true at once. Graphically, that is where the lines meet — one point, no point, or a whole line.
+minutes: 35
+objectives:
+  - Check whether an ordered pair is a solution of a system.
+  - Solve a system by graphing.
+  - Recognize systems with no solution or infinitely many solutions.
+  - Use the words consistent, inconsistent, dependent and independent.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import SystemGraph from '../../components/SystemGraph.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+Two phone plans: one costs $20 + 5t$ dollars, the other $35 + 2t$. When do they cost the same? That's a question about **two equations at once** — a system — and its answer is where their graphs cross.
+</Callout>
+
+## Solutions of a system
+
+A **system of equations** is a set of equations that must all be true at the same time. A **solution** of a system in $x$ and $y$ is an ordered pair that makes **every** equation true.
+
+<StepReveal
+  client:visible
+  title="Check a solution"
+  problem="Is $(3, -1)$ a solution of $\;\begin{cases} x + 2y = 1 \\ 2x - y = 7 \end{cases}$?"
+  steps={[
+    { show: '$3 + 2(-1) = 1$ ✓', why: 'Substitute into the first equation.' },
+    { show: '$2(3) - (-1) = 7$ ✓', why: 'Substitute into the second equation.' },
+    { show: 'Yes — it makes **both** equations true.', why: 'If either one had been false, it would not be a solution.' },
+  ]}
+/>
+
+<Practice client:visible lesson="8.1" skill="check" compact />
+
+## Solving by graphing
+
+Graph both equations. Every point on a line is a solution of *that* equation, so a point on **both** lines — where they cross — is a solution of the system.
+
+<SystemGraph client:visible />
+
+<Practice client:visible lesson="8.1" skill="graph" compact />
+
+## One, none, or infinitely many
+
+| The lines… | Solutions | The system is… |
+|---|---|---|
+| cross at one point | exactly one | **consistent**, **independent** |
+| are parallel | none | **inconsistent** |
+| are the same line | infinitely many | **consistent**, **dependent** |
+
+<Callout type="tip" title="Spot it from the equations">
+If the left side of one equation is a multiple of the other's, the lines have the same slope. Then the right sides decide: the same multiple means the **same line**; a different number means **parallel** lines.
+</Callout>
+
+<Practice client:visible lesson="8.1" skill="count" compact />
+
+<Practice client:visible lesson="8.1" skill="classify" compact />
+
+## Summary
+
+- A solution makes **all** equations true.
+- Graphically: the intersection point(s) of the lines.
+- Different slopes → one solution. Same slope → no solution (parallel) or infinitely many (same line).
+
+## Practice
+
+<Practice client:visible lesson="8.1" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="8.1" />

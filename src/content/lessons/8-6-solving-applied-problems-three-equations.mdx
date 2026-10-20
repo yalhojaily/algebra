@@ -1,0 +1,68 @@
+---
+id: "8.6"
+title: "Solving Applied Problems: Three Equations"
+summary: Three unknowns, three facts, three equations. Translate carefully, then solve with substitution or elimination.
+minutes: 40
+objectives:
+  - Translate problems with three unknowns into a system of three equations.
+  - Solve and check applied problems with three unknowns.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import ThreeVarSteps from '../../components/ThreeVarSteps.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+A triangle's three angles, three numbers with three clues, money split among three accounts: each clue becomes an equation. Many of these systems are simpler than they look, because some equations involve only two of the variables.
+</Callout>
+
+## Triangle angles
+
+The angles of a triangle add up to $180°$ — that's always one of the equations.
+
+<StepReveal
+  client:visible
+  title="Angles"
+  problem="In triangle $ABC$, angle $B$ is $7°$ more than angle $A$, and angle $C$ is $18°$ more than three times angle $A$. Find the angles."
+  steps={[
+    { show: '$\\begin{cases} A + B + C = 180 \\\\ B = A + 7 \\\\ C = 3A + 18 \\end{cases}$', why: 'One equation per fact.' },
+    { show: '$A + (A + 7) + (3A + 18) = 180$', why: 'Substitute $B$ and $C$ into the first equation.' },
+    { show: '$5A + 25 = 180 \\;\\Rightarrow\\; A = 31$', why: '' },
+    { show: '$B = 38°$, $C = 111°$', why: 'Check: $31 + 38 + 111 = 180$ ✓' },
+  ]}
+/>
+
+<Practice client:visible lesson="8.6" skill="triangle" compact />
+
+## Solving step by step
+
+The same elimination plan works for any three-variable problem:
+
+<ThreeVarSteps client:visible presets={[
+  { title: 'Three numbers', M: [[1, 1, 1], [1, -1, 0], [-1, 0, 1]], rhs: [6, 4, 1] },
+  { title: 'Triangle', vars: ['A', 'B', 'C'], M: [[1, 1, 1], [-1, 1, 0], [-3, 0, 1]], rhs: [180, 7, 18] },
+  { title: 'Investments', M: [[1, 1, 1], [3, 4, 5], [-1, 0, 1]], rhs: [11000, 41000, -3000] },
+]} />
+
+<Practice client:visible lesson="8.6" skill="numbers" compact />
+
+## Investments
+
+With simple interest, $I = Pr$. Multiplying the interest equation by $100$ clears the decimals: $0.03x + 0.04y + 0.05z = 410$ becomes $3x + 4y + 5z = 41000$.
+
+<Practice client:visible lesson="8.6" skill="invest" compact />
+
+## Summary
+
+- Write one equation per fact; look for equations with only two variables — they make substitution easy.
+- Solve, then check every fact in the original problem.
+
+## Practice
+
+<Practice client:visible lesson="8.6" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="8.6" />

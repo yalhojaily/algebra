@@ -33,6 +33,8 @@ export type Answer =
   | { type: 'inequality'; value: string }
   /** An ordered pair (x, y). */
   | { type: 'point'; x: number; y: number }
+  /** An ordered triple (x, y, z) — or any ordered list in parentheses. */
+  | { type: 'tuple'; values: number[] }
   /** All solutions of an equation, e.g. [2, -3]. */
   | { type: 'solutions'; values: number[]; variable?: string }
   /** Click on a coordinate grid: one point, or two points that determine the line ax + by = c. */

@@ -76,6 +76,8 @@ function answerInput(a: import('../src/generators/types').Answer): string | numb
       return String(a.value);
     case 'point':
       return `(${a.x}, ${a.y})`;
+    case 'tuple':
+      return `(${a.values.join(', ')})`;
     case 'interval': {
       const e = (v: number) => (v === Infinity ? 'inf' : v === -Infinity ? '-inf' : String(v));
       return `${a.loClosed ? '[' : '('}${e(a.lo)}, ${e(a.hi)}${a.hiClosed ? ']' : ')'}`;

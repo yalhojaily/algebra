@@ -47,6 +47,12 @@ import * as l7_2 from './7-2-finding-domain-and-range';
 import * as l7_3 from './7-3-linear-functions-graphs-and-slope';
 import * as l7_4 from './7-4-more-on-graphing-linear-equations';
 import * as l7_5 from './7-5-finding-equations-of-lines-applications';
+import * as l8_1 from './8-1-systems-of-equations-in-two-variables';
+import * as l8_2 from './8-2-solving-by-substitution';
+import * as l8_3 from './8-3-solving-by-elimination';
+import * as l8_4 from './8-4-solving-applied-problems-two-equations';
+import * as l8_5 from './8-5-systems-of-equations-in-three-variables';
+import * as l8_6 from './8-6-solving-applied-problems-three-equations';
 import * as l4_8 from './4-8-division-of-polynomials';
 import * as l3_4 from './3-4-slope-and-applications';
 import * as l2_8 from './2-8-applications-and-problem-solving-with-inequalities';
@@ -109,4 +115,10 @@ export const registry: Record<string, LessonGenerators> = {
   '7.3': l7_3,
   '7.4': l7_4,
   '7.5': l7_5,
+  '8.1': l8_1,
+  '8.2': l8_2,
+  '8.3': l8_3,
+  '8.4': l8_4,
+  '8.5': l8_5,
+  '8.6': l8_6,
 };
