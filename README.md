@@ -1,6 +1,6 @@
 # Algebra, step by step
 
-An interactive companion website for a high-school / college algebra textbook (12 chapters, 84 lessons, plus Appendix A). **All 12 chapters (84 lessons) and Appendix A (fractions, LCM, GCD) are complete**, each with a review & test page.
+An interactive companion website for a high-school / college algebra textbook (12 chapters, 84 lessons, plus Appendix A). **All 12 chapters (84 lessons) and Appendix A (fractions, mixed numbers, decimals and percents, LCM, GCD) are complete**, each with a review & test page.
 Every lesson follows the same rhythm:
 
 1. **Why?** — a real situation that needs the idea

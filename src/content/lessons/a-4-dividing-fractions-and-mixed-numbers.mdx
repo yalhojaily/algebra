@@ -1,0 +1,157 @@
+---
+id: "A.4"
+title: Dividing Fractions and Mixed Numbers
+summary: "To divide, multiply by the reciprocal: keep, change, flip. Change mixed numbers to improper fractions before multiplying or dividing."
+minutes: 35
+objectives:
+  - Find the reciprocal of a fraction or whole number.
+  - Divide fractions by multiplying by the reciprocal.
+  - Convert between mixed numbers and improper fractions.
+  - Multiply and divide mixed numbers.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import DivideFractions from '../../components/DivideFractions.tsx';
+import MixedNumbers from '../../components/MixedNumbers.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+A.1 covered adding, subtracting and multiplying fractions. Division completes the set, and it is the one rule people misremember most. You'll need it to solve equations like $\frac{2}{3}x = \frac{4}{5}$ and to divide rational expressions in Chapter 6. Recipes, measurements and construction plans use mixed numbers like $2\frac{1}{4}$, so this lesson covers those too.
+</Callout>
+
+## What dividing means
+
+$6 \div 2$ asks: how many 2s fit into 6? Dividing fractions asks the same question. $\frac{3}{2} \div \frac{1}{4}$ asks: **how many quarters fit into one and a half?** The answer is 6.
+
+<DivideFractions client:visible />
+
+## The reciprocal
+
+Two numbers are **reciprocals** if their product is 1. Flip a fraction to get its reciprocal:
+
+$$\frac{3}{8} \to \frac{8}{3} \qquad 5 = \frac{5}{1} \to \frac{1}{5} \qquad \frac{1}{4} \to 4$$
+
+Zero has no reciprocal, because nothing times 0 is 1. That's why you can't divide by zero.
+
+## Dividing fractions: keep, change, flip
+
+$$\frac{a}{b} \div \frac{c}{d} = \frac{a}{b} \cdot \frac{d}{c}$$
+
+**Keep** the first fraction, **change** $\div$ to $\times$, **flip** the second fraction. Then multiply and simplify as in A.1.
+
+<StepReveal
+  client:visible
+  title="Divide two fractions"
+  problem="Divide and simplify: $\dfrac{5}{6} \div \dfrac{10}{9}$"
+  steps={[
+    { show: '$\\dfrac{5}{6} \\cdot \\dfrac{9}{10}$', why: 'Keep $\\tfrac{5}{6}$, change to ×, flip $\\tfrac{10}{9}$ to $\\tfrac{9}{10}$.' },
+    { show: '$\\dfrac{5 \\cdot 9}{6 \\cdot 10} = \\dfrac{45}{60}$', why: 'Multiply across.' },
+    { show: '$\\dfrac{45 \\div 15}{60 \\div 15} = \\dfrac{3}{4}$', why: 'The GCD of 45 and 60 is 15. You could also cancel 5 with 10 and 3 with 9 before multiplying.' },
+  ]}
+/>
+
+Why does flipping work? Multiplying top and bottom of $\dfrac{a/b}{c/d}$ by $\dfrac{d}{c}$ turns the bottom into 1. The full argument is in 6.2.
+
+<Practice client:visible lesson="A.4" skill="divide" compact />
+
+## Whole numbers
+
+Write the whole number over 1 first.
+
+<StepReveal
+  client:visible
+  title="A whole number divided by a fraction"
+  problem="How many $\tfrac{3}{4}$-cup scoops are in 6 cups? Compute $6 \div \dfrac{3}{4}$."
+  steps={[
+    { show: '$\\dfrac{6}{1} \\cdot \\dfrac{4}{3} = \\dfrac{24}{3} = 8$', why: 'Flip $\\tfrac{3}{4}$ and multiply.' },
+    { show: '$8$ scoops', why: 'The answer is bigger than 6, because each scoop is less than one cup.' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="A fraction divided by a whole number"
+  problem="Divide: $\dfrac{2}{3} \div 4$"
+  steps={[
+    { show: '$\\dfrac{2}{3} \\cdot \\dfrac{1}{4} = \\dfrac{2}{12} = \\dfrac{1}{6}$', why: 'The reciprocal of 4 is $\\tfrac{1}{4}$. Splitting $\\tfrac{2}{3}$ into 4 equal shares gives $\\tfrac{1}{6}$ each.' },
+  ]}
+/>
+
+<Practice client:visible lesson="A.4" skill="whole" compact />
+
+## Mixed numbers
+
+A **mixed number** like $2\frac{3}{4}$ means $2 + \frac{3}{4}$. An **improper fraction** like $\frac{11}{4}$ has a numerator at least as large as its denominator. They are two names for the same number.
+
+<MixedNumbers client:visible />
+
+- **Mixed → improper:** multiply the whole number by the denominator, add the numerator, and keep the denominator: $2\frac{3}{4} = \frac{2 \cdot 4 + 3}{4} = \frac{11}{4}$.
+- **Improper → mixed:** divide. The quotient is the whole part and the remainder goes over the denominator: $\frac{11}{4}$ gives $11 \div 4 = 2$ remainder $3$, so $2\frac{3}{4}$.
+
+To type a mixed number in the practice boxes, put a space between the whole number and the fraction: `2 3/4`.
+
+<Practice client:visible lesson="A.4" skill="convert" compact />
+
+## Multiplying and dividing mixed numbers
+
+Always change mixed numbers to improper fractions first. Then multiply or divide as usual, and change back at the end if a mixed number is asked for.
+
+<StepReveal
+  client:visible
+  title="Multiply mixed numbers"
+  problem="Multiply: $2\tfrac{1}{2} \times 1\tfrac{1}{3}$"
+  steps={[
+    { show: '$\\dfrac{5}{2} \\cdot \\dfrac{4}{3}$', why: '$2\\tfrac{1}{2} = \\tfrac{5}{2}$ and $1\\tfrac{1}{3} = \\tfrac{4}{3}$.' },
+    { show: '$= \\dfrac{20}{6} = \\dfrac{10}{3}$', why: '' },
+    { show: '$= 3\\tfrac{1}{3}$', why: '$10 \\div 3 = 3$ remainder $1$.' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="Divide mixed numbers"
+  problem="Divide: $3\tfrac{3}{4} \div 1\tfrac{1}{2}$"
+  steps={[
+    { show: '$\\dfrac{15}{4} \\div \\dfrac{3}{2}$', why: 'Change both to improper fractions.' },
+    { show: '$\\dfrac{15}{4} \\cdot \\dfrac{2}{3} = \\dfrac{30}{12} = \\dfrac{5}{2}$', why: 'Keep, change, flip.' },
+    { show: '$= 2\\tfrac{1}{2}$', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="A.4" skill="mixedops" compact />
+
+## Common mistakes
+
+<Callout type="warning">
+**Flipping the wrong fraction.** Only the divisor, the second fraction, gets flipped. $\frac{2}{3} \div \frac{4}{5} = \frac{2}{3} \cdot \frac{5}{4}$, not $\frac{3}{2} \cdot \frac{4}{5}$.
+</Callout>
+
+<Callout type="warning">
+**Dividing straight across.** $\frac{8}{9} \div \frac{2}{3} = \frac{4}{3}$, and "top ÷ top, bottom ÷ bottom" happens to give the same thing here. It fails whenever the numbers don't divide evenly. Use the reciprocal every time.
+</Callout>
+
+<Callout type="warning">
+**Multiplying mixed numbers piece by piece.** $2\frac{1}{2} \times 1\frac{1}{3} \neq 2 \cdot 1 + \frac{1}{2} \cdot \frac{1}{3}$. That skips the cross terms. Convert to improper fractions first.
+</Callout>
+
+<Callout type="warning">
+**Converting with the wrong operation.** For $3\frac{2}{5}$ the numerator is $3 \cdot 5 + 2 = 17$, not $3 \cdot 2 + 5$. Each whole is 5 fifths.
+</Callout>
+
+## Summary
+
+- The reciprocal of $\frac{c}{d}$ is $\frac{d}{c}$. A number times its reciprocal is 1.
+- Divide by multiplying by the reciprocal of the divisor: keep, change, flip.
+- Mixed → improper: (whole × denominator + numerator) over the denominator.
+- Improper → mixed: divide; the remainder goes over the denominator.
+- Convert mixed numbers to improper fractions before multiplying or dividing.
+
+## Practice
+
+<Practice client:visible lesson="A.4" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="A.4" />

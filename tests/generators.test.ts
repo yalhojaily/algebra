@@ -73,6 +73,11 @@ function answerInput(a: import('../src/generators/types').Answer): string | numb
         const e = Math.floor(Math.log10(Math.abs(a.value)));
         return `${+(a.value / 10 ** e).toPrecision(12)}*10^${e}`;
       }
+      if (a.mixed && !Number.isInteger(a.value)) {
+        const w = Math.trunc(a.value), r = Math.abs(a.value - w);
+        for (let d = 2; d < 2000; d++) if (Math.abs(Math.round(r * d) - r * d) < 1e-9) return `${a.value < 0 && w === 0 ? '-' : ''}${w} ${Math.round(r * d)}/${d}`;
+      }
+      if (a.percent) return `${a.value}%`;
       if (a.lowest && !Number.isInteger(a.value)) {
         for (let d = 2; d < 2000; d++) if (Math.abs(Math.round(a.value * d) - a.value * d) < 1e-9) return `${Math.round(a.value * d)}/${d}`;
       }

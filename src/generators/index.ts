@@ -83,6 +83,8 @@ import * as l12_7 from './12-7-mathematical-modeling-with-exponential-and-logari
 import * as lA_1 from './a-1-adding-subtracting-and-multiplying-fractions';
 import * as lA_2 from './a-2-least-common-multiple-lcm';
 import * as lA_3 from './a-3-greatest-common-divisor-gcd';
+import * as lA_4 from './a-4-dividing-fractions-and-mixed-numbers';
+import * as lA_5 from './a-5-decimals-fractions-and-percents';
 import * as l4_8 from './4-8-division-of-polynomials';
 import * as l3_4 from './3-4-slope-and-applications';
 import * as l2_8 from './2-8-applications-and-problem-solving-with-inequalities';
@@ -181,4 +183,6 @@ export const registry: Record<string, LessonGenerators> = {
   'A.1': lA_1,
   'A.2': lA_2,
   'A.3': lA_3,
+  'A.4': lA_4,
+  'A.5': lA_5,
 };

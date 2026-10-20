@@ -157,10 +157,12 @@ export const curriculum: Chapter[] = [
     ['12.7', 'Mathematical Modeling with Exponential and Logarithmic Functions', 940],
   ]),
   // Appendix: arithmetic refreshers that many lessons rely on.
-  chapter('A', 'Fraction Skills: Fractions, LCM and GCD', 0, [
+  chapter('A', 'Number Skills: Fractions, Decimals, Percents, LCM and GCD', 0, [
     ['A.1', 'Adding, Subtracting and Multiplying Fractions', 0, []],
     ['A.2', 'Least Common Multiple (LCM)', 0, []],
     ['A.3', 'Greatest Common Divisor (GCD)', 0, ['A.2']],
+    ['A.4', 'Dividing Fractions and Mixed Numbers', 0, ['A.1']],
+    ['A.5', 'Decimals, Fractions and Percents', 0, ['A.3']],
   ]),
 ];
 

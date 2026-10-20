@@ -12,6 +12,10 @@ export type Answer =
       tol?: number;
       /** Must be written as an integer or a fraction in lowest terms (no decimals, no unreduced fractions). */
       lowest?: boolean;
+      /** Must be written as a mixed number like 2 3/4 (proper fraction part, lowest terms). */
+      mixed?: boolean;
+      /** A percent: the value is the percent number (37.5 for 37.5%); a trailing % sign is accepted. */
+      percent?: boolean;
     }
   | {
       type: 'expression';

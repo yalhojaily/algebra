@@ -861,3 +861,18 @@ a.tag:hover { color: var(--ink); }
   .pv-only { max-width: 64px; }
   .pv-mid { width: 56px; max-width: 56px; }
 }
+.df-svg { width: 100%; height: auto; display: block; margin: 6px 0 10px; }
+.df-total { fill: color-mix(in srgb, var(--blue) 30%, transparent); stroke: var(--blue); stroke-width: 1.5; }
+.df-scoop { fill: color-mix(in srgb, var(--red) 28%, transparent); stroke: var(--red); stroke-width: 1.5; }
+.df-scoop.alt { fill: color-mix(in srgb, var(--red) 14%, transparent); }
+.df-scoop.part { fill: none; stroke-dasharray: 4 3; }
+.df-num { font: 600 11px var(--font-mono); fill: var(--ink); text-anchor: middle; }
+.df-axis, .df-tick { stroke: var(--ink); stroke-width: 1.5; }
+.df-lab { font: 12px var(--font-mono); fill: var(--ink); text-anchor: middle; }
+.mn-bars { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.mn-bars .fb-bar { flex: 0 1 150px; }
+.hg-svg { width: 100%; max-width: 240px; height: auto; }
+.hg-cell { fill: none; stroke: var(--line); }
+.hg-on { fill: color-mix(in srgb, var(--blue) 55%, transparent); }
+.hg-forms { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+.hg-forms .lx-box { flex: 1 1 90px; }

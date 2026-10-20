@@ -55,7 +55,11 @@ export function check(problem: Problem, input: string | number): Verdict {
   try {
     if (a.type === 'number') {
       // In scientific notation people write "3.2 x 10^5" with an x for "times".
-      const src = a.sci ? raw.replace(/(\d)\s*[xX]\s*10/g, '$1*10') : raw;
+      let src = a.sci ? raw.replace(/(\d)\s*[xX]\s*10/g, '$1*10') : raw;
+      if (a.percent) src = src.replace(/\s*%\s*$/, '');
+      // A mixed number "2 3/4" means 2 + 3/4.
+      const mx = raw.replace(/[−–]/g, '-').match(/^(-?)\s*(\d+)\s+(\d+)\s*\/\s*(\d+)$/);
+      if (mx && (a.lowest || a.mixed)) src = `${mx[1]}(${mx[2]} + ${mx[3]}/${mx[4]})`;
       const n = parse(src);
       if (variables(n).size > 0) return { status: 'invalid', message: 'The answer should be a number, without letters.' };
       if (a.decimal && raw.includes('/')) return { status: 'invalid', message: 'Write your answer as a decimal, like 0.75 — not as a fraction.' };
@@ -66,6 +70,14 @@ export function check(problem: Problem, input: string | number): Verdict {
         if (lead < 1 || lead >= 10) return { status: 'invalid', message: 'In scientific notation the first number must be at least 1 and less than 10.' };
       }
       const got = equivalent(n, { kind: 'num', value: a.value });
+      const gg = (x: number, y: number): number => (y ? gg(y, x % y) : x);
+      if (got && mx && (a.lowest || a.mixed)) {
+        const fn = Number(mx[3]), fd = Number(mx[4]);
+        if (fn >= fd) return { status: 'invalid', message: `That is equal to the right answer, but in a mixed number the fraction part must be less than 1 (${fn}/${fd} is not).` };
+        if (gg(fn, fd) > 1) return { status: 'invalid', message: `That is equal to the right answer, but the fraction part is not in lowest terms: ${fn} and ${fd} are both divisible by ${gg(fn, fd)}.` };
+        return { status: 'correct' };
+      }
+      if (got && a.mixed && !Number.isInteger(a.value)) return { status: 'invalid', message: 'That is equal to the right answer, but write it as a mixed number, like 2 3/4 (a whole number, a space, then a fraction).' };
       if (got && a.lowest) {
         const t = raw.replace(/\s+/g, '').replace(/[−–]/g, '-');
         if (/\./.test(t) && !Number.isInteger(a.value)) return { status: 'invalid', message: 'That is equal to the right answer, but write it as a fraction, like 3/4 — not as a decimal.' };

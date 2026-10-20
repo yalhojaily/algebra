@@ -77,3 +77,22 @@ describe('fractions in lowest terms', () => {
     expect(check(P({ type: 'number', value: 2, lowest: true }), '4/2').status).toBe('invalid');
   });
 });
+
+describe('mixed numbers and percents', () => {
+  const m = P({ type: 'number', value: 11 / 4, mixed: true });
+  it('mixed numbers', () => {
+    expect(check(m, '2 3/4').status).toBe('correct');
+    expect(check(m, '11/4').status).toBe('invalid');
+    expect(check(m, '1 7/4').status).toBe('invalid');
+    expect(check(m, '2 6/8').status).toBe('invalid');
+    expect(check(m, '3 1/4').status).toBe('wrong');
+    expect(check(P({ type: 'number', value: 11 / 4, lowest: true }), '2 3/4').status).toBe('correct');
+    expect(check(P({ type: 'number', value: -11 / 4, mixed: true }), '-2 3/4').status).toBe('correct');
+  });
+  it('percents', () => {
+    const p = P({ type: 'number', value: 37.5, percent: true });
+    expect(check(p, '37.5%').status).toBe('correct');
+    expect(check(p, '37.5').status).toBe('correct');
+    expect(check(p, '0.375').status).toBe('wrong');
+  });
+});
