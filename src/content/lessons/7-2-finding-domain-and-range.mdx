@@ -1,0 +1,88 @@
+---
+id: "7.2"
+title: Finding Domain and Range
+summary: The domain is every input a function accepts; the range is every output it produces. Read them from graphs, find them from formulas, and write them in interval notation.
+minutes: 35
+objectives:
+  - Write sets of numbers in interval notation.
+  - Find the domain and range of a function from its graph.
+  - Find the domain of a function from its formula.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import DomainRange from '../../components/DomainRange.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+A calculator says "Error" when you divide by $0$ — that input is outside the **domain** of division. Knowing the domain tells you which inputs make sense before you start computing.
+</Callout>
+
+## Interval notation
+
+| Interval | Means | Graph ends |
+|---|---|---|
+| $[a, b]$ | $a \le x \le b$ | both included (solid dots) |
+| $(a, b)$ | $a < x < b$ | neither included (open dots) |
+| $[a, b)$ | $a \le x < b$ | left included, right not |
+| $[a, \infty)$ | $x \ge a$ | goes on forever to the right |
+| $(-\infty, b)$ | $x < b$ | goes on forever to the left |
+| $(-\infty, \infty)$ | all real numbers | |
+
+$\infty$ is not a number you can reach, so it **always** gets a round parenthesis. To type an interval, write something like `[-3, 5)` or `(-inf, 2]`.
+
+## Domain and range from a graph
+
+<DomainRange client:visible />
+
+<StepReveal
+  client:visible
+  title="Read the domain and range"
+  problem="A graph runs from a solid dot at $(-4, -1)$ to an open dot at $(6, 4)$, rising steadily. Find its domain and range."
+  steps={[
+    { show: 'Domain: $[-4, 6)$', why: 'The $x$-values run from $-4$ (included) to $6$ (not included).' },
+    { show: 'Range: $[-1, 4)$', why: 'The $y$-values run from $-1$ (included) to $4$ (not included).' },
+  ]}
+/>
+
+<Practice client:visible lesson="7.2" skill="graph" compact />
+
+<Practice client:visible lesson="7.2" skill="parabola" compact />
+
+## Domain from a formula
+
+When a function is given by a formula and nothing else is said, its domain is **every real number that makes the formula work**. So far, the only thing that can go wrong is **division by zero**.
+
+- $f(x) = x^2 - 5x + 1$: domain is all real numbers.
+- $g(x) = \dfrac{3}{x - 4}$: every real number **except** $4$.
+
+<Practice client:visible lesson="7.2" skill="formula" compact />
+
+<StepReveal
+  client:visible
+  title="Excluded values"
+  problem="Find the domain of $\;h(x) = \dfrac{x + 1}{x^2 - x - 6}$."
+  steps={[
+    { show: '$x^2 - x - 6 = 0 \\;\\Rightarrow\\; (x - 3)(x + 2) = 0$', why: 'Find the inputs that make the denominator $0$.' },
+    { show: '$x = 3$ or $x = -2$', why: '' },
+    { show: 'Domain: all real numbers except $3$ and $-2$.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="7.2" skill="rational" compact />
+
+## Summary
+
+- Domain = all inputs ($x$-values); range = all outputs ($y$-values).
+- On a graph: domain is the shadow on the $x$-axis, range is the shadow on the $y$-axis.
+- Brackets $[\ ]$ include an endpoint; parentheses $(\ )$ don't; $\infty$ always gets a parenthesis.
+- From a formula: exclude values that make a denominator $0$.
+
+## Practice
+
+<Practice client:visible lesson="7.2" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="7.2" />

@@ -154,9 +154,12 @@ function FigureView({ fig }: { fig: Figure }) {
       <Plane
         range={fig.range ?? 10}
         size={360}
-        points={fig.points}
+        points={fig.points?.map((p) => ({ ...p, cls: p.open ? 'open' : undefined }))}
         lines={fig.lines}
-        curves={fig.curves?.map((coefs) => ({ coefs }))}
+        curves={[...(fig.curves ?? []).map((coefs) => ({ coefs })), ...(fig.pieces ?? [])]}
+        xcurves={fig.xcurves?.map((coefs) => ({ coefs }))}
+        segments={fig.segments}
+        circles={fig.circles}
       />
     </div>
   );

@@ -38,7 +38,9 @@ export type Answer =
   /** Click on a coordinate grid: one point, or two points that determine the line ax + by = c. */
   | { type: 'plot'; mode: 'point'; x: number; y: number }
   | { type: 'plot'; mode: 'line'; a: number; b: number; c: number }
-  | { type: 'choice'; options: string[]; correct: number };
+  | { type: 'choice'; options: string[]; correct: number }
+  /** An interval such as [−3, 5) or (−∞, 2]. Use ±Infinity for unbounded ends. */
+  | { type: 'interval'; lo: number; hi: number; loClosed: boolean; hiClosed: boolean };
 
 export interface Mistake {
   /** A specific wrong answer we expect, written in the same form the student would enter it. */
@@ -73,10 +75,18 @@ export interface RayFig {
 /** A coordinate plane with labeled points and/or lines ax + by = c. */
 export interface PlaneFig {
   kind: 'plane';
-  points?: { x: number; y: number; label?: string }[];
+  /** `open` draws a hollow dot (an endpoint that is not included). */
+  points?: { x: number; y: number; label?: string; open?: boolean }[];
   lines?: { a: number; b: number; c: number }[];
   /** Draw y = f(x) for a polynomial given by coefficients, highest degree first. */
   curves?: number[][];
+  /** Draw x = g(y) for a polynomial in y (a sideways curve). */
+  xcurves?: number[][];
+  /** Line segments from (x1, y1) to (x2, y2). */
+  segments?: { x1: number; y1: number; x2: number; y2: number }[];
+  circles?: { cx: number; cy: number; r: number }[];
+  /** Draw y = f(x) only for lo ≤ x ≤ hi. */
+  pieces?: { coefs: number[]; lo: number; hi: number }[];
   range?: number;
 }
 

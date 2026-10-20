@@ -456,6 +456,12 @@ export function topTerms(n: Node): Node[] {
 /** Try to render user input as LaTeX; returns null if it doesn't parse yet. */
 export function tryTex(src: string, allowEquation = false): string | null {
   try {
+    // Interval "[−3, 5)" or "(-inf, 2]"
+    const iv = src.replace(/infinity|inf|∞/gi, '∞').match(/^\s*([[(])\s*([^,]+?)\s*,\s*([^,]+?)\s*([\])])\s*$/);
+    if (iv && (iv[1] === '[' || iv[4] === ']' || iv[2].includes('∞') || iv[3].includes('∞'))) {
+      const end = (t: string) => (t.replace(/\s/g, '') === '∞' ? '\\infty' : t.replace(/\s/g, '') === '-∞' ? '-\\infty' : toTex(parse(t)));
+      return `\\left${iv[1]}${end(iv[2])},\\ ${end(iv[3])}\\right${iv[4]}`;
+    }
     // Ordered pair "(3, -2)" or a list of solutions "2, -3"
     const pt = src.match(/^\s*\(([^,()]+),([^,()]+)\)\s*$/);
     if (pt) return `\\left(${toTex(parse(pt[1]))},\\ ${toTex(parse(pt[2]))}\\right)`;

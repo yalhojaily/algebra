@@ -139,6 +139,8 @@ export function check(problem: Problem, input: string | number): Verdict {
       return { status: 'wrong', feedback: on(x1, y1) || on(x2, y2) ? 'One of your points is on the line, but the other is not.' : 'Neither point is on the line. Make a table of values to find points.' };
     }
 
+    if (a.type === 'interval') return checkInterval(a, raw);
+
     if (a.type === 'inequality') {
       const expected = solvedForm(parseInequality(a.value))!;
       if (!/[<>≤≥]/.test(raw)) {
@@ -252,4 +254,49 @@ export function notFullyFactored(got: Node, expected: Node): string | null {
   if (!equivalent(gm, em) && !equivalent(gm, { kind: 'neg', arg: em }))
     return 'That is equal to the right answer, but a common factor is still inside parentheses. Take out the greatest common factor first.';
   return null;
+}
+
+// ---------- Interval notation ----------
+
+export interface Interval {
+  lo: number;
+  hi: number;
+  loClosed: boolean;
+  hiClosed: boolean;
+}
+
+/** "[−3, 5)", "(-inf, 2]", "(-∞, ∞)", "all real numbers" → an Interval, or null. */
+export function parseInterval(raw: string): Interval | { error: string } | null {
+  const s = raw.trim().replace(/[−–]/g, '-').replace(/infinity|inf|∞/gi, 'inf').replace(/\s+/g, ' ');
+  if (/^(all real numbers|all reals|r|ℝ|\(-inf, ?inf\))$/i.test(s)) return { lo: -Infinity, hi: Infinity, loClosed: false, hiClosed: false };
+  const m = s.match(/^([[(])\s*([^,]+?)\s*,\s*([^,]+?)\s*([\])])$/);
+  if (!m) return null;
+  const num = (t: string): number | null => {
+    if (/^\+?inf$/i.test(t)) return Infinity;
+    if (/^-inf$/i.test(t)) return -Infinity;
+    try {
+      const v = evaluate(parse(t), {});
+      return Number.isFinite(v) ? v : null;
+    } catch {
+      return null;
+    }
+  };
+  const lo = num(m[2]), hi = num(m[3]);
+  if (lo === null || hi === null) return null;
+  const loClosed = m[1] === '[', hiClosed = m[4] === ']';
+  if ((lo === -Infinity && loClosed) || (hi === Infinity && hiClosed)) return { error: 'Infinity is not a number you can reach, so it always gets a round parenthesis: (−∞, 3] — not [−∞, 3].' };
+  if (lo === Infinity || hi === -Infinity) return { error: 'Write the smaller end first: −∞ on the left, ∞ on the right.' };
+  if (lo > hi) return { error: 'Write the smaller number first, like [−2, 5].' };
+  return { lo, hi, loClosed, hiClosed };
+}
+
+export function checkInterval(a: Interval, raw: string): Verdict {
+  const got = parseInterval(raw);
+  if (!got) return { status: 'invalid', message: 'Write an interval like [−2, 5) or (−∞, 3]. Type inf for ∞.' };
+  if ('error' in got) return { status: 'invalid', message: got.error };
+  const same = (x: number, y: number) => (x === y) || Math.abs(x - y) < 1e-9;
+  const endsOk = same(got.lo, a.lo) && same(got.hi, a.hi);
+  if (endsOk && got.loClosed === a.loClosed && got.hiClosed === a.hiClosed) return { status: 'correct' };
+  if (endsOk) return { status: 'wrong', feedback: 'The endpoints are right, but check the brackets: use [ ] when the endpoint is included (a solid dot) and ( ) when it is not (an open dot).' };
+  return { status: 'wrong' };
 }

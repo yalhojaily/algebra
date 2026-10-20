@@ -1,0 +1,68 @@
+---
+id: "7.4"
+title: More on Graphing Linear Equations
+summary: Horizontal and vertical lines, and how slopes tell you when two lines are parallel or perpendicular.
+minutes: 35
+objectives:
+  - Graph horizontal lines y = b and vertical lines x = a.
+  - Know that horizontal lines have slope 0 and vertical lines have undefined slope.
+  - Decide whether two lines are parallel, perpendicular, or neither.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import ParallelPerp from '../../components/ParallelPerp.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+Railroad tracks never meet — they're parallel. The corner of a page is a right angle — perpendicular edges. You can tell both relationships between lines just by comparing their slopes.
+</Callout>
+
+## Horizontal and vertical lines
+
+- $y = b$ is a **horizontal** line: every point has $y$-coordinate $b$. Its slope is $0$.
+- $x = a$ is a **vertical** line: every point has $x$-coordinate $a$. Its slope is **undefined** (the run is $0$).
+
+<Callout type="tip" title="Which is which?">
+$y = 3$ — "$y$ is always $3$" — so the line is flat, at height $3$. $x = 3$ — "$x$ is always $3$" — so the line stands straight up, $3$ units right of the $y$-axis.
+</Callout>
+
+<Practice client:visible lesson="7.4" skill="hv" compact />
+
+<Practice client:visible lesson="7.4" skill="hvslope" compact />
+
+## Parallel and perpendicular lines
+
+- **Parallel** lines have the **same slope** (and different $y$-intercepts). Vertical lines are parallel to each other.
+- **Perpendicular** lines have slopes whose **product is $-1$** — each is the opposite reciprocal of the other. A horizontal line and a vertical line are perpendicular.
+
+<ParallelPerp client:visible />
+
+<StepReveal
+  client:visible
+  title="Parallel, perpendicular, or neither?"
+  problem="Compare $\;y = \tfrac{3}{4}x + 1\;$ and $\;4x + 3y = 6$."
+  steps={[
+    { show: '$3y = -4x + 6 \\;\\Rightarrow\\; y = -\\dfrac{4}{3}x + 2$', why: 'Solve the second equation for $y$ to see its slope.' },
+    { show: '$\\dfrac{3}{4} \\cdot \\left(-\\dfrac{4}{3}\\right) = -1$', why: 'Multiply the slopes.' },
+    { show: 'The lines are **perpendicular**.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="7.4" skill="classify" compact />
+
+<Practice client:visible lesson="7.4" skill="perp" compact />
+
+## Summary
+
+- $y = b$: horizontal, slope $0$. $x = a$: vertical, slope undefined.
+- Parallel: equal slopes. Perpendicular: slopes multiply to $-1$.
+
+## Practice
+
+<Practice client:visible lesson="7.4" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="7.4" />

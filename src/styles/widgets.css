@@ -695,3 +695,27 @@ a.tag:hover { color: var(--ink); }
 .ve-table td, .ve-table th { text-align: center; }
 .ve-table td.hit { font-weight: 700; color: var(--green); }
 .lcd-table th { text-transform: none; letter-spacing: 0; }
+.pl-pt.open { fill: var(--card); stroke: var(--blue); stroke-width: 2.5; }
+
+/* ---------- Chapter 7 function widgets ---------- */
+.fm, .vlt, .dr, .lm, .pp, .tp { padding: 16px 20px; margin: 1.4em 0; }
+.fm-left { display: flex; flex-direction: column; gap: 10px; }
+.fm-machine { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; }
+.fm-in, .fm-out { display: flex; flex-direction: column; align-items: center; font-size: 1.5rem; }
+.fm-box { padding: 14px 12px; border-radius: 12px; background: var(--ink); color: var(--paper); text-align: center; position: relative; }
+.fm-box::before, .fm-box::after { content: '→'; position: absolute; top: 50%; transform: translateY(-50%); color: var(--ink-3); font-size: 1.2rem; }
+.fm-box::before { left: -12px; } .fm-box::after { right: -14px; }
+.fm-box .katex { color: var(--paper); }
+.tl-chip.on { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+.vlt-count { padding: 8px 12px; border-radius: 8px; font-size: 0.95rem; margin: 8px 0; }
+.vlt-count.ok { background: var(--green-soft); color: var(--green); }
+.vlt-count.bad { background: var(--red-soft); color: var(--red); }
+.dr-band { stroke-width: 9; stroke-linecap: round; opacity: 0.45; }
+.dr-band.dom { stroke: var(--blue); }
+.dr-band.ran { stroke: var(--red); }
+.dr-dom { color: var(--blue) !important; } .dr-ran { color: var(--red) !important; }
+.lm-tri line { stroke: var(--amber); stroke-width: 2; stroke-dasharray: 4 3; }
+.pp-slope { margin-left: auto; font-size: 0.9rem; color: var(--ink-2); }
+.pp-blue { color: var(--blue) !important; } .pp-red { color: var(--red) !important; } .pp-green { color: var(--green) !important; }
+.tp .px-body { align-items: start; }
+.tp-steps { min-width: 0; }

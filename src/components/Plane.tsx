@@ -7,8 +7,12 @@ export interface PlaneProps {
   yRange?: number;
   points?: { x: number; y: number; label?: string; cls?: string }[];
   lines?: { a: number; b: number; c: number; cls?: string }[];
-  /** y = polynomial (coefficients highest first) */
-  curves?: { coefs: number[]; cls?: string }[];
+  /** y = polynomial (coefficients highest first); `lo`/`hi` limit the x-range. */
+  curves?: { coefs: number[]; cls?: string; lo?: number; hi?: number }[];
+  /** x = polynomial in y (a sideways curve). */
+  xcurves?: { coefs: number[]; cls?: string }[];
+  segments?: { x1: number; y1: number; x2: number; y2: number; cls?: string }[];
+  circles?: { cx: number; cy: number; r: number; cls?: string }[];
   /** Pixel size of the square drawing (viewBox units). */
   size?: number;
   onPick?: (x: number, y: number) => void;
@@ -27,7 +31,7 @@ export interface PlaneMap {
 }
 
 /** A coordinate plane with grid, axes, points, lines and curves. Click handling snaps to integer points. */
-export function Plane({ range = 10, yRange, points = [], lines = [], curves = [], size = 420, onPick, children, label, every }: PlaneProps) {
+export function Plane({ range = 10, yRange, points = [], lines = [], curves = [], xcurves = [], segments = [], circles = [], size = 420, onPick, children, label, every }: PlaneProps) {
   const r = range;
   const ry = yRange ?? range;
   const pad = 24;
@@ -49,11 +53,23 @@ export function Plane({ range = 10, yRange, points = [], lines = [], curves = []
     return [-big, y(-big), big, y(big)];
   };
 
-  const curvePath = (coefs: number[]) => {
+  const xcurvePath = (coefs: number[]) => {
+    const g = (y: number) => coefs.reduce((s, c) => s * y + c, 0);
+    const pts: string[] = [];
+    for (let i = 0; i <= 240; i++) {
+      const y = -ry + (2 * ry * i) / 240;
+      const x = g(y);
+      if (Math.abs(x) > r * 4) continue;
+      pts.push(`${pts.length ? 'L' : 'M'} ${X(x).toFixed(1)} ${Y(y).toFixed(1)}`);
+    }
+    return pts.join(' ');
+  };
+
+  const curvePath = (coefs: number[], lo = -r, hi = r) => {
     const f = (x: number) => coefs.reduce((s, c) => s * x + c, 0);
     const pts: string[] = [];
     for (let i = 0; i <= 240; i++) {
-      const x = -r + (2 * r * i) / 240;
+      const x = lo + ((hi - lo) * i) / 240;
       const y = f(x);
       if (Math.abs(y) > ry * 4) continue;
       pts.push(`${pts.length ? 'L' : 'M'} ${X(x).toFixed(1)} ${Y(y).toFixed(1)}`);
@@ -93,7 +109,10 @@ export function Plane({ range = 10, yRange, points = [], lines = [], curves = []
           const [x1, y1, x2, y2] = segment(l.a, l.b, l.c);
           return <line key={`l${i}`} x1={X(x1)} y1={Y(y1)} x2={X(x2)} y2={Y(y2)} className={`pl-line ${l.cls ?? ''}`} />;
         })}
-        {curves.map((c, i) => <path key={`c${i}`} d={curvePath(c.coefs)} className={`pl-line ${c.cls ?? ''}`} fill="none" />)}
+        {curves.map((c, i) => <path key={`c${i}`} d={curvePath(c.coefs, c.lo, c.hi)} className={`pl-line ${c.cls ?? ''}`} fill="none" />)}
+        {xcurves.map((c, i) => <path key={`xc${i}`} d={xcurvePath(c.coefs)} className={`pl-line ${c.cls ?? ''}`} fill="none" />)}
+        {segments.map((sg, i) => <line key={`s${i}`} x1={X(sg.x1)} y1={Y(sg.y1)} x2={X(sg.x2)} y2={Y(sg.y2)} className={`pl-line ${sg.cls ?? ''}`} />)}
+        {circles.map((c, i) => <ellipse key={`o${i}`} cx={X(c.cx)} cy={Y(c.cy)} rx={X(c.r) - X(0)} ry={Y(0) - Y(c.r)} className={`pl-line ${c.cls ?? ''}`} fill="none" />)}
         {children?.({ X, Y, size, r, ry })}
       </g>
       {points.map((p, i) => (

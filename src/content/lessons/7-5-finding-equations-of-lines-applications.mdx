@@ -1,0 +1,98 @@
+---
+id: "7.5"
+title: "Finding Equations of Lines; Applications"
+summary: Given a slope and a point, or two points, write the equation of the line — then use lines to model data and make predictions.
+minutes: 40
+objectives:
+  - Use the point–slope form to write the equation of a line.
+  - Find the equation of a line through two points.
+  - Find lines parallel or perpendicular to a given line.
+  - Fit a linear model to two data points and make predictions.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import TwoPointLine from '../../components/TwoPointLine.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+A town had 12,000 people in 2015 and 13,500 in 2020. If it keeps growing the same way, how many will it have in 2030? Two data points determine a line — and the line answers the question.
+</Callout>
+
+## Point–slope form
+
+The line with slope $m$ through the point $(x_1, y_1)$ is
+
+$$y - y_1 = m(x - x_1)$$
+
+This comes straight from the slope formula: $\dfrac{y - y_1}{x - x_1} = m$.
+
+<StepReveal
+  client:visible
+  title="Slope and a point"
+  problem="Find the equation of the line with slope $-2$ through $(3, -1)$, in the form $y = mx + b$."
+  steps={[
+    { show: '$y - (-1) = -2(x - 3)$', why: 'Point–slope form.' },
+    { show: '$y + 1 = -2x + 6$', why: 'Distribute.' },
+    { show: '$y = -2x + 5$', why: 'Subtract $1$ from both sides.' },
+  ]}
+/>
+
+<Practice client:visible lesson="7.5" skill="pointslope" compact />
+
+## Two points
+
+First find the slope, then use either point.
+
+<TwoPointLine client:visible />
+
+<Practice client:visible lesson="7.5" skill="twopoints" compact />
+
+## Parallel and perpendicular lines
+
+Use the slope rules from Lesson 7.4, then point–slope form.
+
+<StepReveal
+  client:visible
+  title="Perpendicular line"
+  problem="Find the line through $(4, 1)$ perpendicular to $\;y = 2x - 7$."
+  steps={[
+    { show: 'Slope $= -\\dfrac{1}{2}$', why: 'The opposite reciprocal of $2$.' },
+    { show: '$y - 1 = -\\dfrac{1}{2}(x - 4)$', why: '' },
+    { show: '$y = -\\dfrac{1}{2}x + 3$', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="7.5" skill="parperp" compact />
+
+## Linear models
+
+<StepReveal
+  client:visible
+  title="Predict with a line"
+  problem="A town had 12,000 people in 2015 and 13,500 in 2020. Assuming linear growth, predict the population in 2030."
+  steps={[
+    { show: 'Let $t$ = years after 2015: data points $(0, 12000)$ and $(5, 13500)$.', why: 'Choosing $t = 0$ at the first year makes $b$ easy.' },
+    { show: '$m = \\dfrac{13500 - 12000}{5 - 0} = 300$ people per year', why: '' },
+    { show: '$P(t) = 300t + 12000$', why: '' },
+    { show: '$P(15) = 300 \\cdot 15 + 12000 = 16500$', why: '2030 is $15$ years after 2015.' },
+  ]}
+/>
+
+<Practice client:visible lesson="7.5" skill="model" compact />
+
+## Summary
+
+- Point–slope: $y - y_1 = m(x - x_1)$; solve for $y$ to get $y = mx + b$.
+- Two points: slope first, then point–slope.
+- Parallel: same slope. Perpendicular: opposite reciprocal.
+- Models: slope = rate of change; use the line to predict.
+
+## Practice
+
+<Practice client:visible lesson="7.5" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="7.5" />

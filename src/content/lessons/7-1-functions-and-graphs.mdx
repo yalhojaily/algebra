@@ -1,0 +1,83 @@
+---
+id: "7.1"
+title: Functions and Graphs
+summary: A function assigns exactly one output to each input. Learn the f(x) notation, evaluate functions, read them from graphs, and use the vertical-line test.
+minutes: 40
+objectives:
+  - Decide whether a correspondence is a function.
+  - "Evaluate functions written in f(x) notation."
+  - Read function values from a graph.
+  - Use the vertical-line test.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import FunctionMachine from '../../components/FunctionMachine.tsx';
+import VerticalLineTest from '../../components/VerticalLineTest.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+A vending machine is useful because pressing B4 always gives you the same snack. If B4 sometimes gave chips and sometimes gave water, you couldn't rely on it. A **function** is a rule you can rely on in exactly that way: each input gives one predictable output.
+</Callout>
+
+## What is a function?
+
+A **function** is a correspondence between a first set, the **domain**, and a second set, the **range**, that assigns to each member of the domain **exactly one** member of the range.
+
+- $\{(1, 4),\ (2, 7),\ (3, 4)\}$ **is** a function. Two inputs share the output $4$ — that's allowed.
+- $\{(1, 4),\ (1, 5),\ (3, 2)\}$ is **not** a function. The input $1$ has two outputs.
+
+<Practice client:visible lesson="7.1" skill="pairs" compact />
+
+## Function notation
+
+We name functions with letters like $f$, $g$, $h$. The symbol $f(x)$ — read "$f$ of $x$" — means **the output of $f$ when the input is $x$**. It does *not* mean $f$ times $x$.
+
+<FunctionMachine client:visible />
+
+<StepReveal
+  client:visible
+  title="Evaluate a function"
+  problem="For $f(x) = 3x^2 - 2x + 1$, find $f(-2)$."
+  steps={[
+    { show: '$f(-2) = 3(-2)^2 - 2(-2) + 1$', why: 'Replace **every** $x$ with $-2$, in parentheses.' },
+    { show: '$= 3 \\cdot 4 + 4 + 1$', why: 'Exponents first: $(-2)^2 = 4$.' },
+    { show: '$= 17$', why: '' },
+  ]}
+/>
+
+<Callout type="warning" title="Use parentheses">
+Without parentheses, $-2^2 = -4$, not $4$. Always write $f(-2) = 3(-2)^2 \ldots$
+</Callout>
+
+<Practice client:visible lesson="7.1" skill="evaluate" compact />
+
+## Functions and their graphs
+
+The graph of $f$ is the set of all points $(x, f(x))$. To find $f(a)$ from a graph, start at $a$ on the $x$-axis, go up or down to the graph, then across to the $y$-axis.
+
+<Practice client:visible lesson="7.1" skill="read" compact />
+
+## The vertical-line test
+
+If a vertical line crosses a graph more than once, one input has two outputs — so the graph is **not** the graph of a function.
+
+<VerticalLineTest client:visible />
+
+<Practice client:visible lesson="7.1" skill="vertical" compact />
+
+## Summary
+
+- A function gives **exactly one** output for each input (outputs may repeat).
+- $f(a)$ is the output when the input is $a$: substitute $a$ for every $x$.
+- The graph of $f$ is all points $(x, f(x))$.
+- Vertical-line test: crossing more than once means not a function.
+
+## Practice
+
+<Practice client:visible lesson="7.1" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="7.1" />

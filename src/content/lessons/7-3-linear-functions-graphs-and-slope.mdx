@@ -1,0 +1,70 @@
+---
+id: "7.3"
+title: "Linear Functions: Graphs and Slope"
+summary: "f(x) = mx + b is a linear function: m is its slope — the rate of change — and b gives the y-intercept. Graph it and use it as a model."
+minutes: 35
+objectives:
+  - "Identify the slope and y-intercept of f(x) = mx + b."
+  - Graph a linear function using its slope and y-intercept.
+  - Interpret slope as a rate of change in applications.
+---
+
+import Callout from '../../components/Callout.astro';
+import StepReveal from '../../components/StepReveal.tsx';
+import LinearModel from '../../components/LinearModel.tsx';
+import Practice from '../../components/Practice.tsx';
+import MasteryCheck from '../../components/MasteryCheck.tsx';
+
+<Callout type="why">
+A phone plan costs 20 dollars a month plus a 15-dollar sign-up fee. After $t$ months you've paid $C(t) = 20t + 15$. That's a **linear function**: the $20$ is how fast the cost grows (the slope), and the $15$ is where it starts (the $y$-intercept).
+</Callout>
+
+## Slope–intercept form
+
+A **linear function** has the form
+
+$$f(x) = mx + b$$
+
+- $m$ is the **slope**: the change in $f(x)$ when $x$ increases by $1$.
+- $(0, b)$ is the **$y$-intercept**: the output when the input is $0$.
+
+<Practice client:visible lesson="7.3" skill="slope" compact />
+
+<Practice client:visible lesson="7.3" skill="intercept" compact />
+
+## Graphing with the slope and intercept
+
+<StepReveal
+  client:visible
+  title="Graph using m and b"
+  problem="Graph $\;f(x) = -\dfrac{2}{3}x + 4$."
+  steps={[
+    { show: 'Plot the $y$-intercept $(0, 4)$.', why: '$b = 4$.' },
+    { show: 'From there, go **down** $2$ and **right** $3$: $(3, 2)$.', why: 'Slope $-\\frac{2}{3}$ = rise $-2$ over run $3$.' },
+    { show: 'Draw the line through $(0, 4)$ and $(3, 2)$.', why: 'Check with a third point: down 2, right 3 again gives $(6, 0)$.' },
+  ]}
+/>
+
+<Practice client:visible lesson="7.3" skill="graph" compact />
+
+## Linear models
+
+In applications, the slope is a **rate** (dollars per month, centimeters per hour), and the $y$-intercept is the **starting value**.
+
+<LinearModel client:visible />
+
+<Practice client:visible lesson="7.3" skill="model" compact />
+
+## Summary
+
+- $f(x) = mx + b$: slope $m$, $y$-intercept $(0, b)$.
+- To graph: plot $(0, b)$, then use rise over run.
+- In a model, slope = rate of change; $b$ = starting value.
+
+## Practice
+
+<Practice client:visible lesson="7.3" />
+
+## Mastery check
+
+<MasteryCheck client:visible lesson="7.3" />

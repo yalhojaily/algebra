@@ -42,6 +42,11 @@ import * as l6_6 from './6-6-complex-rational-expressions';
 import * as l6_7 from './6-7-solving-rational-equations';
 import * as l6_8 from './6-8-applications-using-rational-equations-and-proportions';
 import * as l6_9 from './6-9-variation-and-applications';
+import * as l7_1 from './7-1-functions-and-graphs';
+import * as l7_2 from './7-2-finding-domain-and-range';
+import * as l7_3 from './7-3-linear-functions-graphs-and-slope';
+import * as l7_4 from './7-4-more-on-graphing-linear-equations';
+import * as l7_5 from './7-5-finding-equations-of-lines-applications';
 import * as l4_8 from './4-8-division-of-polynomials';
 import * as l3_4 from './3-4-slope-and-applications';
 import * as l2_8 from './2-8-applications-and-problem-solving-with-inequalities';
@@ -99,4 +104,9 @@ export const registry: Record<string, LessonGenerators> = {
   '6.7': l6_7,
   '6.8': l6_8,
   '6.9': l6_9,
+  '7.1': l7_1,
+  '7.2': l7_2,
+  '7.3': l7_3,
+  '7.4': l7_4,
+  '7.5': l7_5,
 };
