@@ -152,4 +152,8 @@ table.nice th { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0
   body { font-size: 16px; }
   table.nice { font-size: 0.88rem; }
   table.nice th, table.nice td { padding: 8px 6px; }
+  table.nice th { font-size: 0.7rem; letter-spacing: 0.02em; }
 }
+
+/* Wide tables scroll sideways on small screens instead of being cut off. */
+.table-scroll { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }

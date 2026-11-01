@@ -17,7 +17,7 @@ export default function FactorPairs() {
       <div className="px-body">
         <div>
           <div className="fp-h">Pairs with product <strong>{c}</strong> — which adds to <strong>{b}</strong>?</div>
-          <table className="nice fp-table">
+          <div className="table-scroll"><table className="nice fp-table">
             <thead><tr><th>Pair</th><th>Product</th><th>Sum</th></tr></thead>
             <tbody>
               {pairs.map(([p, q]) => (
@@ -26,7 +26,7 @@ export default function FactorPairs() {
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table></div>
         </div>
         <div className="px-side">
           {c === 0 ? (

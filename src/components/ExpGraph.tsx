@@ -20,10 +20,10 @@ export default function ExpGraph() {
         <FnPlot fns={[{ f }]} x={[-4, 4]} y={[-1, 12]} yStep={2} hlines={[{ y: 0, cls: 'alt' }]} points={xs.map((x) => ({ x, y: f(x), cls: x === 0 ? 'red' : '' }))} width={380} height={300} />
         <div className="px-side">
           <div className={`vlt-count ${b > 1 ? 'ok' : 'bad'}`}>{b > 1 ? 'b > 1: exponential growth' : '0 < b < 1: exponential decay'}</div>
-          <table className="nice ve-table">
+          <div className="table-scroll"><table className="nice ve-table">
             <thead><tr><th>x</th>{xs.map((x) => <th key={x}>{x}</th>)}</tr></thead>
             <tbody><tr><td>f(x)</td>{xs.map((x) => <td key={x}>{fmt(f(x))}</td>)}</tr></tbody>
-          </table>
+          </table></div>
           <p className="lb-note">Each step to the right <strong>multiplies</strong> by <Tex>{String(b)}</Tex>. The graph passes through <Tex>{`(0, ${a})`}</Tex> and approaches the <strong>asymptote</strong> <Tex>{'y = 0'}</Tex> but never touches it — <Tex>{'b^x'}</Tex> is always positive.</p>
           <div className="am-controls">
             <label className="el-slider"><span>base b</span><input type="range" min={0} max={bases.length - 1} value={bi} onChange={(e) => setBi(Number(e.target.value))} /><output className="c-var">{b}</output></label>

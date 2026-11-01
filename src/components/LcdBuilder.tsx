@@ -68,7 +68,7 @@ export default function LcdBuilder() {
       {!table ? <div className="pc-msg invalid">Type polynomials in x.</div> : (
         <>
           <div className="lcd-scroll">
-            <table className="nice lcd-table">
+            <div className="table-scroll"><table className="nice lcd-table">
               <thead><tr><th>Denominator</th>{table.keys.map((k) => <th key={k.key}><Tex>{k.tex}</Tex></th>)}<th>Needs</th></tr></thead>
               <tbody>
                 {(parsed as Poly[]).map((P, i) => (
@@ -80,7 +80,7 @@ export default function LcdBuilder() {
                 ))}
                 <tr className="lcd-max"><td>LCD uses</td>{table.max.map((m, j) => <td key={j}>{m}</td>)}<td /></tr>
               </tbody>
-            </table>
+            </table></div>
           </div>
           <div className="bx-final"><Tex>{`\\text{LCD} = ${table.lcdTex}${table.lcd.size > 1 ? ` = ${table.lcd.tex()}` : ''}`}</Tex></div>
           <p className="lb-note">Each column counts how many times a factor appears. The LCD takes the <strong>largest</strong> count in each column. The last column shows what each denominator must be multiplied by to become the LCD.</p>

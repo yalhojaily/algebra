@@ -37,12 +37,12 @@ export default function VariationExplorer() {
         </Plane>
         <div className="px-side">
           <div className="lb-eq"><Tex>{inverse ? `y = \\frac{${fmt(k)}}{x}` : `y = ${fmt(k)}x`}</Tex></div>
-          <table className="nice ve-table">
+          <div className="table-scroll"><table className="nice ve-table">
             <thead><tr><th>x</th><th>y</th><th>{inverse ? 'x · y' : 'y ÷ x'}</th></tr></thead>
             <tbody>
               {xs.map((x) => <tr key={x}><td>{x}</td><td>{fmt(f(x))}</td><td className="hit">{fmt(inverse ? x * f(x) : f(x) / x)}</td></tr>)}
             </tbody>
-          </table>
+          </table></div>
           <p className="lb-note">
             {inverse
               ? <>As x doubles, y is cut in <strong>half</strong>. The product <strong>xy = k</strong> never changes.</>

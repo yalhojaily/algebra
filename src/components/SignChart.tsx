@@ -37,7 +37,7 @@ export default function SignChart() {
       <div className="ib-toggles">{(['<', '<=', '>', '>='] as Op[]).map((o) => <button key={o} className={`tl-chip ${o === op ? 'on' : ''}`} onClick={() => setOp(o)}><Tex>{opTex[o]}</Tex></button>)}</div>
       <div className="lb-eq"><Tex>{`${expr} ${opTex[op]} 0`}</Tex></div>
       <div className="sc-scroll">
-        <table className="nice sc-table">
+        <div className="table-scroll"><table className="nice sc-table">
           <thead><tr><th>Interval</th>{ivs.map((iv, i) => <th key={i}><Tex>{`(${n(iv.lo)}, ${n(iv.hi)})`}</Tex></th>)}</tr></thead>
           <tbody>
             <tr><td>Test value</td>{ivs.map((iv, i) => <td key={i}>{iv.t}</td>)}</tr>
@@ -46,7 +46,7 @@ export default function SignChart() {
             ))}
             <tr className="lcd-max"><td>Result</td>{ivs.map((iv, i) => <td key={i} className={want(val(iv.t)) ? 'hit' : ''}>{sgn(val(iv.t))}</td>)}</tr>
           </tbody>
-        </table>
+        </table></div>
       </div>
       <div className="pb-row el-result"><Tex>{`\\text{Solution: } ${sol.length ? sol.join(' \\cup ') : '\\varnothing'}`}</Tex></div>
       <p className="lb-note">Zeros of the numerator are included for ≤ and ≥. Zeros of the denominator ({den.length ? den.join(', ') : 'none here'}) are never included — the expression is undefined there.</p>

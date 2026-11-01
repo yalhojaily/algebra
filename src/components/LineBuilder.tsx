@@ -33,14 +33,14 @@ export default function LineBuilder() {
           }
         </Plane>
         <div className="px-side">
-          <table className="nice lb-table">
+          <div className="table-scroll"><table className="nice lb-table">
             <thead><tr><th className="lb-th">x</th><th className="lb-th">y</th></tr></thead>
             <tbody>
               {rows.map(([x, y]) => (
                 <tr key={x} className={x === 0 ? 'yi' : ''}><td>{x}</td><td><Tex>{y.tex()}</Tex></td></tr>
               ))}
             </tbody>
-          </table>
+          </table></div>
           <p className="lb-note">
             The <strong className="c-num">orange point</strong> is the <em>y</em>-intercept <Tex>{`(0, ${b})`}</Tex>. From there, every{' '}
             <span className="c-var">{m.d} step{m.d > 1 ? 's' : ''} right</span> the line goes{' '}

@@ -58,7 +58,7 @@ export default function ExponentLab() {
       )}
       {rule === 'negative' && (
         <div className="xl-body">
-          <table className="sp-table xl-table">
+          <div className="table-scroll"><table className="sp-table xl-table">
             <tbody>
               {[3, 2, 1, 0, -1, -2, -3].map((k) => (
                 <tr key={k} className={k < 0 ? 'negrow' : ''}>
@@ -68,7 +68,7 @@ export default function ExponentLab() {
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table></div>
           <div className="xl-result">Each step down divides by 2. Keep the pattern going and you get <Tex>{'2^0 = 1'}</Tex> and <Tex>{'2^{-n} = \\dfrac{1}{2^n}'}</Tex>.</div>
         </div>
       )}

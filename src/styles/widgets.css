@@ -404,7 +404,6 @@ a.cm-lesson:hover { filter: brightness(0.97); }
 .os-presets { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
 .os-presets .tl-chip { font-family: var(--font-mono); font-size: 0.8rem; }
 .os-body { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 20px; margin-top: 16px; }
-@media (max-width: 680px) { .os-body { grid-template-columns: 1fr; } .os-ladder { flex-direction: row; flex-wrap: wrap; } .os-ladder li { flex: 1 1 40%; } }
 .os-ladder { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
 .os-ladder li { display: flex; gap: 10px; align-items: center; padding: 8px 10px; border-radius: 10px; border: 1.5px solid var(--line); font-size: 0.85rem; line-height: 1.25; transition: all 0.2s; }
 .os-ladder li small { color: var(--ink-3); }
@@ -877,3 +876,13 @@ a.tag:hover { color: var(--ink); }
 .hg-on { fill: color-mix(in srgb, var(--blue) 55%, transparent); }
 .hg-forms { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
 .hg-forms .lx-box { flex: 1 1 90px; }
+
+/* Order-of-operations ladder on phones: a 2 × 2 grid (must come after the base .os-ladder rules). */
+@media (max-width: 680px) {
+  .os-body { grid-template-columns: 1fr; }
+  .os-ladder { display: grid; grid-template-columns: 1fr 1fr; }
+  .os-ladder li { min-width: 0; overflow-wrap: anywhere; }
+  .os-ladder li.on { transform: none; }
+}
+.el-slider-wide { grid-template-columns: minmax(80px, auto) 1fr auto; }
+.el-slider-wide output { font-size: 0.9rem; }

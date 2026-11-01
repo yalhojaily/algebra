@@ -96,7 +96,7 @@ export default function ChapterTest({ id, lessons, perLesson = 2, passPercent = 
         <div className={`ms-result ${score >= need ? 'pass' : 'fail'}`}>
           <div className="ms-score">{score} / {items!.length}</div>
           <p>{score >= need ? <><strong>Chapter passed.</strong> Great work.</> : <>Not yet — you need {need}. Review the lessons marked below, then take a new test.</>}</p>
-          <table className="nice ct-table">
+          <div className="table-scroll"><table className="nice ct-table">
             <thead><tr><th>Lesson</th><th>Score</th><th></th></tr></thead>
             <tbody>
               {lessons.map((l) => {
@@ -112,7 +112,7 @@ export default function ChapterTest({ id, lessons, perLesson = 2, passPercent = 
                 );
               })}
             </tbody>
-          </table>
+          </table></div>
           <div className="ms-actions"><button className="btn btn-primary" onClick={start}>Take a new test</button></div>
         </div>
       )}

@@ -26,7 +26,7 @@ export default function SignPattern() {
         </div>
       </div>
       <div className="sp-body">
-        <table className="sp-table">
+        <div className="table-scroll"><table className="sp-table">
           <tbody>
             {bs.map((b, i) => {
               const visible = i < shown;
@@ -41,7 +41,7 @@ export default function SignPattern() {
               );
             })}
           </tbody>
-        </table>
+        </table></div>
         <div className="sp-side">
           <p>
             Each time the second factor goes down by 1, the product changes by <strong className="c-op">{step > 0 ? `+${step}` : step}</strong>. Keep the
@@ -60,13 +60,13 @@ export default function SignPattern() {
               )}
             </div>
           )}
-          <table className="sp-grid" aria-label="Sign rules">
+          <div className="table-scroll"><table className="sp-grid" aria-label="Sign rules">
             <tbody>
               <tr><th></th><th>+</th><th>−</th></tr>
               <tr><th>+</th><td className="pos">+</td><td className="neg">−</td></tr>
               <tr><th>−</th><td className="neg">−</td><td className="pos">+</td></tr>
             </tbody>
-          </table>
+          </table></div>
           <div className="sp-caption">Same signs → positive. Different signs → negative.</div>
         </div>
       </div>

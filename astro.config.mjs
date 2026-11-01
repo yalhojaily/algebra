@@ -5,6 +5,7 @@ import react from '@astrojs/react';
 import { unified } from '@astrojs/markdown-remark';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import rehypeTableScroll from './src/plugins/rehype-table-scroll.mjs';
 
 /** @type {import('katex').KatexOptions} */
 const katexOptions = {
@@ -18,11 +19,11 @@ export default defineConfig({
   site: 'https://yalhojaily.github.io',
   base: '/algebra',
   trailingSlash: 'ignore',
-  integrations: [react(), mdx()],
+  integrations: [react(), mdx({ rehypePlugins: [[rehypeKatex, katexOptions], rehypeTableScroll] })],
   markdown: {
     processor: unified({
       remarkPlugins: [remarkMath],
-      rehypePlugins: [[rehypeKatex, katexOptions]],
+      rehypePlugins: [[rehypeKatex, katexOptions], rehypeTableScroll],
     }),
   },
 });

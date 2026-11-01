@@ -33,7 +33,7 @@ export default function GcfFinder() {
       </div>
       {!P ? <div className="pc-msg invalid">Type a polynomial in x.</div> : (
         <>
-          <table className="gf-table">
+          <div className="table-scroll"><table className="gf-table">
             <thead><tr><th>Term</th><th>Coefficient as primes</th><th>Power of x</th></tr></thead>
             <tbody>
               {terms.map(([c, v], i) => {
@@ -59,7 +59,7 @@ export default function GcfFinder() {
                 );
               })}
             </tbody>
-          </table>
+          </table></div>
           <div className="gf-result">
             <div>Highlighted factors appear in <strong>every</strong> term: GCF <Tex>{`= ${G.tex()}`}</Tex></div>
             {inner && <div className="bx-final"><Tex>{`${P.tex()} = ${G.equals(Poly.const(1)) ? '' : G.tex()}(${inner.tex()})`}</Tex></div>}

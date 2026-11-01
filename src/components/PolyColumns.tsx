@@ -34,7 +34,7 @@ export default function PolyColumns() {
         {(['+', '−'] as const).map((o) => <button key={o} className={`wb-op ${o === op ? 'on' : ''}`} onClick={() => setOp(o)}>{o === '+' ? 'Add' : 'Subtract'}</button>)}
       </div>
       <div className="pcol-eq"><Tex>{`(${A.tex()}) ${op === '+' ? '+' : '-'} (${B.tex()})`}</Tex></div>
-      <table className="pcol-table">
+      <div className="table-scroll"><table className="pcol-table">
         <thead><tr>{cols.map((e) => <th key={e}><Tex>{e === 0 ? '\\text{const}' : e === 1 ? 'x' : `x^{${e}}`}</Tex></th>)}</tr></thead>
         <tbody>
           {row(A)}
@@ -46,7 +46,7 @@ export default function PolyColumns() {
           )}
           {row(R, 'pcol-sum')}
         </tbody>
-      </table>
+      </table></div>
       <p className="lb-note">
         {op === '+' ? 'Each column holds like terms. Add down each column.' : <>To subtract, <strong>change the sign of every term</strong> in the second polynomial (crossed-out row → red row), then add down each column.</>}
         {' '}Result: <Tex>{R.tex()}</Tex>

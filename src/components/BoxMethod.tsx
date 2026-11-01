@@ -24,7 +24,7 @@ export default function BoxMethod({ presets = [['2x + 3', 'x - 4'], ['x - 2', 'x
     const R = A.mul(B);
     return (
       <>
-        <table className="bx-table">
+        <div className="table-scroll"><table className="bx-table">
           <thead>
             <tr><th className="bx-corner"><Tex>\times</Tex></th>{at.map(([c, v], i) => <th key={i}><Tex>{monoStr(c, v, true)}</Tex></th>)}</tr>
           </thead>
@@ -36,7 +36,7 @@ export default function BoxMethod({ presets = [['2x + 3', 'x - 4'], ['x - 2', 'x
               </tr>
             ))}
           </tbody>
-        </table>
+        </table></div>
         <div className="bx-result">
           {!combined ? (
             <>

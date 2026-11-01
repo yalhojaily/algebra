@@ -23,7 +23,7 @@ export default function LogRules() {
         <label className="el-slider"><span>p</span><input type="range" min={2} max={5} value={p} onChange={(e) => setP(Number(e.target.value))} /><output className="c-num">{p}</output></label>
       </div>
       <div className="lcd-scroll">
-        <table className="nice lr-table">
+        <div className="table-scroll"><table className="nice lr-table">
           <thead><tr><th /><th>Left side</th><th>Value</th><th>Right side</th><th>Value</th><th /></tr></thead>
           <tbody>
             {rows.map((r) => {
@@ -36,7 +36,7 @@ export default function LogRules() {
               );
             })}
           </tbody>
-        </table>
+        </table></div>
       </div>
       <p className="lb-note">Logarithms turn multiplication into addition, division into subtraction, and powers into multiplication — because they <em>are</em> exponents. But there is no rule for the log of a <strong>sum</strong>.</p>
     </div>
