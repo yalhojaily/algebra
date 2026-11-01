@@ -89,13 +89,15 @@ import * as l4_8 from './4-8-division-of-polynomials';
 import * as l3_4 from './3-4-slope-and-applications';
 import * as l2_8 from './2-8-applications-and-problem-solving-with-inequalities';
 
+import { tidyProblem } from './tidy';
+
 interface LessonGenerators {
   skills: Skill[];
   masterySet: (size?: number) => Problem[];
 }
 
 /** Register each lesson's generators here as lessons are added. */
-export const registry: Record<string, LessonGenerators> = {
+const raw: Record<string, LessonGenerators> = {
   '1.1': l1_1,
   '1.2': l1_2,
   '1.3': l1_3,
@@ -186,3 +188,11 @@ export const registry: Record<string, LessonGenerators> = {
   'A.4': lA_4,
   'A.5': lA_5,
 };
+
+/** Every lesson's generators, with each problem passed through the formatting cleanup in tidy.ts. */
+export const registry: Record<string, LessonGenerators> = Object.fromEntries(
+  Object.entries(raw).map(([id, g]) => [id, {
+    skills: g.skills.map((s) => ({ ...s, generate: () => tidyProblem(s.generate()) })),
+    masterySet: (size?: number) => g.masterySet(size).map(tidyProblem),
+  }]),
+);

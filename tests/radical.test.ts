@@ -96,3 +96,17 @@ describe('mixed numbers and percents', () => {
     expect(check(p, '0.375').status).toBe('wrong');
   });
 });
+
+describe('review fixes', () => {
+  it('does not swap x and y in line equations', () => {
+    const p = P({ type: 'equation', value: 'y = 0' } as any);
+    expect(check(p, 'x = 0').status).toBe('wrong');
+    expect(check(p, 'y = 0').status).toBe('correct');
+    const q = P({ type: 'equation', value: 'x + 4 = 9' } as any);
+    expect(check(q, 'n + 4 = 9').status).toBe('correct');
+  });
+  it('tells |x + 9| from x + 9', () => {
+    const p = P({ type: 'expression', value: 'abs(x + 9)' } as any);
+    for (let i = 0; i < 200; i++) expect(check(p, 'x + 9').status).not.toBe('correct');
+  });
+});

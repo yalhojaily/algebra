@@ -76,13 +76,33 @@ function countSolutions(): Problem {
 function classify(): Problem {
   const kind = pick(['one', 'none', 'many'] as const);
   const label = { one: 'Consistent and independent', none: 'Inconsistent', many: 'Consistent and dependent' }[kind];
-  const desc = { one: 'cross at exactly one point', none: 'are parallel and never meet', many: 'are the same line' }[kind];
+  const options = choice(label, ['Consistent and independent', 'Inconsistent', 'Consistent and dependent'].filter((x) => x !== label));
+  const hints = ['**Consistent** means there is at least one solution. **Dependent** means the equations describe the same line (infinitely many solutions).'];
+  const why = kind === 'one' ? 'One solution: consistent; different lines: independent.' : kind === 'none' ? 'No solution: the system is **inconsistent**.' : 'Infinitely many solutions: consistent; the equations are equivalent, so they are **dependent**.';
+  if (Math.random() < 0.4) {
+    const desc = {
+      one: pick(['cross at exactly one point', 'intersect at a single point', 'have different slopes']),
+      none: pick(['are parallel and never meet', 'have the same slope but different $y$-intercepts', 'never intersect']),
+      many: pick(['are the same line', 'lie exactly on top of each other', 'have the same slope and the same $y$-intercept']),
+    }[kind];
+    return { skill: 'classify', prompt: `The graphs of the two equations of a system ${desc}. How is the system described?`, answer: options, hints, solution: [why] };
+  }
+  // An actual system to classify.
+  const a = nz(4), b = nz(4), k = pick([2, 3, -2, -3]);
+  const c = randInt(-8, 8);
+  let rows: string[];
+  if (kind === 'one') {
+    const s = randSys2();
+    rows = [combTex([s.a, s.b], ['x', 'y'], s.c), combTex([s.d, s.e], ['x', 'y'], s.f)];
+  } else {
+    rows = [combTex([a, b], ['x', 'y'], c), combTex([k * a, k * b], ['x', 'y'], k * c + (kind === 'none' ? pick([1, -1, 2]) * Math.abs(k) : 0))];
+  }
   return {
     skill: 'classify',
-    prompt: `The graphs of the two equations of a system ${desc}. How is the system described?`,
-    answer: choice(label, ['Consistent and independent', 'Inconsistent', 'Consistent and dependent'].filter((x) => x !== label)),
-    hints: ['**Consistent** means there is at least one solution. **Dependent** means the equations describe the same line (infinitely many solutions).'],
-    solution: [kind === 'one' ? 'One solution: consistent; different lines: independent.' : kind === 'none' ? 'No solution: the system is **inconsistent**.' : 'Infinitely many solutions: consistent; the equations are equivalent, so they are **dependent**.'],
+    prompt: `Classify the system: $\\;${systemTex(rows)}$`,
+    answer: options,
+    hints: [...hints, 'Is the second equation a multiple of the first (left side and right side)? Only the left side? Neither?'],
+    solution: [kind === 'one' ? 'The equations are not multiples of each other, so the lines have different slopes and cross once.' : kind === 'none' ? `The left side of the second equation is $${k}$ times the first, but the right side is not: parallel lines, no solution.` : `The second equation is $${k}$ times the first: the same line.`, why],
   };
 }
 

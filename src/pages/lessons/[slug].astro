@@ -82,9 +82,9 @@ const isLastInChapter = chapter.lessons[chapter.lessons.length - 1].id === lesso
       </article>
 
       {isLastInChapter && reviewHref && (
-        <a class="chapter-done" href={reviewHref}>
+        <a class="chapter-done" href={reviewHref} data-title={`${chapter.label} review & test`}>
           <span>You've reached the end of {chapter.label}</span>
-          <strong>Review the chapter and take the chapter test →</strong>
+          <strong>Review the {typeof chapter.number === 'string' ? 'appendix' : 'chapter'} and take the {typeof chapter.number === 'string' ? 'appendix' : 'chapter'} test →</strong>
         </a>
       )}
 

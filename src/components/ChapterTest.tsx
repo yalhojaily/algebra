@@ -8,13 +8,15 @@ import type { LessonRef } from './ChapterReview';
 
 interface Props {
   id: string; // progress key, e.g. "ch1-test"
+  /** 'chapter' or 'appendix', for the wording. */
+  kind?: string;
   lessons: LessonRef[];
   perLesson?: number;
   passPercent?: number;
 }
 
 /** A chapter test: a few fresh questions from every lesson, with a per-lesson breakdown at the end. */
-export default function ChapterTest({ id, lessons, perLesson = 2, passPercent = 80 }: Props) {
+export default function ChapterTest({ id, lessons, perLesson = 2, passPercent = 80, kind = 'chapter' }: Props) {
   const [items, setItems] = useState<{ lesson: string; problem: Problem }[] | null>(null);
   const [index, setIndex] = useState(0);
   const [results, setResults] = useState<boolean[]>([]);
@@ -48,7 +50,7 @@ export default function ChapterTest({ id, lessons, perLesson = 2, passPercent = 
     <div className="mastery card">
       <div className="ms-head">
         <div>
-          <div className="ms-kicker">Chapter test</div>
+          <div className="ms-kicker">{kind === 'appendix' ? 'Appendix' : 'Chapter'} test</div>
           <div className="ms-title">{total} questions · {need} correct to pass</div>
         </div>
         {best.passed && <span className="ms-badge">★ Passed{best.score !== undefined ? ` · best ${Math.round(best.score * 100)}%` : ''}</span>}
@@ -64,8 +66,8 @@ export default function ChapterTest({ id, lessons, perLesson = 2, passPercent = 
 
       {!items && (
         <div className="ms-intro">
-          <p>Questions come from every lesson in the chapter, in order, with no hints. Use it as a practice exam: when you finish, you'll see which lessons to review.</p>
-          <button className="btn btn-primary" onClick={start}>{best.passed ? 'Take a new test' : 'Start the chapter test'}</button>
+          <p>Questions come from every lesson in the {kind}, in order, with no hints. Use it as a practice exam: when you finish, you'll see which lessons to review.</p>
+          <button className="btn btn-primary" onClick={start}>{best.passed ? 'Take a new test' : `Start the ${kind} test`}</button>
         </div>
       )}
 

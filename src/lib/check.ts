@@ -20,7 +20,11 @@ function renameSingleVar(student: Node[], expected: Node[]): Record<string, stri
   if (sv.size === 1 && ev.size === 1) {
     const [s] = sv;
     const [e] = ev;
-    if (s !== e) return { [s]: e };
+    // "x = 3" and "y = 3" are different lines (vertical vs horizontal), so never swap x and y
+    // when the expected answer is a bare coordinate equal to a number.
+    const coord = new Set(['x', 'y']);
+    const bare = expected.some((n) => n.kind === 'var') && expected.some((n) => variables(n).size === 0);
+    if (s !== e && !(bare && coord.has(s) && coord.has(e))) return { [s]: e };
   }
   return null;
 }

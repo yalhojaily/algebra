@@ -5,7 +5,7 @@ import type { Problem, Skill } from './types';
 const fTex = (a: number, h: number, k: number) => {
   const A = a === 1 ? '' : a === -1 ? '-' : a;
   const inner = h === 0 ? 'x' : `x ${h < 0 ? '+' : '-'} ${Math.abs(h)}`;
-  return `${A}(${inner})^2${k ? ` ${k < 0 ? '-' : '+'} ${Math.abs(k)}` : ''}`;
+  return `${A}${h === 0 ? 'x' : `(${inner})`}^2${k ? ` ${k < 0 ? '-' : '+'} ${Math.abs(k)}` : ''}`;
 };
 const coefs = (a: number, h: number, k: number) => [a, -2 * a * h, a * h * h + k];
 const rand = () => ({ a: pick([1, -1, 2, -2, 0.5, -0.5, 3]), h: randInt(-5, 5), k: randInt(-5, 5) });

@@ -66,28 +66,39 @@ function differenceOfSquares(): Problem {
 }
 
 function twoVariables(): Problem {
-  const form = randInt(0, 1);
-  if (form === 0) {
-    const plusTop = pick([true, false]);
-    const top = `${dfrac('1', 'x')} ${plusTop ? '+' : '-'} ${dfrac('1', 'y')}`;
-    const bot = `${dfrac('1', 'x')} ${plusTop ? '-' : '+'} ${dfrac('1', 'y')}`;
-    const value = plusTop ? '(y + x)/(y - x)' : '(y - x)/(y + x)';
-    return {
-      skill: 'twovar',
-      prompt: `Simplify: $\\;${dfrac(top, bot)}$`,
-      answer: { type: 'expression', value, rational: true },
-      hints: ['Multiply the top and bottom by the LCD, $xy$.'],
-      solution: [`$= ${dfrac(`xy \\cdot ${dfrac('1', 'x')} ${plusTop ? '+' : '-'} xy \\cdot ${dfrac('1', 'y')}`, `xy \\cdot ${dfrac('1', 'x')} ${plusTop ? '-' : '+'} xy \\cdot ${dfrac('1', 'y')}`)}$`, `$= ${dfrac(plusTop ? 'y + x' : 'y - x', plusTop ? 'y - x' : 'y + x')}$`],
-      placeholder: '(y + x)/(y - x)',
-    };
+  const term = (c: number, v: string) => `${c === 1 ? '' : c}${v}`;
+  if (Math.random() < 0.6) {
+    for (;;) {
+      const a = randInt(1, 5), b = randInt(1, 5), c = randInt(1, 5), d = randInt(1, 5);
+      const plusTop = pick([true, false]);
+      if (gcd(gcd(a, b), gcd(c, d)) > 1 || a * d === b * c) continue;
+      const s1 = plusTop ? '+' : '-', s2 = plusTop ? '-' : '+';
+      const top = `${dfrac(String(a), 'x')} ${s1} ${dfrac(String(b), 'y')}`;
+      const bot = `${dfrac(String(c), 'x')} ${s2} ${dfrac(String(d), 'y')}`;
+      const num = `${term(a, 'y')} ${s1} ${term(b, 'x')}`, den = `${term(c, 'y')} ${s2} ${term(d, 'x')}`;
+      return {
+        skill: 'twovar',
+        prompt: `Simplify: $\\;${dfrac(top, bot)}$`,
+        answer: { type: 'expression', value: `(${a}*y ${s1} ${b}*x)/(${c}*y ${s2} ${d}*x)`, rational: true },
+        hints: ['Multiply the top and bottom by the LCD, $xy$.', `$xy \\cdot ${dfrac(String(a), 'x')} = ${term(a, 'y')}$ and $xy \\cdot ${dfrac(String(b), 'y')} = ${term(b, 'x')}$.`],
+        solution: [`$= ${dfrac(`xy \\cdot ${dfrac(String(a), 'x')} ${s1} xy \\cdot ${dfrac(String(b), 'y')}`, `xy \\cdot ${dfrac(String(c), 'x')} ${s2} xy \\cdot ${dfrac(String(d), 'y')}`)}$`, `$= ${dfrac(num, den)}$`],
+        placeholder: '(2y + x)/(y - 3x)',
+      };
+    }
   }
+  const a = randInt(1, 4), b = randInt(1, 4);
+  const sq = (n: number) => (n === 1 ? '1' : String(n * n));
   return {
     skill: 'twovar',
-    prompt: `Simplify: $\\;${dfrac(`${dfrac('1', 'x')} - ${dfrac('1', 'y')}`, `${dfrac('1', 'x^2')} - ${dfrac('1', 'y^2')}`)}$`,
-    answer: { type: 'expression', value: '(x*y)/(x + y)', rational: true },
-    hints: ['Multiply the top and bottom by the LCD, $x^2y^2$.', 'The bottom becomes $y^2 - x^2 = (y + x)(y - x)$.'],
-    solution: [`$= ${dfrac('xy^2 - x^2y', 'y^2 - x^2')}$`, `$= ${dfrac('xy(y - x)', '(y + x)(y - x)')}$`, `$= ${dfrac('xy', 'x + y')}$`],
-    placeholder: 'xy/(x + y)',
+    prompt: `Simplify: $\\;${dfrac(`${dfrac(String(a), 'x')} - ${dfrac(String(b), 'y')}`, `${dfrac(sq(a), 'x^2')} - ${dfrac(sq(b), 'y^2')}`)}$`,
+    answer: { type: 'expression', value: `(x*y)/(${a}*y + ${b}*x)`, rational: true },
+    hints: ['Multiply the top and bottom by the LCD, $x^2y^2$.', `The bottom becomes $${term(a * a, 'y^2')} - ${term(b * b, 'x^2')}$, a difference of squares.`],
+    solution: [
+      `$= ${dfrac(`${term(a, 'xy^2')} - ${term(b, 'x^2y')}`, `${term(a * a, 'y^2')} - ${term(b * b, 'x^2')}`)}$`,
+      `$= ${dfrac(`xy(${term(a, 'y')} - ${term(b, 'x')})`, `(${term(a, 'y')} + ${term(b, 'x')})(${term(a, 'y')} - ${term(b, 'x')})`)}$`,
+      `$= ${dfrac('xy', `${term(a, 'y')} + ${term(b, 'x')}`)}$`,
+    ],
+    placeholder: 'xy/(2y + x)',
   };
 }
 

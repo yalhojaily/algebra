@@ -268,18 +268,22 @@ export function evaluate(n: Node, env: Record<string, number>): number {
 const close = (a: number, b: number) =>
   Math.abs(a - b) <= 1e-9 * Math.max(1, Math.abs(a), Math.abs(b));
 
-function samples(vars: string[], count = 24): Record<string, number>[] {
+function samples(vars: string[], count = 32): Record<string, number>[] {
   const out: Record<string, number>[] = [];
   for (let k = 0; k < count; k++) {
     const env: Record<string, number> = {};
     // Mix of awkward values so coincidences are essentially impossible.
     // Every other sample uses only positive values, so roots and logarithms always get checked somewhere.
     for (const v of vars) {
-      const r = Math.round((Math.random() * 20 - 10) * 1000) / 1000 + 0.137;
+      // Every fourth sample uses a wider range, so shifts like |x + 9| vs x + 9 are caught.
+      const span = k % 4 === 2 ? 40 : 10;
+      const r = Math.round((Math.random() * 2 * span - span) * 1000) / 1000 + 0.137;
       env[v] = k % 2 ? Math.abs(r) + 0.01 : r;
     }
     out.push(env);
   }
+  // Fixed probes far from 0 (different for each variable), so the comparison never depends on luck.
+  for (const base of [-37.31, -18.77, -12.53, 29.43]) out.push(Object.fromEntries(vars.map((v, i) => [v, base + 1.913 * i])));
   return out;
 }
 

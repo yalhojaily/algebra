@@ -15,26 +15,29 @@ function growth(): Problem {
 }
 
 function doubling(): Problem {
-  const k = pick([0.02, 0.035, 0.05, 0.07, 0.1]);
+  const k = randInt(10, 120) / 1000; // 1% to 12%, to the tenth of a percent
   const T = Math.log(2) / k;
+  const what = pick(['An investment grows', 'A bacteria culture grows', 'A town\'s population grows', 'The number of app users grows']);
   return {
     skill: 'doubling',
-    prompt: `An investment grows by $P(t) = P_0 e^{${k}t}$. How many years until it doubles? (Round to two decimal places.)`,
+    prompt: `${what} by $P(t) = P_0 e^{${k}t}$, with $t$ in ${what.includes('bacteria') ? 'hours' : 'years'}. How long until it doubles? (Round to two decimal places.)`,
     answer: { type: 'number', value: +T.toFixed(2), tol: 0.011 },
     hints: ['Set $P(t) = 2P_0$: $2 = e^{' + k + 't}$.', 'Take $\\ln$: $\\ln 2 = ' + k + 't$.'],
-    solution: [`$t = \\dfrac{\\ln 2}{${k}} \\approx ${T.toFixed(2)}$ years`],
+    solution: [`$t = \\dfrac{\\ln 2}{${k}} \\approx ${T.toFixed(2)}$`],
   };
 }
 
 function findK(): Problem {
-  const T = pick([5, 8, 10, 12, 20, 25]);
+  const T = randInt(3, 40);
   const k = Math.log(2) / T;
+  const tripling = Math.random() < 0.25;
+  const kk = tripling ? Math.log(3) / T : k;
   return {
     skill: 'rate',
-    prompt: `A quantity grows exponentially, $P(t) = P_0 e^{kt}$, and doubles every ${T} years. Find $k$ to four decimal places.`,
-    answer: { type: 'number', value: +k.toFixed(4), tol: 0.00011 },
-    hints: [`$2P_0 = P_0 e^{${T}k}$, so $\\ln 2 = ${T}k$.`],
-    solution: [`$k = \\dfrac{\\ln 2}{${T}} \\approx ${k.toFixed(4)}$`],
+    prompt: `A quantity grows exponentially, $P(t) = P_0 e^{kt}$, and ${tripling ? 'triples' : 'doubles'} every ${T} years. Find $k$ to four decimal places.`,
+    answer: { type: 'number', value: +kk.toFixed(4), tol: 0.00011 },
+    hints: [`$${tripling ? 3 : 2}P_0 = P_0 e^{${T}k}$, so $\\ln ${tripling ? 3 : 2} = ${T}k$.`],
+    solution: [`$k = \\dfrac{\\ln ${tripling ? 3 : 2}}{${T}} \\approx ${kk.toFixed(4)}$`],
   };
 }
 

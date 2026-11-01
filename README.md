@@ -1,6 +1,6 @@
 # Algebra, step by step
 
-An interactive companion website for a high-school / college algebra textbook (12 chapters, 84 lessons, plus Appendix A). **All 12 chapters (84 lessons) and Appendix A (fractions, mixed numbers, decimals and percents, LCM, GCD) are complete**, each with a review & test page.
+An interactive companion website for a high-school / college algebra textbook (12 chapters, 84 lessons, plus Appendix A with 5 lessons — 89 in all). **Everything is complete**: all 12 chapters and Appendix A (fractions, mixed numbers, decimals and percents, LCM, GCD), each with a review & test page.
 Every lesson follows the same rhythm:
 
 1. **Why?** — a real situation that needs the idea
@@ -27,6 +27,7 @@ src/
   content/lessons/*.mdx       One file per lesson (frontmatter: id, title, summary, objectives, minutes)
   generators/                 Random practice-problem generators, one file per lesson
     index.ts                  Registry: lesson id → generators
+    tidy.ts                   Final formatting pass on every generated problem (1x → x, + -3 → - 3, …)
   lib/expr.ts                 Parser, evaluator, equivalence checking, LaTeX printing
   lib/check.ts                Grades an answer against a problem
   lib/progress.ts             Progress storage

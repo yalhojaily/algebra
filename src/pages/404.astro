@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+const base = import.meta.env.BASE_URL;
+---
+
+<Base title="Page not found · Algebra" description="This page does not exist.">
+  <section class="nf">
+    <p class="nf-code">404</p>
+    <h1>This page doesn't exist</h1>
+    <p>The link may be old or mistyped. Every lesson is on the course map.</p>
+    <a class="btn btn-primary" href={base}>Go to the course map →</a>
+  </section>
+</Base>
+
+<style>
+  .nf { max-width: 560px; margin: 80px auto; text-align: center; }
+  .nf-code { font-family: var(--font-serif); font-size: 4rem; font-weight: 700; color: var(--red); margin: 0; line-height: 1; }
+  .nf h1 { margin: 12px 0 8px; }
+  .nf p { color: var(--ink-2); }
+  .nf .btn { margin-top: 12px; display: inline-block; }
+</style>

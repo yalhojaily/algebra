@@ -22,6 +22,7 @@ const lessons = chapter.lessons.map((l) => {
 });
 const refs = lessons.map(({ id, title, href }) => ({ id, title, href }));
 const next = nextChapter(chapter);
+const kind = typeof chapter.number === 'string' ? 'appendix' : 'chapter';
 ---
 
 <Base title={`${chapter.label} Review & Test · Algebra`} description={`Review and test for ${chapter.label}: ${chapter.title}`}>
@@ -29,7 +30,7 @@ const next = nextChapter(chapter);
     <header class="lesson-head">
       <div class="lesson-kicker"><span class="lesson-num">{chapter.number}</span><span>{chapter.label} · review &amp; test</span></div>
       <h1>{chapter.title}</h1>
-      <p class="lesson-summary">Pull the whole chapter together: skim the key ideas, practice a mix of problems from every lesson, then take the chapter test.</p>
+      <p class="lesson-summary">Pull the whole {kind} together: skim the key ideas, practice a mix of problems from every lesson, then take the {kind} test.</p>
     </header>
 
     <h2>Key ideas</h2>
@@ -50,8 +51,8 @@ const next = nextChapter(chapter);
     <p>Problems are drawn at random from every lesson. Focus on one lesson with the tabs, or keep it mixed — mixing is harder, and it's how real tests work.</p>
     <ChapterReview client:visible lessons={refs} />
 
-    <h2 id="test">Chapter test</h2>
-    <ChapterTest client:visible id={`ch${chapter.number}-test`} lessons={refs} />
+    <h2 id="test">{typeof chapter.number === 'string' ? 'Appendix' : 'Chapter'} test</h2>
+    <ChapterTest client:visible id={`ch${chapter.number}-test`} lessons={refs} kind={kind} />
 
     {next ? (
       <p class="next-ch">Next up: <a href={lessonHref(base, next.lessons[0])}><strong>{next.label} · {next.title}</strong> →</a></p>

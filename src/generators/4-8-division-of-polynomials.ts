@@ -64,16 +64,22 @@ function longRemainder(): Problem {
 
 function missingTerm(): Problem {
   const v = 'x';
-  const k = pick([1, 2, 3, 4, 5]);
+  const k = nz(4);
   const d = Poly.fromCoefs([1, -k], v);
-  const D = Poly.fromCoefs([1, 0, 0, -(k ** 3)], v); // x^3 - k^3
-  const Q = Poly.fromCoefs([1, k, k * k], v);
+  // x^3 + p x^2 + q x + r with one of the middle terms missing, built so that (x - k) divides it.
+  const kind = pick(['x2', 'x', 'both'] as const);
+  const p = kind === 'x' ? nz(5) : 0;
+  const q = kind === 'x2' ? nz(9) : 0;
+  const r = -(k ** 3 + p * k * k + q * k);
+  const D = Poly.fromCoefs([1, p, q, r], v);
+  const Q = Poly.fromCoefs([1, p + k, q + k * (p + k)], v);
+  const filled = `x^3 ${p < 0 ? '-' : '+'} ${Math.abs(p)}x^2 ${q < 0 ? '-' : '+'} ${Math.abs(q)}x ${r < 0 ? '-' : '+'} ${Math.abs(r)}`;
   return {
     skill: 'missing',
-    prompt: `Divide: $\\;(${D.tex()}) \\div (${d.tex()})$`,
+    prompt: `Divide: $\;(${D.tex()}) \\div (${d.tex()})$`,
     answer: { type: 'expression', value: Q.text(), maxTerms: 3 },
-    hints: [`Write the missing terms with zero coefficients: $x^3 + 0x^2 + 0x - ${k ** 3}$. Then divide as usual.`],
-    solution: [...stepsTex(D, d, v), `Quotient: $${Q.tex()}$`],
+    hints: [`Write the missing terms with zero coefficients: $${filled}$. Then divide as usual.`, 'The zero terms keep the columns lined up when you subtract.'],
+    solution: [`$${filled}$`, ...stepsTex(D, d, v), `Quotient: $${Q.tex()}$`],
     placeholder: 'e.g. x^2 + 2x + 4',
   };
 }

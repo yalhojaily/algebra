@@ -24,6 +24,11 @@ function solveFormula(): Problem {
     { prompt: 'E = mc^2', v: 'c', ans: 'c = sqrt(E/m)', tex: 'c = \\sqrt{\\dfrac{E}{m}}' },
     { prompt: 'a^2 + b^2 = c^2', v: 'b', ans: 'b = sqrt(c^2 - a^2)', tex: 'b = \\sqrt{c^2 - a^2}' },
     { prompt: 'S = 4\\pi r^2', v: 'r', ans: 'r = sqrt(S/(4pi))', tex: 'r = \\dfrac{1}{2}\\sqrt{\\dfrac{S}{\\pi}}' },
+    { prompt: 'K = \\tfrac{1}{2}mv^2', v: 'v', ans: 'v = sqrt(2K/m)', tex: 'v = \\sqrt{\\dfrac{2K}{m}}' },
+    { prompt: 'P = I^2 R', v: 'I', ans: 'I = sqrt(P/R)', tex: 'I = \\sqrt{\\dfrac{P}{R}}' },
+    { prompt: 'V = s^2 h', v: 's', ans: 's = sqrt(V/h)', tex: 's = \\sqrt{\\dfrac{V}{h}}' },
+    { prompt: 'd^2 = x^2 + y^2', v: 'x', ans: 'x = sqrt(d^2 - y^2)', tex: 'x = \\sqrt{d^2 - y^2}' },
+    { prompt: 'F = \\dfrac{kq^2}{r^2}', v: 'q', ans: 'q = r*sqrt(F/k)', tex: 'q = r\\sqrt{\\dfrac{F}{k}}' },
   ]);
   return {
     skill: 'formula',

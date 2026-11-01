@@ -78,7 +78,7 @@ function divide(): Problem {
       skill: 'divide',
       prompt: `Divide: $\\;\\dfrac{${cTex(a, b)}}{${cTex(c, d)}}$ (Write the answer as $a + bi$.)`,
       answer: { type: 'complex', re, im },
-      hints: [`Multiply the top and bottom by the **conjugate** of the denominator, $${cTex(c, -d)}$.`, `The denominator becomes $${c}^2 + ${d}^2 = ${den}$.`],
+      hints: [`Multiply the top and bottom by the **conjugate** of the denominator, $${cTex(c, -d)}$.`, `The denominator becomes $${c < 0 ? `(${c})` : c}^2 + ${d < 0 ? `(${d})` : d}^2 = ${den}$.`],
       solution: [`$= \\dfrac{(${cTex(a, b)})(${cTex(c, -d)})}{${den}} = \\dfrac{${cTex(reN, imN)}}{${den}}$`, Number.isInteger(re) && Number.isInteger(im) ? `$= ${cTex(re, im)}$` : `$= ${fracTex(reN, den)} ${imN < 0 ? '-' : '+'} ${fracTex(Math.abs(imN), den)}i$`],
       placeholder: '1/2 - (3/2)i',
     };
