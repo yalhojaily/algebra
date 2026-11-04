@@ -120,12 +120,38 @@ function whichStep(): Problem {
   };
 }
 
+function multiplicationWords(): Problem {
+  if (Math.random() < 0.5) {
+    const price = pick([4, 5, 6, 8, 12, 15, 25]), n = randInt(3, 20), T = price * n;
+    const item = pick(['tickets', 'notebooks', 'meals', 'books']);
+    return {
+      skill: 'apply',
+      prompt: `${item[0].toUpperCase() + item.slice(1)} cost $${price}$ riyals each. A club spent $${T}$ riyals on them. How many did it buy? (Solve $${price}n = ${T}$.)`,
+      answer: { type: 'number', value: n },
+      hints: [`Unknown: the number $n$ bought. Key words: "${price} riyals each" means $${price}n$ for $n$ of them; the total is $${T}$.`, `Divide both sides by $${price}$.`],
+      solution: [`$${price}n = ${T}$`, `$n = \\dfrac{${T}}{${price}} = ${n}$`, `Check: $${price} \\cdot ${n} = ${T}$ ✓`],
+      placeholder: 'e.g. 9',
+    };
+  }
+  const [num, den] = pick([[1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [2, 5], [3, 5]]);
+  const total = den * randInt(4, 30), part = (num * total) / den;
+  return {
+    skill: 'apply',
+    prompt: `$\\frac{${num}}{${den}}$ of the students in a school walk to school. That is $${part}$ students. How many students are in the school? (Solve $\\frac{${num}}{${den}}x = ${part}$.)`,
+    answer: { type: 'number', value: total },
+    hints: [`Unknown: the total number of students $x$. Key words: "$\\frac{${num}}{${den}}$ of the students" means $\\frac{${num}}{${den}}x$.`, `Multiply both sides by the reciprocal, $\\frac{${den}}{${num}}$.`],
+    solution: [`$x = ${part} \\cdot \\frac{${den}}{${num}} = ${total}$`, `Check: $\\frac{${num}}{${den}} \\cdot ${total} = ${part}$ ✓`],
+    placeholder: 'e.g. 120',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'integers', label: 'Solve ax = b', generate: solveIntegers },
   { id: 'division', label: 'Solve x/a = b', generate: divisionForm },
   { id: 'fraction', label: 'Fraction coefficients', generate: fractionCoefficient },
   { id: 'decimal', label: 'Decimal coefficients', generate: decimalCoefficient },
   { id: 'step', label: 'Choose the step', generate: whichStep },
+  { id: 'apply', label: 'Word problems', generate: multiplicationWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

@@ -12,6 +12,7 @@ objectives:
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import PercentBar from '../../components/PercentBar.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -32,6 +33,15 @@ A store advertises "**30% off**". A bank offers "**4% interest**". Prices "rose 
     <tr><td>Fraction → percent</td><td>Divide, then move 2 places right</td><td>$\frac{3}{8} = 0.375 = 37.5\%$</td></tr>
   </tbody>
 </table>
+
+<QuickCheck
+  client:visible
+  question="Write $\;35\%\;$ as a decimal."
+  options={['$0.35$', '$3.5$', '$35$', '$0.035$']}
+  answer={0}
+  explain="Percent means “per hundred”: $35 \div 100 = 0.35$."
+  wrong={{ 1: 'Move the decimal point **two** places left.', 2: '$35$ is $3500$ percent.', 3: 'Move it two places, not three.' }}
+/>
 
 <Practice client:visible lesson="2.5" skill="convert" compact />
 
@@ -90,6 +100,15 @@ $$
 The base of a percent change is always the **starting** value. From $2400$ to $1800$ is a $25\%$ decrease, but from $1800$ back to $2400$ is a $33\tfrac{1}{3}\%$ increase.
 </Callout>
 
+<QuickCheck
+  client:visible
+  question="A price rises from $80$ to $100$ riyals. What is the percent increase?"
+  options={['$25\\%$', '$20\\%$', '$80\\%$', '$125\\%$']}
+  answer={0}
+  explain="The increase is $20$, and $\frac{20}{80} = 0.25 = 25\%$ — divide by the **original** price."
+  wrong={{ 1: 'That divides by the new price. Use the original, $80$.', 2: '$80\\%$ compares the old price to the new one, not the change.', 3: '$125\\%$ is the new price as a percent of the old one.' }}
+/>
+
 <Practice client:visible lesson="2.5" skill="change" compact />
 
 ## Tax, commission, and more
@@ -109,12 +128,28 @@ The base of a percent change is always the **starting** value. From $2400$ to $1
 
 <Practice client:visible lesson="2.5" skill="apply" compact />
 
+## Common mistakes
+
+<Callout type="warning" title="The wrong base">
+Percent change is $\dfrac{\text{change}}{\text{original}}$, not divided by the new value.
+</Callout>
+
+<Callout type="warning" title="Undoing a percent">
+A 10% rise then a 10% fall does **not** return to the start: $100 \to 110 \to 99$.
+</Callout>
+
+<Callout type="warning" title="Working backward">
+If a price **with** 15% tax is $230$, the price is $\frac{230}{1.15} = 200$ — not $230 - 15\%$ of $230$.
+</Callout>
+
 ## Summary
 
 - $n\% = \frac{n}{100}$. Percent → decimal: 2 places left. Decimal → percent: 2 places right.
 - **Amount = percent × base.** "of" → ×, "is" → =, "what" → the unknown.
 - Increase by $p\%$: multiply by $1 + p$. Decrease: multiply by $1 - p$.
 - Percent change = change ÷ **original**.
+
+**Next, in 2.6:** the five-step strategy for solving word problems.
 
 ## Practice
 

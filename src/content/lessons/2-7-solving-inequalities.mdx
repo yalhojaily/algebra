@@ -8,10 +8,12 @@ objectives:
   - Graph an inequality on a number line, and read an inequality from a graph.
   - Write solution sets in set-builder notation.
   - Solve inequalities with the addition and multiplication principles, reversing the sign when multiplying or dividing by a negative number.
+  - Solve word problems about budgets and limits.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import InequalityExplorer from '../../components/InequalityExplorer.tsx';
 import FlipDemo from '../../components/FlipDemo.tsx';
 import Practice from '../../components/Practice.tsx';
@@ -36,6 +38,15 @@ We also write solution sets in **set-builder notation**: $\{x \mid x \ge -2\}$, 
 Build an inequality and test some values with the pointer.
 
 <InequalityExplorer client:visible />
+
+<QuickCheck
+  client:visible
+  question="Is $\;-3\;$ a solution of $\;x > -3$?"
+  options={['No', 'Yes', 'Only if $x$ is an integer', 'It depends on the graph']}
+  answer={0}
+  explain="$-3 > -3$ is false: $-3$ is equal to $-3$, not greater. (It **is** a solution of $x \ge -3$.)"
+  wrong={{ 1: '"Greater than" does not include equal.', 2: '$-3$ is an integer, but $-3 > -3$ is still false.', 3: 'Substitute: $-3 > -3$ is false.' }}
+/>
 
 <Practice client:visible lesson="2.7" skill="check" compact />
 
@@ -90,6 +101,15 @@ For any real numbers $a$ and $b$:
 Forgetting to reverse the sign. Only **multiplying or dividing by a negative** reverses it — subtracting a number, or having a negative answer, does not.
 </Callout>
 
+<QuickCheck
+  client:visible
+  question="Solve: $\;-2x < 8$"
+  options={['$x > -4$', '$x < -4$', '$x > 4$', '$x < 4$']}
+  answer={0}
+  explain="Divide by $-2$ and **reverse** the symbol: $x > -4$."
+  wrong={{ 1: 'Dividing by a negative reverses the inequality.', 2: '$8 \\div (-2) = -4$.', 3: 'Two mistakes: the sign of $-4$, and the symbol must reverse.' }}
+/>
+
 <Practice client:visible lesson="2.7" skill="multiplication" compact />
 
 ## Using the principles together
@@ -113,12 +133,45 @@ Pick any number in your solution set (one that's easy, like $0$) and substitute 
 
 <Practice client:visible lesson="2.7" skill="together" compact />
 
+## In a real context
+
+<StepReveal
+  client:visible
+  title="A phone budget"
+  problem="A plan costs $30$ riyals a month plus $5$ riyals per extra gigabyte. The bill must be at most $100$ riyals. How many extra gigabytes can you use?"
+  steps={[
+    { show: '**Familiarize.** Let $g$ = extra gigabytes. "At most" means $\\le$.', why: '' },
+    { show: '**Translate.** $30 + 5g \\le 100$', why: '' },
+    { show: '**Solve.** $5g \\le 70 \\;\\Rightarrow\\; g \\le 14$', why: 'Dividing by a **positive** number keeps the symbol.' },
+    { show: '**Check.** $g = 14$: $30 + 70 = 100$ ✓ (allowed); $g = 15$: $105$ ✗', why: '' },
+    { show: '**State.** At most $14$ extra gigabytes.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="2.7" skill="apply" compact />
+
+## Common mistakes
+
+<Callout type="warning" title="Forgetting to reverse">
+$-3x \ge 12$ gives $x \le -4$. Multiplying or dividing by a **negative** reverses the symbol.
+</Callout>
+
+<Callout type="warning" title="Reversing when you shouldn't">
+$3x \ge -12$ gives $x \ge -4$. Only a negative **multiplier** reverses; a negative number on the other side doesn't.
+</Callout>
+
+<Callout type="warning" title="Open or closed dot">
+$x < 2$: open dot at $2$. $x \le 2$: closed dot.
+</Callout>
+
 ## Summary
 
 - Graph: closed dot for $\le, \ge$; open dot for $<, >$; shade toward the solutions.
 - Set-builder notation: $\{x \mid x < 4\}$.
 - Add or subtract on both sides freely — the sign stays.
 - Multiply or divide by a **positive**: sign stays. By a **negative**: **reverse** the sign.
+
+**Next, in 2.8:** solving word problems with inequalities.
 
 ## Practice
 

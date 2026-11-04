@@ -9,10 +9,12 @@ objectives:
   - Remove parentheses before solving, using the distributive law.
   - Clear fractions and decimals by multiplying by the LCD or a power of 10.
   - Recognize equations with no solution or with every real number as a solution.
+  - Solve two-step word problems such as fees plus a rate.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import EquationWorkbench from '../../components/EquationWorkbench.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -37,6 +39,16 @@ In $3x + 4 = 13$, two things were done to $x$: multiply by $3$, then add $4$. To
 />
 
 <Practice client:visible lesson="2.3" skill="twostep" compact />
+
+
+<QuickCheck
+  client:visible
+  question="Solve: $\;3x + 4 = 19$"
+  options={['$x = 5$', '$x = \\frac{23}{3}$', '$x = 15$', '$x = 7$']}
+  answer={0}
+  explain="Subtract $4$: $3x = 15$. Divide by $3$: $x = 5$."
+  wrong={{ 1: 'Undo the $+4$ by **subtracting** $4$, not adding.', 2: '$3x = 15$ — now divide by $3$.', 3: 'Check: $3 \\cdot 7 + 4 = 25$, not $19$.' }}
+/>
 
 ## The variable on both sides
 
@@ -102,6 +114,15 @@ Fractions are where most arithmetic errors happen. Avoid them: multiply **every 
 When clearing fractions, a term without a fraction must be multiplied too. In $\frac{x}{2} + 3 = 5$, multiplying by $2$ gives $x + 6 = 10$, not $x + 3 = 10$.
 </Callout>
 
+<QuickCheck
+  client:visible
+  question="To clear the fractions in $\;\frac{x}{2} + \frac{x}{3} = 5$, multiply **every** term by …"
+  options={['$6$', '$5$', '$2$', '$\\frac{1}{6}$']}
+  answer={0}
+  explain="$6$ is the least common denominator: $3x + 2x = 30$, so $x = 6$."
+  wrong={{ 1: 'Use the LCD of the **denominators**, $2$ and $3$.', 2: '$2$ clears only the first fraction.', 3: 'Multiplying by $\\frac{1}{6}$ makes the fractions smaller, not gone.' }}
+/>
+
 <Practice client:visible lesson="2.3" skill="fractions" compact />
 
 ## No solution, or every number?
@@ -134,12 +155,45 @@ The fourth equation in the workbench above is one of these — try it.
 6. **Check** in the original equation.
 </Callout>
 
+## In a real context
+
+<StepReveal
+  client:visible
+  title="A taxi ride"
+  problem="A taxi charges $10$ riyals plus $3$ riyals per kilometer. A ride cost $46$ riyals. How long was it?"
+  steps={[
+    { show: '**Familiarize.** Let $k$ = kilometers. The cost is $10 + 3k$.', why: 'Try a guess: $10$ km would cost $40$ — a bit too little.' },
+    { show: '**Translate.** $10 + 3k = 46$', why: '' },
+    { show: '**Solve.** $3k = 36 \\;\\Rightarrow\\; k = 12$', why: 'Subtract $10$, then divide by $3$.' },
+    { show: '**Check.** $10 + 3 \\cdot 12 = 46$ ✓', why: '' },
+    { show: '**State.** The ride was $12$ km.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="2.3" skill="apply" compact />
+
+## Common mistakes
+
+<Callout type="warning" title="Dividing too early">
+In $3x + 4 = 19$, dividing only $3x$ by $3$ isn't allowed — undo the $+4$ first, or divide **every** term.
+</Callout>
+
+<Callout type="warning" title="A negative in front of parentheses">
+$5 - 2(x - 3) = 5 - 2x + 6$. The $-2$ multiplies both terms.
+</Callout>
+
+<Callout type="warning" title="Clearing only some fractions">
+When you multiply by the LCD, **every** term on **both** sides gets multiplied — including whole numbers.
+</Callout>
+
 ## Summary
 
 - Undo operations in reverse order: usually addition principle first, multiplication principle last.
 - Collect variable terms on one side and numbers on the other.
 - Clear fractions with the LCD and decimals with a power of $10$ — multiply **every** term.
 - If the variable disappears: a true statement means all real numbers; a false one means no solution.
+
+**Next, in 2.4:** formulas — solving for a letter.
 
 ## Practice
 

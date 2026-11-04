@@ -158,12 +158,27 @@ function special(): Problem {
   };
 }
 
+function twoStepWords(): Problem {
+  const base = pick([5, 8, 10, 12, 15]), rate = pick([2, 3, 4, 5]), k = randInt(3, 25), T = base + rate * k;
+  const [what, unit, per] = pick([['A taxi charges', 'km', 'kilometer'], ['A gym charges a sign-up fee of', 'visits', 'visit'], ['A repair shop charges', 'hours', 'hour']]);
+  const pre = what === 'A gym charges a sign-up fee of' ? `${what} $${base}$ riyals plus $${rate}$ riyals per ${per}` : `${what} $${base}$ riyals plus $${rate}$ riyals per ${per}`;
+  return {
+    skill: 'apply',
+    prompt: `${pre}. A bill came to $${T}$ riyals. How many ${unit} were charged?`,
+    answer: { type: 'number', value: k },
+    hints: [`Unknown: the number of ${unit}, $n$. Key words: "${base} plus ${rate} per ${per}" gives $${base} + ${rate}n$; the bill "came to ${T}".`, `Solve $${base} + ${rate}n = ${T}$: subtract $${base}$, then divide by $${rate}$.`],
+    solution: [`$${base} + ${rate}n = ${T}$`, `$${rate}n = ${T - base}$`, `$n = ${k}$`, `Check: $${base} + ${rate} \\cdot ${k} = ${T}$ ✓`],
+    placeholder: 'e.g. 12',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'twostep', label: 'Two-step equations', generate: twoStep },
   { id: 'both', label: 'Variable on both sides', generate: bothSides },
   { id: 'parens', label: 'Parentheses', generate: parentheses },
   { id: 'fractions', label: 'Clear fractions & decimals', generate: clearFractions },
   { id: 'special', label: 'No solution / all reals', generate: special },
+  { id: 'apply', label: 'Word problems', generate: twoStepWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

@@ -11,6 +11,7 @@ objectives:
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import BarModel from '../../components/BarModel.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -67,6 +68,15 @@ A picture often *is* the equation. Here, one piece of rope is a certain amount l
   ]}
 />
 
+<QuickCheck
+  client:visible
+  question="How do you write three consecutive **even** integers?"
+  options={['$x$, $x + 2$, $x + 4$', '$x$, $x + 1$, $x + 2$', '$x$, $2x$, $3x$', '$2x$, $2x + 1$, $2x + 2$']}
+  answer={0}
+  explain="Even integers are $2$ apart, like $6, 8, 10$."
+  wrong={{ 1: 'Those are consecutive integers; one of them is odd.', 2: 'Those are multiples, not consecutive numbers.', 3: '$2x + 1$ is odd.' }}
+/>
+
 <Practice client:visible lesson="2.6" skill="consecutive" compact />
 
 ## Perimeter and angles
@@ -90,6 +100,15 @@ A picture often *is* the equation. Here, one piece of rope is a certain amount l
 The measures of the three angles of any triangle add up to $180^\circ$.
 </Callout>
 
+<QuickCheck
+  client:visible
+  question="The angles of a triangle are $x$, $2x$ and $3x$ degrees. What is $x$?"
+  options={['$30$', '$60$', '$180$', '$45$']}
+  answer={0}
+  explain="$x + 2x + 3x = 180$, so $6x = 180$ and $x = 30$."
+  wrong={{ 1: '$60$ is the middle angle, $2x$.', 2: '$180$ is the total; divide by $6$.', 3: 'The angles add to $180$: $6x = 180$.' }}
+/>
+
 <Practice client:visible lesson="2.6" skill="angles" compact />
 
 ## Fees and rates
@@ -112,6 +131,8 @@ Many costs are "a fixed fee plus a rate times an amount": $\;\text{cost} = \text
 - Pick one variable and write every other unknown in terms of it.
 - Consecutive integers: $x, x + 1, x + 2$. Consecutive even/odd: $x, x + 2, x + 4$.
 - Triangle angles sum to $180^\circ$. Rectangle perimeter: $P = 2l + 2w$.
+
+**Next, in 2.7:** inequalities — and the one rule that differs from equations.
 
 ## Practice
 

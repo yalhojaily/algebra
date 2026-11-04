@@ -1,5 +1,5 @@
 // Practice problem generators for Lesson 2.1 — Solving Equations: The Addition Principle.
-import { choice, coprimeTo, F, makeMasterySet, nz, p, pick } from './helpers';
+import { choice, coprimeTo, F, makeMasterySet, nz, p, pick, randInt } from './helpers';
 import type { Problem, Skill } from './types';
 
 const V = () => pick(['x', 'y', 't', 'a', 'n']);
@@ -116,11 +116,42 @@ function whichStep(): Problem {
   };
 }
 
+function additionWords(): Problem {
+  const a = randInt(5, 60), x = randInt(10, 150);
+  const kind = pick(['spent', 'rose', 'grew'] as const);
+  if (kind === 'spent') {
+    const b = x - a > 0 ? x - a : x + a;
+    const start = b + a;
+    return {
+      skill: 'apply',
+      prompt: `After spending $${a}$ riyals on a book, Sara has $${b}$ riyals left. How much did she have before? (Solve $x - ${a} = ${b}$.)`,
+      answer: { type: 'number', value: start },
+      hints: [`Unknown: the starting amount $x$. Key words: "after spending ${a}" means $x - ${a}$; "has ${b} left" means $= ${b}$.`, `Add $${a}$ to both sides.`],
+      solution: [`$x - ${a} = ${b}$`, `$x = ${b} + ${a} = ${start}$ riyals`, `Check: $${start} - ${a} = ${b}$ ✓`],
+      placeholder: 'e.g. 85',
+    };
+  }
+  const t0 = randInt(-15, 20), d = randInt(3, 25), t1 = t0 + d;
+  return {
+    skill: 'apply',
+    prompt: kind === 'rose'
+      ? `By noon the temperature had risen $${d}$ degrees to $${t1}°$C. What was it in the morning? (Solve $t + ${d} = ${t1}$.)`
+      : `A plant grew $${d}$ cm this month and is now $${t1 + 30}$ cm tall. How tall was it a month ago? (Solve $h + ${d} = ${t1 + 30}$.)`,
+    answer: { type: 'number', value: kind === 'rose' ? t0 : t0 + 30 },
+    hints: [`Unknown: the earlier value. Key words: "risen" or "grew" means add $${d}$ to it.`, `Subtract $${d}$ from both sides.`],
+    solution: kind === 'rose'
+      ? [`$t + ${d} = ${t1}$`, `$t = ${t1} - ${d} = ${t0}$`, `It was $${t0}°$C in the morning.`]
+      : [`$h + ${d} = ${t1 + 30}$`, `$h = ${t1 + 30} - ${d} = ${t0 + 30}$`, `It was $${t0 + 30}$ cm tall.`],
+    placeholder: 'e.g. 12',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'integers', label: 'Solve', generate: solveIntegers },
   { id: 'rational', label: 'Fractions & decimals', generate: solveRational },
   { id: 'simplify', label: 'Simplify first', generate: simplifyFirst },
   { id: 'step', label: 'Choose the step', generate: whichStep },
+  { id: 'apply', label: 'Word problems', generate: additionWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

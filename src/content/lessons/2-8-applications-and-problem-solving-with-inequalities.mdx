@@ -11,6 +11,7 @@ objectives:
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import InequalityPhrases from '../../components/InequalityPhrases.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -43,6 +44,15 @@ Pick a phrase and change the number. Notice when the dot is open and when it's c
 <Callout type="warning" title="“At least” is not “more than”">
 If you need **at least** $50$ points, then exactly $50$ is fine: $p \ge 50$. If you need **more than** $50$, then $50$ isn't enough: $p > 50$.
 </Callout>
+
+<QuickCheck
+  client:visible
+  question="“Your score must be **at least** $18$” means …"
+  options={['$s \\ge 18$', '$s > 18$', '$s \\le 18$', '$s < 18$']}
+  answer={0}
+  explain="At least $18$: $18$ itself is allowed, and so is anything above it."
+  wrong={{ 1: '"At least" includes $18$ itself.', 2: 'That is "at most".', 3: 'That is "less than".' }}
+/>
 
 <Practice client:visible lesson="2.8" skill="translate" compact />
 
@@ -77,13 +87,38 @@ Use the same five steps as in Lesson 2.6 — but the translation is an inequalit
   ]}
 />
 
+<QuickCheck
+  client:visible
+  question="Your first two test scores are $75$ and $82$. You need an average of at least $80$ over three tests. Which inequality fits?"
+  options={['$\\frac{75 + 82 + x}{3} \\ge 80$', '$75 + 82 + x \\ge 80$', '$\\frac{75 + 82}{2} + x \\ge 80$', '$\\frac{75 + 82 + x}{3} > 80$']}
+  answer={0}
+  explain="Average = sum ÷ number of tests, and “at least” is $\ge$. (So $x \ge 83$.)"
+  wrong={{ 1: 'That is the sum, not the average.', 2: 'The average of all three tests divides the total by $3$.', 3: '"At least" includes $80$, so use $\\ge$.' }}
+/>
+
 <Practice client:visible lesson="2.8" skill="apply" compact />
+
+## Common mistakes
+
+<Callout type="warning" title="Ignoring the situation">
+$n \le 14.6$ tickets means at most $14$ — the answer must make sense (whole tickets).
+</Callout>
+
+<Callout type="warning" title="Reversing the symbol in the wrong place">
+Reverse only when multiplying or dividing **both sides** by a negative number.
+</Callout>
+
+<Callout type="warning" title="“No more than” and “no less than”">
+“No more than $50$” is $\le 50$; “no less than $50$” is $\ge 50$.
+</Callout>
 
 ## Summary
 
 - **At least / no less than** → $\ge$. **At most / no more than / does not exceed** → $\le$.
 - **More than / exceeds** → $>$. **Less than** → $<$.
 - Use **Familiarize, Translate, Solve, Check, State**. The answer is a set of values, not a single number.
+
+**Next, in Chapter 3:** graphs of equations.
 
 ## Practice
 

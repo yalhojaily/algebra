@@ -8,10 +8,12 @@ objectives:
   - Solve −x = c correctly.
   - Solve equations with fraction or decimal coefficients by multiplying by the reciprocal.
   - Decide which principle — addition or multiplication — an equation needs.
+  - Solve word problems that lead to equations like ax = b.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import EquationWorkbench from '../../components/EquationWorkbench.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -69,6 +71,15 @@ Try it yourself. This time all four operations are available.
   { label: 'p4', a: -0.4, b: 0, c: 0, d: 2 },
 ]} />
 
+<QuickCheck
+  client:visible
+  question="To solve $\;-4x = 20$, you should …"
+  options={['Divide both sides by $-4$', 'Divide both sides by $4$', 'Add $4$ to both sides', 'Multiply both sides by $-4$']}
+  answer={0}
+  explain="Dividing by $-4$ undoes multiplying by $-4$: $x = -5$."
+  wrong={{ 1: 'That leaves $-x = 5$ — not finished. Divide by the whole coefficient, $-4$.', 2: '$x$ is multiplied by $-4$, so undo it by dividing.', 3: 'That gives $16x = -80$ — further from $x$ alone.' }}
+/>
+
 <Practice client:visible lesson="2.2" skill="step" compact />
 
 <Practice client:visible lesson="2.2" skill="integers" compact />
@@ -100,6 +111,15 @@ When the coefficient is a fraction, the fastest move is to multiply both sides b
   ]}
 />
 
+<QuickCheck
+  client:visible
+  question="Solve: $\;\frac{2}{3}x = 10$"
+  options={['$x = 15$', '$x = \\frac{20}{3}$', '$x = 30$', '$x = 5$']}
+  answer={0}
+  explain="Multiply both sides by the reciprocal $\frac{3}{2}$: $x = 10 \cdot \frac{3}{2} = 15$."
+  wrong={{ 1: 'That multiplies by $\\frac{2}{3}$ again. Use the **reciprocal**, $\\frac{3}{2}$.', 2: 'Multiplying by $3$ alone gives $2x = 30$; then divide by $2$.', 3: 'Dividing by $2$ alone gives $\\frac{1}{3}x = 5$; then multiply by $3$.' }}
+/>
+
 <Practice client:visible lesson="2.2" skill="fraction" compact />
 
 <Practice client:visible lesson="2.2" skill="decimal" compact />
@@ -118,6 +138,23 @@ Look at what is being done **to** the variable, then undo it:
   </tbody>
 </table>
 
+## In a real context
+
+<StepReveal
+  client:visible
+  title="Buying tickets"
+  problem="Tickets cost $12$ riyals each. A family spent $180$ riyals on tickets. How many did they buy?"
+  steps={[
+    { show: '**Familiarize.** Let $n$ = the number of tickets. $n$ tickets at $12$ each cost $12n$.', why: '' },
+    { show: '**Translate.** $12n = 180$', why: '' },
+    { show: '**Solve.** $n = \\dfrac{180}{12} = 15$', why: 'Divide both sides by $12$.' },
+    { show: '**Check.** $12 \\cdot 15 = 180$ ✓', why: '' },
+    { show: '**State.** They bought $15$ tickets.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="2.2" skill="apply" compact />
+
 ## Watch out for these
 
 <Callout type="warning" title="Common mistakes">
@@ -131,6 +168,8 @@ Look at what is being done **to** the variable, then undo it:
 - **Multiplication principle:** $a = b$ is equivalent to $ac = bc$ for any ${c \neq 0}$.
 - Undo multiplication by dividing; undo division by multiplying.
 - With a fraction coefficient, multiply both sides by its **reciprocal**.
+
+**Next, in 2.3:** using both principles together to solve equations in several steps.
 
 ## Practice
 

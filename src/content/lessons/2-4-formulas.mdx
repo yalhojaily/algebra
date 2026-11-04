@@ -11,6 +11,7 @@ objectives:
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import FormulaSolver from '../../components/FormulaSolver.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -32,6 +33,15 @@ A **formula** is an equation that uses letters to represent a relationship betwe
     { show: '$= 200 \\cdot 3 = 600$', why: 'Multiply left to right.' },
   ]}
   answer="The interest is $600$ riyals."
+/>
+
+<QuickCheck
+  client:visible
+  question="Using $\;d = rt$, how far do you travel at $60$ km/h for $2.5$ hours?"
+  options={['$150$ km', '$24$ km', '$62.5$ km', '$57.5$ km']}
+  answer={0}
+  explain="$d = 60 \cdot 2.5 = 150$ km."
+  wrong={{ 1: 'That divides $60$ by $2.5$; $rt$ means multiply.', 2: 'That adds; $rt$ means $r$ **times** $t$.', 3: 'That subtracts; $rt$ is a product.' }}
 />
 
 <Practice client:visible lesson="2.4" skill="evaluate" compact />
@@ -65,6 +75,15 @@ Pick a formula and a letter, and step through it. The highlighted letter is the 
 $bh = 2A$ is true, but it isn't solved for $h$ — $h$ is still multiplied by $b$. The letter you're solving for must be **alone** on one side, and **must not appear** on the other side.
 </Callout>
 
+<QuickCheck
+  client:visible
+  question="Solve $\;A = lw\;$ for $w$."
+  options={['$w = \\frac{A}{l}$', '$w = A - l$', '$w = Al$', '$w = \\frac{l}{A}$']}
+  answer={0}
+  explain="$w$ is multiplied by $l$, so divide both sides by $l$."
+  wrong={{ 1: '$l$ multiplies $w$; undo it by dividing, not subtracting.', 2: 'Multiplying by $l$ gives $Al = l^2w$ — further away.', 3: 'Upside down: $A$ goes on top.' }}
+/>
+
 <Practice client:visible lesson="2.4" skill="solvefor" compact />
 
 ## Rearrange first, then use
@@ -85,11 +104,42 @@ If you need to answer the same kind of question many times, rearrange the formul
 
 <Practice client:visible lesson="2.4" skill="use" compact />
 
+## In a real context
+
+<StepReveal
+  client:visible
+  title="Fencing a garden"
+  problem="A rectangular garden needs $50$ m of fence, and it is $15$ m long. Use $P = 2l + 2w$ to find its width."
+  steps={[
+    { show: '**Familiarize.** $P = 50$ and $l = 15$; the width $w$ is unknown.', why: '' },
+    { show: '**Translate.** $50 = 2(15) + 2w$', why: '' },
+    { show: '**Solve.** $50 = 30 + 2w \\;\\Rightarrow\\; 20 = 2w \\;\\Rightarrow\\; w = 10$', why: '' },
+    { show: '**Check.** $2(15) + 2(10) = 50$ ✓', why: '' },
+    { show: '**State.** The garden is $10$ m wide.', why: '' },
+  ]}
+/>
+
+## Common mistakes
+
+<Callout type="warning" title="Not getting the letter alone">
+$2w = P - 2l$ is not finished: divide by $2$ to get $w = \frac{P - 2l}{2}$.
+</Callout>
+
+<Callout type="warning" title="Dividing only one term">
+From $P = 2l + 2w$, dividing by $2$ gives $\frac{P}{2} = l + w$ — **both** terms on the right are divided.
+</Callout>
+
+<Callout type="warning" title="Mixing units">
+In $d = rt$ with $r$ in km/h, $t$ must be in **hours**: $30$ minutes is $0.5$ h.
+</Callout>
+
 ## Summary
 
 - A **formula** relates quantities with letters. Evaluate it by substituting.
 - To **solve for a letter**, treat the other letters as numbers and use the addition and multiplication principles.
 - The answer must have that letter alone on one side, and nowhere on the other.
+
+**Next, in 2.5:** percent — translating and solving percent problems.
 
 ## Practice
 

@@ -110,12 +110,27 @@ function together(): Problem {
   };
 }
 
+function inequalityWords(): Problem {
+  const base = pick([20, 30, 40, 50]), rate = pick([0.5, 2, 5]), budget = base + rate * randInt(8, 40) + pick([0, 0, 1, 2]);
+  const max = Math.floor((budget - base) / rate + 1e-9);
+  const [item, unit] = rate === 0.5 ? ['minute of calls', 'minutes'] : rate === 2 ? ['song download', 'songs'] : ['extra gigabyte', 'gigabytes'];
+  return {
+    skill: 'apply',
+    prompt: `A phone plan costs $${base}$ riyals a month plus $${rate}$ riyals per ${item}. To keep the bill at most $${budget}$ riyals, what is the greatest whole number of ${unit} you can use?`,
+    answer: { type: 'number', value: max },
+    hints: [`Unknown: the number of ${unit}, $n$. Key words: "at most ${budget}" means $\\le ${budget}$.`, `Solve $${base} + ${rate}n \\le ${budget}$, then take the largest whole number that fits.`],
+    solution: [`$${base} + ${rate}n \\le ${budget}$`, `$${rate}n \\le ${budget - base}$`, `$n \\le ${+((budget - base) / rate).toFixed(2)}$`, `The greatest whole number is $${max}$.`],
+    placeholder: 'e.g. 40',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'check', label: 'Check a solution', generate: isSolution },
   { id: 'graph', label: 'Read a graph', generate: graph },
   { id: 'addition', label: 'Addition principle', generate: additionPrinciple },
   { id: 'multiplication', label: 'Multiplication principle', generate: multiplicationPrinciple },
   { id: 'together', label: 'Both principles', generate: together },
+  { id: 'apply', label: 'Word problems', generate: inequalityWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

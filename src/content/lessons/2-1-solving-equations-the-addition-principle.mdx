@@ -8,10 +8,12 @@ objectives:
   - Use the addition principle to solve equations like x + 9 = 2 and x − 4.5 = 7.
   - Simplify one side before solving.
   - Check a solution by substituting it into the original equation.
+  - Solve word problems that lead to equations like x + a = b.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import BalanceCheck from '../../components/BalanceCheck.tsx';
 import EquationWorkbench from '../../components/EquationWorkbench.tsx';
 import Practice from '../../components/Practice.tsx';
@@ -82,6 +84,15 @@ Now you be the one who decides. Choose what to add or subtract on **both** sides
 Subtracting $6$ from only the left side changes the equation — the balance tips. Every step must be done to **both** sides.
 </Callout>
 
+<QuickCheck
+  client:visible
+  question="To solve $\;x + 9 = 4$, what do you do to both sides?"
+  options={['Subtract $9$', 'Add $9$', 'Subtract $4$', 'Divide by $9$']}
+  answer={0}
+  explain="Subtracting $9$ undoes adding $9$: $x = 4 - 9 = -5$."
+  wrong={{ 1: 'Adding $9$ gives $x + 18$ — further from $x$ alone.', 2: 'Remove the number that is **with** $x$, which is $9$.', 3: '$9$ is added to $x$, not multiplied, so undo it by subtracting.' }}
+/>
+
 <Practice client:visible lesson="2.1" skill="step" compact />
 
 <Practice client:visible lesson="2.1" skill="integers" compact />
@@ -116,7 +127,33 @@ If one side has numbers that can be combined, combine them before you solve.
   ]}
 />
 
+<QuickCheck
+  client:visible
+  question="Solve: $\;-3 = y - 8$"
+  options={['$y = 5$', '$y = -11$', '$y = 11$', '$y = -5$']}
+  answer={0}
+  explain="Add $8$ to both sides: $-3 + 8 = 5$."
+  wrong={{ 1: 'Undo $-8$ by **adding** $8$.', 2: '$-3 + 8 = 5$, not $11$.', 3: 'Check: $-5 - 8 = -13$, not $-3$.' }}
+/>
+
 <Practice client:visible lesson="2.1" skill="simplify" compact />
+
+## In a real context
+
+<StepReveal
+  client:visible
+  title="Price difference"
+  problem="A jacket costs $45$ riyals more than a shirt. The jacket costs $120$ riyals. How much is the shirt?"
+  steps={[
+    { show: '**Familiarize.** Let $s$ = the price of the shirt. "45 more than the shirt" is $s + 45$.', why: '' },
+    { show: '**Translate.** $s + 45 = 120$', why: '' },
+    { show: '**Solve.** $s = 120 - 45 = 75$', why: 'Subtract $45$ from both sides.' },
+    { show: '**Check.** $75 + 45 = 120$ ✓', why: '' },
+    { show: '**State.** The shirt costs $75$ riyals.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="2.1" skill="apply" compact />
 
 ## Watch out for these
 
@@ -132,6 +169,8 @@ If one side has numbers that can be combined, combine them before you solve.
 - **Addition principle:** $a = b$ is equivalent to $a + c = b + c$.
 - To undo "$+\,c$", add $-c$ to both sides; to undo "$-\,c$", add $c$.
 - Always check in the **original** equation.
+
+**Next, in 2.2:** the multiplication principle — undoing multiplication and division.
 
 ## Practice
 
