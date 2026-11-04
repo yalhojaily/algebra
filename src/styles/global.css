@@ -157,3 +157,5 @@ table.nice th { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0
 
 /* Wide tables scroll sideways on small screens instead of being cut off. */
 .table-scroll { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.fig-center { display: flex; justify-content: center; margin: 1em 0; }
+.fig-center svg { max-width: 100%; height: auto; }

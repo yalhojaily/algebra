@@ -1,31 +1,99 @@
 ---
 id: "11.6"
 title: "Graphing f(x) = ax² + bx + c"
-summary: "Find the vertex with x = −b/(2a) (or by completing the square), find the intercepts, and sketch."
-minutes: 35
+summary: "The vertex of f(x) = ax² + bx + c is at x = −b/(2a). With the vertex, the intercepts and one mirror point you can sketch any parabola — and answer “how high?”, “when?” and “what price?” questions."
+minutes: 50
 objectives:
-  - Find the vertex of f(x) = ax² + bx + c.
+  - Explain why the vertex of f(x) = ax² + bx + c is at x = −b/(2a).
+  - Find the vertex and decide whether it is a maximum or a minimum.
   - Rewrite f(x) = ax² + bx + c in vertex form by completing the square.
-  - Find x- and y-intercepts and graph.
+  - Find the x- and y-intercepts and sketch the graph.
+  - Use the vertex to solve applied maximum and minimum problems.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import StandardToVertex from '../../components/StandardToVertex.tsx';
+import { Plane } from '../../components/Plane.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
 
 <Callout type="why">
-Quadratic functions usually show up as $ax^2 + bx + c$, not in vertex form. You don't need to convert every time: the vertex's $x$-coordinate is always $-\frac{b}{2a}$.
+A ball's height, a shop's revenue and a bakery's profit all follow quadratic functions, and they almost always come written as $ax^2 + bx + c$, not in vertex form. The questions people ask about them — *How high does it go? When? What price earns the most?* — are all questions about one point: the **vertex**. This lesson shows how to find it straight from $a$, $b$ and $c$, and why the formula works.
 </Callout>
 
-## The vertex
+## Where is the vertex — and why?
 
-For $f(x) = ax^2 + bx + c$ the vertex is
+In 11.5 you read the vertex straight off $f(x) = a(x - h)^2 + k$. For $f(x) = ax^2 + bx + c$ it is hidden, but **symmetry** finds it.
 
-$$\left(-\frac{b}{2a},\ f\!\left(-\frac{b}{2a}\right)\right)$$
+A parabola is symmetric about a vertical line through its vertex, the **axis of symmetry**. So if two points of the graph have the **same height**, the axis is exactly **halfway** between them. Two such points are easy to find:
+
+- At $x = 0$: $\;f(0) = c$.
+- At $x = -\dfrac{b}{a}$: $\;f\!\left(-\dfrac{b}{a}\right) = a \cdot \dfrac{b^2}{a^2} - \dfrac{b^2}{a} + c = \dfrac{b^2}{a} - \dfrac{b^2}{a} + c = c$.
+
+Both points have height $c$. Halfway between $0$ and $-\frac{b}{a}$ is
+
+$$x = -\frac{b}{2a}.$$
+
+That is the axis of symmetry, and the vertex sits on it. Its height is $f\!\left(-\frac{b}{2a}\right)$:
+
+$$\text{vertex} = \left(-\frac{b}{2a},\ f\!\left(-\frac{b}{2a}\right)\right)$$
+
+<QuickCheck
+  client:visible
+  question="The graph of $f(x) = x^2 - 6x + 5$ passes through $(0, 5)$ and $(6, 5)$. Where is its axis of symmetry?"
+  options={['$x = 3$', '$x = 6$', '$x = -3$', '$x = 5$']}
+  answer={0}
+  explain="The two points have the same height, so the axis is halfway between $x = 0$ and $x = 6$. The formula agrees: $-\frac{b}{2a} = -\frac{-6}{2} = 3$."
+  wrong={{ 1: '$x = 6$ is one of the two points. The axis is halfway between them.', 2: 'Check the sign: halfway between $0$ and $6$ is positive.', 3: '$5$ is the height of both points, not an $x$-value.' }}
+/>
+
+### Maximum or minimum?
+
+The sign of $a$ tells you which way the parabola opens — no calculation needed:
+
+- $a > 0$: opens **up**, so the vertex is the lowest point: $f$ has a **minimum** value.
+- $a < 0$: opens **down**, so the vertex is the highest point: $f$ has a **maximum** value.
+
+The maximum or minimum **value** is the $y$-coordinate of the vertex. Move the sliders and watch the vertex, the axis and the intercepts follow $a$, $b$ and $c$.
 
 <StandardToVertex client:visible />
+
+<QuickCheck
+  client:visible
+  question="Without calculating anything: $f(x) = -3x^2 + 12x - 1$ has…"
+  options={['a maximum value', 'a minimum value', 'both a maximum and a minimum', 'neither']}
+  answer={0}
+  explain="$a = -3 < 0$, so the parabola opens down and the vertex is its highest point."
+  wrong={{ 1: 'Look at the sign of $a$. A negative $a$ makes the parabola open down.', 2: 'A parabola has only one turning point, the vertex.', 3: 'Every parabola has a vertex, and it is either the highest or the lowest point.' }}
+/>
+
+## Finding the vertex
+
+<StepReveal
+  client:visible
+  title="Opens up: a minimum"
+  problem="Find the vertex of $f(x) = x^2 - 4x + 1$. Is it a maximum or a minimum?"
+  steps={[
+    { show: '$a = 1,\\; b = -4,\\; c = 1$', why: 'Read the coefficients carefully, signs included.' },
+    { show: '$x = -\\dfrac{b}{2a} = -\\dfrac{-4}{2(1)} = 2$', why: 'Two minus signs: $-(-4) = 4$.' },
+    { show: '$f(2) = 2^2 - 4(2) + 1 = -3$', why: 'The vertex is a point, so also find its height.' },
+    { show: 'Vertex $(2, -3)$; the **minimum** value is $-3$.', why: '$a = 1 > 0$, so the parabola opens up.' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="Opens down: a maximum"
+  problem="Find the vertex of $f(x) = -2x^2 - 8x + 3$ and the maximum or minimum value."
+  steps={[
+    { show: '$a = -2,\\; b = -8,\\; c = 3$', why: '' },
+    { show: '$x = -\\dfrac{-8}{2(-2)} = \\dfrac{8}{-4} = -2$', why: 'Watch both signs: the top is $+8$, the bottom is $-4$.' },
+    { show: '$f(-2) = -2(-2)^2 - 8(-2) + 3 = -8 + 16 + 3 = 11$', why: 'Square first: $(-2)^2 = 4$, then multiply by $-2$.' },
+    { show: 'Vertex $(-2, 11)$; the **maximum** value is $11$.', why: '$a = -2 < 0$: opens down.' },
+  ]}
+/>
 
 <Practice client:visible lesson="11.6" skill="vertex" compact />
 
@@ -33,31 +101,155 @@ $$\left(-\frac{b}{2a},\ f\!\left(-\frac{b}{2a}\right)\right)$$
 
 ## Vertex form by completing the square
 
+Sometimes you want the whole function in vertex form $a(x - h)^2 + k$, for example to see every transformation at once. Completing the square gets there. When $a \neq 1$, **factor $a$ out of the $x$-terms first**, so the inside starts with plain $x^2$.
+
 <StepReveal
   client:visible
   title="Complete the square inside a function"
   problem="Write $\;f(x) = 2x^2 - 12x + 13\;$ in vertex form."
   steps={[
-    { show: '$= 2(x^2 - 6x) + 13$', why: 'Factor $a = 2$ out of the $x$-terms.' },
-    { show: '$= 2(x^2 - 6x + 9 - 9) + 13$', why: 'Add and subtract $\\left(\\frac{-6}{2}\\right)^2 = 9$ inside.' },
-    { show: '$= 2(x - 3)^2 - 18 + 13 = 2(x - 3)^2 - 5$', why: 'The $-9$ is multiplied by $2$ when it leaves the parentheses.' },
+    { show: '$= 2(x^2 - 6x) + 13$', why: 'Factor $a = 2$ out of the $x$-terms only. The $13$ stays outside.' },
+    { show: '$= 2(x^2 - 6x + 9 - 9) + 13$', why: 'Add and subtract $\\left(\\frac{-6}{2}\\right)^2 = 9$ inside. Adding $0$ changes nothing.' },
+    { show: '$= 2(x - 3)^2 - 18 + 13$', why: 'Group $x^2 - 6x + 9 = (x - 3)^2$. The $-9$ is still inside the parentheses, so it is multiplied by $2$ when it comes out: $-18$.' },
+    { show: '$= 2(x - 3)^2 - 5$', why: 'Check with the formula: $-\\frac{b}{2a} = \\frac{12}{4} = 3$ and $f(3) = 18 - 36 + 13 = -5$. ✓' },
   ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="In $\;2(x^2 - 6x + 9 - 9) + 13$, what does the $-9$ become when it is moved out of the parentheses?"
+  options={['$-9$', '$-18$', '$+9$', '$-4.5$']}
+  answer={1}
+  explain="Everything inside the parentheses is multiplied by $2$, including the $-9$: $2 \cdot (-9) = -18$."
+  wrong={{ 0: 'This is the most common mistake. The $-9$ is inside the parentheses, so it is multiplied by the $2$ in front.', 2: 'Moving a term out of parentheses does not change its sign — but it is multiplied by the factor in front.', 3: 'We multiply by the $2$ in front, we don\'t divide.' }}
 />
 
 <Practice client:visible lesson="11.6" skill="form" compact />
 
 ## Intercepts
 
-- **$y$-intercept:** $(0, c)$.
-- **$x$-intercepts:** solve $ax^2 + bx + c = 0$. There may be two, one or none.
+- **$y$-intercept:** set $x = 0$. It is always $(0, c)$.
+- **$x$-intercepts:** solve $ax^2 + bx + c = 0$, by factoring or the quadratic formula.
+
+The discriminant $b^2 - 4ac$ (from 11.4) tells you in advance how many $x$-intercepts there are: positive gives **two**, zero gives **one** (the vertex sits on the $x$-axis), negative gives **none**.
+
+<StepReveal
+  client:visible
+  title="Intercepts, and a check with symmetry"
+  problem="Find the intercepts of $f(x) = x^2 - 2x - 3$."
+  steps={[
+    { show: '$y$-intercept: $f(0) = -3$, so $(0, -3)$', why: '' },
+    { show: '$x^2 - 2x - 3 = 0 \\;\\Rightarrow\\; (x - 3)(x + 1) = 0 \\;\\Rightarrow\\; x = 3 \\text{ or } x = -1$', why: 'The $x$-intercepts are $(3, 0)$ and $(-1, 0)$.' },
+    { show: 'Check: halfway between $-1$ and $3$ is $1$, and $-\\dfrac{b}{2a} = \\dfrac{2}{2} = 1$ ✓', why: 'The two $x$-intercepts have the same height ($0$), so the axis of symmetry is halfway between them.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="How many $x$-intercepts does $f(x) = x^2 + 2x + 5$ have?"
+  options={['none', 'one', 'two', "can't tell without graphing"]}
+  answer={0}
+  explain="$b^2 - 4ac = 4 - 20 = -16 < 0$, so $f(x) = 0$ has no real solutions. You can also see it: the vertex is $(-1, 4)$, above the $x$-axis, and the parabola opens up, so it never comes down to the axis."
+  wrong={{ 1: 'One intercept needs $b^2 - 4ac = 0$. Compute it: $2^2 - 4(1)(5)$.', 2: 'Two intercepts need $b^2 - 4ac > 0$. Compute it: $2^2 - 4(1)(5)$.', 3: 'The discriminant $b^2 - 4ac$ tells you without graphing.' }}
+/>
 
 <Practice client:visible lesson="11.6" skill="intercepts" compact />
 
+## Putting it together: sketching the graph
+
+To sketch $f(x) = ax^2 + bx + c$ by hand:
+
+1. **Direction:** the sign of $a$ (up or down).
+2. **Vertex** $\left(-\frac{b}{2a}, f\!\left(-\frac{b}{2a}\right)\right)$ and the axis of symmetry.
+3. **$y$-intercept** $(0, c)$ — and its **mirror point** across the axis, for free.
+4. **$x$-intercepts**, if there are any.
+5. Draw a smooth U through the points.
+
+<StepReveal
+  client:visible
+  title="A full sketch"
+  problem="Graph $f(x) = -x^2 + 2x + 3$."
+  steps={[
+    { show: '$a = -1 < 0$: the parabola opens **down**.', why: '' },
+    { show: 'Vertex: $x = -\\dfrac{2}{2(-1)} = 1$, $\\;f(1) = -1 + 2 + 3 = 4$, so $(1, 4)$', why: 'The axis of symmetry is $x = 1$.' },
+    { show: '$y$-intercept $(0, 3)$; mirror point $(2, 3)$', why: '$x = 0$ is $1$ unit left of the axis, so $x = 2$ (1 unit right) has the same height.' },
+    { show: '$-x^2 + 2x + 3 = 0 \\;\\Rightarrow\\; x^2 - 2x - 3 = 0 \\;\\Rightarrow\\; x = 3 \\text{ or } x = -1$', why: 'Multiply both sides by $-1$ first, then factor. The $x$-intercepts are $(-1, 0)$ and $(3, 0)$, symmetric about $x = 1$ again.' },
+    { show: 'Plot the five points and draw the curve (below).', why: '' },
+  ]}
+/>
+
+<div class="fig-center">
+  <Plane range={5} size={300} curves={[{ coefs: [-1, 2, 3] }]} lines={[{ a: 1, b: 0, c: 1, cls: 'faint' }]} points={[{ x: 1, y: 4, cls: 'red', label: '(1, 4)' }, { x: 0, y: 3, cls: 'amber', label: '(0, 3)' }, { x: 2, y: 3, cls: 'amber', label: '(2, 3)' }, { x: -1, y: 0, cls: 'answer', label: '(−1, 0)' }, { x: 3, y: 0, cls: 'answer', label: '(3, 0)' }]} label="Graph of f(x) = −x² + 2x + 3" />
+</div>
+
+## In a real context
+
+Every applied question in this lesson is a vertex question in disguise. Use the five problem-solving steps from 2.6 — and in step 1, decide whether the question asks for the vertex's **first** coordinate (*when? what price? how many?*) or its **second** coordinate (*how high? how much?*).
+
+<StepReveal
+  client:visible
+  title="How high does the ball go?"
+  problem="A ball is thrown upward from a 5-ft platform. Its height after $t$ seconds is $h(t) = -16t^2 + 64t + 5$ feet. What is its maximum height, and when does it reach it?"
+  steps={[
+    { show: '**Familiarize.** $t$ is time (s) and $h$ is height (ft). $a = -16 < 0$, so the graph opens down and the highest point is the **vertex**.', why: 'Guess and look: $h(1) = 53$, $h(2) = 69$, $h(3) = 53$. The heights rise and fall symmetrically around $t = 2$.' },
+    { show: '**Translate.** We need both coordinates of the vertex of $h$: $\\;t = -\\dfrac{b}{2a}$, then $h(t)$.', why: '"When" asks for $t$; "how high" asks for $h$.' },
+    { show: '**Solve.** $t = -\\dfrac{64}{2(-16)} = 2$, $\\quad h(2) = -64 + 128 + 5 = 69$', why: '' },
+    { show: '**Check.** $h(1.9) = h(2.1) = 68.84 < 69$ ✓', why: 'Points just before and after are lower and equally high on both sides, as they should be.' },
+    { show: '**State.** The ball reaches its maximum height of $69$ ft after $2$ seconds.', why: '' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="What price earns the most?"
+  problem="A shop sells $120 - 4p$ T-shirts a week at a price of $p$ dollars, so its weekly revenue is $R(p) = p(120 - 4p)$. What price gives the greatest revenue, and what is that revenue?"
+  steps={[
+    { show: '**Familiarize.** A higher price earns more per shirt but sells fewer shirts. Somewhere in between is a best price.', why: 'Guess: $p = 10$ gives $10 \\cdot 80 = 800$; $p = 20$ gives $20 \\cdot 40 = 800$. Equal heights, so the best price should be halfway: $15$.' },
+    { show: '**Translate.** $R(p) = -4p^2 + 120p$; find its vertex.', why: 'Multiply out to read $a = -4$ and $b = 120$. $a < 0$: a maximum.' },
+    { show: '**Solve.** $p = -\\dfrac{120}{2(-4)} = 15$, $\\quad R(15) = 15(120 - 60) = 900$', why: '' },
+    { show: '**Check.** $R(14) = 14 \\cdot 64 = 896$ and $R(16) = 16 \\cdot 56 = 896$, both less than $900$ ✓', why: '' },
+    { show: '**State.** A price of 15 dollars gives the greatest weekly revenue, 900 dollars.', why: '' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="A rocket's height is $h(t) = -16t^2 + 96t$. A question asks: **how high** does it go? Which part of the vertex answers it?"
+  options={['the $t$-coordinate', 'the $h$-coordinate', 'the $y$-intercept', 'the $t$-intercepts']}
+  answer={1}
+  explain="“How high” asks for a height, which is the second coordinate: $t = 3$ and $h(3) = 144$ ft. The $t$-coordinate would answer “when”."
+  wrong={{ 0: 'The $t$-coordinate answers **when** it is highest. “How high” asks for a height.', 2: 'The $y$-intercept is the height at $t = 0$, the launch.', 3: 'The $t$-intercepts are when the rocket is on the ground.' }}
+/>
+
+<Practice client:visible lesson="11.6" skill="apply" compact />
+
+## Common mistakes
+
+<Callout type="warning" title="Losing the minus sign in −b/(2a)">
+For $f(x) = x^2 + 6x + 1$, the vertex is at $x = -\frac{6}{2} = -3$, not $3$. Write the formula out with every sign before you simplify.
+</Callout>
+
+<Callout type="warning" title="Stopping at the x-coordinate">
+The vertex is a **point**. "The maximum value of $f$" is its $y$-coordinate $f\!\left(-\frac{b}{2a}\right)$, not $-\frac{b}{2a}$. In context: if the question asks *how high*, $t = 2$ is not the answer — $69$ ft is.
+</Callout>
+
+<Callout type="warning" title="Forgetting to multiply by a when completing the square">
+$2(x^2 - 6x + 9 - 9) + 13 \neq 2(x - 3)^2 - 9 + 13$. The $-9$ was inside the parentheses, so it becomes $2 \cdot (-9) = -18$. Correct: $2(x - 3)^2 - 5$.
+</Callout>
+
+<Callout type="warning" title="Mixing up maximum and minimum">
+$a > 0$ (opens up) gives a **minimum**; $a < 0$ (opens down) gives a **maximum**. Decide this first, from the sign of $a$ alone.
+</Callout>
+
 ## Summary
 
-- Vertex: $x = -\frac{b}{2a}$, then $y = f(x)$.
-- Vertex form via completing the square (factor out $a$ first).
-- $y$-intercept $(0, c)$; $x$-intercepts from $f(x) = 0$.
+- The axis of symmetry is $x = -\frac{b}{2a}$: halfway between $x = 0$ and $x = -\frac{b}{a}$, which have the same height $c$.
+- Vertex: $\left(-\frac{b}{2a}, f\!\left(-\frac{b}{2a}\right)\right)$. $a > 0$ gives a minimum value, $a < 0$ a maximum value.
+- Vertex form by completing the square: factor out $a$ first, and multiply what you subtract by $a$.
+- $y$-intercept $(0, c)$; $x$-intercepts from $f(x) = 0$; the discriminant says how many.
+- "When / what price / how many" asks for the first coordinate of the vertex; "how high / how much" asks for the second.
+
+**Next, in 11.7:** the function won't be given. You will build it from the situation yourself (a fence, a price change, data points) and then use this lesson's vertex to find the best answer.
 
 ## Practice
 

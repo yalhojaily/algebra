@@ -72,11 +72,82 @@ function plotVertex(): Problem {
   };
 }
 
+
+const money = (n: number) => `${n.toLocaleString('en-US')} dollars`;
+
+/** Word problems: the vertex answers "how high", "when", "what price", "how many". */
+function applied(): Problem {
+  const kind = pick(['ball', 'ballm', 'revenue', 'profit'] as const);
+  if (kind === 'ball' || kind === 'ballm') {
+    const metric = kind === 'ballm';
+    const g = metric ? 5 : 16;
+    const t = pick([1, 1.5, 2, 2.5, 3, 3.5, 4]);
+    const v = 2 * g * t, h0 = metric ? randInt(1, 3) * 1 : pick([0, 4, 5, 6]);
+    const H = h0 + g * t * t;
+    const u = metric ? 'm' : 'ft';
+    const who = h0 === 0 ? pick(['A ball is kicked straight up from the ground', 'A model rocket is launched from the ground']) : pick(['A ball is thrown straight up', 'A stone is tossed upward from the edge of a roof', 'A model rocket is launched from a platform']);
+    const askTime = Math.random() < 0.4;
+    const hTex = `h(t) = -${g}t^2 + ${v}t${h0 ? ` + ${h0}` : ''}`;
+    return {
+      skill: 'apply',
+      prompt: `${who}. Its height after $t$ seconds is $${hTex}$ (${u}). ${askTime ? 'After how many seconds does it reach its **highest point**?' : 'What is the **maximum height** it reaches (in ' + u + ')?'}`,
+      answer: { type: 'number', value: askTime ? t : H },
+      hints: [
+        `The unknown: ${askTime ? 'the **time** $t$ of the highest point' : 'the **height** at the highest point'}. Key words: "highest" / "maximum" mean the **vertex** (here $a = -${g} < 0$, so the parabola opens down).`,
+        `Time of the vertex: $t = -\\dfrac{b}{2a} = -\\dfrac{${v}}{2(-${g})}$.${askTime ? '' : ' Then substitute that $t$ into $h(t)$.'}`,
+      ],
+      solution: [
+        `$t = -\\dfrac{${v}}{2(-${g})} = ${t}$ s`,
+        `$h(${t}) = -${g}(${t})^2 + ${v}(${t})${h0 ? ` + ${h0}` : ''} = ${H}$ ${u}`,
+        askTime ? `It reaches its highest point after $${t}$ seconds.` : `The maximum height is $${H}$ ${u} (after $${t}$ s).`,
+      ],
+      mistakes: askTime ? [{ answer: String(H), feedback: 'That is the maximum **height**. The question asks **when** — the $t$-coordinate of the vertex.' }] : [{ answer: String(t), feedback: `That is the **time** of the highest point. The question asks for the height: substitute $t = ${t}$ into $h(t)$.` }],
+      placeholder: askTime ? '2' : '69',
+    };
+  }
+  if (kind === 'revenue') {
+    const k = pick([2, 4, 5, 10]), p = randInt(4, 30), N = 2 * k * p;
+    const R = p * (N - k * p);
+    const item = pick(['concert tickets', 'T-shirts', 'phone cases', 'pizzas']);
+    const askPrice = Math.random() < 0.5;
+    return {
+      skill: 'apply',
+      prompt: `A shop sells ${item}. At a price of $p$ dollars it sells $${N} - ${k}p$ of them, so its revenue is $R(p) = p(${N} - ${k}p) = -${k}p^2 + ${N}p$. ${askPrice ? 'What price gives the **greatest revenue** (in dollars)?' : 'What is the **greatest revenue** possible (in dollars)?'}`,
+      answer: { type: 'number', value: askPrice ? p : R },
+      hints: [
+        `The unknown: ${askPrice ? 'the **price** $p$' : 'the **revenue** $R$'} at the top of the graph. "Greatest" means the **vertex** ($a = -${k} < 0$, so it opens down).`,
+        `$p = -\\dfrac{b}{2a} = -\\dfrac{${N}}{2(-${k})}$.${askPrice ? '' : ' Then find $R$ at that price.'}`,
+      ],
+      solution: [`$p = -\\dfrac{${N}}{2(-${k})} = ${p}$`, `$R(${p}) = ${p}(${N} - ${k * p}) = ${p} \\cdot ${N - k * p} = ${R}$`, askPrice ? `A price of ${money(p)} gives the greatest revenue.` : `The greatest revenue is ${money(R)} (at a price of ${money(p)}).`],
+      mistakes: askPrice ? [{ answer: String(R), feedback: 'That is the revenue. The question asks for the **price** — the $p$-coordinate of the vertex.' }] : [{ answer: String(p), feedback: 'That is the best **price**. Substitute it into $R(p)$ to get the revenue.' }],
+      placeholder: askPrice ? '15' : '900',
+    };
+  }
+  // Profit is negative with no cakes (fixed costs), so c < 0.
+  let k = 1, h = 10, M = 500;
+  do { k = pick([1, 2, 3, 5]); h = randInt(15, 60); M = randInt(5, 40) * 100; } while (M >= k * h * h);
+  const b = 2 * k * h, c = M - k * h * h;
+  const askX = Math.random() < 0.5;
+  return {
+    skill: 'apply',
+    prompt: `A bakery's weekly profit from making $x$ cakes is $P(x) = ${quadTex(-k, b, c)}$ dollars. ${askX ? 'How many cakes give the **maximum profit**?' : 'What is the **maximum weekly profit** (in dollars)?'}`,
+    answer: { type: 'number', value: askX ? h : M },
+    hints: [
+      `The unknown: ${askX ? 'the **number of cakes** $x$' : 'the **profit** $P$'} at the top of the graph. "Maximum" means the **vertex** ($a = -${k}$).`,
+      `$x = -\\dfrac{b}{2a} = -\\dfrac{${b}}{2(-${k})}$.${askX ? '' : ' Then evaluate $P$ there.'}`,
+    ],
+    solution: [`$x = -\\dfrac{${b}}{2(-${k})} = ${h}$`, `$P(${h}) = -${k === 1 ? '' : k}(${h})^2 + ${b}(${h}) ${c < 0 ? '-' : '+'} ${Math.abs(c)} = ${M}$`, askX ? `Making $${h}$ cakes gives the maximum profit.` : `The maximum weekly profit is ${money(M)} (with $${h}$ cakes).`],
+    mistakes: askX ? [{ answer: String(M), feedback: 'That is the profit. The question asks **how many cakes** — the $x$-coordinate of the vertex.' }] : [{ answer: String(h), feedback: 'That is the number of cakes. Substitute it into $P(x)$ for the profit.' }],
+    placeholder: askX ? '40' : '2000',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'vertex', label: 'Vertex with −b/2a', generate: vertex },
   { id: 'form', label: 'Vertex form', generate: vertexForm },
   { id: 'intercepts', label: 'Intercepts', generate: intercepts },
   { id: 'plot', label: 'Plot the vertex', generate: plotVertex },
+  { id: 'apply', label: 'Word problems', generate: applied },
 ];
 
 export const masterySet = makeMasterySet(skills);

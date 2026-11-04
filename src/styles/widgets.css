@@ -886,3 +886,21 @@ a.tag:hover { color: var(--ink); }
 }
 .el-slider-wide { grid-template-columns: minmax(80px, auto) 1fr auto; }
 .el-slider-wide output { font-size: 0.9rem; }
+
+/* ---------- Stop and check ---------- */
+.qc { border-left: 4px solid var(--amber); }
+.qc-kicker { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--amber); margin-bottom: 6px; }
+.qc-q { font-weight: 600; margin-bottom: 10px; }
+.qc-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 8px; }
+.qc-opt { display: flex; gap: 10px; align-items: center; text-align: left; padding: 9px 12px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--card); color: var(--ink); font: inherit; cursor: pointer; transition: border-color 0.15s, background 0.15s; }
+.qc-opt:hover:not(:disabled) { border-color: var(--blue); }
+.qc-opt:disabled { cursor: default; }
+.qc-opt.ok { border-color: var(--green); background: var(--green-soft); }
+.qc-opt.bad { border-color: var(--red); background: var(--red-soft); opacity: 0.8; }
+.qc-opt.dim { opacity: 0.5; }
+.qc-letter { flex: none; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: var(--paper-2); font-size: 0.78rem; font-weight: 700; }
+.qc-opt.ok .qc-letter { background: var(--green); color: white; }
+.qc-opt.bad .qc-letter { background: var(--red); color: white; }
+.qc-feedback { margin-top: 10px; padding: 8px 12px; border-radius: 8px; font-size: 0.95rem; }
+.qc-feedback.ok { background: var(--green-soft); }
+.qc-feedback.bad { background: var(--red-soft); }
