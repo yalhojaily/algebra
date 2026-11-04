@@ -81,11 +81,41 @@ function special(): Problem {
   };
 }
 
+
+/** Word problem: two orders with the same two items — elimination finds each price. */
+function orders(): Problem {
+  for (;;) {
+    const [[s1, p1], [s2, p2], place] = pick([
+      [['coffee', 'coffees'], ['muffin', 'muffins'], 'a café'],
+      [['notebook', 'notebooks'], ['pen', 'pens'], 'a stationery shop'],
+      [['hot dog', 'hot dogs'], ['drink', 'drinks'], 'a stadium stand'],
+      [['bus ticket', 'bus tickets'], ['train ticket', 'train tickets'], 'a ticket office'],
+    ] as [[string, string], [string, string], string][]);
+    const p = randInt(4, 24) / 4, q = randInt(4, 20) / 4; // prices in quarters of a dollar
+    const a = randInt(1, 5), b = randInt(1, 5), d = randInt(1, 5), e = randInt(1, 5);
+    if (a * e - b * d === 0 || p === q) continue;
+    const T1 = a * p + b * q, T2 = d * p + e * q;
+    const ask1 = Math.random() < 0.5;
+    const m = (n: number) => n.toFixed(2);
+    const n1 = (n: number) => `${n} ${n === 1 ? s1 : p1}`, n2 = (n: number) => `${n} ${n === 1 ? s2 : p2}`;
+    const sys = systemTex([combTex([a, b], ['x', 'y'], m(T1)), combTex([d, e], ['x', 'y'], m(T2))]);
+    return {
+      skill: 'apply',
+      prompt: `At ${place}, ${n1(a)} and ${n2(b)} cost ${m(T1)} dollars, and ${n1(d)} and ${n2(e)} cost ${m(T2)} dollars. What is the price of one **${ask1 ? s1 : s2}** (dollars)?`,
+      answer: { type: 'number', value: ask1 ? p : q, tol: 0.001 },
+      hints: [`Unknowns: $x$ = price of one ${s1}, $y$ = price of one ${s2}. Each purchase gives one equation: $\;${sys}$`, `Multiply so the ${ask1 ? '$y$' : '$x$'}-terms become opposites, then add.`],
+      solution: [`$${sys}$`, `Eliminate: $x = ${m(p)}$, $y = ${m(q)}$`, `Check: $${a}(${m(p)}) + ${b}(${m(q)}) = ${m(T1)}$ ✓ and $${d}(${m(p)}) + ${e}(${m(q)}) = ${m(T2)}$ ✓`],
+      placeholder: '2.75',
+    };
+  }
+}
+
 export const skills: Skill[] = [
   { id: 'add', label: 'Add the equations', generate: opposites },
   { id: 'multiply', label: 'Multiply one equation first', generate: multiplyOne },
   { id: 'both', label: 'Multiply both equations', generate: multiplyBoth },
   { id: 'special', label: 'No solution or infinitely many', generate: special },
+  { id: 'apply', label: 'Word problems', generate: orders },
 ];
 
 export const masterySet = makeMasterySet(skills);

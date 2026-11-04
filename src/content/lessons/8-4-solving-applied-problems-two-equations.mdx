@@ -2,67 +2,172 @@
 id: "8.4"
 title: "Solving Applied Problems: Two Equations"
 summary: Many word problems have two unknowns and two facts. Organize the facts in a table, write one equation for each, and solve the system.
-minutes: 45
+minutes: 50
 objectives:
-  - Translate problems with two unknowns into a system of equations.
-  - Solve total-value, mixture and motion problems.
+  - Translate problems with two unknowns into a system of equations, one equation per fact.
+  - Solve number and total-value problems.
+  - Solve mixture problems with an amount equation and an ingredient equation.
+  - Solve motion problems with a current or wind.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import MixtureLab from '../../components/MixtureLab.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
 
 <Callout type="why">
-Problems with two unknowns are often easier with two variables than with one: each fact in the problem becomes its own simple equation.
+Problems with two unknowns are often easier with two variables than with one. With one variable you must squeeze every fact into a single equation; with two variables, **each fact becomes its own simple equation**, and the methods of 8.2 and 8.3 do the rest.
 </Callout>
 
 ## The five steps, with two variables
 
-1. **Familiarize** — name the two unknowns.
-2. **Translate** — write **two** equations (often: one counts *how many*, the other counts *how much*).
-3. **Solve** the system.
-4. **Check** in the original words.
-5. **State** the answer.
+1. **Familiarize.** Name the two unknowns, with units. Make a table and try a guess.
+2. **Translate.** Write **two** equations — one for each fact. Very often one counts *how many* (tickets, liters, people) and the other counts *how much* (money, acid, distance).
+3. **Solve** the system, by substitution or elimination.
+4. **Check** in the original words — not just in your equations, because the equations themselves could be wrong.
+5. **State** the answer in a sentence, with units.
+
+## Numbers
+
+<StepReveal
+  client:visible
+  title="Sum and difference"
+  problem="The sum of two numbers is $50$ and their difference is $12$. Find the numbers."
+  steps={[
+    { show: '**Familiarize.** Let $x$ = the larger number and $y$ = the smaller.', why: 'Guess: $30$ and $20$ have sum $50$ but difference $10$ — close.' },
+    { show: '**Translate.** $\\;\\begin{cases} x + y = 50 \\\\ x - y = 12 \\end{cases}$', why: '"Sum" and "difference" — one equation each.' },
+    { show: '**Solve.** Add: $2x = 62$, so $x = 31$ and $y = 19$.', why: 'The $y$-terms are already opposites.' },
+    { show: '**Check.** $31 + 19 = 50$ ✓ and $31 - 19 = 12$ ✓', why: '' },
+    { show: '**State.** The numbers are $31$ and $19$.', why: '' },
+  ]}
+/>
 
 <Practice client:visible lesson="8.4" skill="numbers" compact />
 
 ## Total value
 
+When items have different prices, one equation counts the **items** and the other counts the **money**. A table keeps them apart:
+
+| | Number | Price (dollars) | Money (dollars) |
+|---|---|---|---|
+| Adult | $a$ | $10$ | $10a$ |
+| Child | $c$ | $5$ | $5c$ |
+| **Total** | $200$ | | $1600$ |
+
+The "Number" column gives one equation and the "Money" column gives the other.
+
 <StepReveal
   client:visible
   title="Tickets"
-  problem="A theater sold 200 tickets for a total of 1600 dollars. Adult tickets cost 10 dollars, child tickets 5 dollars. How many of each were sold?"
+  problem="A theater sold $200$ tickets for a total of $1600$ dollars. Adult tickets cost $10$ dollars and child tickets $5$ dollars. How many of each were sold?"
   steps={[
-    { show: '$a$ = adult tickets, $c$ = child tickets', why: '' },
-    { show: '$\\begin{cases} a + c = 200 & \\text{(tickets)} \\\\ 10a + 5c = 1600 & \\text{(dollars)} \\end{cases}$', why: 'One equation counts tickets, the other counts money.' },
-    { show: '$-5a - 5c = -1000$, add: $5a = 600$, $a = 120$', why: 'Multiply the first by $-5$ and add.' },
-    { show: '$c = 80$. Check: $120 + 80 = 200$, $1200 + 400 = 1600$ ✓', why: '' },
+    { show: '**Familiarize.** $a$ = adult tickets, $c$ = child tickets (see the table).', why: 'Guess $100$ of each: $1000 + 500 = 1500$ dollars — not enough, so there are more adult tickets.' },
+    { show: '**Translate.** $\\;\\begin{cases} a + c = 200 & \\text{(tickets)} \\\\ 10a + 5c = 1600 & \\text{(dollars)} \\end{cases}$', why: '' },
+    { show: '**Solve.** Multiply the first by $-5$: $-5a - 5c = -1000$. Add: $5a = 600$, so $a = 120$ and $c = 80$.', why: '' },
+    { show: '**Check.** $120 + 80 = 200$ tickets ✓; $1200 + 400 = 1600$ dollars ✓', why: '' },
+    { show: '**State.** $120$ adult tickets and $80$ child tickets were sold.', why: '' },
   ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="In the ticket problem, which equation counts the **money**?"
+  options={['$10a + 5c = 1600$', '$a + c = 1600$', '$10a + 5c = 200$', '$15(a + c) = 1600$']}
+  answer={0}
+  explain="Each adult ticket brings in $10$ dollars and each child ticket $5$, so the money is $10a + 5c$, and it totals $1600$."
+  wrong={{ 1: '$a + c$ counts **tickets**, so it must equal the number of tickets, $200$.', 2: '$10a + 5c$ is money, so it must equal the money total, $1600$ — not the ticket count.', 3: 'That would charge $15$ for every ticket. Adults and children pay different prices.' }}
 />
 
 <Practice client:visible lesson="8.4" skill="tickets" compact />
 
 ## Mixtures
 
-A mixture problem has the same structure: one equation for the **amount** of liquid, one for the **amount of the ingredient** (acid, salt, …).
+A mixture problem has the same structure: one equation for the **amount of liquid**, one for the **amount of the ingredient** (acid, salt, juice). The amount of ingredient is *percent × amount*: $20\%$ of $30$ L is $0.20 \times 30 = 6$ L of acid.
 
 <MixtureLab client:visible />
+
+<StepReveal
+  client:visible
+  title="Mixing two solutions"
+  problem="How many liters of a $10\%$ acid solution and of a $40\%$ acid solution must be mixed to get $30$ L of a $20\%$ solution?"
+  steps={[
+    { show: '**Familiarize.** $x$ = liters of $10\%$, $y$ = liters of $40\%$. The mixture has $0.20 \\times 30 = 6$ L of acid.', why: '$20\\%$ is closer to $10\\%$ than to $40\\%$, so expect **more** of the $10\\%$ solution.' },
+    { show: '**Translate.** $\\;\\begin{cases} x + y = 30 & \\text{(liquid)} \\\\ 0.10x + 0.40y = 6 & \\text{(acid)} \\end{cases}$', why: '' },
+    { show: '**Solve.** Multiply the acid equation by $10$: $x + 4y = 60$. Subtract the first equation: $3y = 30$, so $y = 10$ and $x = 20$.', why: '' },
+    { show: '**Check.** $20 + 10 = 30$ L ✓; acid: $0.10(20) + 0.40(10) = 2 + 4 = 6$ L ✓', why: 'And as expected, more of the $10\\%$ solution.' },
+    { show: '**State.** Mix $20$ L of the $10\\%$ solution with $10$ L of the $40\\%$ solution.', why: '' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="How many liters of acid are in $30$ L of a $20\%$ acid solution?"
+  options={['$6$ L', '$20$ L', '$0.6$ L', '$24$ L']}
+  answer={0}
+  explain="$20\% = 0.20$, and $0.20 \times 30 = 6$ L. The other $24$ L is water."
+  wrong={{ 1: '$20$ is the percent, not the liters of acid. Compute $20\\%$ of $30$.', 2: 'Check the decimal: $20\\% = 0.20$, not $0.02$.', 3: '$24$ L is the water — the other $80\\%$.' }}
+/>
 
 <Practice client:visible lesson="8.4" skill="mixture" compact />
 
 ## Motion
 
-With a current (or wind), speeds add one way and subtract the other: downstream $b + c$, upstream $b - c$. Use $d = rt$ for each trip.
+With a current (or wind), the speeds add one way and subtract the other: going **with** the current the speed is $b + c$, **against** it $b - c$, where $b$ is the speed in still water. Use $d = rt$ for each trip.
+
+<StepReveal
+  client:visible
+  title="Up and down the river"
+  problem="A boat travels $48$ km downstream in $3$ hours and $24$ km upstream in $3$ hours. Find the boat's speed in still water and the speed of the current."
+  steps={[
+    { show: '**Familiarize.** $b$ = boat speed in still water, $c$ = current speed (km/h).', why: 'Downstream it goes $48 \\div 3 = 16$ km/h; upstream $24 \\div 3 = 8$ km/h. The boat speed should be halfway between.' },
+    { show: '**Translate.** $\\;\\begin{cases} 3(b + c) = 48 \\\\ 3(b - c) = 24 \\end{cases}$', why: 'Distance = rate × time, once for each trip.' },
+    { show: '**Solve.** Divide by $3$: $b + c = 16$ and $b - c = 8$. Add: $2b = 24$, so $b = 12$ and $c = 4$.', why: '' },
+    { show: '**Check.** Downstream: $3(12 + 4) = 48$ ✓; upstream: $3(12 - 4) = 24$ ✓', why: '' },
+    { show: '**State.** The boat goes $12$ km/h in still water; the current is $4$ km/h.', why: '' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="A plane flies at $300$ km/h in still air, straight into a $40$ km/h headwind. How fast does it move over the ground?"
+  options={['$260$ km/h', '$340$ km/h', '$300$ km/h', '$7.5$ km/h']}
+  answer={0}
+  explain="A headwind blows against the plane, so subtract: $300 - 40 = 260$ km/h."
+  wrong={{ 1: 'That is the speed with a **tail**wind. A headwind blows against the plane.', 2: 'The wind changes the ground speed.', 3: 'Speeds add or subtract here; they don\'t divide.' }}
+/>
 
 <Practice client:visible lesson="8.4" skill="motion" compact />
 
+## Common mistakes
+
+<Callout type="warning" title="Mixing up counts and values">
+$a + c = 1600$ adds tickets and sets them equal to dollars. Keep one equation for *how many* and one for *how much*.
+</Callout>
+
+<Callout type="warning" title="Using percents as whole numbers">
+The acid equation is $0.10x + 0.40y = 0.20(30)$. Writing $10x + 40y = 20$ mixes up scales. If you want whole numbers, multiply **every** term by $100$: $10x + 40y = 600$.
+</Callout>
+
+<Callout type="warning" title="Upstream and downstream backwards">
+Downstream (with the current) is **faster**: $b + c$. Upstream is $b - c$. Quick test: downstream distance in the same time should be the larger one.
+</Callout>
+
+<Callout type="warning" title="Answering only half the question">
+The problem asked for both numbers of tickets, or both liquids. Read the question again before you state the answer, and include units.
+</Callout>
+
 ## Summary
 
-- Two unknowns → two variables → two equations.
-- Tables help: one row per item, columns for amount, rate, and total.
+- Two unknowns → two variables → one equation per fact.
+- A table helps: one row per item, columns for amount, rate and total.
+- Total value: one equation counts items, the other counts money.
+- Mixtures: one equation for the liquid, one for the ingredient (percent × amount).
+- Motion: speed with the current is $b + c$, against it $b - c$; distance = rate × time.
 - Check the answer against the words of the problem.
+
+**Next, in 8.5:** three unknowns need three equations. The method is elimination, used twice.
 
 ## Practice
 

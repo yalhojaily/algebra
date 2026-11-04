@@ -10,7 +10,13 @@ const isWrapper = (n) =>
 export default function rehypeTableScroll() {
   return (tree) => {
     visit(tree, (node, index, parent) => {
-      if (!parent || index === undefined || !isTable(node) || isWrapper(parent)) return;
+      if (!isTable(node)) return;
+      // Markdown tables get the site's table style.
+      if (node.type === 'element') {
+        const cls = node.properties.className ?? [];
+        if (!cls.includes('nice')) node.properties.className = [...cls, 'nice'];
+      }
+      if (!parent || index === undefined || isWrapper(parent)) return;
       parent.children[index] = node.type === 'element'
         ? { type: 'element', tagName: 'div', properties: { className: ['table-scroll'] }, children: [node] }
         : { type: 'mdxJsxFlowElement', name: 'div', attributes: [{ type: 'mdxJsxAttribute', name: 'className', value: 'table-scroll' }], children: [node] };

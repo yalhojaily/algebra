@@ -2,62 +2,144 @@
 id: "8.6"
 title: "Solving Applied Problems: Three Equations"
 summary: Three unknowns, three facts, three equations. Translate carefully, then solve with substitution or elimination.
-minutes: 40
+minutes: 45
 objectives:
   - Translate problems with three unknowns into a system of three equations.
-  - Solve and check applied problems with three unknowns.
+  - Use equations with only two variables to shorten the work.
+  - Solve and check triangle, number and investment problems.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import ThreeVarSteps from '../../components/ThreeVarSteps.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
 
 <Callout type="why">
-A triangle's three angles, three numbers with three clues, money split among three accounts: each clue becomes an equation. Many of these systems are simpler than they look, because some equations involve only two of the variables.
+A triangle's three angles, three numbers with three clues, money split among three accounts: each clue becomes an equation. Many of these systems are simpler than they look, because some clues involve only two of the unknowns — and then substitution does most of the work.
 </Callout>
+
+## The plan
+
+Use the five steps from 8.4, with one addition in the **Translate** step: write **one equation per clue**, and notice which equations already give one unknown in terms of another (like $B = A + 7$). Substitute those into the remaining equation first.
 
 ## Triangle angles
 
-The angles of a triangle add up to $180°$ — that's always one of the equations.
+The angles of a triangle add up to $180°$ — that is always one of the equations, even though the problem may not say it.
 
 <StepReveal
   client:visible
-  title="Angles"
+  title="Three angles"
   problem="In triangle $ABC$, angle $B$ is $7°$ more than angle $A$, and angle $C$ is $18°$ more than three times angle $A$. Find the angles."
   steps={[
-    { show: '$\\begin{cases} A + B + C = 180 \\\\ B = A + 7 \\\\ C = 3A + 18 \\end{cases}$', why: 'One equation per fact.' },
-    { show: '$A + (A + 7) + (3A + 18) = 180$', why: 'Substitute $B$ and $C$ into the first equation.' },
-    { show: '$5A + 25 = 180 \\;\\Rightarrow\\; A = 31$', why: '' },
-    { show: '$B = 38°$, $C = 111°$', why: 'Check: $31 + 38 + 111 = 180$ ✓' },
+    { show: '**Familiarize.** $A$, $B$, $C$ = the angles in degrees. Both $B$ and $C$ are described using $A$.', why: 'Guess $A = 30$: $B = 37$, $C = 108$, total $175$ — just short of $180$, so $A$ is a bit more than $30$.' },
+    { show: '**Translate.** $\\;\\begin{cases} A + B + C = 180 \\\\ B = A + 7 \\\\ C = 3A + 18 \\end{cases}$', why: 'One equation per fact, plus the angle sum.' },
+    { show: '**Solve.** $A + (A + 7) + (3A + 18) = 180 \\;\\Rightarrow\\; 5A + 25 = 180 \\;\\Rightarrow\\; A = 31$', why: 'Substitute $B$ and $C$ into the first equation: only $A$ is left.' },
+    { show: '**Check.** $B = 38$, $C = 3(31) + 18 = 111$, and $31 + 38 + 111 = 180$ ✓', why: '' },
+    { show: '**State.** The angles are $A = 31°$, $B = 38°$ and $C = 111°$.', why: '' },
   ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="A problem about the angles $A$, $B$, $C$ of a triangle gives only two clues. Where does the third equation come from?"
+  options={['$A + B + C = 180$', '$A = B = C$', '$A + B = C$', "There isn't one, so it can't be solved"]}
+  answer={0}
+  explain="The angles of every triangle add up to $180°$. That fact is the third equation, whether or not the problem mentions it."
+  wrong={{ 1: 'Only an equilateral triangle has three equal angles.', 2: 'That only happens when $C = 90°$. The angle sum, $180°$, is true for every triangle.', 3: 'Every triangle gives a free equation: the angle sum.' }}
 />
 
 <Practice client:visible lesson="8.6" skill="triangle" compact />
 
-## Solving step by step
+## Three numbers
 
-The same elimination plan works for any three-variable problem:
+<StepReveal
+  client:visible
+  title="Three clues"
+  problem="The sum of three numbers is $26$. The second number is twice the first, and the third is $6$ more than the first. Find the numbers."
+  steps={[
+    { show: '**Familiarize.** $x$, $y$, $z$ = the first, second and third numbers.', why: 'Both $y$ and $z$ are described using $x$ — substitution will be quick.' },
+    { show: '**Translate.** $\\;\\begin{cases} x + y + z = 26 \\\\ y = 2x \\\\ z = x + 6 \\end{cases}$', why: '"6 more than the first" is $x + 6$, so $z = x + 6$ (not $x = z + 6$).' },
+    { show: '**Solve.** $x + 2x + (x + 6) = 26 \\;\\Rightarrow\\; 4x = 20 \\;\\Rightarrow\\; x = 5$, so $y = 10$, $z = 11$', why: '' },
+    { show: '**Check.** $5 + 10 + 11 = 26$ ✓; $10 = 2 \\cdot 5$ ✓; $11 = 5 + 6$ ✓', why: '' },
+    { show: '**State.** The numbers are $5$, $10$ and $11$.', why: '' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Translate: “the third number is $6$ more than the first.”"
+  options={['$z = x + 6$', '$x = z + 6$', '$z = 6x$', '$z + x = 6$']}
+  answer={0}
+  explain="Start from the first number and add $6$ to get the third: $z = x + 6$."
+  wrong={{ 1: 'That says the **first** is $6$ more than the third — the reverse.', 2: '“6 more than” means add $6$, not multiply by $6$.', 3: 'That says their **sum** is $6$.' }}
+/>
+
+The same elimination plan from 8.5 works for any three-variable problem. Try it on these presets:
 
 <ThreeVarSteps client:visible presets={[
   { title: 'Three numbers', M: [[1, 1, 1], [1, -1, 0], [-1, 0, 1]], rhs: [6, 4, 1] },
   { title: 'Triangle', vars: ['A', 'B', 'C'], M: [[1, 1, 1], [-1, 1, 0], [-3, 0, 1]], rhs: [180, 7, 18] },
-  { title: 'Investments', M: [[1, 1, 1], [3, 4, 5], [-1, 0, 1]], rhs: [11000, 41000, -3000] },
+  { title: 'Investments', M: [[1, 1, 1], [3, 4, 5], [0, -1, 1]], rhs: [11000, 45500, 1000] },
 ]} />
 
 <Practice client:visible lesson="8.6" skill="numbers" compact />
 
 ## Investments
 
-With simple interest, $I = Pr$. Multiplying the interest equation by $100$ clears the decimals: $0.03x + 0.04y + 0.05z = 410$ becomes $3x + 4y + 5z = 41000$.
+With simple interest for one year, the interest is $I = Pr$: principal times rate. Write the rate as a decimal: $4\%$ of $x$ dollars is $0.04x$.
+
+<StepReveal
+  client:visible
+  title="Three accounts"
+  problem="$11{,}000$ dollars is invested in three accounts paying $3\%$, $4\%$ and $5\%$ simple interest. The total interest after one year is $455$ dollars, and the amount at $5\%$ is $1000$ dollars more than the amount at $4\%$. How much is in each account?"
+  steps={[
+    { show: '**Familiarize.** $x$, $y$, $z$ = dollars at $3\\%$, $4\\%$ and $5\\%$.', why: 'Three facts: the total invested, the total interest, and the comparison.' },
+    { show: '**Translate.** $\\;\\begin{cases} x + y + z = 11000 \\\\ 0.03x + 0.04y + 0.05z = 455 \\\\ z = y + 1000 \\end{cases}$', why: 'Multiply the interest equation by $100$ to clear decimals: $3x + 4y + 5z = 45500$.' },
+    { show: '**Solve.** Substitute $z = y + 1000$: $\\;x + 2y = 10000$ and $3x + 9y = 40500$. From the first, $x = 10000 - 2y$; then $30000 - 6y + 9y = 40500$, so $y = 3500$.', why: 'Now it is a 2 × 2 system in $x$ and $y$.' },
+    { show: '$x = 10000 - 7000 = 3000$, $\\;z = 3500 + 1000 = 4500$. **Check.** $3000 + 3500 + 4500 = 11000$ ✓; interest $90 + 140 + 225 = 455$ ✓', why: '' },
+    { show: '**State.** $3000$ dollars at $3\\%$, $3500$ dollars at $4\\%$ and $4500$ dollars at $5\\%$.', why: '' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="How much simple interest do $x$ dollars earn in one year at $4\%$?"
+  options={['$0.04x$', '$4x$', '$0.4x$', '$\\dfrac{x}{4}$']}
+  answer={0}
+  explain="$4\% = \frac{4}{100} = 0.04$, and interest = principal × rate."
+  wrong={{ 1: '$4x$ would be $400\\%$ interest. Convert the percent to a decimal first.', 2: '$0.4 = 40\\%$. Move the decimal point two places: $4\\% = 0.04$.', 3: 'That is $25\\%$ of $x$. Use $4\\% = 0.04$.' }}
+/>
 
 <Practice client:visible lesson="8.6" skill="invest" compact />
 
+## Common mistakes
+
+<Callout type="warning" title="Forgetting the hidden equation">
+Triangle problems usually give only two clues. The third equation, $A + B + C = 180$, is a fact about every triangle.
+</Callout>
+
+<Callout type="warning" title="Reversing “more than”">
+"$C$ is $18$ more than three times $A$" is $C = 3A + 18$. Test it with a number: if $A = 10$, then $C$ should be $48$.
+</Callout>
+
+<Callout type="warning" title="Percent as a decimal">
+$4\%$ is $0.04$, not $0.4$ or $4$. If you multiply the interest equation by $100$, multiply **every** term, including the total interest.
+</Callout>
+
+<Callout type="warning" title="Answering one unknown">
+These problems usually ask for all three quantities. State all of them, with units.
+</Callout>
+
 ## Summary
 
-- Write one equation per fact; look for equations with only two variables — they make substitution easy.
-- Solve, then check every fact in the original problem.
+- One equation per clue — and for triangles, add $A + B + C = 180$.
+- Equations that give one unknown in terms of another make substitution quick.
+- Interest for one year: principal × rate, with the rate as a decimal; clear decimals by multiplying by $100$.
+- Check every clue in the original problem.
+
+**Next, in Chapter 9:** from equations to **inequalities** — sets, intervals and compound conditions such as "at least $3$ and at most $8$".
 
 ## Practice
 

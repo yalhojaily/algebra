@@ -1,36 +1,46 @@
 ---
 id: "8.3"
 title: Solving by Elimination
-summary: Add the equations so one variable cancels — multiplying first, if needed, to make its coefficients opposites.
-minutes: 40
+summary: Add (or subtract) the equations so one variable cancels. Multiply first if no coefficients are opposites.
+minutes: 45
 objectives:
-  - Solve systems by adding equations to eliminate a variable.
-  - Multiply one or both equations to create opposite coefficients.
-  - Recognize special cases.
+  - Explain why adding equations and multiplying an equation by a number are allowed.
+  - Solve systems by adding equations, multiplying one or both equations first.
+  - Clear decimals or fractions before eliminating.
+  - Recognize special cases and choose between substitution and elimination.
+  - Solve two-item price problems with elimination.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import EliminationLab from '../../components/EliminationLab.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
 
 <Callout type="why">
-Substitution gets messy when no variable has a coefficient of $1$ — you end up with fractions right away. **Elimination** (also called the addition method) avoids that: you add whole equations so one variable vanishes.
+Substitution gets messy when no variable has a coefficient of $1$ or $-1$ — you end up with fractions right away. **Elimination** (also called the addition method) avoids that: you combine whole equations so one variable vanishes. It is the method behind every computer system solver, and the one you'll use for three variables in 8.5.
 </Callout>
+
+## Why it is allowed
+
+Two facts make elimination work:
+
+1. **Adding equal things to equal things keeps them equal.** If $A = B$ and $C = D$, then $A + C = B + D$. At a solution both equations are true, so their sum is true too.
+2. **Multiplying an equation by a nonzero number doesn't change its solutions.** $x + 3y = 7$ and $2x + 6y = 14$ describe the same line.
+
+So you may multiply the equations by any nonzero numbers and add them. The trick is to choose the numbers so that one variable's coefficients become **opposites** — then that variable cancels.
 
 ## Adding equations
 
-If $A = B$ and $C = D$, then $A + C = B + D$. When the coefficients of one variable are **opposites**, adding the equations eliminates it.
-
 <StepReveal
   client:visible
-  title="Add the equations"
+  title="Opposites already"
   problem="Solve: $\;\begin{cases} 2x + 3y = 7 \\ 5x - 3y = 7 \end{cases}$"
   steps={[
-    { show: '$7x = 14 \\;\\Rightarrow\\; x = 2$', why: 'Add: $3y$ and $-3y$ cancel.' },
-    { show: '$2(2) + 3y = 7 \\;\\Rightarrow\\; y = 1$', why: 'Substitute back.' },
-    { show: 'Solution: $(2, 1)$', why: '' },
+    { show: '$7x = 14 \\;\\Rightarrow\\; x = 2$', why: 'Add the equations: $3y$ and $-3y$ are opposites and cancel.' },
+    { show: '$2(2) + 3y = 7 \\;\\Rightarrow\\; y = 1$', why: 'Substitute back into either equation.' },
+    { show: 'Solution: $(2, 1)$', why: 'Check: $5(2) - 3(1) = 7$ ✓' },
   ]}
 />
 
@@ -38,9 +48,21 @@ If $A = B$ and $C = D$, then $A + C = B + D$. When the coefficients of one varia
 
 ## Multiplying first
 
-When no coefficients are opposites, multiply one or both equations by numbers that **make** them opposites. Try it — choose multipliers until a variable cancels:
+When no coefficients are opposites, multiply one or both equations to **make** them opposites. Try it — choose multipliers until a variable cancels:
 
 <EliminationLab client:visible />
+
+<StepReveal
+  client:visible
+  title="Multiply one equation"
+  problem="Solve: $\;\begin{cases} x + 3y = 7 \\ 2x - 5y = -8 \end{cases}$"
+  steps={[
+    { show: '$-2x - 6y = -14$', why: 'Multiply the first equation by $-2$ — every term, both sides — so its $x$-term is the opposite of $2x$.' },
+    { show: '$-11y = -22 \\;\\Rightarrow\\; y = 2$', why: 'Add it to the second equation: $-2x + 2x = 0$.' },
+    { show: '$x + 3(2) = 7 \\;\\Rightarrow\\; x = 1$', why: '' },
+    { show: 'Solution: $(1, 2)$', why: 'Check: $2(1) - 5(2) = -8$ ✓' },
+  ]}
+/>
 
 <StepReveal
   client:visible
@@ -48,30 +70,117 @@ When no coefficients are opposites, multiply one or both equations by numbers th
   problem="Solve: $\;\begin{cases} 4x + 3y = 5 \\ 3x + 5y = 12 \end{cases}$"
   steps={[
     { show: '$12x + 9y = 15$', why: 'Multiply the first equation by $3$.' },
-    { show: '$-12x - 20y = -48$', why: 'Multiply the second by $-4$, so the $x$-terms are opposites ($12$ is the LCM of $4$ and $3$).' },
+    { show: '$-12x - 20y = -48$', why: 'Multiply the second by $-4$. Now the $x$-terms are $12x$ and $-12x$ ($12$ is the LCM of $4$ and $3$).' },
     { show: '$-11y = -33 \\;\\Rightarrow\\; y = 3$', why: 'Add.' },
-    { show: '$4x + 9 = 5 \\;\\Rightarrow\\; x = -1$. Solution: $(-1, 3)$', why: '' },
+    { show: '$4x + 9 = 5 \\;\\Rightarrow\\; x = -1$. Solution: $(-1, 3)$', why: 'Check: $3(-1) + 5(3) = 12$ ✓' },
   ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="To eliminate $y$ from $\;\begin{cases} 3x + 2y = 5 \\ 4x - 6y = 1 \end{cases}$, multiply the first equation by…"
+  options={['$3$', '$-3$', '$2$', '$6$']}
+  answer={0}
+  explain="$3 \cdot 2y = 6y$, the opposite of $-6y$. Adding the equations then cancels $y$."
+  wrong={{ 1: 'That gives $-6y$, the **same** as the other $-6y$. Adding would give $-12y$, not $0$.', 2: 'That gives $4y$, which doesn\'t cancel $-6y$.', 3: 'That gives $12y$; $12y - 6y = 6y$, not $0$.' }}
 />
 
 <Practice client:visible lesson="8.3" skill="multiply" compact />
 
 <Practice client:visible lesson="8.3" skill="both" compact />
 
+## Decimals and fractions: clear them first
+
+Multiply an equation by $10$, $100$ or the LCD to get whole-number coefficients. It's the same line, and the arithmetic is far easier.
+
+<StepReveal
+  client:visible
+  title="Clear the decimals"
+  problem="Solve: $\;\begin{cases} 0.2x + 0.3y = 1.3 \\ 0.5x - 0.1y = 0.7 \end{cases}$"
+  steps={[
+    { show: '$\\begin{cases} 2x + 3y = 13 \\\\ 5x - y = 7 \\end{cases}$', why: 'Multiply both equations by $10$.' },
+    { show: '$15x - 3y = 21$', why: 'Multiply the second by $3$ to get $-3y$, the opposite of $3y$.' },
+    { show: '$17x = 34 \\;\\Rightarrow\\; x = 2$', why: 'Add it to $2x + 3y = 13$.' },
+    { show: '$5(2) - y = 7 \\;\\Rightarrow\\; y = 3$. Solution: $(2, 3)$', why: 'Check in the original: $0.2(2) + 0.3(3) = 1.3$ ✓ and $0.5(2) - 0.1(3) = 0.7$ ✓' },
+  ]}
+/>
+
 ## Special cases
 
-As with substitution: if **both** variables cancel, $0 = 0$ means infinitely many solutions and $0 = 7$ (false) means no solution.
+As with substitution: if **both** variables cancel, look at what is left. $0 = 0$ (true) means **infinitely many solutions**; something like $0 = 7$ (false) means **no solution**.
+
+<StepReveal
+  client:visible
+  title="Everything cancels"
+  problem="Solve: $\;\begin{cases} 2x - 3y = 4 \\ -4x + 6y = -8 \end{cases}$"
+  steps={[
+    { show: '$4x - 6y = 8$', why: 'Multiply the first equation by $2$.' },
+    { show: '$0 = 0$', why: 'Add it to the second: every term cancels and the result is true.' },
+    { show: '**Infinitely many solutions** — the equations describe the same line.', why: 'The second equation is $-2$ times the first.' },
+  ]}
+/>
 
 <Practice client:visible lesson="8.3" skill="special" compact />
 
+<QuickCheck
+  client:visible
+  question="Which method is quicker for $\;\begin{cases} y = 4x - 1 \\ 3x + 2y = 9 \end{cases}$?"
+  options={['Substitution', 'Elimination', 'Graphing', 'They are all equally quick']}
+  answer={0}
+  explain="The first equation is already solved for $y$. Substitute $4x - 1$ into the second and you're done in two lines."
+  wrong={{ 1: 'Elimination works, but you would first have to rearrange $y = 4x - 1$. It is already solved for $y$ — use that.', 2: 'Graphing is slow and only approximate.', 3: 'Look at the first equation: it is already solved for a variable.' }}
+/>
+
 <Callout type="tip" title="Which method?">
-Use substitution when a variable is already isolated or has coefficient $\pm 1$. Otherwise elimination is usually quicker.
+Use **substitution** when a variable is already isolated or has coefficient $\pm 1$. Otherwise **elimination** is usually quicker. Both always give the same answer.
+</Callout>
+
+## In a real context
+
+Two purchases of the same two items give two equations of the form *(number) × (price) + (number) × (price) = total*. Neither price is "already solved", so elimination is the natural method.
+
+<StepReveal
+  client:visible
+  title="Coffee and muffins"
+  problem="At a café, $3$ coffees and $2$ muffins cost $13.50$ dollars, and $2$ coffees and $4$ muffins cost $15.00$ dollars. Find the price of a coffee and of a muffin."
+  steps={[
+    { show: '**Familiarize.** Let $c$ = price of a coffee and $m$ = price of a muffin, in dollars.', why: 'Guess: if a coffee were $3$ and a muffin $2$, the first order would be $9 + 4 = 13$ — close to $13.50$, so the prices are near those values.' },
+    { show: '**Translate.** $\\;\\begin{cases} 3c + 2m = 13.5 \\\\ 2c + 4m = 15 \\end{cases}$', why: 'One equation per purchase.' },
+    { show: '**Solve.** Multiply the first by $-2$: $-6c - 4m = -27$. Add: $-4c = -12$, so $c = 3$. Then $2m = 13.5 - 9$, so $m = 2.25$.', why: 'The $m$-terms $-4m$ and $4m$ cancel.' },
+    { show: '**Check.** $3(3) + 2(2.25) = 13.50$ ✓ and $2(3) + 4(2.25) = 15.00$ ✓', why: '' },
+    { show: '**State.** A coffee costs 3.00 dollars and a muffin costs 2.25 dollars.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="8.3" skill="apply" compact />
+
+## Common mistakes
+
+<Callout type="warning" title="Multiplying only part of an equation">
+Multiplying $x + 3y = 7$ by $-2$ gives $-2x - 6y = -14$. Every term changes — including the right side. Forgetting the $7$ is the most common slip.
+</Callout>
+
+<Callout type="warning" title="Adding when the terms have the same sign">
+$-6y$ and $-6y$ add to $-12y$; they don't cancel. You need **opposites** ($6y$ and $-6y$) — or subtract the equations instead of adding.
+</Callout>
+
+<Callout type="warning" title="Sign slips when subtracting equations">
+If you subtract, subtract **every** term: $(2x + 3y) - (5x - y) = -3x + 4y$, not $-3x + 2y$.
+</Callout>
+
+<Callout type="warning" title="Forgetting the second variable">
+After finding $x$, substitute back for $y$, and give the answer as an ordered pair.
 </Callout>
 
 ## Summary
 
-- Make one variable's coefficients opposites (multiply if needed), then add.
-- Solve, substitute back, check.
+- Adding equations and multiplying an equation by a nonzero number keep the solutions the same.
+- Multiply so one variable's coefficients are opposites, add, solve, substitute back, check.
+- Clear decimals and fractions first.
+- All variables cancel: $0 = 0$ → infinitely many solutions; $0 = 7$ → none.
+- Substitution when a variable is isolated or has coefficient $\pm 1$; elimination otherwise.
+
+**Next, in 8.4:** with both methods ready, you'll set up and solve word problems with two unknowns: tickets, mixtures and motion.
 
 ## Practice
 

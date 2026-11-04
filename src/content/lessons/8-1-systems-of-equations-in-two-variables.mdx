@@ -2,70 +2,196 @@
 id: "8.1"
 title: Systems of Equations in Two Variables
 summary: A system asks for the points that make every equation true at once. Graphically, that is where the lines meet — one point, no point, or a whole line.
-minutes: 35
+minutes: 45
 objectives:
   - Check whether an ordered pair is a solution of a system.
-  - Solve a system by graphing.
-  - Recognize systems with no solution or infinitely many solutions.
+  - Explain why the solution is where the graphs intersect, and solve a system by graphing.
+  - Recognize systems with no solution or infinitely many solutions, from a graph or from the equations.
   - Use the words consistent, inconsistent, dependent and independent.
+  - Model a comparison of two plans with a system.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import SystemGraph from '../../components/SystemGraph.tsx';
+import { Plane } from '../../components/Plane.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
 
 <Callout type="why">
-Two phone plans: one costs $20 + 5t$ dollars, the other $35 + 2t$. When do they cost the same? That's a question about **two equations at once** — a system — and its answer is where their graphs cross.
+Two phone plans: one costs $20 + 5t$ dollars after $t$ months, the other $35 + 2t$. When do they cost the same, and which is cheaper before and after? One equation can't answer that — you need **both equations at once**, a *system*. Its answer is the point where the two graphs cross.
 </Callout>
 
-## Solutions of a system
+## What is a solution of a system?
 
-A **system of equations** is a set of equations that must all be true at the same time. A **solution** of a system in $x$ and $y$ is an ordered pair that makes **every** equation true.
+A **system of equations** is a set of equations that must all be true **at the same time**. A **solution** of a system in $x$ and $y$ is an ordered pair that makes **every** equation true. Making just one of them true is not enough.
 
 <StepReveal
   client:visible
-  title="Check a solution"
+  title="A solution"
   problem="Is $(3, -1)$ a solution of $\;\begin{cases} x + 2y = 1 \\ 2x - y = 7 \end{cases}$?"
   steps={[
-    { show: '$3 + 2(-1) = 1$ ✓', why: 'Substitute into the first equation.' },
-    { show: '$2(3) - (-1) = 7$ ✓', why: 'Substitute into the second equation.' },
-    { show: 'Yes — it makes **both** equations true.', why: 'If either one had been false, it would not be a solution.' },
+    { show: '$3 + 2(-1) = 1$ ✓', why: 'Substitute $x = 3$, $y = -1$ into the first equation.' },
+    { show: '$2(3) - (-1) = 7$ ✓', why: 'Substitute into the second equation. Careful: subtracting $-1$ adds $1$.' },
+    { show: 'Yes — it makes **both** equations true.', why: '' },
   ]}
+/>
+
+<StepReveal
+  client:visible
+  title="Not a solution"
+  problem="Is $(1, 0)$ a solution of the same system?"
+  steps={[
+    { show: '$1 + 2(0) = 1$ ✓', why: 'The first equation is true…' },
+    { show: '$2(1) - 0 = 2 \\neq 7$ ✗', why: '…but the second is false.' },
+    { show: 'No. $(1, 0)$ is on the first line only.', why: 'One false equation is enough to rule it out.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="$(2, 1)$ makes $x + y = 3$ true but makes $x - y = 0$ false. Is $(2, 1)$ a solution of the system made of these two equations?"
+  options={['No', 'Yes', 'Half a solution', "Can't tell"]}
+  answer={0}
+  explain="A solution of a system must make **every** equation true. $(2, 1)$ fails the second one."
+  wrong={{ 1: 'It makes only one of the two equations true. A solution must satisfy both.', 2: 'There is no "half a solution": every equation must be true.', 3: 'We can tell: one equation is false, so it is not a solution.' }}
 />
 
 <Practice client:visible lesson="8.1" skill="check" compact />
 
-## Solving by graphing
+## Why the answer is where the lines cross
 
-Graph both equations. Every point on a line is a solution of *that* equation, so a point on **both** lines — where they cross — is a solution of the system.
+The graph of an equation is the set of **all** points that make it true. So:
+
+- a point on the first line makes the first equation true;
+- a point on the second line makes the second equation true;
+- a point on **both** lines — where they cross — makes **both** equations true. That is exactly a solution of the system.
+
+<StepReveal
+  client:visible
+  title="Solve by graphing"
+  problem="Solve by graphing: $\;\begin{cases} y = x + 1 \\ y = -2x + 4 \end{cases}$"
+  steps={[
+    { show: 'Graph $y = x + 1$: $y$-intercept $1$, slope $1$.', why: 'Plot $(0, 1)$, then go up $1$ and right $1$.' },
+    { show: 'Graph $y = -2x + 4$: $y$-intercept $4$, slope $-2$.', why: 'Plot $(0, 4)$, then go down $2$ and right $1$.' },
+    { show: 'The lines cross at $(1, 2)$.', why: 'Read the intersection from the graph below.' },
+    { show: 'Check: $2 = 1 + 1$ ✓ and $2 = -2(1) + 4$ ✓', why: 'A graph can be slightly off, so always check the point in both equations.' },
+  ]}
+/>
+
+<div class="fig-center">
+  <Plane range={5} size={280} lines={[{ a: -1, b: 1, c: 1 }, { a: 2, b: 1, c: 4, cls: 'alt' }]} points={[{ x: 1, y: 2, cls: 'red', label: '(1, 2)' }]} label="The lines y = x + 1 and y = −2x + 4 cross at (1, 2)" />
+</div>
+
+Try other systems: change the lines and watch the intersection move.
 
 <SystemGraph client:visible />
 
+<Callout type="tip" title="The limit of graphing">
+If the lines cross at $\left(\frac{7}{3}, -\frac{1}{5}\right)$, you can't read that exactly from a graph. Graphing shows *what* is going on; the algebra in 8.2 and 8.3 gives exact answers.
+</Callout>
+
 <Practice client:visible lesson="8.1" skill="graph" compact />
 
-## One, none, or infinitely many
+## One solution, none, or infinitely many
+
+Two lines in a plane can meet in only three ways:
 
 | The lines… | Solutions | The system is… |
 |---|---|---|
-| cross at one point | exactly one | **consistent**, **independent** |
-| are parallel | none | **inconsistent** |
+| cross at one point (different slopes) | exactly one | **consistent**, **independent** |
+| are parallel (same slope, different intercepts) | none | **inconsistent** |
 | are the same line | infinitely many | **consistent**, **dependent** |
 
-<Callout type="tip" title="Spot it from the equations">
-If the left side of one equation is a multiple of the other's, the lines have the same slope. Then the right sides decide: the same multiple means the **same line**; a different number means **parallel** lines.
-</Callout>
+**Consistent** means *at least one solution*. **Dependent** means the two equations say the same thing — one is a multiple of the other — so they describe the same line.
+
+You can tell which case you have without graphing, by comparing the equations.
+
+<StepReveal
+  client:visible
+  title="Parallel lines"
+  problem="How many solutions does $\;\begin{cases} 2x + 3y = 6 \\ 4x + 6y = 5 \end{cases}$ have?"
+  steps={[
+    { show: 'Left sides: $4x + 6y = 2(2x + 3y)$', why: 'The second left side is $2$ times the first, so the lines have the same slope.' },
+    { show: 'Right sides: $2 \\cdot 6 = 12 \\neq 5$', why: 'If the lines were the same, the right side would also be doubled.' },
+    { show: 'Parallel lines: **no solution**. The system is inconsistent.', why: 'In words: $2x + 3y$ can\'t equal $6$ and $2.5$ at the same time.' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="The same line"
+  problem="How many solutions does $\;\begin{cases} x - 2y = 4 \\ -3x + 6y = -12 \end{cases}$ have?"
+  steps={[
+    { show: '$-3(x - 2y) = -3x + 6y$ and $-3(4) = -12$', why: 'The whole second equation is $-3$ times the first — both sides.' },
+    { show: 'Same line: **infinitely many solutions**. The system is consistent and dependent.', why: 'Every point on the line $x - 2y = 4$ is a solution, for example $(4, 0)$ and $(0, -2)$.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="How many solutions does the system $\;y = 3x + 2,\; y = 3x - 5\;$ have?"
+  options={['none', 'exactly one', 'infinitely many', 'two']}
+  answer={0}
+  explain="Both lines have slope $3$ but different $y$-intercepts ($2$ and $-5$), so they are parallel and never meet."
+  wrong={{ 1: 'One solution needs different slopes. Both slopes here are $3$.', 2: 'Infinitely many needs the same line. The intercepts $2$ and $-5$ are different.', 3: 'Two different straight lines can never cross twice.' }}
+/>
 
 <Practice client:visible lesson="8.1" skill="count" compact />
 
 <Practice client:visible lesson="8.1" skill="classify" compact />
 
+## In a real context
+
+Comparing two plans is a system problem: each plan is one equation, and "costs the same" is where the lines cross.
+
+<StepReveal
+  client:visible
+  title="Which phone plan?"
+  problem="Plan A costs $20$ dollars to start plus $5$ dollars a month. Plan B costs $35$ dollars to start plus $2$ dollars a month. When do they cost the same, and which is cheaper after that?"
+  steps={[
+    { show: '**Familiarize.** Let $t$ = number of months and $C$ = total cost in dollars.', why: 'Guess: after $1$ month A costs $25$ and B costs $37$ (A cheaper). After $10$ months A costs $70$ and B costs $55$ (B cheaper). So they are equal somewhere in between.' },
+    { show: '**Translate.** $\\;\\begin{cases} C = 20 + 5t \\\\ C = 35 + 2t \\end{cases}$', why: 'One equation per plan.' },
+    { show: '**Solve.** $20 + 5t = 35 + 2t \\;\\Rightarrow\\; 3t = 15 \\;\\Rightarrow\\; t = 5$, and $C = 20 + 25 = 45$', why: 'Both expressions equal $C$, so they equal each other.' },
+    { show: '**Check.** Plan A: $20 + 5 \\cdot 5 = 45$. Plan B: $35 + 2 \\cdot 5 = 45$ ✓', why: '' },
+    { show: '**State.** Both plans cost 45 dollars after 5 months. After that Plan B is cheaper, because it adds less each month.', why: '' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="In the phone-plan example, which plan is cheaper for someone who keeps it for **3 months**?"
+  options={['Plan A', 'Plan B', 'They cost the same', "Can't tell"]}
+  answer={0}
+  explain="Before the crossing point ($t = 5$) Plan A is cheaper: at $t = 3$, A costs $35$ and B costs $41$."
+  wrong={{ 1: 'Plan B only becomes cheaper after the lines cross at $t = 5$. Compute both at $t = 3$.', 2: 'They cost the same only at $t = 5$.', 3: 'Substitute $t = 3$ into both equations and compare.' }}
+/>
+
+<Practice client:visible lesson="8.1" skill="apply" compact />
+
+## Common mistakes
+
+<Callout type="warning" title="Checking only one equation">
+$(1, 0)$ makes $x + 2y = 1$ true, but it is **not** a solution of the system above, because $2x - y = 7$ is false there. Always check every equation.
+</Callout>
+
+<Callout type="warning" title="Trusting a graph without checking">
+A hand-drawn graph can be off by half a unit. Read the intersection, then substitute it into both equations. If it fails, use algebra (8.2, 8.3).
+</Callout>
+
+<Callout type="warning" title="Mixing up “no solution” and “infinitely many”">
+Same slope is not enough to decide. Compare the right sides too: same multiple → same line (infinitely many); different → parallel (none).
+</Callout>
+
 ## Summary
 
-- A solution makes **all** equations true.
-- Graphically: the intersection point(s) of the lines.
-- Different slopes → one solution. Same slope → no solution (parallel) or infinitely many (same line).
+- A solution of a system makes **all** of its equations true.
+- Graphically, the solutions are the points the lines share: one point, none (parallel), or a whole line (the same line).
+- Consistent = at least one solution; inconsistent = none; dependent = the equations describe the same line.
+- Comparing two plans: each plan is an equation; "costs the same" is the intersection.
+
+**Next, in 8.2:** an algebraic method, substitution, that finds the intersection exactly — even when it's at $\left(\frac{7}{3}, -\frac{1}{5}\right)$.
 
 ## Practice
 

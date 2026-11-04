@@ -67,10 +67,42 @@ function special(): Problem {
   };
 }
 
+
+/** Word problems where one fact already gives one unknown in terms of the other. */
+function substitutionWords(): Problem {
+  if (Math.random() < 0.5) {
+    const W = randInt(3, 30), d = randInt(2, 15), L = W + d, P = 2 * (L + W);
+    const thing = pick(['garden', 'swimming pool', 'parking lot', 'poster']);
+    const askL = Math.random() < 0.5;
+    return {
+      skill: 'apply',
+      prompt: `A rectangular ${thing} has a perimeter of ${P} m. Its length is ${d} m more than its width. Find its **${askL ? 'length' : 'width'}** (m).`,
+      answer: { type: 'number', value: askL ? L : W },
+      hints: [`Unknowns: length $L$ and width $W$. "Perimeter" gives $2L + 2W = ${P}$; "${d} more than the width" gives $L = W + ${d}$ — already solved for $L$.`, `Substitute: $2(W + ${d}) + 2W = ${P}$.`],
+      solution: [`$${systemTex([`L = W + ${d}`, `2L + 2W = ${P}`])}$`, `$2(W + ${d}) + 2W = ${P} \;\\Rightarrow\; 4W + ${2 * d} = ${P} \;\\Rightarrow\; W = ${W}$`, `$L = ${W} + ${d} = ${L}$. Check: $2(${L}) + 2(${W}) = ${P}$ ✓`],
+      mistakes: [{ answer: String(askL ? W : L), feedback: `That is the ${askL ? 'width' : 'length'}. The question asks for the ${askL ? 'length' : 'width'}.` }],
+      placeholder: '12',
+    };
+  }
+  const k = pick([2, 3, 4, 5]), c = randInt(20, 150), a = k * c, n = a + c;
+  const [place, A, Cn] = pick([['a concert', 'adults', 'children'], ['a school trip', 'students', 'teachers'], ['a museum', 'visitors with a ticket', 'members']] as [string, string, string][]);
+  const askA = Math.random() < 0.5;
+  return {
+    skill: 'apply',
+    prompt: `There were ${n} people at ${place}. There were ${k} times as many ${A} as ${Cn}. How many **${askA ? A : Cn}** were there?`,
+    answer: { type: 'number', value: askA ? a : c },
+    hints: [`Unknowns: $a$ = ${A}, $c$ = ${Cn}. "${k} times as many ${A} as ${Cn}" gives $a = ${k}c$; the total gives $a + c = ${n}$.`, `Substitute $a = ${k}c$ into $a + c = ${n}$.`],
+    solution: [`$${k}c + c = ${n} \;\\Rightarrow\; ${k + 1}c = ${n} \;\\Rightarrow\; c = ${c}$`, `$a = ${k}(${c}) = ${a}$. Check: $${a} + ${c} = ${n}$ ✓`],
+    mistakes: [{ answer: String(askA ? c : a), feedback: `That is the number of ${askA ? Cn : A}.` }],
+    placeholder: '120',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'solved', label: 'One equation already solved', generate: solvedFor },
   { id: 'isolate', label: 'Isolate a variable first', generate: isolate },
   { id: 'special', label: 'No solution or infinitely many', generate: special },
+  { id: 'apply', label: 'Word problems', generate: substitutionWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

@@ -2,48 +2,86 @@
 id: "8.2"
 title: Solving by Substitution
 summary: Solve one equation for a variable, substitute that expression into the other equation, and you're down to one equation in one variable.
-minutes: 35
+minutes: 45
 objectives:
-  - Solve systems using the substitution method.
-  - Choose which variable to isolate.
+  - Explain why substitution works.
+  - Solve systems using the substitution method, choosing which variable to isolate.
   - Recognize no-solution and infinitely-many-solution systems algebraically.
+  - Solve word problems where one fact gives one unknown in terms of the other.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import SubstitutionSteps from '../../components/SubstitutionSteps.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
 
 <Callout type="why">
-Graphing works only when the crossing point is easy to read. If the answer is $\left(\frac{7}{3}, -\frac{1}{5}\right)$, no graph will show it clearly. Algebra gives exact answers every time.
+Graphing works only when the crossing point is easy to read. If the answer is $\left(\frac{7}{3}, -\frac{1}{5}\right)$, no graph will show it clearly. Substitution turns a system of two equations into **one** equation with **one** variable — the kind you have known how to solve since Chapter 2 — and gives exact answers every time.
 </Callout>
 
-## The substitution method
+## The idea: replace a variable with what it equals
 
-1. Solve one equation for one variable (pick a variable with coefficient $1$ or $-1$ if you can).
-2. **Substitute** that expression into the **other** equation. Now it has only one variable.
-3. Solve it.
-4. Substitute back to find the other variable.
-5. Check in both original equations.
+At a solution, $x$ and $y$ have the **same values in both equations**. So if one equation tells you $y = 2x - 1$, then in the other equation you may replace $y$ with $2x - 1$: you are swapping a quantity for something equal to it. The result has only $x$ in it.
+
+The method:
+
+1. **Isolate** one variable in one equation. Pick a variable with coefficient $1$ or $-1$ if you can — that avoids fractions.
+2. **Substitute** that expression into the **other** equation, in parentheses.
+3. **Solve** the one-variable equation.
+4. **Substitute back** to find the other variable.
+5. **Check** the pair in both original equations.
 
 <SubstitutionSteps client:visible />
+
+## Worked examples
 
 <StepReveal
   client:visible
   title="One equation already solved"
   problem="Solve: $\;\begin{cases} y = 2x - 1 \\ 3x + 2y = 12 \end{cases}$"
   steps={[
-    { show: '$3x + 2(2x - 1) = 12$', why: 'Replace $y$ with $2x - 1$ — in parentheses.' },
-    { show: '$7x - 2 = 12 \\;\\Rightarrow\\; x = 2$', why: '' },
-    { show: '$y = 2(2) - 1 = 3$', why: 'Substitute back into the equation that is already solved for $y$.' },
-    { show: 'Solution: $(2, 3)$', why: 'Check: $3(2) + 2(3) = 12$ ✓' },
+    { show: '$3x + 2(2x - 1) = 12$', why: 'Replace $y$ with $2x - 1$ — in parentheses, because all of it is multiplied by $2$.' },
+    { show: '$3x + 4x - 2 = 12 \\;\\Rightarrow\\; 7x = 14 \\;\\Rightarrow\\; x = 2$', why: '' },
+    { show: '$y = 2(2) - 1 = 3$', why: 'Substitute back into the equation that is already solved for $y$ — it is the quickest.' },
+    { show: 'Solution: $(2, 3)$', why: 'Check: $3 = 2(2) - 1$ ✓ and $3(2) + 2(3) = 12$ ✓' },
   ]}
 />
 
-<Callout type="warning" title="Substitute into the other equation">
-If you substitute back into the same equation you solved, you'll get something like $2x - 1 = 2x - 1$ — true, but useless.
-</Callout>
+<StepReveal
+  client:visible
+  title="Isolate a variable first"
+  problem="Solve: $\;\begin{cases} x - 3y = 5 \\ 2x + y = 3 \end{cases}$"
+  steps={[
+    { show: '$x = 3y + 5$', why: 'In the first equation $x$ has coefficient $1$: add $3y$ to both sides.' },
+    { show: '$2(3y + 5) + y = 3$', why: 'Substitute into the **other** equation.' },
+    { show: '$6y + 10 + y = 3 \\;\\Rightarrow\\; 7y = -7 \\;\\Rightarrow\\; y = -1$', why: '' },
+    { show: '$x = 3(-1) + 5 = 2$', why: '' },
+    { show: 'Solution: $(2, -1)$', why: 'Check: $2 - 3(-1) = 5$ ✓ and $2(2) + (-1) = 3$ ✓' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="Choose the easy variable"
+  problem="Solve: $\;\begin{cases} 3x + 2y = 1 \\ 4x - y = -6 \end{cases}$"
+  steps={[
+    { show: '$y = 4x + 6$', why: 'Only $y$ in the second equation has coefficient $\\pm 1$. From $4x - y = -6$: add $y$ and $6$ to both sides.' },
+    { show: '$3x + 2(4x + 6) = 1 \\;\\Rightarrow\\; 11x + 12 = 1 \\;\\Rightarrow\\; x = -1$', why: '' },
+    { show: '$y = 4(-1) + 6 = 2$', why: '' },
+    { show: 'Solution: $(-1, 2)$', why: 'Check: $3(-1) + 2(2) = 1$ ✓ and $4(-1) - 2 = -6$ ✓. Isolating $x$ in the first equation would have given $x = \\frac{1 - 2y}{3}$ — the same answer, with fractions all the way.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Which is the best variable to isolate in $\;\begin{cases} 2x + 5y = 7 \\ 3x - y = 4 \end{cases}$?"
+  options={['$y$ in the second equation', '$x$ in the first equation', '$y$ in the first equation', '$x$ in the second equation']}
+  answer={0}
+  explain="Its coefficient is $-1$, so $y = 3x - 4$ — no fractions. Any choice gives the same solution, but the others start with fractions."
+  wrong={{ 1: 'That works, but $x = \\frac{7 - 5y}{2}$ brings fractions in right away. Look for a coefficient of $1$ or $-1$.', 2: 'That gives $y = \\frac{7 - 2x}{5}$, with fractions. Look for a coefficient of $1$ or $-1$.', 3: 'That gives $x = \\frac{4 + y}{3}$, with fractions. Look for a coefficient of $1$ or $-1$.' }}
+/>
 
 <Practice client:visible lesson="8.2" skill="solved" compact />
 
@@ -51,17 +89,98 @@ If you substitute back into the same equation you solved, you'll get something l
 
 ## When the variable disappears
 
-Sometimes both variables cancel:
+Sometimes, after substituting, **both** variables cancel. What is left tells you which special case you have:
 
-- A **false** statement like $0 = 5$ means **no solution** (parallel lines).
-- A **true** statement like $0 = 0$ means **infinitely many solutions** (the same line).
+<StepReveal
+  client:visible
+  title="A true statement"
+  problem="Solve: $\;\begin{cases} y = 3x - 2 \\ 6x - 2y = 4 \end{cases}$"
+  steps={[
+    { show: '$6x - 2(3x - 2) = 4$', why: '' },
+    { show: '$6x - 6x + 4 = 4 \\;\\Rightarrow\\; 4 = 4$', why: 'The $x$-terms cancel and what remains is **always true**.' },
+    { show: '**Infinitely many solutions**: every point on $y = 3x - 2$.', why: 'The second equation is just the first one rearranged and doubled — the same line.' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="A false statement"
+  problem="Solve: $\;\begin{cases} y = 2x + 1 \\ 4x - 2y = 3 \end{cases}$"
+  steps={[
+    { show: '$4x - 2(2x + 1) = 3 \\;\\Rightarrow\\; 4x - 4x - 2 = 3 \\;\\Rightarrow\\; -2 = 3$', why: 'The variable cancels and what remains is **never true**.' },
+    { show: '**No solution**: the lines are parallel.', why: 'No pair $(x, y)$ can make $-2 = 3$ true.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="After substituting, a student gets $\;0 = 0$. What does that mean?"
+  options={['Infinitely many solutions', 'No solution', 'The solution is $(0, 0)$', 'A mistake was made']}
+  answer={0}
+  explain="$0 = 0$ is true no matter what $x$ is, so every point of the (shared) line is a solution."
+  wrong={{ 1: '“No solution” comes from a **false** statement like $0 = 5$. $0 = 0$ is true.', 2: 'The variables have disappeared, so the statement says nothing about $x$ being $0$. It is true for every $x$.', 3: 'Not necessarily: a true statement with no variable is a real outcome — the two equations describe the same line.' }}
+/>
 
 <Practice client:visible lesson="8.2" skill="special" compact />
 
+## In a real context
+
+Substitution is the natural method when a fact in the problem *already* gives one unknown in terms of the other: "the length is 4 more than the width", "three times as many adults as children".
+
+<StepReveal
+  client:visible
+  title="A garden"
+  problem="A rectangular garden has a perimeter of $56$ m. Its length is $4$ m more than its width. Find the length and the width."
+  steps={[
+    { show: '**Familiarize.** Let $L$ = length and $W$ = width, in meters.', why: 'Guess: $W = 10$ gives $L = 14$ and perimeter $2(14) + 2(10) = 48$ — too small, so $W$ is more than $10$.' },
+    { show: '**Translate.** $\\;\\begin{cases} L = W + 4 \\\\ 2L + 2W = 56 \\end{cases}$', why: '"4 more than the width" is already solved for $L$ — ready to substitute.' },
+    { show: '**Solve.** $2(W + 4) + 2W = 56 \\;\\Rightarrow\\; 4W + 8 = 56 \\;\\Rightarrow\\; W = 12$, $\\;L = 16$', why: '' },
+    { show: '**Check.** $16$ is $4$ more than $12$ ✓, and $2(16) + 2(12) = 56$ ✓', why: 'Check against the words, not just the equations.' },
+    { show: '**State.** The garden is $16$ m long and $12$ m wide.', why: '' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="A concert audience"
+  problem="$480$ people attended a concert. There were three times as many adults as children. How many children attended?"
+  steps={[
+    { show: '**Familiarize.** Let $a$ = adults and $c$ = children.', why: '"Three times as many adults as children": the adults are the bigger group, so $a = 3c$ (not $c = 3a$). Test with small numbers: $10$ children → $30$ adults.' },
+    { show: '**Translate.** $\\;\\begin{cases} a = 3c \\\\ a + c = 480 \\end{cases}$', why: '' },
+    { show: '**Solve.** $3c + c = 480 \\;\\Rightarrow\\; c = 120$, $\\;a = 360$', why: '' },
+    { show: '**Check.** $360 = 3 \\cdot 120$ ✓ and $360 + 120 = 480$ ✓', why: '' },
+    { show: '**State.** $120$ children attended (and $360$ adults).', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="8.2" skill="apply" compact />
+
+## Common mistakes
+
+<Callout type="warning" title="Substituting back into the same equation">
+If you solve the first equation for $y$ and substitute into the **first** equation again, you get something like $2x - 1 = 2x - 1$ — true, but useless. Substitute into the **other** equation.
+</Callout>
+
+<Callout type="warning" title="Forgetting the parentheses">
+$3x + 2(2x - 1)$, not $3x + 2 \cdot 2x - 1$. The whole expression replaces $y$, so the $2$ multiplies both of its terms.
+</Callout>
+
+<Callout type="warning" title="Sign errors when isolating">
+From $x - 3y = 5$: $x = 5 + 3y$ (add $3y$ to both sides), not $x = 5 - 3y$.
+</Callout>
+
+<Callout type="warning" title="Stopping after one variable">
+$x = 2$ is not the answer to a system. Substitute back to find $y$ and give the ordered pair $(2, 3)$.
+</Callout>
+
 ## Summary
 
-- Isolate → substitute into the other equation → solve → substitute back → check.
-- False statement: no solution. True statement: infinitely many.
+- Substitution works because, at a solution, each variable has the same value in both equations.
+- Isolate (coefficient $\pm 1$ if possible) → substitute into the **other** equation → solve → substitute back → check.
+- If the variables cancel: a true statement means infinitely many solutions; a false one means no solution.
+- In word problems, phrases like "4 more than" or "three times as many" give an equation that is already solved.
+
+**Next, in 8.3:** when no variable has a coefficient of $1$ or $-1$, substitution brings fractions. *Elimination* avoids them.
 
 ## Practice
 

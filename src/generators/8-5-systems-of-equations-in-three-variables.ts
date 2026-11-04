@@ -87,11 +87,36 @@ function triangular(): Problem {
   };
 }
 
+
+/** Word problem: three items, three orders. */
+function threeOrders(): Problem {
+  const det = (m: number[][]) => m[0][0] * (m[1][1] * m[2][2] - m[1][2] * m[2][1]) - m[0][1] * (m[1][0] * m[2][2] - m[1][2] * m[2][0]) + m[0][2] * (m[1][0] * m[2][1] - m[1][1] * m[2][0]);
+  for (;;) {
+    const [items, place] = pick([[['coffee', 'tea', 'juice'], 'a café'], [['burger', 'salad', 'shake'], 'a diner'], [['pencil', 'eraser', 'ruler'], 'a school shop']] as [string[], string][]);
+    const price = [randInt(2, 9), randInt(1, 6), randInt(2, 8)];
+    const M = [0, 1, 2].map(() => [randInt(0, 3), randInt(0, 3), randInt(0, 3)]);
+    if (det(M) === 0 || M.some((r) => r.filter(Boolean).length < 2) || new Set(price).size < 3) continue;
+    const tot = M.map((r) => r.reduce((s, c, i) => s + c * price[i], 0));
+    const say = (r: number[]) => r.map((c, i) => (c ? `${c} ${items[i]}${c > 1 ? (items[i].endsWith('s') ? '' : items[i].endsWith('h') ? 'es' : 's') : ''}` : '')).filter(Boolean).join(', ').replace(/, ([^,]*)$/, ' and $1');
+    const ask = randInt(0, 2);
+    const v = ['x', 'y', 'z'];
+    return {
+      skill: 'apply',
+      prompt: `At ${place}, three orders cost: ${say(M[0])} — ${tot[0]} dollars; ${say(M[1])} — ${tot[1]} dollars; ${say(M[2])} — ${tot[2]} dollars. What is the price of one **${items[ask]}** (dollars)?`,
+      answer: { type: 'number', value: price[ask] },
+      hints: [`Unknowns: $x$, $y$, $z$ = the prices of one ${items[0]}, ${items[1]} and ${items[2]}. One equation per order: $\;${systemTex(M.map((r, k) => combTex(r, v, tot[k])))}$`, 'Eliminate the same variable from two pairs of equations (or substitute if an equation has only two variables).'],
+      solution: [`$${systemTex(M.map((r, k) => combTex(r, v, tot[k])))}$`, `$x = ${price[0]}$, $y = ${price[1]}$, $z = ${price[2]}$`, 'Check each order: ' + M.map((r, k) => `$${tot[k]}$ ✓`).join(', ')],
+      placeholder: '4',
+    };
+  }
+}
+
 export const skills: Skill[] = [
   { id: 'check', label: 'Check a solution', generate: checkTriple },
   { id: 'back', label: 'Back-substitution', generate: triangular },
   { id: 'eliminate', label: 'Eliminate a variable', generate: eliminateStep },
   { id: 'solve', label: 'Solve a 3 × 3 system', generate: solve3 },
+  { id: 'apply', label: 'Word problems', generate: threeOrders },
 ];
 
 export const masterySet = makeMasterySet(skills);

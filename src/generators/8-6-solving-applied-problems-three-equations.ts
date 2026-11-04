@@ -36,18 +36,22 @@ function threeNumbers(): Problem {
 }
 
 function investment(): Problem {
-  const r = [3, 4, 5];
+  const r = [3, 4, 5], v = ['x', 'y', 'z'];
   const amts = [randInt(2, 10) * 1000, randInt(2, 10) * 1000, randInt(2, 10) * 1000];
   const total = amts[0] + amts[1] + amts[2];
   const interest = amts.reduce((s, a, i) => s + (a * r[i]) / 100, 0);
-  const diff = amts[2] - amts[0];
+  // The third fact must compare the 4% account with another one. (Comparing the 3% and 5% accounts gives
+  // no new information, because 4% is the average of 3% and 5% — the system would have infinitely many solutions.)
+  const [i, j] = pick([[0, 1], [1, 2]] as [number, number][]);
+  const diff = amts[j] - amts[i];
   const ask = pick([0, 1, 2]);
+  const third = `${v[j]} = ${v[i]} ${diff >= 0 ? '+' : '-'} ${Math.abs(diff)}`;
   return {
     skill: 'invest',
-    prompt: `$${total}$ dollars is invested in three accounts paying 3%, 4% and 5% simple interest. The total interest after one year is $${interest}$ dollars. The amount at 5% is ${diff >= 0 ? `${diff} dollars more` : `${-diff} dollars less`} than the amount at 3%. How much is invested at **${r[ask]}%** (dollars)?`,
+    prompt: `${total.toLocaleString('en-US')} dollars is invested in three accounts paying 3%, 4% and 5% simple interest. The total interest after one year is ${interest.toLocaleString('en-US')} dollars. The amount at ${r[j]}% is ${diff >= 0 ? `${diff.toLocaleString('en-US')} dollars more` : `${(-diff).toLocaleString('en-US')} dollars less`} than the amount at ${r[i]}%. How much is invested at **${r[ask]}%** (dollars)?`,
     answer: { type: 'number', value: amts[ask] },
-    hints: [`Let $x$, $y$, $z$ be the amounts at 3%, 4%, 5%: $\\;${systemTex([`x + y + z = ${total}`, `0.03x + 0.04y + 0.05z = ${interest}`, `z = x ${diff >= 0 ? '+' : '-'} ${Math.abs(diff)}`])}$`, 'Substitute the third equation into the other two to get a system in $x$ and $y$.'],
-    solution: [`$x = ${amts[0]}$, $y = ${amts[1]}$, $z = ${amts[2]}$`, `Check: total $${total}$, interest $${amts[0] * 0.03} + ${amts[1] * 0.04} + ${amts[2] * 0.05} = ${interest}$ ✓`],
+    hints: [`Let $x$, $y$, $z$ be the amounts at 3%, 4%, 5% (the unknowns). Key facts: the **total** invested, the **total interest**, and the **comparison**: $\;${systemTex([`x + y + z = ${total}`, `0.03x + 0.04y + 0.05z = ${interest}`, third])}$`, 'Multiply the interest equation by $100$ to clear decimals, then substitute the third equation into the other two.'],
+    solution: [`$${systemTex([`x + y + z = ${total}`, `3x + 4y + 5z = ${interest * 100}`, third])}$`, `$x = ${amts[0]}$, $y = ${amts[1]}$, $z = ${amts[2]}$`, `Check: total $${total}$; interest $${amts[0] * 0.03} + ${amts[1] * 0.04} + ${amts[2] * 0.05} = ${interest}$ ✓`],
   };
 }
 
