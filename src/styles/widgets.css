@@ -917,3 +917,4 @@ a.tag:hover { color: var(--ink); }
 /* Appendix A widgets: inner spacing like the other cards */
 .fb, .mr, .pv, .df, .mn, .hg { padding: 16px 20px; margin: 1.4em 0; }
 @media (max-width: 560px) { .fb, .mr, .pv, .df, .mn, .hg { padding: 14px 14px; } }
+.pv-row { min-width: 0; overflow-wrap: anywhere; }

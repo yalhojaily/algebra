@@ -33,8 +33,8 @@ export default function PrimeVenn({ focus = 'gcd' }: { focus?: 'gcd' | 'lcm' }) 
         <div className={`pv-mid ${focus === 'gcd' ? 'hl' : ''}`}>{shared.length ? chips(shared) : <span className="gf-none">none</span>}</div>
         <div className="pv-circle b"><span className="pv-name">{b}</span><div className="pv-only">{chips(restB)}</div></div>
       </div>
-      <div className={`pb-row ${focus === 'gcd' ? 'el-result' : ''}`}><span className="el-step">GCD</span><Tex>{`\\text{shared primes: } ${shared.length ? shared.join(' \\cdot ') : '1'} = ${G}`}</Tex></div>
-      <div className={`pb-row ${focus === 'lcm' ? 'el-result' : ''}`}><span className="el-step">LCM</span><Tex>{`\\text{all primes, shared ones once: } ${[...onlyA, ...shared, ...restB].sort((x, y) => x - y).join(' \\cdot ') || '1'} = ${L}`}</Tex></div>
+      <div className={`pb-row ${focus === 'gcd' ? 'el-result' : ''}`}><span className="el-step">GCD</span><span className="pv-row">shared primes: <Tex>{`${shared.length ? shared.join(' \\cdot ') : '1'} = ${G}`}</Tex></span></div>
+      <div className={`pb-row ${focus === 'lcm' ? 'el-result' : ''}`}><span className="el-step">LCM</span><span className="pv-row">all primes, shared ones once: <Tex>{`${[...onlyA, ...shared, ...restB].sort((x, y) => x - y).join(' \\cdot ') || '1'} = ${L}`}</Tex></span></div>
       <p className="lb-note">The middle holds the primes the two numbers <strong>share</strong>. Multiply just the middle for the GCD; multiply <strong>everything</strong> in the picture for the LCM. Check: <Tex>{`\\text{GCD} \\times \\text{LCM} = ${G} \\times ${L} = ${G * L} = ${a} \\times ${b}`}</Tex>. {G === 1 && 'These numbers share no prime factor: their GCD is 1 (they are relatively prime).'}</p>
       <div className="am-controls">
         <label className="el-slider"><span>first number</span><input type="range" min={2} max={200} value={a} onChange={(e) => setA(Number(e.target.value))} /><output className="c-var">{a}</output></label>
