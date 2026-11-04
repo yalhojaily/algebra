@@ -86,12 +86,32 @@ function completePair(): Problem {
   };
 }
 
+function contextPair(): Problem {
+  const [who, unit, what, rate, base, inp] = pick([
+    ['A plumber\'s bill is', 'h', 'for $h$ hours of work', pick([25, 30, 40]), pick([20, 30, 50]), 'h'],
+    ['The total cost of a gym membership is', 'm', 'after $m$ months', pick([15, 20, 25]), pick([30, 40, 50]), 'm'],
+    ['A savings account holds', 'w', 'after $w$ weeks of saving', pick([10, 20, 25]), pick([50, 100]), 'w'],
+  ] as const);
+  const x = randInt(2, 12);
+  const y = base + rate * x;
+  const dep = who.startsWith('A savings') ? 'S' : 'C';
+  return {
+    skill: 'apply',
+    prompt: `${who} $${dep} = ${base} + ${rate}${inp}$ riyals ${what}. Complete the ordered pair $(${x}, \\;?)$ so that it is a solution, and say what it means.`,
+    answer: { type: 'number', value: y },
+    hints: [`Unknown: the second coordinate, $${dep}$. Key words: the pair is $(${inp}, ${dep})$, so the first number, $${x}$, is the value of $${inp}$.`, `Substitute $${inp} = ${x}$: $${dep} = ${base} + ${rate}(${x})$.`],
+    solution: [`$${dep} = ${base} + ${rate} \\cdot ${x} = ${y}$`, `The pair $(${x}, ${y})$: when $${inp} = ${x}$, the amount is $${y}$ riyals.`],
+    placeholder: 'e.g. 170',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'read', label: 'Read a point', generate: readPoint },
   { id: 'plot', label: 'Plot a point', generate: plotPoint },
   { id: 'quadrant', label: 'Quadrants', generate: quadrant },
   { id: 'solution', label: 'Is it a solution?', generate: isSolution },
   { id: 'complete', label: 'Complete the pair', generate: completePair },
+  { id: 'apply', label: 'Word problems', generate: contextPair },
 ];
 
 export const masterySet = makeMasterySet(skills);

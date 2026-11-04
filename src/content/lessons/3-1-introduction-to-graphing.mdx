@@ -2,16 +2,18 @@
 id: "3.1"
 title: Introduction to Graphing
 summary: The coordinate plane turns pairs of numbers into points and equations into pictures. Plot and read points, name quadrants, and test whether an ordered pair solves an equation in two variables.
-minutes: 30
+minutes: 35
 objectives:
   - Plot points and read their coordinates on a coordinate plane.
   - Name the quadrant a point lies in, or the axis it lies on.
   - Decide whether an ordered pair is a solution of an equation in two variables.
   - Find the missing coordinate that makes an ordered pair a solution.
+  - Read and complete ordered pairs that describe real situations.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import PlaneExplorer from '../../components/PlaneExplorer.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -36,6 +38,15 @@ Click anywhere to plot a point.
 $(3, 5)$ and $(5, 3)$ are different points. Remember the alphabet: $x$ comes before $y$, and you walk **across** before you climb **up**.
 </Callout>
 
+<QuickCheck
+  client:visible
+  question="Which point is $3$ units **left** of the origin and $2$ units **up**?"
+  options={['$(-3, 2)$', '$(2, -3)$', '$(-2, 3)$', '$(3, 2)$']}
+  answer={0}
+  explain="Left/right comes first ($x = -3$), up/down second ($y = 2$)."
+  wrong={{ 1: 'The first coordinate is the left–right move.', 2: 'Left $3$ gives $x = -3$; up $2$ gives $y = 2$.', 3: '**Left** means a negative $x$.' }}
+/>
+
 <Practice client:visible lesson="3.1" skill="plot" compact />
 
 <Practice client:visible lesson="3.1" skill="read" compact />
@@ -56,6 +67,15 @@ The axes divide the plane into four **quadrants**, numbered counter-clockwise st
 
 Points on an axis, like $(0, 5)$ or $(-3, 0)$, are not in any quadrant.
 
+<QuickCheck
+  client:visible
+  question="In which quadrant is the point $(-5, -1)$?"
+  options={['III', 'II', 'IV', 'I']}
+  answer={0}
+  explain="Both coordinates are negative: left and down — the lower-left quadrant, III."
+  wrong={{ 1: 'Quadrant II is $(-, +)$: left and **up**.', 2: 'Quadrant IV is $(+, -)$: **right** and down.', 3: 'Quadrant I needs both coordinates positive.' }}
+/>
+
 <Practice client:visible lesson="3.1" skill="quadrant" compact />
 
 ## Solutions of equations in two variables
@@ -74,6 +94,15 @@ An equation like $y = 2x - 1$ has **two** variables, so a solution is a **pair**
 
 Turn on "Test it in $y = 2x - 1$" in the explorer above and click around. Notice that **every** solution lands on the same straight line. That line is the **graph** of the equation — the subject of the next lesson.
 
+<QuickCheck
+  client:visible
+  question="Which ordered pair is a solution of $\;y = 3x + 1$?"
+  options={['$(2, 7)$', '$(7, 2)$', '$(1, 3)$', '$(0, 3)$']}
+  answer={0}
+  explain="$x = 2$: $3(2) + 1 = 7$ ✓"
+  wrong={{ 1: 'Order matters: $(7, 2)$ means $x = 7$, and $3(7) + 1 = 22$.', 2: '$3(1) + 1 = 4$, not $3$.', 3: '$3(0) + 1 = 1$, not $3$.' }}
+/>
+
 <Practice client:visible lesson="3.1" skill="solution" compact />
 
 <StepReveal
@@ -87,13 +116,57 @@ Turn on "Test it in $y = 2x - 1$" in the explorer above and click around. Notice
   answer="The solution is $(4, -2)$."
 />
 
+<StepReveal
+  client:visible
+  title="Finding a missing x"
+  problem="Find $x$ so that $(x, 5)$ is a solution of $y = 2x - 1$."
+  steps={[
+    { show: '$5 = 2x - 1$', why: 'Substitute $y = 5$.' },
+    { show: '$6 = 2x \\;\\Rightarrow\\; x = 3$', why: 'The solution is $(3, 5)$.' },
+  ]}
+/>
+
 <Practice client:visible lesson="3.1" skill="complete" compact />
+
+## In a real context
+
+<StepReveal
+  client:visible
+  title="A plumber's bill"
+  problem="A plumber charges $C = 30 + 25h$ riyals for $h$ hours of work. Complete the pair $(2, C)$. Is $(4, 120)$ a solution?"
+  steps={[
+    { show: '**Familiarize.** Pairs are $(h, C)$: hours first, cost second.', why: '' },
+    { show: '**Solve.** $h = 2$: $\\;C = 30 + 50 = 80$, so $(2, 80)$', why: '' },
+    { show: '$(4, 120)$: $\\;30 + 25(4) = 130 \\ne 120$ ✗', why: '' },
+    { show: '**Check.** $80 - 30 = 50 = 2 \\cdot 25$ ✓', why: '' },
+    { show: '**State.** Two hours cost $80$ riyals. $(4, 120)$ is not a solution — four hours cost $130$.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="3.1" skill="apply" compact />
+
+
+## Common mistakes
+
+<Callout type="warning" title="Swapping the coordinates">
+$(2, 7)$ means $x = 2$, $y = 7$. Plot across first, then up.
+</Callout>
+
+<Callout type="warning" title="Points on an axis">
+$(0, 5)$ and $(-3, 0)$ lie **on** an axis, so they are in no quadrant.
+</Callout>
+
+<Callout type="warning" title="Testing only one side">
+To test a pair, substitute **both** coordinates and check that the equation is true.
+</Callout>
 
 ## Summary
 
 - An ordered pair $(x, y)$: move $x$ left/right, then $y$ up/down from the origin.
 - Quadrants I–IV go counter-clockwise from the upper right; points on axes are in no quadrant.
 - A solution of an equation in two variables is an ordered pair that makes it true. All the solutions together form its **graph**.
+
+**Next, in 3.2:** graphing linear equations — all the solutions of an equation form a line.
 
 ## Practice
 

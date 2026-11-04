@@ -98,7 +98,7 @@ function apply(): Problem {
       return { prompt: `A taxi fare is $f = ${rate}k + ${base}$ riyals for a ride of $k$ km. Find the fare for $${k}$ km.`, value: rate * k + base, sol: [`$f = ${rate} \\cdot ${k} + ${base} = ${rate * k + base}$ riyals`] };
     },
   ])();
-  return { skill: 'apply', prompt: t.prompt, answer: { type: 'number', value: t.value }, hints: ['Substitute the value into the equation.'], solution: t.sol };
+  return { skill: 'apply', prompt: t.prompt, answer: { type: 'number', value: t.value }, hints: ['Unknown: the value of the output. Key words: the equation describes the situation, and the question gives the input — substitute it.', 'Multiply first, then add or subtract.'], solution: t.sol };
 }
 
 export const skills: Skill[] = [

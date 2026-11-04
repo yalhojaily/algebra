@@ -85,7 +85,7 @@ function perimeterWords(): Problem {
       prompt: `A rectangular frame is $\\sqrt{${L}}$ cm long and $\\sqrt{${W}}$ cm wide. Find its perimeter in simplest radical form (cm).`,
       answer: { type: 'expression', value: radText(P, r), radical: true },
       hints: ['Unknown: the perimeter $P = 2L + 2W$. Simplify each radical first — then you will see like radicals.', `$\\sqrt{${L}} = ${radTex(a, r)}$ and $\\sqrt{${W}} = ${radTex(b, r)}$.`],
-      solution: [`$\\sqrt{${L}} = ${radTex(a, r)}$, $\;\\sqrt{${W}} = ${radTex(b, r)}$`, `$P = 2(${radTex(a, r)}) + 2(${radTex(b, r)}) = ${radTex(2 * a, r)} + ${radTex(2 * b, r)} = ${radTex(P, r)}$ cm`],
+      solution: [`$\\sqrt{${L}} = ${radTex(a, r)}$, $\\;\\sqrt{${W}} = ${radTex(b, r)}$`, `$P = 2(${radTex(a, r)}) + 2(${radTex(b, r)}) = ${radTex(2 * a, r)} + ${radTex(2 * b, r)} = ${radTex(P, r)}$ cm`],
       mistakes: [{ answer: `2sqrt(${L + W})`, feedback: 'Radicands never add: $\\sqrt{a} + \\sqrt{b} \\neq \\sqrt{a + b}$. Simplify each radical first.' }],
       placeholder: '14sqrt(2)',
     };

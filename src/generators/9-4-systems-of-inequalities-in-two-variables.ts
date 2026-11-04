@@ -97,8 +97,8 @@ function production(): Problem {
         skill: 'apply',
         prompt: `${place} makes $x$ ${X} and $y$ ${Y} a week. Each ${x1} needs ${hrs(a1)} of ${r1} and ${hrs(a2)} of ${r2}; each ${y1} needs ${hrs(b1)} of ${r1} and ${hrs(b2)} of ${r2}. There are at most ${C1} hours of ${r1} and ${C2} hours of ${r2} a week. If it makes ${nm(x0, x1, X)}, what is the **largest** number of ${Y} it can make?`,
         answer: { type: 'number', value: ymax },
-        hints: [`Unknowns: $x$ = ${X}, $y$ = ${Y}. Each limit is an inequality: $\;${a1}x + ${b1}y \\le ${C1}$ and $${a2}x + ${b2}y \\le ${C2}$.`, `Put $x = ${x0}$ into **both** and solve for $y$. The answer must satisfy both — and be a whole number.`],
-        solution: [`$${a1}(${x0}) + ${b1}y \\le ${C1} \;\\Rightarrow\; y \\le ${+((C1 - a1 * x0) / b1).toFixed(2)}$`, `$${a2}(${x0}) + ${b2}y \\le ${C2} \;\\Rightarrow\; y \\le ${+((C2 - a2 * x0) / b2).toFixed(2)}$`, `Both must hold, so the ${which === 1 ? r1 : r2} limit decides: at most $${ymax}$ ${Y}.`],
+        hints: [`Unknowns: $x$ = ${X}, $y$ = ${Y}. Each limit is an inequality: $\\;${a1}x + ${b1}y \\le ${C1}$ and $${a2}x + ${b2}y \\le ${C2}$.`, `Put $x = ${x0}$ into **both** and solve for $y$. The answer must satisfy both — and be a whole number.`],
+        solution: [`$${a1}(${x0}) + ${b1}y \\le ${C1} \\;\\Rightarrow\\; y \\le ${+((C1 - a1 * x0) / b1).toFixed(2)}$`, `$${a2}(${x0}) + ${b2}y \\le ${C2} \\;\\Rightarrow\\; y \\le ${+((C2 - a2 * x0) / b2).toFixed(2)}$`, `Both must hold, so the ${which === 1 ? r1 : r2} limit decides: at most $${ymax}$ ${Y}.`],
         placeholder: '6',
       };
     }
@@ -110,7 +110,7 @@ function production(): Problem {
     if (Math.abs(a1 * x0 + b1 * y0 - C1) > 10 && Math.abs(a2 * x0 + b2 * y0 - C2) > 10) continue; // keep it close to a boundary
     return {
       skill: 'apply',
-      prompt: `${place} makes $x$ ${X} and $y$ ${Y} a week, with the limits $\;${a1}x + ${b1}y \\le ${C1}$ (hours of ${r1}) and $${a2}x + ${b2}y \\le ${C2}$ (hours of ${r2}). Can it make ${nm(x0, x1, X)} and ${nm(y0, y1, Y)} in one week?`,
+      prompt: `${place} makes $x$ ${X} and $y$ ${Y} a week, with the limits $\\;${a1}x + ${b1}y \\le ${C1}$ (hours of ${r1}) and $${a2}x + ${b2}y \\le ${C2}$ (hours of ${r2}). Can it make ${nm(x0, x1, X)} and ${nm(y0, y1, Y)} in one week?`,
       answer: choice(ok ? 'Yes — both limits are met' : 'No — at least one limit is broken', [ok ? 'No — at least one limit is broken' : 'Yes — both limits are met']),
       hints: [`A plan works only if the point $(${x0}, ${y0})$ satisfies **every** inequality of the system — it must lie in the overlap of the shaded regions.`],
       solution: [`${r1[0].toUpperCase() + r1.slice(1)}: $${a1}(${x0}) + ${b1}(${y0}) = ${a1 * x0 + b1 * y0}$ ${ok1 ? `$\\le ${C1}$ ✓` : `$> ${C1}$ ✗`}`, `${r2[0].toUpperCase() + r2.slice(1)}: $${a2}(${x0}) + ${b2}(${y0}) = ${a2 * x0 + b2 * y0}$ ${ok2 ? `$\\le ${C2}$ ✓` : `$> ${C2}$ ✗`}`, ok ? 'Both limits hold, so yes.' : 'A limit is broken, so no.'],

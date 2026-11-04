@@ -103,7 +103,7 @@ function orders(): Problem {
       skill: 'apply',
       prompt: `At ${place}, ${n1(a)} and ${n2(b)} cost ${m(T1)} dollars, and ${n1(d)} and ${n2(e)} cost ${m(T2)} dollars. What is the price of one **${ask1 ? s1 : s2}** (dollars)?`,
       answer: { type: 'number', value: ask1 ? p : q, tol: 0.001 },
-      hints: [`Unknowns: $x$ = price of one ${s1}, $y$ = price of one ${s2}. Each purchase gives one equation: $\;${sys}$`, `Multiply so the ${ask1 ? '$y$' : '$x$'}-terms become opposites, then add.`],
+      hints: [`Unknowns: $x$ = price of one ${s1}, $y$ = price of one ${s2}. Each purchase gives one equation: $\\;${sys}$`, `Multiply so the ${ask1 ? '$y$' : '$x$'}-terms become opposites, then add.`],
       solution: [`$${sys}$`, `Eliminate: $x = ${m(p)}$, $y = ${m(q)}$`, `Check: $${a}(${m(p)}) + ${b}(${m(q)}) = ${m(T1)}$ ✓ and $${d}(${m(p)}) + ${e}(${m(q)}) = ${m(T2)}$ ✓`],
       placeholder: '2.75',
     };

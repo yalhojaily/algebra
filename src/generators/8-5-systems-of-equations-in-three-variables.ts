@@ -104,7 +104,7 @@ function threeOrders(): Problem {
       skill: 'apply',
       prompt: `At ${place}, three orders cost: ${say(M[0])} — ${tot[0]} dollars; ${say(M[1])} — ${tot[1]} dollars; ${say(M[2])} — ${tot[2]} dollars. What is the price of one **${items[ask]}** (dollars)?`,
       answer: { type: 'number', value: price[ask] },
-      hints: [`Unknowns: $x$, $y$, $z$ = the prices of one ${items[0]}, ${items[1]} and ${items[2]}. One equation per order: $\;${systemTex(M.map((r, k) => combTex(r, v, tot[k])))}$`, 'Eliminate the same variable from two pairs of equations (or substitute if an equation has only two variables).'],
+      hints: [`Unknowns: $x$, $y$, $z$ = the prices of one ${items[0]}, ${items[1]} and ${items[2]}. One equation per order: $\\;${systemTex(M.map((r, k) => combTex(r, v, tot[k])))}$`, 'Eliminate the same variable from two pairs of equations (or substitute if an equation has only two variables).'],
       solution: [`$${systemTex(M.map((r, k) => combTex(r, v, tot[k])))}$`, `$x = ${price[0]}$, $y = ${price[1]}$, $z = ${price[2]}$`, 'Check each order: ' + M.map((r, k) => `$${tot[k]}$ ✓`).join(', ')],
       placeholder: '4',
     };

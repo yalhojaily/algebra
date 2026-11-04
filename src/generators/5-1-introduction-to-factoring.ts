@@ -106,7 +106,7 @@ function factorWords(): Problem {
       skill: 'apply',
       prompt: `A rectangular ${thing} has area $${A.tex()}$ square units and width $${W.tex()}$. Find its length.`,
       answer: { type: 'expression', value: L.text() },
-      hints: [`Unknown: the length. Key words: area = length × width, so the width $${W.tex()}$ is a factor of the area.`, `Factor out $${W.tex()}$: $${A.tex()} = ${W.tex()}(\;?\;)$.`],
+      hints: [`Unknown: the length. Key words: area = length × width, so the width $${W.tex()}$ is a factor of the area.`, `Factor out $${W.tex()}$: $${A.tex()} = ${W.tex()}(\\;?\\;)$.`],
       solution: [`$${A.tex()} = ${W.tex()}${parTex(L)}$`, `Length $= ${L.tex()}$`, `Check: $${W.tex()}${parTex(L)} = ${A.tex()}$ ✓`],
       placeholder: '2x + 3',
     };

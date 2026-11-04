@@ -120,7 +120,7 @@ function shapeWords(): Problem {
       skill: 'apply',
       prompt: `A square ${pick(['tile', 'patio', 'garden', 'courtyard'])} has area $${A.tex()}$ square meters. Find the length of one side.`,
       answer: { type: 'expression', value: S.text() },
-      hints: ['Unknown: the side. Key words: the area of a **square** is side², so look for a trinomial square.', `$${A.tex()} = (\;?\;)^2$: the first term is $(${a === 1 ? '' : a}x)^2$, the last is $${b}^2$, and the middle should be $2 \\cdot ${a === 1 ? '' : a}x \\cdot ${b}$.`],
+      hints: ['Unknown: the side. Key words: the area of a **square** is side², so look for a trinomial square.', `$${A.tex()} = (\\;?\\;)^2$: the first term is $(${a === 1 ? '' : a}x)^2$, the last is $${b}^2$, and the middle should be $2 \\cdot ${a === 1 ? '' : a}x \\cdot ${b}$.`],
       solution: [`$${A.tex()} = ${parTex(S)}^2$`, `Side $= ${S.tex()}$ m`],
       placeholder: '2x + 3',
     };

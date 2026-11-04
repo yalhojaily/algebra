@@ -84,7 +84,7 @@ function lcmWords(): Problem {
       prompt: `${things} ${verb} together at 8:00. One does so every $${a}$ minutes, the other every $${b}$ minutes. After how many minutes do they next ${verb.split(' ')[0]} together?`,
       answer: { type: 'number', value: L },
       hints: ['Unknown: the first time that is a multiple of both. Key words: "next … together" means the **least common multiple**.', `Factor: $${a} = ${primeTex(a)}$ and $${b} = ${primeTex(b)}$. Take each prime the greatest number of times it appears.`],
-      solution: [`$${a} = ${primeTex(a)}$, $\;${b} = ${primeTex(b)}$`, `LCM $= ${primeTex(L)} = ${L}$`, `They are together again after $${L}$ minutes.`],
+      solution: [`$${a} = ${primeTex(a)}$, $\\;${b} = ${primeTex(b)}$`, `LCM $= ${primeTex(L)} = ${L}$`, `They are together again after $${L}$ minutes.`],
       mistakes: [{ answer: String(a * b), feedback: `$${a} \\cdot ${b}$ is a common multiple, but not the **least** one.` }],
       placeholder: 'e.g. 36',
     };

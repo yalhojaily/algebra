@@ -89,7 +89,7 @@ function squareRootWords(): Problem {
       prompt: `A square garden is made bigger by adding ${d} m to each side. The new garden has an area of ${A} m². How long was each side of the original garden (m)?`,
       answer: { type: 'number', value: x },
       hints: [`Unknown: the original side $x$. The new side is $x + ${d}$, so $(x + ${d})^2 = ${A}$ — a shifted square.`, `Take square roots: $x + ${d} = \\pm${x + d}$. A length can't be negative.`],
-      solution: [`$(x + ${d})^2 = ${A} \;\\Rightarrow\; x + ${d} = \\pm ${x + d}$`, `$x = ${x}$ or $x = ${-(x + d) - d}$; reject the negative length.`, `The original side was ${x} m. Check: $(${x} + ${d})^2 = ${A}$ ✓`],
+      solution: [`$(x + ${d})^2 = ${A} \\;\\Rightarrow\\; x + ${d} = \\pm ${x + d}$`, `$x = ${x}$ or $x = ${-(x + d) - d}$; reject the negative length.`, `The original side was ${x} m. Check: $(${x} + ${d})^2 = ${A}$ ✓`],
       mistakes: [{ answer: String(x + d), feedback: `That is the **new** side. Subtract the ${d} m that was added.` }],
       placeholder: '7',
     };

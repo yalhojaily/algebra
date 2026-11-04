@@ -101,11 +101,36 @@ function whichGraph(): Problem {
   };
 }
 
+function contextIntercept(): Problem {
+  if (Math.random() < 0.5) {
+    const r = pick([20, 25, 30, 40, 50]), t = randInt(4, 20), W = r * t;
+    return {
+      skill: 'apply',
+      prompt: `A tank holds $${W}$ liters of water and drains at $${r}$ liters per minute, so after $t$ minutes the amount left, $w$, satisfies $${r}t + w = ${W}$. After how many minutes is the tank empty?`,
+      answer: { type: 'number', value: t },
+      hints: ['Unknown: the time $t$ when the tank is empty. Key words: "empty" means $w = 0$ — the $t$-intercept.', `Set $w = 0$: $${r}t = ${W}$.`],
+      solution: [`$w = 0$: $\\;${r}t = ${W} \\Rightarrow t = ${t}$`, `The tank is empty after $${t}$ minutes. (The other intercept, $w = ${W}$ at $t = 0$, is the full tank.)`],
+      placeholder: 'e.g. 15',
+    };
+  }
+  const a = pick([20, 25, 30, 40, 50]), c = pick([10, 15, 20]), n = randInt(5, 30), R = a * n;
+  if (R % c !== 0) return contextIntercept();
+  return {
+    skill: 'apply',
+    prompt: `A school play sells adult tickets for $${a}$ riyals and child tickets for $${c}$ riyals. With $x$ adult and $y$ child tickets, the takings were $${a}x + ${c}y = ${R}$. If **only adult** tickets had been sold, how many would that be?`,
+    answer: { type: 'number', value: n },
+    hints: ['Unknown: the number of adult tickets $x$. Key words: "only adult tickets" means no child tickets, $y = 0$ — the $x$-intercept.', `Set $y = 0$: $${a}x = ${R}$.`],
+    solution: [`$y = 0$: $\\;${a}x = ${R} \\Rightarrow x = ${n}$`, `$${n}$ adult tickets — the $x$-intercept $(${n}, 0)$.`],
+    placeholder: 'e.g. 12',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'intercepts', label: 'Find intercepts', generate: intercepts },
   { id: 'graph', label: 'Graph with intercepts', generate: graphIntercepts },
   { id: 'hv', label: 'Horizontal & vertical lines', generate: horizontalVertical },
   { id: 'which', label: 'Match the graph', generate: whichGraph },
+  { id: 'apply', label: 'Word problems', generate: contextIntercept },
 ];
 
 export const masterySet = makeMasterySet(skills);

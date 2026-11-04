@@ -93,7 +93,7 @@ function fractionWords(): Problem {
       prompt: `The denominator of a fraction is $${n}$ more than its numerator. The fraction is equal to $\\frac{${p}}{${q}}$. Find the numerator.`,
       answer: { type: 'number', value: x },
       hints: [`Unknown: the numerator $x$; then the denominator is $x + ${n}$. Key words: "is equal to" gives $\\frac{x}{x + ${n}} = \\frac{${p}}{${q}}$.`, `Multiply both sides by the LCD $${q}(x + ${n})$.`],
-      solution: [`$${q}x = ${p}(x + ${n})$`, `$${q}x = ${p === 1 ? '' : p}x + ${p * n} \;\\Rightarrow\; ${d === 1 ? '' : d}x = ${p * n} \;\\Rightarrow\; x = ${x}$`, `Check: $\\frac{${x}}{${x + n}} = \\frac{${p}}{${q}}$ ✓`],
+      solution: [`$${q}x = ${p}(x + ${n})$`, `$${q}x = ${p === 1 ? '' : p}x + ${p * n} \\;\\Rightarrow\\; ${d === 1 ? '' : d}x = ${p * n} \\;\\Rightarrow\\; x = ${x}$`, `Check: $\\frac{${x}}{${x + n}} = \\frac{${p}}{${q}}$ ✓`],
       placeholder: 'e.g. 6',
     };
   }

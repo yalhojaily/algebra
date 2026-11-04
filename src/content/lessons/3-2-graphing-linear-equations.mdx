@@ -2,7 +2,7 @@
 id: "3.2"
 title: Graphing Linear Equations
 summary: Every equation like y = 2x − 3 or 3x + 4y = 12 graphs as a straight line. Make a table of values, plot the points, draw the line, and read the y-intercept straight from the equation.
-minutes: 40
+minutes: 45
 objectives:
   - Graph an equation of the form y = mx + b by making a table of values.
   - Graph an equation of the form Ax + By = C by solving for y or choosing values.
@@ -12,6 +12,7 @@ objectives:
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import LineBuilder from '../../components/LineBuilder.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -49,6 +50,15 @@ Try changing the slope and the intercept. Watch the table and the graph change t
 For $y = \tfrac{2}{3}x + 1$, choose $x$-values that are **multiples of 3** (like $-3, 0, 3$). Then $y$ comes out a whole number and the points are easy to plot.
 </Callout>
 
+<QuickCheck
+  client:visible
+  question="Which point lies on the line $\;y = -x + 4$?"
+  options={['$(1, 3)$', '$(3, 7)$', '$(-1, 3)$', '$(4, 4)$']}
+  answer={0}
+  explain="$x = 1$: $-1 + 4 = 3$ ✓"
+  wrong={{ 1: '$-3 + 4 = 1$, not $7$.', 2: '$-(-1) + 4 = 5$, not $3$.', 3: '$-4 + 4 = 0$, not $4$.' }}
+/>
+
 <Practice client:visible lesson="3.2" skill="graph" compact />
 
 ## The y-intercept
@@ -60,6 +70,15 @@ $$y = m \cdot 0 + b = b$$
 <Callout type="definition" title="y-intercept of y = mx + b">
 The graph of $y = mx + b$ crosses the $y$-axis at $(0, b)$.
 </Callout>
+
+<QuickCheck
+  client:visible
+  question="What is the $y$-intercept of $\;y = 5x - 2$?"
+  options={['$(0, -2)$', '$(0, 5)$', '$(-2, 0)$', '$(5, -2)$']}
+  answer={0}
+  explain="Set $x = 0$: $y = -2$. The $y$-intercept is $(0, b)$."
+  wrong={{ 1: '$5$ is the coefficient of $x$ (the slope, lesson 3.4).', 2: 'On the $y$-axis, $x = 0$: the point is $(0, -2)$.', 3: 'A $y$-intercept always has $x = 0$.' }}
+/>
 
 <Practice client:visible lesson="3.2" skill="intercept" compact />
 
@@ -82,13 +101,43 @@ When the equation isn't solved for $y$, you can either solve for $y$ first, or s
 
 ## Linear models
 
+<StepReveal
+  client:visible
+  title="A data plan"
+  problem="A phone plan costs $C = 5g + 30$ riyals for $g$ gigabytes a month. Make a table, find the cost of $6$ GB, and find how many gigabytes $55$ riyals buys."
+  steps={[
+    { show: '**Familiarize.** Table: $g = 0, 2, 4$ gives $C = 30, 40, 50$.', why: 'The points $(0, 30)$, $(2, 40)$, $(4, 50)$ line up.' },
+    { show: '**Solve.** $g = 6$: $\\;C = 5(6) + 30 = 60$ riyals', why: '' },
+    { show: '$5g + 30 = 55 \\;\\Rightarrow\\; 5g = 25 \\;\\Rightarrow\\; g = 5$', why: 'Here the output is given, so solve for the input.' },
+    { show: '**Check.** $5(5) + 30 = 55$ ✓', why: '' },
+    { show: '**State.** $6$ GB cost $60$ riyals; $55$ riyals buys $5$ GB. The $y$-intercept, $30$, is the monthly fee.', why: '' },
+  ]}
+/>
+
 <Practice client:visible lesson="3.2" skill="apply" compact />
+
+## Common mistakes
+
+<Callout type="warning" title="Plotting only two points">
+Two points always make a line — even if one is wrong. A third point checks your arithmetic.
+</Callout>
+
+<Callout type="warning" title="Signs when substituting">
+For $y = -x + 4$ at $x = -1$: $y = -(-1) + 4 = 5$. Use parentheses.
+</Callout>
+
+<Callout type="warning" title="Solving for y halfway">
+From $5y = -3x + 10$, divide **every** term by $5$: $y = -\frac{3}{5}x + 2$.
+</Callout>
+
 
 ## Summary
 
 - Linear equations ($y = mx + b$, $Ax + By = C$) graph as straight lines.
 - Make a table with at least three points; the third is a check.
 - The $y$-intercept of $y = mx + b$ is $(0, b)$.
+
+**Next, in 3.3:** a faster way to graph — using the intercepts.
 
 ## Practice
 

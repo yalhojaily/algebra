@@ -113,7 +113,7 @@ function scaleRules(): Problem {
     skill: 'apply',
     prompt: `Sound level is $L = 10\\log\\dfrac{I}{I_0}$ decibels. A speaker plays at ${L} dB. If the sound intensity is multiplied by ${f}, what is the new level? Round to the nearest hundredth of a decibel.`,
     answer: { type: 'number', value: +(L + add).toFixed(2), tol: 0.006 },
-    hints: [`Unknown: the new level. New intensity $${f}I$: $\;10\\log\\dfrac{${f}I}{I_0} = 10\\left(\\log ${f} + \\log\\dfrac{I}{I_0}\\right)$.`, `That is $10\\log ${f} + ${L}$.`],
+    hints: [`Unknown: the new level. New intensity $${f}I$: $\\;10\\log\\dfrac{${f}I}{I_0} = 10\\left(\\log ${f} + \\log\\dfrac{I}{I_0}\\right)$.`, `That is $10\\log ${f} + ${L}$.`],
     solution: [`$10\\log\\dfrac{${f}I}{I_0} = 10\\log ${f} + 10\\log\\dfrac{I}{I_0} = ${+add.toFixed(2)} + ${L}$`, `$\\approx ${(L + add).toFixed(2)}$ dB`],
     mistakes: [{ answer: String(L * f), feedback: `Multiplying the intensity by ${f} doesn't multiply the decibels — it **adds** $10\\log ${f}$.` }],
     placeholder: '63.01',

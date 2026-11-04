@@ -119,8 +119,8 @@ function plans(): Problem {
       skill: 'apply',
       prompt: `Two ${what} charge differently. The first has a ${fee} of ${a1} dollars plus ${r1} dollars per ${unit}. The second has a ${fee} of ${a2} dollars plus ${r2} dollars per ${unit}. ${askCost ? `What is the cost (in dollars) at the point where both cost the same?` : `After how many ${unit}s do both cost the same?`}`,
       answer: { type: 'number', value: askCost ? C : t },
-      hints: [`Unknowns: the number of ${unit}s $t$ and the cost $C$. "Cost the same" means the two cost lines **cross**: $\;${systemTex([`C = ${a1} + ${r1}t`, `C = ${a2} + ${r2}t`])}$`, `Set the two costs equal: $${a1} + ${r1}t = ${a2} + ${r2}t$.`],
-      solution: [`$${a1} + ${r1}t = ${a2} + ${r2}t \;\\Rightarrow\; ${r1 - r2 === 1 ? '' : `${r1 - r2}t = ${a2 - a1} \;\\Rightarrow\; `}t = ${t}$`, `$C = ${a1} + ${r1}(${t}) = ${C}$; check: $${a2} + ${r2}(${t}) = ${C}$ ✓`, askCost ? `Both cost ${C} dollars (after ${t} ${unit}s).` : `Both cost the same after ${t} ${unit}s (${C} dollars each).`],
+      hints: [`Unknowns: the number of ${unit}s $t$ and the cost $C$. "Cost the same" means the two cost lines **cross**: $\\;${systemTex([`C = ${a1} + ${r1}t`, `C = ${a2} + ${r2}t`])}$`, `Set the two costs equal: $${a1} + ${r1}t = ${a2} + ${r2}t$.`],
+      solution: [`$${a1} + ${r1}t = ${a2} + ${r2}t \\;\\Rightarrow\\; ${r1 - r2 === 1 ? '' : `${r1 - r2}t = ${a2 - a1} \\;\\Rightarrow\\; `}t = ${t}$`, `$C = ${a1} + ${r1}(${t}) = ${C}$; check: $${a2} + ${r2}(${t}) = ${C}$ ✓`, askCost ? `Both cost ${C} dollars (after ${t} ${unit}s).` : `Both cost the same after ${t} ${unit}s (${C} dollars each).`],
       mistakes: askCost ? [{ answer: String(t), feedback: `That is the number of ${unit}s. The question asks for the **cost** at that point.` }] : [{ answer: String(C), feedback: `That is the cost. The question asks **how many ${unit}s**.` }],
       placeholder: askCost ? '45' : '5',
     };

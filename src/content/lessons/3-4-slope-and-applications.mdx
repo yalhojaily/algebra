@@ -2,7 +2,7 @@
 id: "3.4"
 title: Slope and Applications
 summary: Slope measures how steep a line is — rise over run. Find it from two points, a graph, or an equation, recognize zero and undefined slopes, and use slope as a rate of change.
-minutes: 40
+minutes: 45
 objectives:
   - Find the slope of a line from two points or from its graph.
   - Find the slope from an equation, by writing it in the form y = mx + b.
@@ -12,6 +12,7 @@ objectives:
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import SlopeExplorer from '../../components/SlopeExplorer.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -43,6 +44,15 @@ Click the grid to move the two points. The dashed blue segment is the run; the r
     { show: '$= \\dfrac{-9}{6} = -\\dfrac{3}{2}$', why: 'Simplify.' },
   ]}
   answer="$m = -\tfrac{3}{2}$: the line falls $3$ units for every $2$ units to the right."
+/>
+
+<QuickCheck
+  client:visible
+  question="What is the slope of the line through $(1, 2)$ and $(3, 8)$?"
+  options={['$3$', '$\\frac{1}{3}$', '$6$', '$-3$']}
+  answer={0}
+  explain="$m = \frac{8 - 2}{3 - 1} = \frac{6}{2} = 3$."
+  wrong={{ 1: 'That is run over rise; slope is **rise** over run.', 2: '$6$ is the rise; divide by the run, $2$.', 3: 'Both changes are positive, so the slope is positive.' }}
 />
 
 <Callout type="tip" title="Either point can go first">
@@ -81,6 +91,15 @@ In $y = mx + b$, the coefficient $m$ **is** the slope: from the $y$-intercept, e
 Avoid saying "no slope" — it's ambiguous. A horizontal line has slope **zero**. A vertical line's slope is **undefined**.
 </Callout>
 
+<QuickCheck
+  client:visible
+  question="What is the slope of the line through $(2, 5)$ and $(2, -1)$?"
+  options={['Undefined', '$0$', '$-3$', '$6$']}
+  answer={0}
+  explain="The run is $2 - 2 = 0$: a vertical line, and division by $0$ is undefined."
+  wrong={{ 1: 'Slope $0$ means the **rise** is $0$ (a horizontal line). Here the run is $0$.', 2: 'Compute the run: $2 - 2 = 0$.', 3: '$6$ is the change in $y$; it must be divided by the change in $x$.' }}
+/>
+
 <Practice client:visible lesson="3.4" skill="classify" compact />
 
 ## Slope as a rate of change
@@ -99,12 +118,44 @@ When the axes measure real quantities, slope is a **rate**: (change in the verti
 
 <Practice client:visible lesson="3.4" skill="rates" compact />
 
+## In a real context
+
+<StepReveal
+  client:visible
+  title="A wheelchair ramp"
+  problem="A ramp may have a slope of at most $\frac{1}{12}$. A planned ramp rises $50$ cm over a horizontal distance of $5$ m. Is it allowed?"
+  steps={[
+    { show: '**Familiarize.** Slope = rise ÷ run, in the **same units**.', why: '$5$ m $= 500$ cm.' },
+    { show: '**Translate.** $m = \\dfrac{50}{500} = 0.1$', why: '' },
+    { show: '**Solve.** $\\dfrac{1}{12} \\approx 0.083$, and $0.1 > 0.083$', why: '' },
+    { show: '**Check.** A $\\frac{1}{12}$ ramp rising $50$ cm needs $600$ cm $= 6$ m of run; $5$ m is too short ✓', why: '' },
+    { show: '**State.** No — the ramp is too steep; it needs at least $6$ m of run.', why: '' },
+  ]}
+/>
+
+## Common mistakes
+
+<Callout type="warning" title="Mixing the order">
+$\dfrac{8 - 2}{1 - 3}$ subtracts in different orders and gives the wrong sign. Same order on top and bottom.
+</Callout>
+
+<Callout type="warning" title="Run over rise">
+Slope is change in $y$ **over** change in $x$.
+</Callout>
+
+<Callout type="warning" title="Mixed units">
+A rise in centimeters and a run in meters give a wrong rate. Convert first.
+</Callout>
+
+
 ## Summary
 
 - $m = \dfrac{y_2 - y_1}{x_2 - x_1}$ — rise over run.
 - Positive slope rises left to right; negative falls; zero is horizontal; undefined is vertical.
 - In $y = mx + b$, the slope is $m$.
 - Slope is a rate of change: units of $y$ per unit of $x$.
+
+**Next, in Chapter 4:** exponents and polynomials.
 
 ## Practice
 

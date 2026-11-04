@@ -2,15 +2,17 @@
 id: "3.3"
 title: More with Graphing and Intercepts
 summary: The fastest way to graph Ax + By = C — find where it crosses each axis. Plus the two special lines, horizontal (y = b) and vertical (x = a).
-minutes: 30
+minutes: 35
 objectives:
   - Find the x- and y-intercepts of a line from its equation.
   - Graph a line using its intercepts.
   - Graph horizontal lines y = b and vertical lines x = a, and write their equations.
+  - Interpret intercepts in applications.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import InterceptsExplorer from '../../components/InterceptsExplorer.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -46,9 +48,29 @@ For $Ax + By = C$ this is quick: setting $x = 0$ just "covers up" the $x$-term.
 The $x$-intercept has the form $(a, 0)$ and the $y$-intercept has the form $(0, b)$. Mixing them up is the most common mistake in this lesson.
 </Callout>
 
+<QuickCheck
+  client:visible
+  question="What is the $x$-intercept of $\;2x + 5y = 10$?"
+  options={['$(5, 0)$', '$(0, 2)$', '$(2, 0)$', '$(0, 5)$']}
+  answer={0}
+  explain="Set $y = 0$: $2x = 10$, so $x = 5$."
+  wrong={{ 1: 'That is the $y$-intercept (set $x = 0$).', 2: 'With $y = 0$, $2x = 10$ gives $x = 5$.', 3: 'An $x$-intercept has $y = 0$, so it looks like $(a, 0)$.' }}
+/>
+
 <Practice client:visible lesson="3.3" skill="intercepts" compact />
 
 <Practice client:visible lesson="3.3" skill="graph" compact />
+
+<StepReveal
+  client:visible
+  title="A line through the origin"
+  problem="Graph $\;y = 3x$."
+  steps={[
+    { show: '$x = 0 \\Rightarrow y = 0$: both intercepts are $(0, 0)$.', why: 'One point is not enough to draw a line.' },
+    { show: 'Choose another $x$: $x = 1 \\Rightarrow y = 3$ → $(1, 3)$', why: '' },
+    { show: 'Check: $x = -1 \\Rightarrow y = -3$ → $(-1, -3)$', why: 'Draw the line through all three.' },
+  ]}
+/>
 
 ## Horizontal and vertical lines
 
@@ -69,15 +91,58 @@ Set $A = 0$ or $B = 0$ in the explorer above and watch what happens.
   ]}
 />
 
+<QuickCheck
+  client:visible
+  question="The graph of $\;x = 4\;$ is …"
+  options={['A vertical line through $(4, 0)$', 'A horizontal line through $(0, 4)$', 'The single point $(4, 4)$', 'A line through the origin']}
+  answer={0}
+  explain="Every point has $x = 4$, whatever $y$ is: $(4, -2)$, $(4, 0)$, $(4, 5)$ … — a vertical line."
+  wrong={{ 1: 'That is $y = 4$.', 2: '$y$ can be anything, so there are infinitely many points.', 3: '$(0, 0)$ has $x = 0$, not $4$.' }}
+/>
+
 <Practice client:visible lesson="3.3" skill="hv" compact />
 
 <Practice client:visible lesson="3.3" skill="which" compact />
+
+## In a real context
+
+<StepReveal
+  client:visible
+  title="Draining a tank"
+  problem="A tank holds $600$ L and drains at $40$ L per minute: $40t + w = 600$, where $w$ is the water left after $t$ minutes. Find both intercepts and say what they mean."
+  steps={[
+    { show: '**Familiarize.** Intercepts: set one variable to $0$.', why: '' },
+    { show: '**Solve.** $t = 0$: $\\;w = 600$ → $(0, 600)$', why: 'At the start the tank is full.' },
+    { show: '$w = 0$: $\\;40t = 600 \\Rightarrow t = 15$ → $(15, 0)$', why: 'The tank is empty.' },
+    { show: '**Check.** After $15$ minutes, $40 \\cdot 15 = 600$ L have drained ✓', why: '' },
+    { show: '**State.** It starts with $600$ L and is empty after $15$ minutes.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="3.3" skill="apply" compact />
+
+
+## Common mistakes
+
+<Callout type="warning" title="Through the origin">
+If both intercepts are $(0, 0)$, you need one more point to draw the line.
+</Callout>
+
+<Callout type="warning" title="y = b or x = a?">
+$y = -3$ is horizontal; $x = -3$ is vertical. The letter that appears tells you which coordinate is fixed.
+</Callout>
+
+<Callout type="warning" title="Intercepts as numbers">
+Write intercepts as points: the $x$-intercept of $2x + 5y = 10$ is $(5, 0)$, not just $5$ — unless the question asks for the number.
+</Callout>
 
 ## Summary
 
 - $y$-intercept: set $x = 0$. $x$-intercept: set $y = 0$. Plot both and connect them.
 - If a line passes through the origin, both intercepts are $(0, 0)$ — find one more point.
 - $y = b$ is horizontal; $x = a$ is vertical.
+
+**Next, in 3.4:** slope — how steep a line is.
 
 ## Practice
 

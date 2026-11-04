@@ -79,7 +79,7 @@ function substitutionWords(): Problem {
       prompt: `A rectangular ${thing} has a perimeter of ${P} m. Its length is ${d} m more than its width. Find its **${askL ? 'length' : 'width'}** (m).`,
       answer: { type: 'number', value: askL ? L : W },
       hints: [`Unknowns: length $L$ and width $W$. "Perimeter" gives $2L + 2W = ${P}$; "${d} more than the width" gives $L = W + ${d}$ — already solved for $L$.`, `Substitute: $2(W + ${d}) + 2W = ${P}$.`],
-      solution: [`$${systemTex([`L = W + ${d}`, `2L + 2W = ${P}`])}$`, `$2(W + ${d}) + 2W = ${P} \;\\Rightarrow\; 4W + ${2 * d} = ${P} \;\\Rightarrow\; W = ${W}$`, `$L = ${W} + ${d} = ${L}$. Check: $2(${L}) + 2(${W}) = ${P}$ ✓`],
+      solution: [`$${systemTex([`L = W + ${d}`, `2L + 2W = ${P}`])}$`, `$2(W + ${d}) + 2W = ${P} \\;\\Rightarrow\\; 4W + ${2 * d} = ${P} \\;\\Rightarrow\\; W = ${W}$`, `$L = ${W} + ${d} = ${L}$. Check: $2(${L}) + 2(${W}) = ${P}$ ✓`],
       mistakes: [{ answer: String(askL ? W : L), feedback: `That is the ${askL ? 'width' : 'length'}. The question asks for the ${askL ? 'length' : 'width'}.` }],
       placeholder: '12',
     };
@@ -92,7 +92,7 @@ function substitutionWords(): Problem {
     prompt: `There were ${n} people at ${place}. There were ${k} times as many ${A} as ${Cn}. How many **${askA ? A : Cn}** were there?`,
     answer: { type: 'number', value: askA ? a : c },
     hints: [`Unknowns: $a$ = ${A}, $c$ = ${Cn}. "${k} times as many ${A} as ${Cn}" gives $a = ${k}c$; the total gives $a + c = ${n}$.`, `Substitute $a = ${k}c$ into $a + c = ${n}$.`],
-    solution: [`$${k}c + c = ${n} \;\\Rightarrow\; ${k + 1}c = ${n} \;\\Rightarrow\; c = ${c}$`, `$a = ${k}(${c}) = ${a}$. Check: $${a} + ${c} = ${n}$ ✓`],
+    solution: [`$${k}c + c = ${n} \\;\\Rightarrow\\; ${k + 1}c = ${n} \\;\\Rightarrow\\; c = ${c}$`, `$a = ${k}(${c}) = ${a}$. Check: $${a} + ${c} = ${n}$ ✓`],
     mistakes: [{ answer: String(askA ? c : a), feedback: `That is the number of ${askA ? Cn : A}.` }],
     placeholder: '120',
   };

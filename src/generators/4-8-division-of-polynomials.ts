@@ -76,7 +76,7 @@ function missingTerm(): Problem {
   const filled = `x^3 ${p < 0 ? '-' : '+'} ${Math.abs(p)}x^2 ${q < 0 ? '-' : '+'} ${Math.abs(q)}x ${r < 0 ? '-' : '+'} ${Math.abs(r)}`;
   return {
     skill: 'missing',
-    prompt: `Divide: $\;(${D.tex()}) \\div (${d.tex()})$`,
+    prompt: `Divide: $\\;(${D.tex()}) \\div (${d.tex()})$`,
     answer: { type: 'expression', value: Q.text(), maxTerms: 3 },
     hints: [`Write the missing terms with zero coefficients: $${filled}$. Then divide as usual.`, 'The zero terms keep the columns lined up when you subtract.'],
     solution: [`$${filled}$`, ...stepsTex(D, d, v), `Quotient: $${Q.tex()}$`],
