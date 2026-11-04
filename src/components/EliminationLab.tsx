@@ -34,7 +34,7 @@ export default function EliminationLab() {
   const X = new Frac(c * e - b * f, det), Y = new Frac(a * f - c * d, det);
   return (
     <div className="el card">
-      <div className="pr-tabs">{presets.map((p, i) => <button key={i} className={`pr-tab ${i === pi ? 'on' : ''}`} onClick={() => { setPi(i); setK1(1); setK2(1); }}>System {i + 1}</button>)}</div>
+      <div className="pr-tabs">{presets.map((_p, i) => <button key={i} className={`pr-tab ${i === pi ? 'on' : ''}`} onClick={() => { setPi(i); setK1(1); setK2(1); }}>System {i + 1}</button>)}</div>
       <div className="elim-grid">
         <div className="elim-k"><Tex>{`\\times ${k1 < 0 ? `(${k1})` : k1}`}</Tex></div>
         <div className="elim-eq"><Tex>{eqTex(a, b, c)}</Tex></div>

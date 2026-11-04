@@ -33,7 +33,7 @@ export default function SignChart() {
   const expr = den.length ? `\\dfrac{${num.map(fac).join('')}}{${den.map(fac).join('')}}` : num.map(fac).join('');
   return (
     <div className="sc card">
-      <div className="pr-tabs">{presets.map((p, i) => <button key={i} className={`pr-tab ${i === pi ? 'on' : ''}`} onClick={() => setPi(i)}>{i + 1}</button>)}</div>
+      <div className="pr-tabs">{presets.map((_p, i) => <button key={i} className={`pr-tab ${i === pi ? 'on' : ''}`} onClick={() => setPi(i)}>{i + 1}</button>)}</div>
       <div className="ib-toggles">{(['<', '<=', '>', '>='] as Op[]).map((o) => <button key={o} className={`tl-chip ${o === op ? 'on' : ''}`} onClick={() => setOp(o)}><Tex>{opTex[o]}</Tex></button>)}</div>
       <div className="lb-eq"><Tex>{`${expr} ${opTex[op]} 0`}</Tex></div>
       <div className="sc-scroll">

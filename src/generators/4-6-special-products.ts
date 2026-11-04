@@ -71,16 +71,42 @@ function mixed(): Problem {
 
 function areaApply(): Problem {
   const v = 'x';
-  const k = pos(6);
-  const R = Poly.fromCoefs([1, k], v);
-  const sq = R.mul(R);
+  const k = randInt(1, 9);
+  const plus = Poly.fromCoefs([1, k], v), minus = Poly.fromCoefs([1, -k], v);
+  const thing = pick(['garden', 'tile', 'patio', 'carpet', 'photo']);
+  const kind = pick(['grow', 'shrink', 'increase', 'rect'] as const);
+  if (kind === 'grow' || kind === 'shrink') {
+    const S = kind === 'grow' ? plus : minus, A = S.mul(S);
+    return {
+      skill: 'apply',
+      prompt: `Each side of a square ${thing} is $x$ m. Each side is ${kind === 'grow' ? `increased by $${k}$ m` : `reduced by $${k}$ m`}. Write a polynomial for the **new area**.`,
+      answer: ans(A),
+      hints: [`Unknown: the new area. Key words: "square" means area = side², and the new side is $${S.tex()}$.`, `Square the binomial: $(A ${kind === 'grow' ? '+' : '-'} B)^2 = A^2 ${kind === 'grow' ? '+' : '-'} 2AB + B^2$.`],
+      solution: [`$(${S.tex()})^2 = ${A.tex()}$`],
+      mistakes: [{ answer: `x^2 ${kind === 'grow' ? '+' : '-'} ${k * k}`, feedback: 'The middle term $2AB$ is missing: $(A \\pm B)^2 \\ne A^2 \\pm B^2$.' }],
+      placeholder: 'e.g. x^2 + 10x + 25',
+    };
+  }
+  if (kind === 'increase') {
+    const inc = Poly.fromCoefs([2 * k, k * k], v);
+    return {
+      skill: 'apply',
+      prompt: `Each side of a square ${thing} of side $x$ m is increased by $${k}$ m. By how much does its area **increase**? Write a polynomial.`,
+      answer: ans(inc),
+      hints: ['Unknown: the increase in area. Key words: "increase" means new area minus old area.', `New area $(x + ${k})^2$, old area $x^2$. Subtract.`],
+      solution: [`$(x + ${k})^2 - x^2 = x^2 + ${2 * k}x + ${k * k} - x^2 = ${inc.tex()}$`],
+      mistakes: [{ answer: String(k * k), feedback: 'Two strips of size ' + k + ' by $x$ are added too, not only the corner square.' }],
+      placeholder: 'e.g. 6x + 9',
+    };
+  }
+  const A = plus.mul(minus);
   return {
     skill: 'apply',
-    prompt: `Each side of a square garden is $x$ m. It is enlarged by adding $${k}$ m to each side. Write a polynomial for the **new area**.`,
-    answer: ans(sq),
-    hints: ['The new side is $x + ' + k + '$. Area of a square = side².'],
-    solution: [`$(x + ${k})^2 = x^2 + ${2 * k}x + ${k * k}$`],
-    placeholder: 'e.g. x^2 + 10x + 25',
+    prompt: `A square ${thing} has side $x$ m. It is reshaped into a rectangle $${k}$ m longer and $${k}$ m narrower. Write a polynomial for the rectangle's area.`,
+    answer: ans(A),
+    hints: [`Unknown: the new area. Key words: "${k} m longer and ${k} m narrower" gives sides $x + ${k}$ and $x - ${k}$.`, 'A sum times a difference: $(A + B)(A - B) = A^2 - B^2$.'],
+    solution: [`$(x + ${k})(x - ${k}) = ${A.tex()}$`, `The area went **down** by $${k * k}$ m², even though the perimeter is the same.`],
+    placeholder: 'e.g. x^2 - 9',
   };
 }
 

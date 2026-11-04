@@ -1,5 +1,5 @@
 // Practice problem generators for Lesson 5.6 — Factoring Sums or Differences of Cubes.
-import { factoredAnswer, gcd, makeMasterySet, par, parTex, pick, Poly, randInt } from './helpers';
+import { factoredAnswer, makeMasterySet, par, parTex, pick, Poly, randInt } from './helpers';
 import type { Problem, Skill } from './types';
 
 const V = () => pick(['x', 'y', 'a', 't']);

@@ -87,7 +87,7 @@ function completePair(): Problem {
 }
 
 function contextPair(): Problem {
-  const [who, unit, what, rate, base, inp] = pick([
+  const [who, , what, rate, base, inp] = pick([
     ['A plumber\'s bill is', 'h', 'for $h$ hours of work', pick([25, 30, 40]), pick([20, 30, 50]), 'h'],
     ['The total cost of a gym membership is', 'm', 'after $m$ months', pick([15, 20, 25]), pick([30, 40, 50]), 'm'],
     ['A savings account holds', 'w', 'after $w$ weeks of saving', pick([10, 20, 25]), pick([50, 100]), 'w'],
