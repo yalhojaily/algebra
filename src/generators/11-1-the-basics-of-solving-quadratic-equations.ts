@@ -79,11 +79,39 @@ function complete(): Problem {
   }
 }
 
+
+/** Word problems solved with the principle of square roots. */
+function squareRootWords(): Problem {
+  if (Math.random() < 0.5) {
+    const x = randInt(3, 15), d = pick([1, 2, 3, 4]), A = (x + d) ** 2;
+    return {
+      skill: 'apply',
+      prompt: `A square garden is made bigger by adding ${d} m to each side. The new garden has an area of ${A} m². How long was each side of the original garden (m)?`,
+      answer: { type: 'number', value: x },
+      hints: [`Unknown: the original side $x$. The new side is $x + ${d}$, so $(x + ${d})^2 = ${A}$ — a shifted square.`, `Take square roots: $x + ${d} = \\pm${x + d}$. A length can't be negative.`],
+      solution: [`$(x + ${d})^2 = ${A} \;\\Rightarrow\; x + ${d} = \\pm ${x + d}$`, `$x = ${x}$ or $x = ${-(x + d) - d}$; reject the negative length.`, `The original side was ${x} m. Check: $(${x} + ${d})^2 = ${A}$ ✓`],
+      mistakes: [{ answer: String(x + d), feedback: `That is the **new** side. Subtract the ${d} m that was added.` }],
+      placeholder: '7',
+    };
+  }
+  const P = pick([1000, 2000, 4000, 5000]), r = pick([4, 5, 6, 8, 10, 12, 20]);
+  const A = +(P * (1 + r / 100) ** 2).toFixed(2);
+  return {
+    skill: 'apply',
+    prompt: `${P.toLocaleString('en-US')} dollars is invested at an annual rate $r$, compounded once a year. After 2 years it has grown to ${A.toLocaleString('en-US')} dollars, so $${P}(1 + r)^2 = ${A}$. Find the interest rate as a percent.`,
+    answer: { type: 'number', value: r, tol: 0.01, percent: true },
+    hints: ['Unknown: the rate $r$. Divide by ' + P + ' to isolate the square: $(1 + r)^2 = ' + +(A / P).toFixed(4) + '$.', 'Take the **positive** square root (a growth factor is positive), subtract 1, and write it as a percent.'],
+    solution: [`$(1 + r)^2 = ${+(A / P).toFixed(4)}$`, `$1 + r = \\sqrt{${+(A / P).toFixed(4)}} = ${1 + r / 100}$, so $r = ${r / 100} = ${r}\\%$`],
+    placeholder: '10%',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'principle', label: 'Principle of square roots', generate: principle },
   { id: 'shifted', label: '(x − h)² = k', generate: shifted },
   { id: 'term', label: 'Complete the square', generate: completingTerm },
   { id: 'complete', label: 'Solve by completing the square', generate: complete },
+  { id: 'apply', label: 'Word problems', generate: squareRootWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

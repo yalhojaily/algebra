@@ -2,58 +2,155 @@
 id: "11.7"
 title: Mathematical Modeling with Quadratic Functions
 summary: "Maximum and minimum problems are vertex problems: area with fixed fencing, highest point of a throw, best price for revenue. And three data points determine a quadratic model."
-minutes: 40
+minutes: 50
 objectives:
-  - Solve maximum and minimum problems using the vertex.
-  - Fit a quadratic function to three data points.
+  - Build a quadratic function from a situation (fencing, prices, numbers).
+  - Solve maximum and minimum problems using the vertex, answering the question that was asked.
+  - Fit a quadratic function to three data points and use it to predict.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import FenceLab from '../../components/FenceLab.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
 
 <Callout type="why">
-"What is the biggest…?" and "What is the smallest…?" are some of the most useful questions in business and engineering. When the quantity is a quadratic function, the answer is at its vertex.
+"What is the biggest…?" and "What is the smallest…?" are some of the most useful questions in business and engineering: the largest pen for a fixed amount of fence, the ticket price that earns the most, the stopping distance at a given speed. In 11.6 the function was given. Here you **build** it from the situation — and when it is quadratic, the answer is at its vertex.
 </Callout>
 
-## Maximum and minimum problems
+## The plan
 
-1. Write the quantity to optimize as a function of one variable.
-2. If it is quadratic, find the vertex: $x = -\frac{b}{2a}$.
-3. Answer the question asked (the input, the output, or both).
+1. **Familiarize.** Decide what is being maximized or minimized, and choose one variable that controls it.
+2. **Translate.** Write the quantity as a function of that one variable. If other quantities appear, use the facts of the problem to rewrite them in terms of it.
+3. **Solve.** If the function is quadratic, its vertex is at $x = -\frac{b}{2a}$.
+4. **Check** that the answer makes sense (lengths positive, within the allowed range).
+5. **State** what was asked: the input (*which price?*), the output (*how much revenue?*), or both.
+
+## Fencing
 
 <FenceLab client:visible />
 
+<StepReveal
+  client:visible
+  title="Against a wall"
+  problem="A farmer has $60$ m of fence for a rectangular pen against a long barn wall, so only three sides need fence. What dimensions give the largest area, and what is that area?"
+  steps={[
+    { show: '**Familiarize.** Let $x$ = each side perpendicular to the wall. The side parallel to the wall is what is left: $60 - 2x$.', why: 'Guess $x = 10$: $10 \\times 40 = 400$ m². $x = 20$: $20 \\times 20 = 400$ m². The best is in between.' },
+    { show: '**Translate.** $A(x) = x(60 - 2x) = -2x^2 + 60x$', why: 'One variable, quadratic, $a < 0$: a maximum.' },
+    { show: '**Solve.** $x = -\\dfrac{60}{2(-2)} = 15$, $\\;A(15) = 15 \\times 30 = 450$', why: '' },
+    { show: '**Check.** $0 < 15 < 30$, and $450$ beats both guesses ✓', why: '' },
+    { show: '**State.** The pen should be $15$ m by $30$ m (the $30$ m side along the wall), for $450$ m².', why: '' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="With $40$ m of fence (all four sides), which rectangle has the largest area?"
+  options={['$10$ m by $10$ m', '$5$ m by $15$ m', '$1$ m by $19$ m', 'they all have the same area']}
+  answer={0}
+  explain="$A(x) = x(20 - x)$ has its vertex at $x = 10$: a square, with area $100$ m². ($5 \times 15 = 75$, $1 \times 19 = 19$.)"
+  wrong={{ 1: 'Compare: $5 \\times 15 = 75$ but $10 \\times 10 = 100$.', 2: '$1 \\times 19 = 19$ m², very small.', 3: 'Same perimeter doesn\'t mean same area. Compute a few.' }}
+/>
+
 <Practice client:visible lesson="11.7" skill="fence" compact />
 
-<Practice client:visible lesson="11.7" skill="projectile" compact />
+## Highest points
 
 <StepReveal
   client:visible
-  title="Best price"
-  problem="A theater sells 300 tickets at 10 dollars. Each 1-dollar increase loses 20 sales. What price maximizes revenue?"
+  title="A throw"
+  problem="A ball is thrown upward: $h(t) = -16t^2 + 64t + 6$ feet after $t$ seconds. What is its maximum height?"
   steps={[
-    { show: '$R(x) = (10 + x)(300 - 20x)$', why: '$x$ = number of 1-dollar increases; revenue = price × number sold.' },
-    { show: '$= -20x^2 + 100x + 3000$', why: '' },
-    { show: '$x = -\\dfrac{100}{2(-20)} = 2.5$', why: 'Vertex.' },
-    { show: 'Price $= 10 + 2.5 = 12.50$ dollars', why: '' },
+    { show: '$t = -\\dfrac{64}{2(-16)} = 2$', why: 'The vertex gives the time of the highest point.' },
+    { show: '$h(2) = -64 + 128 + 6 = 70$', why: 'The question asks for the **height**, so evaluate.' },
+    { show: 'The maximum height is $70$ ft, after $2$ seconds.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="11.7" skill="projectile" compact />
+
+## Best price
+
+When a price change affects how many items sell, revenue = price × number sold becomes quadratic.
+
+<StepReveal
+  client:visible
+  title="Ticket price"
+  problem="A theater sells $300$ tickets at $10$ dollars. Each $1$-dollar increase loses $20$ sales. What price maximizes revenue, and what is the revenue?"
+  steps={[
+    { show: '**Familiarize.** Let $x$ = number of $1$-dollar increases. Price $10 + x$; tickets sold $300 - 20x$.', why: '$x = 1$: $11 \\times 280 = 3080 > 3000$, so raising the price helps at first.' },
+    { show: '**Translate.** $R(x) = (10 + x)(300 - 20x) = -20x^2 + 100x + 3000$', why: '' },
+    { show: '**Solve.** $x = -\\dfrac{100}{2(-20)} = 2.5$, $\\;R(2.5) = 12.5 \\times 250 = 3125$', why: '' },
+    { show: '**Check.** $R(2) = 12 \\times 260 = 3120$ and $R(3) = 13 \\times 240 = 3120$, both less ✓', why: 'Symmetric around $2.5$, as expected.' },
+    { show: '**State.** A price of $12.50$ dollars gives the most revenue, $3125$ dollars.', why: '' },
   ]}
 />
 
 <Practice client:visible lesson="11.7" skill="revenue" compact />
 
+## A minimum
+
+<StepReveal
+  client:visible
+  title="The smallest product"
+  problem="Two numbers differ by $8$. What is the smallest their product can be?"
+  steps={[
+    { show: '$P(x) = x(x + 8) = x^2 + 8x$', why: 'Let the numbers be $x$ and $x + 8$. $a > 0$: a minimum.' },
+    { show: '$x = -\\dfrac{8}{2} = -4$, so the numbers are $-4$ and $4$', why: '' },
+    { show: 'The smallest product is $-16$.', why: 'Check: $-3 \\cdot 5 = -15$ and $-5 \\cdot 3 = -15$, both larger ✓.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="A problem asks for the **maximum area**, and you found the vertex at $x = 15$. Are you done?"
+  options={['No — compute the area $A(15)$', 'Yes — the answer is $15$', 'No — compute $-\\frac{b}{2a}$ again', 'Yes — the answer is $(15, 0)$']}
+  answer={0}
+  explain="$x = 15$ is the side length that gives the maximum. The question asks for the area itself, the second coordinate of the vertex."
+  wrong={{ 1: '$15$ is the input (a length). The question asks for the output (an area).', 2: 'You already have the vertex\'s first coordinate. Now evaluate the function there.', 3: 'The vertex is $(15, A(15))$, not $(15, 0)$.' }}
+/>
+
 ## Fitting a quadratic to data
 
-Three points determine a quadratic $f(x) = ax^2 + bx + c$. Substituting each point gives three equations in $a$, $b$, $c$ — a system like those in Lesson 8.5.
+Three points determine a quadratic $f(x) = ax^2 + bx + c$. Substituting each point gives three equations in $a$, $b$, $c$ — a system like those in 8.5. Then the model can predict.
+
+<StepReveal
+  client:visible
+  title="Stopping distance"
+  problem="A car needs $10$ m to stop at $20$ km/h, $28$ m at $40$ km/h and $54$ m at $60$ km/h. Fit $d(x) = ax^2 + bx + c$ and predict the stopping distance at $80$ km/h."
+  steps={[
+    { show: '$\\begin{cases} 400a + 20b + c = 10 \\\\ 1600a + 40b + c = 28 \\\\ 3600a + 60b + c = 54 \\end{cases}$', why: 'One equation per data point $(x, d)$.' },
+    { show: 'Subtract: $1200a + 20b = 18$ and $2000a + 20b = 26$, so $800a = 8$', why: 'Eliminate $c$ twice, then $b$.' },
+    { show: '$a = 0.01$, $b = 0.3$, $c = 0$: $\\;d(x) = 0.01x^2 + 0.3x$', why: 'Back-substitute. Check: $d(40) = 16 + 12 = 28$ ✓.' },
+    { show: '$d(80) = 64 + 24 = 88$ m', why: 'Doubling the speed from $40$ to $80$ more than triples the distance — the $x^2$ term at work.' },
+  ]}
+/>
 
 <Practice client:visible lesson="11.7" skill="fit" compact />
 
+## Common mistakes
+
+<Callout type="warning" title="Answering the wrong coordinate">
+"What price…?" wants the input; "what is the most revenue…?" wants the output. Many problems want both.
+</Callout>
+
+<Callout type="warning" title="Fencing a side that doesn't need it">
+Against a wall, only three sides need fence: $2x + y = 60$, not $2x + 2y = 60$.
+</Callout>
+
+<Callout type="warning" title="Price and quantity both change">
+Revenue is (new price) × (new quantity): $(10 + x)(300 - 20x)$. Changing only one of them gives a linear function with no maximum.
+</Callout>
+
 ## Summary
 
-- Optimization with a quadratic: find the vertex.
-- Three points → three equations → $(a, b, c)$.
+- Write the quantity to optimize as a function of **one** variable, using the facts of the problem.
+- Quadratic with $a < 0$: maximum at the vertex; $a > 0$: minimum. $x = -\frac{b}{2a}$, then evaluate if the output is asked for.
+- Three points → three equations → $(a, b, c)$, a model you can use to predict.
+
+**Next, in 11.8:** "when is the profit positive?" and "when is the ball above 48 feet?" — inequalities with quadratics.
 
 ## Practice
 

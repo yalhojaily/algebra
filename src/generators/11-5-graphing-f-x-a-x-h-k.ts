@@ -73,12 +73,42 @@ function transform(): Problem {
   };
 }
 
+
+/** Read the vertex of a model in vertex form. */
+function vertexWords(): Problem {
+  const a = pick([-0.5, -1, -2, -0.25]), h = randInt(2, 8), k = randInt(3, 12);
+  const kind = pick(['fountain', 'cable'] as const);
+  const askH = Math.random() < 0.5;
+  if (kind === 'fountain') {
+    return {
+      skill: 'apply',
+      prompt: `The water from a fountain follows the path $y = ${a}(x - ${h})^2 + ${k}$, where $x$ is the horizontal distance from the nozzle and $y$ the height, both in meters. ${askH ? 'How far from the nozzle (horizontally) is the water highest (m)?' : 'What is the greatest height of the water (m)?'}`,
+      answer: { type: 'number', value: askH ? h : k },
+      hints: [`Unknown: ${askH ? 'the horizontal position of the highest point' : 'the greatest height'}. "Highest" means the **vertex**; $a = ${a} < 0$, so it is a maximum.`, `In $a(x - h)^2 + k$ the vertex is $(h, k)$: here $(${h}, ${k})$.`],
+      solution: [`Vertex $(${h}, ${k})$`, askH ? `The water is highest ${h} m from the nozzle.` : `The greatest height is ${k} m.`],
+      mistakes: [{ answer: String(askH ? k : h), feedback: askH ? 'That is the greatest **height**, the second coordinate of the vertex.' : 'That is the horizontal distance, the first coordinate of the vertex.' }],
+      placeholder: '3',
+    };
+  }
+  const b = pick([0.01, 0.02, 0.05]), H = randInt(20, 80), low = randInt(2, 10);
+  return {
+    skill: 'apply',
+    prompt: `The cable of a small suspension bridge hangs in the shape $y = ${b}(x - ${H})^2 + ${low}$, where $x$ is the distance (m) from one tower and $y$ the cable's height (m) above the road. What is the **lowest** height of the cable (m)?`,
+    answer: { type: 'number', value: low },
+    hints: ['Unknown: the lowest height. $a = ' + b + ' > 0$, so the parabola opens up and the vertex is the **minimum**.', `The vertex of $a(x - h)^2 + k$ is $(h, k)$.`],
+    solution: [`Vertex $(${H}, ${low})$: the cable is lowest, ${low} m above the road, at ${H} m from the tower.`],
+    mistakes: [{ answer: String(H), feedback: 'That is where the lowest point is, not how high it is.' }],
+    placeholder: '4',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'vertex', label: 'Vertex', generate: vertex },
   { id: 'plot', label: 'Plot the vertex', generate: plotVertex },
   { id: 'axis', label: 'Axis of symmetry', generate: axis },
   { id: 'maxmin', label: 'Maximum or minimum', generate: maxMin },
   { id: 'transform', label: 'Shifts', generate: transform },
+  { id: 'apply', label: 'Word problems', generate: vertexWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

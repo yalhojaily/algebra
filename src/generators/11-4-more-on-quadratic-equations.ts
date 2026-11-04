@@ -70,11 +70,30 @@ function sqrtForm(): Problem {
   }
 }
 
+
+/** Word problem: the discriminant decides whether a height is ever reached. */
+function reachHeight(): Problem {
+  for (;;) {
+    const v = pick([32, 48, 64, 80, 96]), h0 = pick([0, 4, 6]), H = randInt(2, 30) * 5;
+    const D = v * v - 64 * (H - h0); // −16t² + vt + (h0 − H) = 0
+    if (D === 0) continue;
+    const yes = D > 0;
+    return {
+      skill: 'apply',
+      prompt: `A ball is thrown upward; its height after $t$ seconds is $h(t) = -16t^2 + ${v}t${h0 ? ` + ${h0}` : ''}$ feet. Does it ever reach a height of ${H} ft? (Use the discriminant.)`,
+      answer: choice(yes ? 'Yes — the discriminant is positive' : 'No — the discriminant is negative', [yes ? 'No — the discriminant is negative' : 'Yes — the discriminant is positive']),
+      hints: [`Set $h(t) = ${H}$ and write it in standard form: $-16t^2 + ${v}t ${h0 - H < 0 ? '-' : '+'} ${Math.abs(h0 - H)} = 0$.`, 'Real solutions exist exactly when $b^2 - 4ac \\ge 0$.'],
+      solution: [`$b^2 - 4ac = ${v}^2 - 4(-16)(${h0 - H}) = ${v * v} ${-64 * (H - h0) < 0 ? '-' : '+'} ${Math.abs(64 * (H - h0))} = ${D}$`, yes ? `Positive: two real times (once going up, once coming down), so yes.` : `Negative: no real time $t$ gives that height, so the ball never gets that high.`],
+    };
+  }
+}
+
 export const skills: Skill[] = [
   { id: 'discriminant', label: 'The discriminant', generate: discriminant },
   { id: 'write', label: 'Equations from solutions', generate: fromSolutions },
   { id: 'form', label: 'Quadratic in form', generate: quadraticForm },
   { id: 'sqrtform', label: 'Substitution with √x', generate: sqrtForm },
+  { id: 'apply', label: 'Word problems', generate: reachHeight },
 ];
 
 export const masterySet = makeMasterySet(skills);

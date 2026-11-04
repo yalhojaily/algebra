@@ -79,11 +79,47 @@ function standardForm(): Problem {
   }
 }
 
+
+/** Word problems whose equations need the quadratic formula (irrational answers, rounded). */
+function formulaWords(): Problem {
+  for (;;) {
+    if (Math.random() < 0.5) {
+      const d = randInt(1, 8), A = randInt(10, 90);
+      const disc = d * d + 4 * A;
+      if (Number.isInteger(Math.sqrt(disc))) continue;
+      const w = (-d + Math.sqrt(disc)) / 2;
+      return {
+        skill: 'apply',
+        prompt: `A rectangular rug is ${d} ft longer than it is wide, and its area is ${A} ft². Find its **width** to the nearest hundredth of a foot.`,
+        answer: { type: 'number', value: +w.toFixed(2), tol: 0.006 },
+        hints: [`Unknown: the width $w$; the length is $w + ${d}$. Area: $w(w + ${d}) = ${A}$, so $w^2 + ${d}w - ${A} = 0$.`, `It doesn't factor: use the quadratic formula with $a = 1$, $b = ${d}$, $c = -${A}$, and keep the positive solution.`],
+        solution: [`$w^2 + ${d}w - ${A} = 0$`, `$w = \\dfrac{-${d} \\pm \\sqrt{${d * d} + ${4 * A}}}{2} = \\dfrac{-${d} \\pm \\sqrt{${disc}}}{2}$`, `$w = \\dfrac{-${d} + \\sqrt{${disc}}}{2} \\approx ${w.toFixed(2)}$ ft (the other solution is negative)`],
+        placeholder: '5.62',
+      };
+    }
+    const c = randInt(6, 25), dd = pick([1, 2, 3, 4, 5]);
+    // legs x and x + dd, hypotenuse c: 2x² + 2dd x + dd² − c² = 0
+    const disc = 4 * dd * dd - 8 * (dd * dd - c * c);
+    if (disc <= 0 || Number.isInteger(Math.sqrt(disc))) continue;
+    const x = (-2 * dd + Math.sqrt(disc)) / 4;
+    if (x <= 0) continue;
+    return {
+      skill: 'apply',
+      prompt: `One leg of a right triangle is ${dd} cm longer than the other, and the hypotenuse is ${c} cm. Find the length of the **shorter leg** to the nearest hundredth of a centimeter.`,
+      answer: { type: 'number', value: +x.toFixed(2), tol: 0.006 },
+      hints: [`Unknown: the shorter leg $x$; the other leg is $x + ${dd}$. Pythagorean theorem: $x^2 + (x + ${dd})^2 = ${c * c}$.`, `Standard form: $2x^2 + ${2 * dd}x + ${dd * dd - c * c} = 0$. Use the quadratic formula and keep the positive solution.`],
+      solution: [`$2x^2 + ${2 * dd}x ${dd * dd - c * c < 0 ? '-' : '+'} ${Math.abs(dd * dd - c * c)} = 0$`, `$x = \\dfrac{-${2 * dd} + \\sqrt{${disc}}}{4} \\approx ${x.toFixed(2)}$ cm (reject the negative solution)`],
+      placeholder: '6.42',
+    };
+  }
+}
+
 export const skills: Skill[] = [
   { id: 'rational', label: 'Rational solutions', generate: rational },
   { id: 'irrational', label: 'Irrational solutions', generate: irrational },
   { id: 'standard', label: 'Write in standard form first', generate: standardForm },
   { id: 'complex', label: 'Complex solutions', generate: complexRoots },
+  { id: 'apply', label: 'Word problems', generate: formulaWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

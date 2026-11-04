@@ -68,10 +68,39 @@ function rational(): Problem {
   };
 }
 
+
+/** Word problems: when is a height above a level, or a profit positive? */
+function inequalityWords(): Problem {
+  if (Math.random() < 0.5) {
+    const t1 = pick([0.5, 1, 1.5, 2]), t2 = t1 + pick([1, 1.5, 2, 2.5, 3]);
+    const v = 16 * (t1 + t2), H = 16 * t1 * t2;
+    const ans = iv(t1, t2, false, false);
+    return {
+      skill: 'apply',
+      prompt: `A ball is kicked straight up from the ground; its height after $t$ seconds is $h(t) = -16t^2 + ${v}t$ feet. During which time interval is it **higher than** ${H} ft? Write it in interval notation.`,
+      answer: { type: 'interval', ...ans },
+      hints: [`Unknown: the times $t$. "Higher than ${H}" means $-16t^2 + ${v}t > ${H}$, so $-16t^2 + ${v}t - ${H} > 0$.`, `Divide by $-16$ (reverse the sign!): $t^2 - ${v / 16}t + ${H / 16} < 0$. Factor and use a sign chart.`],
+      solution: [`$t^2 - ${v / 16}t + ${H / 16} < 0 \;\\Rightarrow\; (t - ${t1})(t - ${t2}) < 0$`, `Negative between the critical values: $(${t1}, ${t2})$ seconds.`],
+      placeholder: '(1, 3)',
+    };
+  }
+  const p = randInt(5, 30), q = p + randInt(5, 30);
+  const ans = iv(p, q, false, false);
+  return {
+    skill: 'apply',
+    prompt: `A company's weekly profit from selling $x$ hundred items is $P(x) = -x^2 + ${p + q}x - ${p * q}$ thousand dollars. For which values of $x$ is the profit **positive**? Write the answer in interval notation.`,
+    answer: { type: 'interval', ...ans },
+    hints: [`Unknown: the values of $x$. "Profit positive" means $-x^2 + ${p + q}x - ${p * q} > 0$.`, `Multiply by $-1$ (reverse the sign): $x^2 - ${p + q}x + ${p * q} < 0$, then factor.`],
+    solution: [`$x^2 - ${p + q}x + ${p * q} < 0 \;\\Rightarrow\; (x - ${p})(x - ${q}) < 0$`, `Negative between the roots: $(${p}, ${q})$. Sell between ${p} and ${q} hundred items.`],
+    placeholder: '(10, 20)',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'quadratic', label: 'Quadratic inequalities', generate: quadratic },
   { id: 'cubic', label: 'Polynomial inequalities', generate: cubic },
   { id: 'rational', label: 'Rational inequalities', generate: rational },
+  { id: 'apply', label: 'Word problems', generate: inequalityWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

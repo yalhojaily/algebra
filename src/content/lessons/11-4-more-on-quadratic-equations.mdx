@@ -2,44 +2,93 @@
 id: "11.4"
 title: More on Quadratic Equations
 summary: The discriminant predicts the kind of solutions; solutions let you rebuild the equation; and equations "quadratic in form" yield to a substitution.
-minutes: 35
+minutes: 50
 objectives:
-  - Use the discriminant to determine the number and type of solutions.
+  - Explain what the discriminant tells you, and use it to determine the number and type of solutions.
   - Write a quadratic equation with given solutions.
-  - Solve equations that are quadratic in form.
+  - Solve equations that are quadratic in form, checking solutions when a square root is involved.
+  - Use the discriminant to answer "does it ever reach…?" questions.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import QuadFormulaLab from '../../components/QuadFormulaLab.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
 
 <Callout type="why">
-Before doing any work, the number $b^2 - 4ac$ already tells you what kind of answer to expect. And an equation like $x^4 - 13x^2 + 36 = 0$, which looks like a fourth-degree monster, is really just a quadratic in disguise.
+Before doing any work, the number $b^2 - 4ac$ already tells you what kind of answer to expect — and in a real problem, whether there is an answer at all: does the ball ever reach 80 feet? And an equation like $x^4 - 13x^2 + 36 = 0$, which looks like a fourth-degree monster, is really just a quadratic in disguise.
 </Callout>
 
 ## The discriminant
 
+In the quadratic formula, everything hinges on the part under the root:
+
+$$x = \frac{-b \pm \sqrt{\boxed{b^2 - 4ac}}}{2a}$$
+
+$b^2 - 4ac$ is called the **discriminant**. If it is positive, $\pm$ gives two different real numbers. If it is zero, $+0$ and $-0$ give the same number. If it is negative, the root is imaginary.
+
 | $b^2 - 4ac$ | Solutions | Graph of $y = ax^2 + bx + c$ |
 |---|---|---|
-| positive | two real | crosses the $x$-axis twice |
+| positive | two real (rational if it is a perfect square) | crosses the $x$-axis twice |
 | zero | one real (repeated) | touches the $x$-axis at the vertex |
 | negative | two complex conjugates | doesn't reach the $x$-axis |
 
 <QuadFormulaLab client:visible />
 
+<StepReveal
+  client:visible
+  title="Predict the solutions"
+  problem="Determine the number and type of solutions: $\;3x^2 - 2x + 5 = 0,\;\; x^2 - 6x + 9 = 0,\;\; 2x^2 + 5x - 3 = 0$"
+  steps={[
+    { show: '$(-2)^2 - 4(3)(5) = 4 - 60 = -56$: two complex solutions', why: '' },
+    { show: '$(-6)^2 - 4(1)(9) = 0$: one real solution', why: 'Indeed $x^2 - 6x + 9 = (x - 3)^2$.' },
+    { show: '$5^2 - 4(2)(-3) = 25 + 24 = 49$: two rational solutions', why: '$49$ is a perfect square, so $\\sqrt{49} = 7$ and the equation factors: $(2x - 1)(x + 3) = 0$.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="How many real solutions does $\;x^2 + 4x + 7 = 0\;$ have?"
+  options={['none (two complex)', 'one', 'two', 'infinitely many']}
+  answer={0}
+  explain="$b^2 - 4ac = 16 - 28 = -12 < 0$, so the solutions are complex, not real."
+  wrong={{ 1: 'One real solution needs a discriminant of exactly $0$. Compute $16 - 28$.', 2: 'Two real solutions need a positive discriminant. Compute $16 - 28$.', 3: 'A quadratic equation has at most two solutions.' }}
+/>
+
 <Practice client:visible lesson="11.4" skill="discriminant" compact />
 
 ## Writing equations from solutions
 
-If the solutions are $r$ and $s$, then $(x - r)(x - s) = 0$ is an equation with those solutions. Multiply it out.
+The principle of zero products works backwards: if the solutions are $r$ and $s$, then $(x - r)(x - s) = 0$ has exactly those solutions. Multiply it out.
+
+<StepReveal
+  client:visible
+  title="Build the equation"
+  problem="Write a quadratic equation with the given solutions: (a) $3$ and $-5$; (b) $\tfrac{2}{3}$ and $1$; (c) $\pm\sqrt{3}$; (d) $\pm 2i$."
+  steps={[
+    { show: '(a) $(x - 3)(x + 5) = 0 \\;\\Rightarrow\\; x^2 + 2x - 15 = 0$', why: 'Subtracting $-5$ gives $+5$.' },
+    { show: '(b) $(3x - 2)(x - 1) = 0 \\;\\Rightarrow\\; 3x^2 - 5x + 2 = 0$', why: '$x = \\frac{2}{3}$ gives $3x - 2 = 0$ — clearing the fraction.' },
+    { show: '(c) $(x - \\sqrt{3})(x + \\sqrt{3}) = 0 \\;\\Rightarrow\\; x^2 - 3 = 0$', why: 'Difference of squares.' },
+    { show: '(d) $(x - 2i)(x + 2i) = 0 \\;\\Rightarrow\\; x^2 + 4 = 0$', why: '$-(2i)^2 = -4i^2 = 4$.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Which equation has solutions $4$ and $-1$?"
+  options={['$x^2 - 3x - 4 = 0$', '$x^2 + 3x - 4 = 0$', '$x^2 - 3x + 4 = 0$', '$x^2 + 5x + 4 = 0$']}
+  answer={0}
+  explain="$(x - 4)(x + 1) = x^2 - 3x - 4$. Check: $16 - 12 - 4 = 0$ ✓ and $1 + 3 - 4 = 0$ ✓."
+  wrong={{ 1: 'That is $(x + 4)(x - 1)$: its solutions are $-4$ and $1$.', 2: 'The constant is $(-4)(1) = -4$, not $+4$.', 3: 'That is $(x + 4)(x + 1)$: solutions $-4$ and $-1$.' }}
+/>
 
 <Practice client:visible lesson="11.4" skill="write" compact />
 
 ## Equations quadratic in form
 
-An equation is **quadratic in form** if a substitution $u = (\text{something})$ makes it $au^2 + bu + c = 0$.
+An equation is **quadratic in form** if a substitution $u = (\text{something})$ makes it $au^2 + bu + c = 0$. The test: one part is the **square** of another part ($x^4 = (x^2)^2$, $x = (\sqrt{x})^2$).
 
 <StepReveal
   client:visible
@@ -48,21 +97,87 @@ An equation is **quadratic in form** if a substitution $u = (\text{something})$ 
   steps={[
     { show: '$u^2 - 13u + 36 = 0$', why: 'Let $u = x^2$, so $x^4 = u^2$.' },
     { show: '$(u - 4)(u - 9) = 0 \\;\\Rightarrow\\; u = 4$ or $u = 9$', why: '' },
-    { show: '$x^2 = 4$ or $x^2 = 9$, so $x = \\pm 2$ or $x = \\pm 3$', why: 'Go back to $x$ — four solutions.' },
+    { show: '$x^2 = 4$ or $x^2 = 9$, so $x = \\pm 2$ or $x = \\pm 3$', why: 'Go back to $x$ — four solutions, as a 4th-degree equation can have.' },
   ]}
+/>
+
+<StepReveal
+  client:visible
+  title="Let u = √x, and check"
+  problem="Solve: $\;x - 3\sqrt{x} - 4 = 0$"
+  steps={[
+    { show: '$u^2 - 3u - 4 = 0$', why: 'Let $u = \\sqrt{x}$, so $x = u^2$.' },
+    { show: '$(u - 4)(u + 1) = 0 \\;\\Rightarrow\\; u = 4$ or $u = -1$', why: '' },
+    { show: '$\\sqrt{x} = 4 \\Rightarrow x = 16$; $\\;\\sqrt{x} = -1$ is impossible', why: 'A principal square root is never negative, so reject $u = -1$.' },
+    { show: 'Solution: $x = 16$. Check: $16 - 3(4) - 4 = 0$ ✓', why: '' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="Substitute an expression"
+  problem="Solve: $\;(x^2 - 1)^2 - 5(x^2 - 1) + 4 = 0$"
+  steps={[
+    { show: '$u^2 - 5u + 4 = 0$ with $u = x^2 - 1$', why: 'The whole block $x^2 - 1$ appears squared and plain.' },
+    { show: '$(u - 1)(u - 4) = 0 \\;\\Rightarrow\\; u = 1$ or $u = 4$', why: '' },
+    { show: '$x^2 - 1 = 1 \\Rightarrow x = \\pm\\sqrt{2}$; $\\;x^2 - 1 = 4 \\Rightarrow x = \\pm\\sqrt{5}$', why: 'Substitute back and solve each.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Which substitution turns $\;x^6 - 9x^3 + 8 = 0\;$ into a quadratic?"
+  options={['$u = x^3$', '$u = x^6$', '$u = x^2$', '$u = 9x^3$']}
+  answer={0}
+  explain="$x^6 = (x^3)^2$, so with $u = x^3$ the equation is $u^2 - 9u + 8 = 0$."
+  wrong={{ 1: 'Then $x^3$ would be $\\sqrt{u}$ — not a quadratic in $u$.', 2: '$x^3$ is not a power of $x^2$ with a whole exponent.', 3: 'Use the plain $x^3$ — the coefficient $9$ stays outside.' }}
 />
 
 <Practice client:visible lesson="11.4" skill="form" compact />
 
-With $u = \sqrt{x}$, an equation like $x - 5\sqrt{x} + 6 = 0$ becomes $u^2 - 5u + 6 = 0$. (Check answers — $u$ must be $\ge 0$.)
-
 <Practice client:visible lesson="11.4" skill="sqrtform" compact />
+
+## In a real context
+
+"Does it ever happen?" questions are discriminant questions: setting the quantity equal to the target gives a quadratic, and it has real solutions only if $b^2 - 4ac \ge 0$.
+
+<StepReveal
+  client:visible
+  title="Does the ball get that high?"
+  problem="A ball's height is $h(t) = -16t^2 + 64t + 4$ feet. Does it ever reach $80$ ft? What about $60$ ft?"
+  steps={[
+    { show: '**Translate.** $-16t^2 + 64t + 4 = 80 \\;\\Rightarrow\\; -16t^2 + 64t - 76 = 0$', why: 'Standard form.' },
+    { show: '**Solve.** $b^2 - 4ac = 64^2 - 4(-16)(-76) = 4096 - 4864 = -768 < 0$', why: 'No real $t$: the ball never reaches $80$ ft.' },
+    { show: 'For $60$ ft: $-16t^2 + 64t - 56 = 0$, and $4096 - 3584 = 512 > 0$', why: 'Two real times — once going up, once coming down.' },
+    { show: '**Check.** The highest point is at $t = 2$: $h(2) = 68$ ft, between $60$ and $80$ ✓', why: '' },
+    { show: '**State.** It reaches $60$ ft (twice) but never $80$ ft.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="11.4" skill="apply" compact />
+
+## Common mistakes
+
+<Callout type="warning" title="Sign slips in b² − 4ac">
+With $a = -16$ and $c = -76$, $-4ac = -4(-16)(-76) = -4864$. Write every factor in parentheses.
+</Callout>
+
+<Callout type="warning" title="Stopping at u">
+In $x^4 - 13x^2 + 36 = 0$, $u = 4$ and $u = 9$ are not the answers. Substitute back: $x^2 = 4$ and $x^2 = 9$ give four values of $x$.
+</Callout>
+
+<Callout type="warning" title="Accepting a negative √x">
+If $u = \sqrt{x}$, then $u = -1$ is impossible. Check every solution in the original equation.
+</Callout>
 
 ## Summary
 
-- $b^2 - 4ac > 0$: two real; $= 0$: one; $< 0$: two complex.
-- Solutions $r, s$ → $(x - r)(x - s) = 0$.
-- Substitute to reveal a hidden quadratic; then substitute back.
+- The discriminant $b^2 - 4ac$ is under the root in the formula: positive → two real, zero → one real, negative → two complex. A perfect square means rational solutions (the equation factors).
+- Solutions $r$ and $s$ → $(x - r)(x - s) = 0$.
+- If one part of an equation is the square of another, substitute $u$ for it, solve, then substitute back and check.
+- "Does it ever reach…?" → is the discriminant $\ge 0$?
+
+**Next, in 11.5:** the graphs of quadratic functions, starting with the vertex form $a(x - h)^2 + k$.
 
 ## Practice
 

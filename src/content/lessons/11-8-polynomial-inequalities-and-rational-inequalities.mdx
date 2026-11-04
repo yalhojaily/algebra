@@ -2,22 +2,28 @@
 id: "11.8"
 title: Polynomial Inequalities and Rational Inequalities
 summary: Find where an expression is zero or undefined, split the number line there, test each interval, and keep the intervals with the right sign.
-minutes: 40
+minutes: 50
 objectives:
-  - Solve quadratic and higher-degree polynomial inequalities.
-  - Solve rational inequalities.
-  - Use sign charts and test values.
+  - Explain why one test value per interval is enough.
+  - Solve quadratic and higher-degree polynomial inequalities with sign charts.
+  - Solve rational inequalities, including ones with a nonzero right side.
+  - Answer "when is it above / positive?" questions with inequalities.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import SignChart from '../../components/SignChart.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
 
 <Callout type="why">
-When is a thrown ball higher than 50 feet? When does a business make a profit? Questions like "when is this expression positive?" are inequalities, and the answer is usually one or more intervals.
+When is a thrown ball higher than 48 feet? For which production levels does a business make a profit? Questions like "when is this expression positive?" are inequalities, and the answer is usually one or more **intervals**. Linear inequalities (9.1) could be solved like equations; these can't — but a sign chart handles them all.
 </Callout>
+
+## Why a sign chart works
+
+A polynomial's graph is a smooth, unbroken curve, so its value can change from positive to negative only by passing through $0$. A rational expression can also change sign where its denominator is $0$ (where it is undefined). Call these $x$-values the **critical values**. Between two neighboring critical values the sign can't change — so **one test value tells you the sign of the whole interval**.
 
 ## The method
 
@@ -34,29 +40,139 @@ When is a thrown ball higher than 50 feet? When does a business make a profit? Q
   problem="Solve: $\;x^2 - x - 6 > 0$"
   steps={[
     { show: '$(x + 2)(x - 3) > 0$', why: 'Factor.' },
-    { show: 'Critical values $-2$ and $3$: test $-3$, $0$, $4$', why: '' },
+    { show: 'Critical values $-2$ and $3$: test $-3$, $0$, $4$', why: 'One value in each of the three intervals.' },
     { show: 'Signs: $+,\\ -,\\ +$', why: '$(-1)(-6) > 0$; $(2)(-3) < 0$; $(6)(1) > 0$.' },
-    { show: '$(-\\infty, -2) \\cup (3, \\infty)$', why: '' },
+    { show: '$(-\\infty, -2) \\cup (3, \\infty)$', why: 'Strict $>$: the critical values themselves are excluded.' },
   ]}
 />
 
+<StepReveal
+  client:visible
+  title="Get 0 on one side first"
+  problem="Solve: $\;x^2 - 4x \le 5$"
+  steps={[
+    { show: '$x^2 - 4x - 5 \\le 0 \\;\\Rightarrow\\; (x - 5)(x + 1) \\le 0$', why: 'Subtract $5$, factor. (Don\'t factor $x(x - 4) \\le 5$ — a product less than $5$ tells you nothing about the factors.)' },
+    { show: 'Test $-2$: $+$; $\\;0$: $-$; $\\;6$: $+$', why: '' },
+    { show: '$[-1, 5]$', why: '$\\le$ includes the zeros.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Solve: $\;x^2 < 9$"
+  options={['$(-3, 3)$', '$x < \\pm 3$', '$(-\\infty, 3)$', '$(-\\infty, -3) \\cup (3, \\infty)$']}
+  answer={0}
+  explain="$x^2 - 9 = (x + 3)(x - 3) < 0$ between the critical values: $-3 < x < 3$. Check $x = -5$: $25 < 9$ is false, so $(-\infty, 3)$ is too big."
+  wrong={{ 1: '“$x < \\pm 3$” has no clear meaning. Use a sign chart for $(x + 3)(x - 3) < 0$.', 2: 'Test $x = -5$: is $25 < 9$?', 3: 'That is where $x^2 > 9$.' }}
+/>
+
 <Practice client:visible lesson="11.8" skill="quadratic" compact />
+
+<StepReveal
+  client:visible
+  title="Three factors"
+  problem="Solve: $\;x(x - 2)(x + 3) > 0$"
+  steps={[
+    { show: 'Critical values $-3$, $0$, $2$', why: 'Four intervals to test.' },
+    { show: '$x = -4$: $(-)(-)(-) < 0$; $\\;x = -1$: $(-)(-)(+) > 0$', why: 'Track only the signs of the factors.' },
+    { show: '$x = 1$: $(+)(-)(+) < 0$; $\\;x = 3$: $(+)(+)(+) > 0$', why: '' },
+    { show: '$(-3, 0) \\cup (2, \\infty)$', why: 'The signs alternate here because each factor appears once.' },
+  ]}
+/>
 
 <Practice client:visible lesson="11.8" skill="cubic" compact />
 
 ## Rational inequalities
 
-<Callout type="warning" title="Don't multiply by the denominator">
-Multiplying both sides by $x - 3$ would require knowing whether it's positive or negative. Use the sign chart instead.
-</Callout>
+Don't multiply both sides by a denominator that contains $x$: you would need to know whether it is positive or negative to keep or reverse the sign. Instead, get $0$ on one side as a **single fraction** and use a sign chart.
+
+<StepReveal
+  client:visible
+  title="Numerator and denominator zeros"
+  problem="Solve: $\;\dfrac{x + 1}{x - 3} \ge 0$"
+  steps={[
+    { show: 'Critical values: $-1$ (numerator) and $3$ (denominator)', why: '' },
+    { show: 'Test $-2$: $\\frac{-1}{-5} > 0$; $\\;0$: $\\frac{1}{-3} < 0$; $\\;4$: $\\frac{5}{1} > 0$', why: '' },
+    { show: '$(-\\infty, -1] \\cup (3, \\infty)$', why: '$-1$ makes the fraction $0$, allowed by $\\ge$. $3$ makes it undefined — never included.' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="A nonzero right side"
+  problem="Solve: $\;\dfrac{x}{x - 2} < 3$"
+  steps={[
+    { show: '$\\dfrac{x}{x - 2} - 3 < 0 \\;\\Rightarrow\\; \\dfrac{x - 3(x - 2)}{x - 2} < 0 \\;\\Rightarrow\\; \\dfrac{-2x + 6}{x - 2} < 0$', why: 'Subtract $3$ and combine into one fraction (common denominator $x - 2$).' },
+    { show: 'Critical values $3$ and $2$. Test $0$: $\\frac{6}{-2} < 0$ ✓; $\\;2.5$: $\\frac{1}{0.5} > 0$; $\\;4$: $\\frac{-2}{2} < 0$ ✓', why: '' },
+    { show: '$(-\\infty, 2) \\cup (3, \\infty)$', why: 'Check $x = 2.5$ in the original: $\\frac{2.5}{0.5} = 5$, not less than $3$ ✓.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="In $\;\dfrac{x + 1}{x - 3} \ge 0$, can $x = 3$ be part of the solution?"
+  options={['No, never', 'Yes, because of $\\ge$', 'Only if the numerator is positive', 'Yes, it is a critical value']}
+  answer={0}
+  explain="At $x = 3$ the denominator is $0$, so the fraction is undefined — it can't be $\ge 0$ or anything else."
+  wrong={{ 1: '$\\ge$ includes values where the fraction **equals** $0$; at $x = 3$ it doesn\'t exist.', 2: 'The fraction is undefined at $x = 3$, whatever the numerator is.', 3: 'Critical values split the line, but denominator zeros are never in the answer.' }}
+/>
 
 <Practice client:visible lesson="11.8" skill="rational" compact />
 
+## In a real context
+
+<StepReveal
+  client:visible
+  title="Above 48 feet"
+  problem="A ball is kicked up from the ground: $h(t) = -16t^2 + 64t$ feet. When is it higher than $48$ ft?"
+  steps={[
+    { show: '**Familiarize.** "Higher than" means $h(t) > 48$; $t$ is in seconds.', why: 'The highest point is $h(2) = 64$, so it does get above $48$ for a while.' },
+    { show: '**Translate.** $-16t^2 + 64t - 48 > 0$', why: '' },
+    { show: '**Solve.** Divide by $-16$ and **reverse**: $t^2 - 4t + 3 < 0 \\;\\Rightarrow\\; (t - 1)(t - 3) < 0 \\;\\Rightarrow\\; (1, 3)$', why: 'Negative between the critical values.' },
+    { show: '**Check.** $h(2) = 64 > 48$ ✓; $h(0.5) = 28 < 48$ ✓', why: '' },
+    { show: '**State.** The ball is above $48$ ft from $t = 1$ s to $t = 3$ s.', why: '' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="When is there a profit?"
+  problem="A company's weekly profit from $x$ hundred items is $P(x) = -x^2 + 30x - 200$ thousand dollars. For which $x$ is the profit positive?"
+  steps={[
+    { show: '$-x^2 + 30x - 200 > 0 \\;\\Rightarrow\\; x^2 - 30x + 200 < 0$', why: 'Multiply by $-1$ and reverse the sign.' },
+    { show: '$(x - 10)(x - 20) < 0 \\;\\Rightarrow\\; (10, 20)$', why: '' },
+    { show: 'Selling between $1000$ and $2000$ items a week gives a profit.', why: 'Too few items can\'t cover fixed costs; too many forces prices down.' },
+  ]}
+/>
+
+<Practice client:visible lesson="11.8" skill="apply" compact />
+
+## Common mistakes
+
+<Callout type="warning" title="Multiplying by the denominator">
+Multiplying both sides of $\frac{x}{x - 2} < 3$ by $x - 2$ needs to know its sign. Use a single fraction and a sign chart instead.
+</Callout>
+
+<Callout type="warning" title="Including a denominator zero">
+Zeros of the denominator are never in the solution, even with $\le$ or $\ge$.
+</Callout>
+
+<Callout type="warning" title="x² < 9 means x < 3">
+That loses the left side and includes $x = -5$. The solution is $-3 < x < 3$.
+</Callout>
+
+<Callout type="warning" title="Forgetting to reverse">
+Dividing $-16t^2 + 64t - 48 > 0$ by $-16$ gives $t^2 - 4t + 3 < 0$, with the sign reversed (9.1).
+</Callout>
+
 ## Summary
 
-- Critical values split the line; test one value per interval.
+- Signs can change only at critical values (zeros of the expression and of a denominator), so one test value per interval is enough.
+- Get $0$ on one side, factor (or combine into one fraction), find critical values, test, keep the right intervals.
 - Numerator zeros: included for $\le, \ge$. Denominator zeros: never included.
 - Write the answer as a union of intervals.
+
+**Next, in Chapter 12:** exponential and logarithmic functions — growth, decay and the equations that describe them.
 
 ## Practice
 

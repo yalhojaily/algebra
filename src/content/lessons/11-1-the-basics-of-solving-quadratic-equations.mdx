@@ -2,31 +2,52 @@
 id: "11.1"
 title: The Basics of Solving Quadratic Equations
 summary: "Solve x² = k with the principle of square roots, and turn any quadratic into that form by completing the square."
-minutes: 40
+minutes: 50
 objectives:
   - Solve quadratic equations using the principle of square roots, including complex solutions.
   - "Solve (x − h)² = k."
-  - Complete the square for x² + bx.
-  - Solve quadratic equations by completing the square.
+  - Explain completing the square with an area picture, and complete the square for x² + bx.
+  - Solve quadratic equations by completing the square, including when a ≠ 1.
+  - Solve applied problems with the principle of square roots.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import CompleteSquareArea from '../../components/CompleteSquareArea.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
 
 <Callout type="why">
-Factoring (Lesson 5.8) solves only the quadratic equations that happen to factor nicely. $x^2 - 6x + 4 = 0$ doesn't. This lesson builds a method that works for **every** quadratic — and leads straight to the quadratic formula in 11.2.
+Factoring (5.8) solves only the quadratic equations that happen to factor nicely. $x^2 - 6x + 4 = 0$ doesn't. This lesson builds a method that works for **every** quadratic: turn it into "something squared equals a number", then take square roots. It leads straight to the quadratic formula in 11.2.
 </Callout>
 
 ## The principle of square roots
 
 > If $x^2 = k$, then $x = \sqrt{k}$ or $x = -\sqrt{k}$ — written $x = \pm\sqrt{k}$.
 
-If $k < 0$, the solutions are imaginary: $x^2 = -9$ gives $x = \pm 3i$.
+Why both? Both $\sqrt{k}$ and $-\sqrt{k}$ square to $k$. Factoring confirms there are no others: $x^2 - k = (x - \sqrt{k})(x + \sqrt{k}) = 0$. If $k = 0$ there is one solution, $0$. If $k < 0$ the solutions are imaginary (10.8): $x^2 = -9$ gives $x = \pm 3i$.
 
 Type $\pm$ as `+-`, for example `+- 2sqrt(3)` or `3 +- sqrt(5)`.
+
+<StepReveal
+  client:visible
+  title="Isolate the square first"
+  problem="Solve: $\;3x^2 = 60\;$ and $\;x^2 + 9 = 0$"
+  steps={[
+    { show: '$x^2 = 20 \\;\\Rightarrow\\; x = \\pm\\sqrt{20} = \\pm 2\\sqrt{5}$', why: 'Divide by $3$, take square roots, simplify (10.3).' },
+    { show: '$x^2 = -9 \\;\\Rightarrow\\; x = \\pm 3i$', why: '$\\sqrt{-9} = 3i$.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Solve: $\;x^2 = 49$"
+  options={['$x = \\pm 7$', '$x = 7$', '$x = 24.5$', '$x = \\pm 49$']}
+  answer={0}
+  explain="Both $7^2$ and $(-7)^2$ equal $49$."
+  wrong={{ 1: '$(-7)^2 = 49$ too. Equations need **both** roots; only the symbol $\\sqrt{49}$ means just $7$.', 2: 'Taking a square root is not dividing by $2$.', 3: '$49^2 = 2401$, not $49$.' }}
+/>
 
 <Practice client:visible lesson="11.1" skill="principle" compact />
 
@@ -34,11 +55,12 @@ The same idea solves $(x - h)^2 = k$: take square roots, then add $h$.
 
 <StepReveal
   client:visible
-  title="Shifted square"
-  problem="Solve: $\;(x - 4)^2 = 7$"
+  title="Shifted squares"
+  problem="Solve: $\;(x - 4)^2 = 7\;$ and $\;(2x + 1)^2 = 9$"
   steps={[
-    { show: '$x - 4 = \\pm\\sqrt{7}$', why: 'Principle of square roots.' },
-    { show: '$x = 4 \\pm \\sqrt{7}$', why: 'Add $4$ to both sides.' },
+    { show: '$x - 4 = \\pm\\sqrt{7} \\;\\Rightarrow\\; x = 4 \\pm \\sqrt{7}$', why: 'Principle of square roots, then add $4$.' },
+    { show: '$2x + 1 = \\pm 3$', why: 'Treat $2x + 1$ as the thing being squared.' },
+    { show: '$2x + 1 = 3 \\Rightarrow x = 1$; $\\;2x + 1 = -3 \\Rightarrow x = -2$', why: 'With a whole-number root, split into two cases.' },
   ]}
 />
 
@@ -46,17 +68,36 @@ The same idea solves $(x - h)^2 = k$: take square roots, then add $h$.
 
 ## Completing the square
 
-$x^2 + bx$ becomes a perfect square when you add $\left(\frac{b}{2}\right)^2$:
+The idea: turn $x^2 + bx$ into a perfect square $(x + \square)^2$ by adding the right number. Picture $x^2 + bx$ as an $x$-by-$x$ square plus a $b$-by-$x$ rectangle. Cut the rectangle in half and put one half on each side of the square: you get an almost-square of side $x + \frac{b}{2}$, missing only a corner of size $\frac{b}{2} \times \frac{b}{2}$.
 
 $$x^2 + bx + \left(\tfrac{b}{2}\right)^2 = \left(x + \tfrac{b}{2}\right)^2$$
 
 <CompleteSquareArea client:visible />
 
+<StepReveal
+  client:visible
+  title="Find the missing corner"
+  problem="Complete the square: $\;x^2 + 10x + \underline{\quad}\;$ and $\;x^2 - 7x + \underline{\quad}$"
+  steps={[
+    { show: '$\\left(\\frac{10}{2}\\right)^2 = 25$: $\\;x^2 + 10x + 25 = (x + 5)^2$', why: 'Half of $b$, squared.' },
+    { show: '$\\left(\\frac{-7}{2}\\right)^2 = \\frac{49}{4}$: $\\;x^2 - 7x + \\frac{49}{4} = \\left(x - \\frac{7}{2}\\right)^2$', why: 'Fractions are fine. The sign of $b$ goes inside the parentheses.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="What number completes the square: $\;x^2 + 8x + \underline{\quad}$?"
+  options={['$16$', '$64$', '$4$', '$8$']}
+  answer={0}
+  explain="Half of $8$ is $4$, and $4^2 = 16$: $x^2 + 8x + 16 = (x + 4)^2$."
+  wrong={{ 1: 'That squares $b$ itself. Take **half** of $b$ first, then square.', 2: '$4$ is half of $b$ — now square it.', 3: 'Take half of $8$ and square it.' }}
+/>
+
 <Practice client:visible lesson="11.1" skill="term" compact />
 
 ## Solving by completing the square
 
-1. Get $x^2 + bx$ alone on one side (divide by $a$ first if $a \ne 1$).
+1. Get $x^2 + bx$ alone on one side. If $a \ne 1$, **divide by $a$ first**.
 2. Add $\left(\frac{b}{2}\right)^2$ to **both** sides.
 3. Write the left side as a square, then use the principle of square roots.
 
@@ -66,19 +107,100 @@ $$x^2 + bx + \left(\tfrac{b}{2}\right)^2 = \left(x + \tfrac{b}{2}\right)^2$$
   problem="Solve: $\;x^2 - 6x + 4 = 0$"
   steps={[
     { show: '$x^2 - 6x = -4$', why: 'Move the constant.' },
-    { show: '$x^2 - 6x + 9 = -4 + 9$', why: '$\\left(\\frac{-6}{2}\\right)^2 = 9$. Add it to both sides.' },
+    { show: '$x^2 - 6x + 9 = -4 + 9$', why: '$\\left(\\frac{-6}{2}\\right)^2 = 9$. Add it to **both** sides to keep the equation balanced.' },
     { show: '$(x - 3)^2 = 5$', why: '' },
-    { show: '$x = 3 \\pm \\sqrt{5}$', why: '' },
+    { show: '$x = 3 \\pm \\sqrt{5}$', why: 'About $5.24$ and $0.76$.' },
   ]}
+/>
+
+<StepReveal
+  client:visible
+  title="When a ≠ 1"
+  problem="Solve: $\;2x^2 + 8x - 1 = 0$"
+  steps={[
+    { show: '$x^2 + 4x - \\tfrac{1}{2} = 0 \\;\\Rightarrow\\; x^2 + 4x = \\tfrac{1}{2}$', why: 'Divide every term by $a = 2$, then move the constant.' },
+    { show: '$x^2 + 4x + 4 = \\tfrac{1}{2} + 4 = \\tfrac{9}{2}$', why: '$\\left(\\frac{4}{2}\\right)^2 = 4$.' },
+    { show: '$(x + 2)^2 = \\tfrac{9}{2} \\;\\Rightarrow\\; x + 2 = \\pm\\dfrac{3}{\\sqrt{2}} = \\pm\\dfrac{3\\sqrt{2}}{2}$', why: 'Rationalize the denominator (10.5).' },
+    { show: '$x = -2 \\pm \\dfrac{3\\sqrt{2}}{2}$', why: '' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="Complex solutions"
+  problem="Solve: $\;x^2 + 2x + 5 = 0$"
+  steps={[
+    { show: '$x^2 + 2x + 1 = -5 + 1 \\;\\Rightarrow\\; (x + 1)^2 = -4$', why: '' },
+    { show: '$x + 1 = \\pm 2i \\;\\Rightarrow\\; x = -1 \\pm 2i$', why: 'A square equal to a negative number gives imaginary roots.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="To solve $\;2x^2 + 8x - 1 = 0\;$ by completing the square, what do you do **first**?"
+  options={['Divide every term by $2$', 'Add $16$ to both sides', 'Add $4$ to both sides', 'Take the square root of both sides']}
+  answer={0}
+  explain="The method needs $x^2$ with coefficient $1$. Dividing by $a = 2$ gives $x^2 + 4x - \frac{1}{2} = 0$."
+  wrong={{ 1: 'The “add $(b/2)^2$” rule only works when the $x^2$ coefficient is $1$.', 2: 'Not yet: first make the coefficient of $x^2$ equal to $1$.', 3: 'The left side isn\'t a perfect square yet.' }}
 />
 
 <Practice client:visible lesson="11.1" skill="complete" compact />
 
+## In a real context
+
+<StepReveal
+  client:visible
+  title="A bigger garden"
+  problem="A square garden is enlarged by adding $2$ m to each side. The new garden has an area of $81$ m². How long was each side originally?"
+  steps={[
+    { show: '**Familiarize.** Let $x$ = the original side (m); the new side is $x + 2$.', why: '' },
+    { show: '**Translate.** $(x + 2)^2 = 81$', why: 'A shifted square — ready for square roots.' },
+    { show: '**Solve.** $x + 2 = \\pm 9 \\;\\Rightarrow\\; x = 7$ or $x = -11$', why: '' },
+    { show: '**Check.** A side can\'t be negative, so reject $-11$. $(7 + 2)^2 = 81$ ✓', why: '' },
+    { show: '**State.** The original sides were $7$ m.', why: '' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="Find the interest rate"
+  problem="$1000$ dollars grows to $1210$ dollars in 2 years, with interest compounded once a year: $1000(1 + r)^2 = 1210$. Find the annual rate $r$."
+  steps={[
+    { show: '$(1 + r)^2 = 1.21$', why: 'Divide by $1000$.' },
+    { show: '$1 + r = \\pm 1.1$', why: '' },
+    { show: '$r = 0.1$ (reject $1 + r = -1.1$)', why: 'A growth factor $1 + r$ must be positive.' },
+    { show: 'The rate is $10\\%$. Check: $1000 \\cdot 1.1^2 = 1210$ ✓', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="11.1" skill="apply" compact />
+
+## Common mistakes
+
+<Callout type="warning" title="Forgetting ±">
+$x^2 = 49$ has two solutions, $\pm 7$. The symbol $\sqrt{49}$ is just $7$, but the **equation** has both.
+</Callout>
+
+<Callout type="warning" title="Adding to one side only">
+When completing the square, add $\left(\frac{b}{2}\right)^2$ to **both** sides, or the equation changes.
+</Callout>
+
+<Callout type="warning" title="Not dividing by a first">
+For $2x^2 + 8x - 1 = 0$, adding $\left(\frac{8}{2}\right)^2 = 16$ does not make a perfect square. Divide by $2$ first.
+</Callout>
+
+<Callout type="warning" title="Half of b, or b/2 squared?">
+The number to **add** is $\left(\frac{b}{2}\right)^2$; the number **inside** the parentheses is $\frac{b}{2}$: $x^2 + 10x + 25 = (x + 5)^2$.
+</Callout>
+
 ## Summary
 
-- $x^2 = k \Rightarrow x = \pm\sqrt{k}$ (imaginary if $k < 0$).
-- Completing the square: add $\left(\frac{b}{2}\right)^2$ to both sides.
+- $x^2 = k \Rightarrow x = \pm\sqrt{k}$ (imaginary if $k < 0$); $(x - h)^2 = k \Rightarrow x = h \pm \sqrt{k}$.
+- Completing the square adds the missing corner $\left(\frac{b}{2}\right)^2$ to **both** sides; divide by $a$ first.
 - Every quadratic equation can be solved this way.
+- In context, reject solutions that make no sense (negative lengths, negative growth factors).
+
+**Next, in 11.2:** completing the square once, with letters, gives the quadratic formula.
 
 ## Practice
 
