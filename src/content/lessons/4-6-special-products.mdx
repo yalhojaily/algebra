@@ -2,78 +2,172 @@
 id: "4.6"
 title: Special Products
 summary: Shortcuts for the products you'll meet most often — FOIL for two binomials, the square of a binomial, and the product of a sum and a difference.
-minutes: 35
+minutes: 40
 objectives:
-  - Multiply two binomials quickly using FOIL.
-  - "Square a binomial: (A + B)² = A² + 2AB + B²."
-  - "Multiply a sum and a difference: (A + B)(A − B) = A² − B²."
-  - Recognize which pattern a product fits.
+  - Multiply two binomials quickly with FOIL.
+  - Square a binomial, and explain the pattern with a square's area.
+  - Multiply a sum and a difference of the same two terms.
+  - Recognize which pattern applies, and use the patterns for mental arithmetic and applications.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import SquareArea from '../../components/SquareArea.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
 
 <Callout type="why">
-Quick: what is $49 \times 51$? Think $(50 - 1)(50 + 1) = 2500 - 1 = 2499$. The special products in this lesson are mental-math tricks — and in Chapter 5 you'll run them **backwards** to factor.
+Can you work out $49 \cdot 51$ in your head? Or $31^2$? With the patterns in this lesson it takes a few seconds. More importantly, these patterns appear again and again in algebra — in factoring (Chapter 5), in completing the square (Chapter 11) — so recognizing them on sight saves a lot of work.
 </Callout>
 
 ## FOIL
 
-To multiply two binomials, multiply the **F**irst terms, the **O**uter terms, the **I**nner terms, and the **L**ast terms:
+To multiply two binomials, multiply the **F**irst terms, the **O**utside terms, the **I**nside terms and the **L**ast terms. It's just the four products of 4.5 in a fixed order:
 
 $$(A + B)(C + D) = \underbrace{AC}_{F} + \underbrace{AD}_{O} + \underbrace{BC}_{I} + \underbrace{BD}_{L}$$
 
 <StepReveal
   client:visible
   title="FOIL"
-  problem="Multiply: $\;(3x - 4)(2x + 5)$"
+  problem="Multiply: $\;(x - 6)(2x + 5)$"
   steps={[
-    { show: 'F: $6x^2$ O: $15x$ I: $-8x$ L: $-20$', why: '' },
-    { show: '$= 6x^2 + 7x - 20$', why: 'The outer and inner terms are like terms — combine them.' },
+    { show: 'F: $2x^2$  O: $5x$  I: $-12x$  L: $-30$', why: '' },
+    { show: '$= 2x^2 - 7x - 30$', why: 'The outside and inside products are usually like terms — collect them.' },
   ]}
 />
 
 <Practice client:visible lesson="4.6" skill="foil" compact />
 
-## Squares of binomials and sums times differences
+## The square of a binomial
+
+$(A + B)^2 = (A + B)(A + B)$. FOIL gives $A^2 + AB + AB + B^2$ — the middle product appears **twice**. The picture shows it: a square of side $A + B$ is made of an $A^2$ square, a $B^2$ square and **two** $AB$ rectangles.
 
 <SquareArea client:visible />
 
-<Callout type="tip" title="Two patterns to know by heart">
-$$(A + B)^2 = A^2 + 2AB + B^2 \qquad (A - B)^2 = A^2 - 2AB + B^2$$
-$$(A + B)(A - B) = A^2 - B^2$$
-</Callout>
+<Callout type="tip" title="Squares of binomials">
+$$(A + B)^2 = A^2 + 2AB + B^2 \qquad\qquad (A - B)^2 = A^2 - 2AB + B^2$$
 
-<Callout type="warning" title="(A + B)² is not A² + B²">
-$(x + 3)^2 = x^2 + 6x + 9$. Check with a number: if $x = 1$, then $(1 + 3)^2 = 16$, but $1^2 + 3^2 = 10$. The middle term $2AB$ makes up the difference.
+Square the first term, **double the product**, square the last term.
 </Callout>
 
 <StepReveal
   client:visible
-  title="Using the patterns"
-  problem="Multiply: (a) $\;(5y - 2)^2$  (b) $\;(3t + 7)(3t - 7)$"
+  title="Squaring"
+  problem="Multiply: $\;(3x - 5)^2$"
   steps={[
-    { show: '(a) $\\;(5y)^2 - 2(5y)(2) + 2^2 = 25y^2 - 20y + 4$', why: '$A = 5y$, $B = 2$.' },
-    { show: '(b) $\\;(3t)^2 - 7^2 = 9t^2 - 49$', why: 'Sum times difference: the middle terms cancel.' },
+    { show: '$A = 3x$, $B = 5$: $\\;(3x)^2 - 2(3x)(5) + 5^2$', why: '' },
+    { show: '$= 9x^2 - 30x + 25$', why: '' },
   ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Multiply: $\;(x + 5)^2$"
+  options={['$x^2 + 10x + 25$', '$x^2 + 25$', '$x^2 + 5x + 25$', '$2x + 10$']}
+  answer={0}
+  explain="$A^2 + 2AB + B^2 = x^2 + 2(x)(5) + 25 = x^2 + 10x + 25$."
+  wrong={{ 1: 'The middle term $2AB$ is missing. $(x + 5)^2$ is not $x^2 + 5^2$.', 2: 'The middle term is $2AB$ — twice the product.', 3: 'Squaring is multiplying by itself, not by $2$.' }}
 />
 
 <Practice client:visible lesson="4.6" skill="square" compact />
 
+## A sum times a difference
+
+When the two binomials have the same terms, one with $+$ and one with $-$, the outside and inside products cancel:
+
+$$(A + B)(A - B) = A^2 - AB + AB - B^2 = A^2 - B^2$$
+
+<Callout type="tip" title="Product of a sum and a difference">
+$$(A + B)(A - B) = A^2 - B^2$$
+
+The answer is a **difference of squares** — there is no middle term.
+</Callout>
+
+<StepReveal
+  client:visible
+  title="Sum times difference"
+  problem="Multiply: $\;(4y + 3)(4y - 3)\;$ and $\;(x^2 - 2)(x^2 + 2)$"
+  steps={[
+    { show: '$(4y)^2 - 3^2 = 16y^2 - 9$', why: '' },
+    { show: '$(x^2)^2 - 2^2 = x^4 - 4$', why: 'Here $A = x^2$.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Multiply: $\;(y - 4)(y + 4)$"
+  options={['$y^2 - 16$', '$y^2 + 16$', '$y^2 - 8y + 16$', '$y^2 - 8$']}
+  answer={0}
+  explain="A sum times a difference: $A^2 - B^2 = y^2 - 16$. The middle products $4y$ and $-4y$ cancel."
+  wrong={{ 1: 'The last product is $(-4)(4) = -16$.', 2: 'That is $(y - 4)^2$. Here the signs are different, so the middle terms cancel.', 3: '$B^2 = 4^2 = 16$, not $8$.' }}
+/>
+
 <Practice client:visible lesson="4.6" skill="diff" compact />
+
+## Which pattern?
+
+<StepReveal
+  client:visible
+  title="Choose the pattern"
+  problem="Multiply: (a) $(2x + 7)(2x - 7)$  (b) $(2x + 7)^2$  (c) $(2x + 7)(x - 1)$"
+  steps={[
+    { show: '(a) Sum × difference: $4x^2 - 49$', why: 'Same terms, opposite signs.' },
+    { show: '(b) Square: $4x^2 + 28x + 49$', why: '$2AB = 2(2x)(7) = 28x$.' },
+    { show: '(c) Neither — FOIL: $2x^2 - 2x + 7x - 7 = 2x^2 + 5x - 7$', why: 'Different terms, so no shortcut.' },
+  ]}
+/>
 
 <Practice client:visible lesson="4.6" skill="mixed" compact />
 
+## In a real context
+
+<StepReveal
+  client:visible
+  title="Mental arithmetic"
+  problem="Work out $49 \cdot 51$ and $31^2$ without a calculator."
+  steps={[
+    { show: '$49 \\cdot 51 = (50 - 1)(50 + 1) = 2500 - 1 = 2499$', why: 'Sum times difference.' },
+    { show: '$31^2 = (30 + 1)^2 = 900 + 60 + 1 = 961$', why: 'Square of a binomial.' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="Enlarging a square"
+  problem="Each side of a square tile of side $x$ cm is increased by $3$ cm. By how much does its area increase?"
+  steps={[
+    { show: '**Translate.** Increase $= (x + 3)^2 - x^2$', why: 'New area minus old area.' },
+    { show: '**Solve.** $= x^2 + 6x + 9 - x^2 = 6x + 9$', why: 'Square the binomial; the $x^2$ terms cancel.' },
+    { show: '**Check.** $x = 10$: $\\;169 - 100 = 69$ and $6(10) + 9 = 69$ ✓', why: '' },
+    { show: '**State.** The area increases by $6x + 9$ cm² — not just $9$ cm².', why: 'In the picture: two $3 \\times x$ strips plus a $3 \\times 3$ corner.' },
+  ]}
+/>
+
 <Practice client:visible lesson="4.6" skill="apply" compact />
+
+## Common mistakes
+
+<Callout type="warning" title="(A + B)² ≠ A² + B²">
+This is the most common error in algebra. $(x + 5)^2 = x^2 + 10x + 25$ — check with $x = 1$: $36 \ne 26$.
+</Callout>
+
+<Callout type="warning" title="Forgetting to double">
+The middle term of $(3x - 5)^2$ is $-2(3x)(5) = -30x$, not $-15x$.
+</Callout>
+
+<Callout type="warning" title="Squaring only part of a term">
+$(3x)^2 = 9x^2$, not $3x^2$. Use parentheses when you substitute $A = 3x$.
+</Callout>
 
 ## Summary
 
-- **FOIL** for any two binomials.
-- $(A \pm B)^2 = A^2 \pm 2AB + B^2$ — three terms, never two.
-- $(A + B)(A - B) = A^2 - B^2$.
+- **FOIL:** $(A + B)(C + D) = AC + AD + BC + BD$.
+- **Square:** $(A \pm B)^2 = A^2 \pm 2AB + B^2$.
+- **Sum × difference:** $(A + B)(A - B) = A^2 - B^2$.
+- Look for the pattern first; if none fits, FOIL always works.
+
+**Next, in 4.7:** the same operations with more than one variable.
 
 ## Practice
 

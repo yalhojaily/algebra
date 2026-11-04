@@ -2,77 +2,169 @@
 id: "4.7"
 title: Operations with Polynomials in Several Variables
 summary: Everything you know about polynomials works with more than one variable — evaluating, finding degree, collecting like terms, adding, subtracting, and multiplying.
-minutes: 35
+minutes: 40
 objectives:
-  - Evaluate a polynomial in several variables.
+  - Evaluate a polynomial in several variables, including formulas from geometry.
   - Find the degree of each term and of the polynomial.
-  - Collect like terms in several variables.
-  - Add, subtract, and multiply polynomials in several variables.
+  - Identify like terms and collect them.
+  - Add, subtract and multiply polynomials in several variables.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import BoxMethod from '../../components/BoxMethod.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
 
 <Callout type="why">
-The volume of a box is $lwh$. The surface area of a cylinder is $2\pi r^2 + 2\pi rh$. Many real formulas involve **several** variables — and they are polynomials too.
+Most real formulas have more than one variable. The surface area of a can depends on its radius **and** its height: $S = 2\pi r^2 + 2\pi rh$. The volume of a box depends on three lengths. Nothing new is needed — every rule from 4.3–4.6 still works. The only new thing to watch is what makes terms "like".
 </Callout>
 
-## Evaluating and degree
+## Evaluating
 
-Substitute a value for **each** variable.
+Substitute every variable — in parentheses — and follow the order of operations.
 
 <StepReveal
   client:visible
   title="Two variables"
-  problem="Evaluate $\;3x^2y - 2xy^2 + 5\;$ when $x = -1$ and $y = 2$."
+  problem="Evaluate $\;x^2y - 3xy^2 + 5\;$ when $x = -2$, $y = 3$."
   steps={[
-    { show: '$3(-1)^2(2) - 2(-1)(2)^2 + 5$', why: '' },
-    { show: '$= 6 + 8 + 5 = 19$', why: '' },
+    { show: '$(-2)^2(3) - 3(-2)(3)^2 + 5$', why: '' },
+    { show: '$= 4 \\cdot 3 - 3(-2)(9) + 5 = 12 + 54 + 5 = 71$', why: '' },
   ]}
 />
 
 <Practice client:visible lesson="4.7" skill="evaluate" compact />
 
-<Callout type="definition" title="Degree with several variables">
-The degree of a term is the **sum** of the exponents of its variables: $5x^2y^3$ has degree $5$. The degree of the polynomial is the largest degree of its terms.
-</Callout>
+## Degree
+
+The **degree of a term** is the **sum** of the exponents of its variables: $5x^2y^3$ has degree $2 + 3 = 5$. The degree of the polynomial is still the largest degree of its terms.
+
+<StepReveal
+  client:visible
+  title="Degrees"
+  problem="Find the degree of each term and of $\;3x^4y - 7x^2y^2 + xy + 2$."
+  steps={[
+    { show: 'Terms: degree $5$, $4$, $2$, $0$', why: '$x^4y$: $4 + 1$. $x^2y^2$: $2 + 2$. $xy$: $1 + 1$. A constant: $0$.' },
+    { show: 'The polynomial has degree $5$.', why: '' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="What is the degree of $\;5x^2y^3 - 2xy$?"
+  options={['$5$', '$3$', '$6$', '$2$']}
+  answer={0}
+  explain="The degree of $5x^2y^3$ is $2 + 3 = 5$; the degree of $-2xy$ is $2$. The polynomial's degree is the larger one: $5$."
+  wrong={{ 1: 'Add the exponents of **all** the variables in a term: $2 + 3$.', 2: 'Add the exponents, don\'t multiply them.', 3: '$2$ is the degree of $-2xy$, the smaller term.' }}
+/>
 
 <Practice client:visible lesson="4.7" skill="degree" compact />
 
-## Like terms
+## Like terms, adding and subtracting
 
-Like terms must have **exactly the same variables with the same exponents**: $4x^2y$ and $-x^2y$ are like terms; $x^2y$ and $xy^2$ are not.
+**Like terms** have exactly the same variables with exactly the same exponents. $3xy^2$ and $-xy^2$ are like terms; $3xy^2$ and $3x^2y$ are **not**.
+
+<QuickCheck
+  client:visible
+  question="Which pair are like terms?"
+  options={['$3xy^2$ and $-xy^2$', '$3xy^2$ and $3x^2y$', '$2ab$ and $2a$', '$x^2y$ and $x^2y^2$']}
+  answer={0}
+  explain="Both are $xy^2$ — same variables, same exponents. Only the coefficients differ."
+  wrong={{ 1: 'In one term $y$ is squared; in the other $x$ is squared.', 2: 'One term has $b$ and the other doesn\'t.', 3: 'The exponents of $y$ differ: $1$ and $2$.' }}
+/>
+
+<StepReveal
+  client:visible
+  title="Collect like terms"
+  problem="Simplify: $\;4x^2y - 3xy + 2x^2y + 5xy - y$"
+  steps={[
+    { show: '$(4 + 2)x^2y + (-3 + 5)xy - y$', why: '$x^2y$ terms together, $xy$ terms together.' },
+    { show: '$= 6x^2y + 2xy - y$', why: '$-y$ has no like term.' },
+  ]}
+/>
 
 <Practice client:visible lesson="4.7" skill="collect" compact />
+
+<StepReveal
+  client:visible
+  title="Subtract"
+  problem="Subtract: $\;(3a^2b - 2ab + 4) - (a^2b + 5ab - 1)$"
+  steps={[
+    { show: '$= 3a^2b - 2ab + 4 - a^2b - 5ab + 1$', why: 'Change every sign of the second polynomial.' },
+    { show: '$= 2a^2b - 7ab + 5$', why: 'Collect like terms.' },
+  ]}
+/>
 
 <Practice client:visible lesson="4.7" skill="addsub" compact />
 
 ## Multiplying
 
-The same methods work: every term times every term, and the special products.
+The rule is the same: every term times every term. With several variables, use the product rule **variable by variable**. The box method keeps the products organized:
 
 <BoxMethod client:visible presets={[['2x + 3y', 'x - y'], ['a - 2b', 'a^2 + 2ab + 4b^2'], ['3m + n', '3m - n']]} />
 
 <StepReveal
   client:visible
-  title="Special products with two variables"
-  problem="Multiply: (a) $\;(2x + 3y)^2$  (b) $\;(a^2b + 4)(a^2b - 4)$"
+  title="FOIL with two variables"
+  problem="Multiply: $\;(2x + 3y)(x - y)$"
   steps={[
-    { show: '(a) $\\;4x^2 + 12xy + 9y^2$', why: '$A = 2x$, $B = 3y$: $A^2 + 2AB + B^2$.' },
-    { show: '(b) $\\;a^4b^2 - 16$', why: '$A = a^2b$, $B = 4$: $A^2 - B^2$.' },
+    { show: 'F: $2x^2$  O: $-2xy$  I: $3xy$  L: $-3y^2$', why: '' },
+    { show: '$= 2x^2 + xy - 3y^2$', why: '$-2xy + 3xy = xy$.' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="Special products still work"
+  problem="Multiply: $\;(3m + n)(3m - n)\;$ and $\;(x^2 - 2y)^2$"
+  steps={[
+    { show: '$(3m)^2 - n^2 = 9m^2 - n^2$', why: 'Sum times difference.' },
+    { show: '$(x^2)^2 - 2(x^2)(2y) + (2y)^2 = x^4 - 4x^2y + 4y^2$', why: 'Square of a binomial with $A = x^2$, $B = 2y$.' },
   ]}
 />
 
 <Practice client:visible lesson="4.7" skill="multiply" compact />
 
+## In a real context
+
+<StepReveal
+  client:visible
+  title="Material for a can"
+  problem="The surface area of a closed can of radius $r$ and height $h$ is $S = 2\pi r^2 + 2\pi rh$. How much metal is needed for a can with $r = 3$ cm and $h = 5$ cm?"
+  steps={[
+    { show: '**Familiarize.** $2\\pi r^2$ is the top and bottom; $2\\pi rh$ is the side.', why: '' },
+    { show: '**Solve.** $S = 2\\pi(3)^2 + 2\\pi(3)(5) = 18\\pi + 30\\pi = 48\\pi$', why: '$18\\pi$ and $30\\pi$ are like terms.' },
+    { show: '$48\\pi \\approx 150.8$', why: '' },
+    { show: '**Check.** Factor: $2\\pi r(r + h) = 2\\pi \\cdot 3 \\cdot 8 = 48\\pi$ ✓', why: '' },
+    { show: '**State.** About $150.8$ cm² of metal.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="4.7" skill="apply" compact />
+
+## Common mistakes
+
+<Callout type="warning" title="xy² and x²y are not like terms">
+Check **every** exponent. $3xy^2 + 2x^2y$ cannot be combined.
+</Callout>
+
+<Callout type="warning" title="Degree of a term">
+The degree of $5x^2y^3$ is $2 + 3 = 5$ — add the exponents of all its variables, don't take the largest one.
+</Callout>
+
+<Callout type="warning" title="Order of variables">
+$xy$ and $yx$ **are** like terms (multiplication is commutative): $3xy + 2yx = 5xy$.
+</Callout>
+
 ## Summary
 
-- Degree of a term = sum of its exponents.
-- Like terms: same variables, same exponents.
-- Add, subtract, and multiply exactly as with one variable.
+- Degree of a term = sum of its exponents; degree of a polynomial = largest term degree.
+- Like terms have the same variables with the same exponents.
+- Add, subtract and multiply exactly as before; FOIL and the special products still apply.
+
+**Next, in 4.8:** dividing polynomials — by a monomial, and by a binomial with long division.
 
 ## Practice
 

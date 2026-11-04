@@ -118,12 +118,40 @@ function multiply(): Problem {
   };
 }
 
+
+/** Formulas in several variables. */
+function formulaWords(): Problem {
+  if (Math.random() < 0.5) {
+    const l = randInt(3, 12), w = randInt(2, 10), h = randInt(2, 9);
+    const S = 2 * l * w + 2 * l * h + 2 * w * h;
+    return {
+      skill: 'apply',
+      prompt: `The surface area of a box with length $l$, width $w$ and height $h$ is $S = 2lw + 2lh + 2wh$. Find $S$ for a box ${l} cm long, ${w} cm wide and ${h} cm high (cm²).`,
+      answer: { type: 'number', value: S },
+      hints: ['Unknown: the surface area. Substitute a value for **each** variable.', `$2(${l})(${w}) + 2(${l})(${h}) + 2(${w})(${h})$`],
+      solution: [`$S = ${2 * l * w} + ${2 * l * h} + ${2 * w * h} = ${S}$ cm²`],
+      placeholder: '148',
+    };
+  }
+  const r = randInt(1, 6), h = randInt(2, 10);
+  const S = 2 * r * r + 2 * r * h;
+  return {
+    skill: 'apply',
+    prompt: `The surface area of a closed can is $S = 2\\pi r^2 + 2\\pi rh$. Find $S$ for $r = ${r}$ cm and $h = ${h}$ cm. Give an exact answer in terms of $\\pi$ (type pi).`,
+    answer: { type: 'expression', value: `${S}*pi` },
+    hints: ['Unknown: the surface area. Substitute both values; keep $\\pi$ as a symbol.', `$2\\pi(${r})^2 + 2\\pi(${r})(${h}) = ${2 * r * r}\\pi + ${2 * r * h}\\pi$ — like terms.`],
+    solution: [`$S = ${2 * r * r}\\pi + ${2 * r * h}\\pi = ${S}\\pi \\approx ${(S * Math.PI).toFixed(1)}$ cm²`],
+    placeholder: '42pi',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'evaluate', label: 'Evaluate', generate: evaluate },
   { id: 'degree', label: 'Degree', generate: degree },
   { id: 'collect', label: 'Collect like terms', generate: collect },
   { id: 'addsub', label: 'Add & subtract', generate: addSub },
   { id: 'multiply', label: 'Multiply', generate: multiply },
+  { id: 'apply', label: 'Word problems', generate: formulaWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

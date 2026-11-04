@@ -2,82 +2,160 @@
 id: "4.5"
 title: Multiplication of Polynomials
 summary: Multiply monomials with the product rule, then extend the distributive law until every term of one polynomial has multiplied every term of the other.
-minutes: 40
+minutes: 45
 objectives:
-  - Multiply monomials.
-  - Multiply a monomial and a polynomial.
-  - Multiply two binomials.
-  - Multiply any two polynomials, using a table to stay organized.
+  - Multiply monomials using the product rule.
+  - Multiply a monomial and a polynomial with the distributive law.
+  - Multiply two binomials, and explain the products with an area model.
+  - Multiply any two polynomials, multiplying every term by every term.
+  - Write polynomials for areas of rectangles and other applications.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import BoxMethod from '../../components/BoxMethod.tsx';
 import AreaModel from '../../components/AreaModel.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
 
 <Callout type="why">
-A rectangular garden is $x + 3$ m long and $x + 2$ m wide. Its area is $(x + 3)(x + 2)$ — but what is that as a polynomial? Multiplying polynomials is the distributive law from Lesson 1.7, used over and over.
+A rectangular garden is $x$ meters long. You make it $3$ m longer and $2$ m wider. Its new area is $(x + 3)(x + 2)$ — but what is that as a polynomial? Multiplying polynomials answers questions like this, and in Chapter 5 we'll run the process backwards (factoring) to solve equations.
 </Callout>
 
 ## Multiplying monomials
 
-Multiply the coefficients, and multiply the variable parts with the product rule ($a^m \cdot a^n = a^{m+n}$).
+To multiply monomials, multiply the **coefficients** and use the **product rule** for each variable (add the exponents). The commutative and associative laws let us regroup:
 
-$$(-4x^3)(6x^5) = -24x^8 \qquad (3a^2)(-a) = -3a^3$$
+$$(3x^4)(-2x^3) = (3 \cdot (-2))(x^4 \cdot x^3) = -6x^7$$
+
+<StepReveal
+  client:visible
+  title="Several variables"
+  problem="Multiply: $\;(-4a^2b)(5ab^3)$"
+  steps={[
+    { show: '$(-4 \\cdot 5)(a^2 \\cdot a)(b \\cdot b^3)$', why: 'Group coefficients and like bases.' },
+    { show: '$= -20a^3b^4$', why: '$a = a^1$ and $b = b^1$.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Multiply: $\;(-2x^3)(5x^4)$"
+  options={['$-10x^7$', '$-10x^{12}$', '$3x^7$', '$-7x^7$']}
+  answer={0}
+  explain="Multiply the coefficients: $-2 \cdot 5 = -10$. Add the exponents: $3 + 4 = 7$."
+  wrong={{ 1: 'For a product, **add** the exponents.', 2: 'The coefficients are multiplied, not added.', 3: 'The coefficients are multiplied: $-2 \\cdot 5 = -10$.' }}
+/>
 
 <Practice client:visible lesson="4.5" skill="monomials" compact />
 
 ## A monomial times a polynomial
 
-Use the distributive law: multiply the monomial by **each** term.
+Use the **distributive law**: multiply the monomial by **each** term.
 
 <StepReveal
   client:visible
   title="Distribute"
-  problem="Multiply: $\;2x^2(x^3 - 4x + 5)$"
+  problem="Multiply: $\;-3x^2(2x^2 - 5x + 4)$"
   steps={[
-    { show: '$2x^2 \\cdot x^3 - 2x^2 \\cdot 4x + 2x^2 \\cdot 5$', why: '' },
-    { show: '$= 2x^5 - 8x^3 + 10x^2$', why: '' },
+    { show: '$(-3x^2)(2x^2) + (-3x^2)(-5x) + (-3x^2)(4)$', why: 'One product per term.' },
+    { show: '$= -6x^4 + 15x^3 - 12x^2$', why: 'Watch the signs: negative times negative is positive.' },
   ]}
 />
 
 <Practice client:visible lesson="4.5" skill="distribute" compact />
 
-## Multiplying any two polynomials
+## Two binomials
 
-**Every term of the first polynomial multiplies every term of the second.** Then collect like terms. A table makes sure nothing is missed — the area model from Lesson 1.7 is exactly this idea:
+Distribute twice: $(x + 3)(x + 2) = x(x + 2) + 3(x + 2) = x^2 + 2x + 3x + 6 = x^2 + 5x + 6$. Each term of the first binomial multiplies each term of the second — **four** products. An area model shows why: a rectangle with sides $x + 3$ and $x + 2$ splits into four smaller rectangles.
 
 <AreaModel client:visible />
 
-Type any two polynomials below. Same-colored cells are like terms.
+The **box method** organizes the same products in a grid — one cell for each pair of terms — and works for longer polynomials too.
 
 <BoxMethod client:visible />
 
 <StepReveal
   client:visible
-  title="Binomial times trinomial"
-  problem="Multiply: $\;(x + 2)(x^2 - 3x + 4)$"
+  title="Two binomials with negatives"
+  problem="Multiply: $\;(3x - 4)(2x + 5)$"
   steps={[
-    { show: '$x(x^2 - 3x + 4) + 2(x^2 - 3x + 4)$', why: 'Distribute each term of the binomial.' },
-    { show: '$= x^3 - 3x^2 + 4x + 2x^2 - 6x + 8$', why: 'Six products.' },
-    { show: '$= x^3 - x^2 - 2x + 8$', why: 'Collect like terms.' },
+    { show: '$3x \\cdot 2x + 3x \\cdot 5 + (-4)(2x) + (-4)(5)$', why: 'Four products.' },
+    { show: '$= 6x^2 + 15x - 8x - 20$', why: '' },
+    { show: '$= 6x^2 + 7x - 20$', why: 'Collect the like terms in the middle.' },
   ]}
 />
 
-<Callout type="warning" title="Count the products">
-A binomial times a binomial gives $2 \times 2 = 4$ products before collecting; a binomial times a trinomial gives $6$. If you have fewer, something is missing.
+<Practice client:visible lesson="4.5" skill="binomials" compact />
+
+## Any two polynomials
+
+<Callout type="tip" title="The rule">
+To multiply two polynomials, multiply **every term of one by every term of the other**, then collect like terms. A polynomial with $m$ terms times one with $n$ terms gives $m \cdot n$ products before collecting.
 </Callout>
 
-<Practice client:visible lesson="4.5" skill="binomials" compact />
+<StepReveal
+  client:visible
+  title="Binomial times trinomial"
+  problem="Multiply: $\;(2x - 1)(x^2 + x - 3)$"
+  steps={[
+    { show: '$2x(x^2 + x - 3) - 1(x^2 + x - 3)$', why: 'Distribute each term of the binomial.' },
+    { show: '$= 2x^3 + 2x^2 - 6x - x^2 - x + 3$', why: 'Six products.' },
+    { show: '$= 2x^3 + x^2 - 7x + 3$', why: 'Collect like terms.' },
+    { show: 'Check with $x = 1$: $\\;(1)(-1) = -1$ and $2 + 1 - 7 + 3 = -1$ ✓', why: 'Substituting a number is a quick check.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Before collecting like terms, how many products are there in $\;(x + 1)(x^2 + 2x + 3)$?"
+  options={['$6$', '$5$', '$3$', '$2$']}
+  answer={0}
+  explain="Each of the $2$ terms of $x + 1$ multiplies each of the $3$ terms of $x^2 + 2x + 3$: $2 \cdot 3 = 6$ products."
+  wrong={{ 1: 'Count again: $2$ terms times $3$ terms.', 2: 'Both terms of $x + 1$ must multiply each of the three terms.', 3: 'Every term multiplies every term, not just the first ones.' }}
+/>
 
 <Practice client:visible lesson="4.5" skill="general" compact />
 
+## In a real context
+
+<StepReveal
+  client:visible
+  title="A bigger garden"
+  problem="A square garden is $x$ meters on a side. It is made $3$ m longer and $2$ m wider. Write its new area as a polynomial, and check your answer when $x = 4$."
+  steps={[
+    { show: '**Familiarize.** New length $x + 3$, new width $x + 2$; area = length × width.', why: '' },
+    { show: '**Translate.** $A = (x + 3)(x + 2)$', why: '' },
+    { show: '**Solve.** $= x^2 + 2x + 3x + 6 = x^2 + 5x + 6$', why: '' },
+    { show: '**Check.** $x = 4$: $\\;7 \\cdot 6 = 42$ and $16 + 20 + 6 = 42$ ✓', why: '' },
+    { show: '**State.** The new area is $x^2 + 5x + 6$ square meters.', why: 'The original $x^2$ plus $5x + 6$ of new land.' },
+  ]}
+/>
+
+<Practice client:visible lesson="4.5" skill="apply" compact />
+
+## Common mistakes
+
+<Callout type="warning" title="Distributing to only one term">
+$-3x^2(2x^2 - 5x + 4)$ needs **three** products. Stopping after the first ($-6x^4$) is a common slip.
+</Callout>
+
+<Callout type="warning" title="(x + 3)(x + 2) is not x² + 6">
+Multiplying only the first terms and the last terms misses the two middle products. Every term times every term.
+</Callout>
+
+<Callout type="warning" title="Sign errors">
+In $(3x - 4)(2x + 5)$, the $-4$ carries its sign into both of its products: $-8x$ and $-20$.
+</Callout>
+
 ## Summary
 
-- Monomials: multiply coefficients, add exponents.
-- Polynomials: every term times every term, then collect like terms.
+- **Monomials:** multiply coefficients, add exponents of like bases.
+- **Monomial × polynomial:** distribute to every term.
+- **Polynomial × polynomial:** every term times every term, then collect like terms. Check by substituting a number.
+
+**Next, in 4.6:** special products — shortcuts for the products of binomials you'll meet most often.
 
 ## Practice
 

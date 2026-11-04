@@ -2,28 +2,30 @@
 id: "4.2"
 title: Exponents and Scientific Notation
 summary: Three more exponent rules — power of a power, of a product, of a quotient — and scientific notation, the compact way scientists write huge and tiny numbers.
-minutes: 40
+minutes: 45
 objectives:
-  - Use the power rule (a^m)^n = a^{mn}.
+  - Explain and use the power rule (a^m)^n = a^{mn}.
   - Raise a product or a quotient to a power.
   - Convert between standard notation and scientific notation.
   - Multiply and divide numbers in scientific notation.
+  - Solve science problems with very large or very small numbers.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import ExponentLab from '../../components/ExponentLab.tsx';
 import SciNotation from '../../components/SciNotation.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
 
 <Callout type="why">
-The Sun is about $149{,}600{,}000$ km away. A virus is about $0.0000001$ m wide. Counting zeros in numbers like these is slow and error-prone. Scientific notation — $1.496 \times 10^8$ and $1 \times 10^{-7}$ — makes them readable, and the exponent rules make them easy to calculate with.
+The Sun is about $150{,}000{,}000{,}000$ m away. A virus is about $0.0000001$ m wide. Counting zeros in numbers like these is slow and error-prone. Scientific notation — $1.5 \times 10^{11}$ and $1 \times 10^{-7}$ — makes them readable, and the exponent rules make them easy to calculate with: how long does sunlight take to reach us?
 </Callout>
 
 ## Raising powers to powers
 
-The "Power rule" tab shows it: $(x^3)^2 = x^3 \cdot x^3 = x^6$ — **two groups of three** factors.
+Write out the factors again: $(x^3)^2 = x^3 \cdot x^3 = x^6$ — **two groups of three** factors. In the same way, $(ab)^3 = ab \cdot ab \cdot ab = a^3b^3$: every factor inside appears three times.
 
 <ExponentLab client:visible />
 
@@ -43,9 +45,24 @@ To raise a product or quotient to a power, raise **every factor** to that power.
   ]}
 />
 
-<Callout type="warning" title="Don't forget the number">
-$(3x^2)^2 = 9x^4$, not $3x^4$. The coefficient is a factor too, so it gets squared.
-</Callout>
+<StepReveal
+  client:visible
+  title="Quotients and negative exponents"
+  problem="Simplify: $\;\left(\dfrac{2x}{y^3}\right)^4\;$ and $\;(3x^{-2})^{-2}$"
+  steps={[
+    { show: '$\\dfrac{2^4x^4}{(y^3)^4} = \\dfrac{16x^4}{y^{12}}$', why: 'Top and bottom each get the power.' },
+    { show: '$(3x^{-2})^{-2} = 3^{-2}x^{4} = \\dfrac{x^4}{9}$', why: '$(-2)(-2) = 4$ for $x$; $3^{-2} = \\frac{1}{9}$.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Simplify: $\;(3x^2)^2$"
+  options={['$9x^4$', '$3x^4$', '$6x^4$', '$9x^2$']}
+  answer={0}
+  explain="Both factors are squared: $3^2 = 9$ and $(x^2)^2 = x^4$."
+  wrong={{ 1: 'The coefficient is a factor too: $3$ must be squared.', 2: 'Squaring $3$ gives $9$, not $6$.', 3: '$(x^2)^2 = x^{2 \\cdot 2} = x^4$.' }}
+/>
 
 <Practice client:visible lesson="4.2" skill="power" compact />
 
@@ -61,7 +78,7 @@ A number is in scientific notation when it is written as
 $$M \times 10^n, \qquad 1 \le M < 10, \;\; n \text{ an integer}$$
 </Callout>
 
-Multiplying by $10^n$ just moves the decimal point $n$ places: right for positive $n$, left for negative $n$.
+Multiplying by $10^n$ moves the decimal point $n$ places: right for positive $n$, left for negative $n$. So large numbers get positive exponents, and numbers between $0$ and $1$ get negative exponents.
 
 <SciNotation client:visible />
 
@@ -73,6 +90,15 @@ Multiplying by $10^n$ just moves the decimal point $n$ places: right for positiv
     { show: '$0.000\\,047 = 4.7 \\times 10^{-5}$', why: 'Move the point 5 places right to get $4.7$; a small number gets a negative exponent.' },
     { show: '$3.08 \\times 10^6 = 3{,}080{,}000$', why: 'Move the point 6 places right.' },
   ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Write $\;0.0052\;$ in scientific notation."
+  options={['$5.2 \\times 10^{-3}$', '$5.2 \\times 10^{3}$', '$52 \\times 10^{-4}$', '$0.52 \\times 10^{-2}$']}
+  answer={0}
+  explain="Move the point 3 places right to get $5.2$. The number is less than $1$, so the exponent is negative."
+  wrong={{ 1: 'That is $5200$. A number less than $1$ needs a negative exponent.', 2: '$52$ is not between $1$ and $10$.', 3: '$0.52$ is not between $1$ and $10$.' }}
 />
 
 <Practice client:visible lesson="4.2" skill="tosci" compact />
@@ -93,13 +119,56 @@ Multiply (or divide) the decimal parts and use the product (or quotient) rule on
   ]}
 />
 
+<StepReveal
+  client:visible
+  title="Divide, then adjust"
+  problem="Divide: $\;\dfrac{1.2 \times 10^{-4}}{4 \times 10^{3}}$"
+  steps={[
+    { show: '$= \\dfrac{1.2}{4} \\times 10^{-4 - 3} = 0.3 \\times 10^{-7}$', why: 'Subtract the exponents.' },
+    { show: '$= 3 \\times 10^{-8}$', why: '$0.3$ is too small — move the point right one place and subtract $1$ from the exponent.' },
+  ]}
+/>
+
 <Practice client:visible lesson="4.2" skill="arith" compact />
+
+## In a real context
+
+<StepReveal
+  client:visible
+  title="Sunlight's journey"
+  problem="Light travels about $3 \times 10^8$ m/s, and the Sun is about $1.5 \times 10^{11}$ m away. How long does sunlight take to reach Earth?"
+  steps={[
+    { show: '**Familiarize.** time = distance ÷ speed.', why: 'Guess: light is fast, but the distance is huge — minutes, perhaps.' },
+    { show: '**Translate.** $t = \\dfrac{1.5 \\times 10^{11}}{3 \\times 10^8}$', why: '' },
+    { show: '**Solve.** $= 0.5 \\times 10^{3} = 5 \\times 10^2 = 500$ s', why: 'Divide the decimals, subtract the exponents, adjust.' },
+    { show: '**Check.** $(3 \\times 10^8)(5 \\times 10^2) = 15 \\times 10^{10} = 1.5 \\times 10^{11}$ ✓', why: '' },
+    { show: '**State.** About $500$ seconds — a little over $8$ minutes.', why: 'You see the Sun as it was 8 minutes ago.' },
+  ]}
+/>
+
+<Practice client:visible lesson="4.2" skill="apply" compact />
+
+## Common mistakes
+
+<Callout type="warning" title="Forgetting the number">
+$(3x^2)^2 = 9x^4$, not $3x^4$. The coefficient is a factor too, so it gets squared.
+</Callout>
+
+<Callout type="warning" title="The power rule is for products, not sums">
+$(xy)^2 = x^2y^2$, but $(x + y)^2 \ne x^2 + y^2$. (Lesson 4.6 shows what $(x + y)^2$ really is.)
+</Callout>
+
+<Callout type="warning" title="Not adjusting">
+$25.2 \times 10^3$ is not in scientific notation: the first part must be at least $1$ and less than $10$. Rewrite it as $2.52 \times 10^4$.
+</Callout>
 
 ## Summary
 
-- $(a^m)^n = a^{mn}$, $\;(ab)^n = a^nb^n$, $\;(a/b)^n = a^n/b^n$.
-- Scientific notation: $M \times 10^n$ with $1 \le M < 10$.
-- Large numbers have positive exponents; numbers between 0 and 1 have negative exponents.
+- $(a^m)^n = a^{mn}$, $\;(ab)^n = a^nb^n$, $\;(a/b)^n = a^n/b^n$ — because every factor is repeated.
+- Scientific notation: $M \times 10^n$ with $1 \le M < 10$; large numbers have positive exponents, numbers between 0 and 1 negative ones.
+- To multiply or divide, work on the decimal parts and the powers of 10 separately, then adjust.
+
+**Next, in 4.3:** polynomials — the sums of terms like $3x^2$ that the next chapters are built on.
 
 ## Practice
 

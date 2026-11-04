@@ -2,22 +2,23 @@
 id: "4.4"
 title: Addition and Subtraction of Polynomials
 summary: Adding polynomials is collecting like terms. Subtracting is adding the opposite — change the sign of every term in the second polynomial, then add.
-minutes: 30
+minutes: 40
 objectives:
   - Add polynomials.
-  - Find the opposite of a polynomial.
-  - Subtract polynomials.
-  - Write polynomials for perimeters and other sums.
+  - Find the opposite of a polynomial, and explain why every sign changes.
+  - Subtract polynomials, including "subtract A from B".
+  - Write polynomials for perimeters, profits and other sums and differences.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import PolyColumns from '../../components/PolyColumns.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
 
 <Callout type="why">
-A shop's revenue is $R(x)$ and its costs are $C(x)$, both polynomials in the number of items sold. Its profit is $R(x) - C(x)$. Subtracting polynomials correctly is literally the difference between profit and loss.
+A shop's revenue is $R(x)$ and its costs are $C(x)$, both polynomials in the number of items sold. Its profit is $R(x) - C(x)$. Subtracting polynomials correctly is literally the difference between profit and loss — and the one trap in this lesson is exactly where that subtraction goes wrong.
 </Callout>
 
 ## Adding polynomials
@@ -31,7 +32,7 @@ To add polynomials, remove the parentheses and **collect like terms**. Writing t
   title="Adding"
   problem="Add: $\;(-3x^3 + 2x - 4) + (4x^3 + 3x^2 + 2)$"
   steps={[
-    { show: '$(-3 + 4)x^3 + 3x^2 + 2x + (-4 + 2)$', why: 'Collect like terms.' },
+    { show: '$(-3 + 4)x^3 + 3x^2 + 2x + (-4 + 2)$', why: 'Collect like terms. There is no $x^2$ in the first polynomial — think of it as $0x^2$.' },
     { show: '$= x^3 + 3x^2 + 2x - 2$', why: '' },
   ]}
 />
@@ -40,9 +41,20 @@ To add polynomials, remove the parentheses and **collect like terms**. Writing t
 
 ## Opposites and subtraction
 
-The **opposite** of a polynomial changes the sign of **every** term: $-(x^2 - 5x + 3) = -x^2 + 5x - 3$.
+The **opposite** of a polynomial is what you add to it to get $0$. Since $-(a + b + c) = -a - b - c$ (the distributive law with $-1$), the opposite changes the sign of **every** term:
 
-To **subtract** a polynomial, add its opposite.
+$$-(x^2 - 5x + 3) = -x^2 + 5x - 3$$
+
+To **subtract** a polynomial, add its opposite — exactly as $7 - 3 = 7 + (-3)$.
+
+<QuickCheck
+  client:visible
+  question="What is the opposite of $\;x^2 - 5x + 3$?"
+  options={['$-x^2 + 5x - 3$', '$-x^2 - 5x + 3$', '$x^2 + 5x - 3$', '$-x^2 + 5x + 3$']}
+  answer={0}
+  explain="Every term changes sign: $x^2 \to -x^2$, $-5x \to 5x$, $3 \to -3$. Check: adding the two gives $0$."
+  wrong={{ 1: 'Only the first sign changed. The opposite changes **every** sign.', 2: 'The first term must change too.', 3: 'The last term $3$ must become $-3$.' }}
+/>
 
 <StepReveal
   client:visible
@@ -54,21 +66,76 @@ To **subtract** a polynomial, add its opposite.
   ]}
 />
 
-<Callout type="warning" title="Change every sign">
-The most common mistake is changing only the first sign. In $-(-2x^5 + 5x^3 + 6)$, **all three** signs change.
-</Callout>
+<StepReveal
+  client:visible
+  title="“Subtract A from B”"
+  problem="Subtract $\;2x^2 + 4x - 6\;$ from $\;5x^2 - 3x + 1$."
+  steps={[
+    { show: '$(5x^2 - 3x + 1) - (2x^2 + 4x - 6)$', why: '"Subtract $A$ from $B$" means $B - A$: the second one mentioned comes first.' },
+    { show: '$= 5x^2 - 3x + 1 - 2x^2 - 4x + 6 = 3x^2 - 7x + 7$', why: '' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Simplify: $\;(4x + 3) - (x - 5)$"
+  options={['$3x + 8$', '$3x - 2$', '$5x - 2$', '$3x + 2$']}
+  answer={0}
+  explain="$-(x - 5) = -x + 5$, so $4x + 3 - x + 5 = 3x + 8$."
+  wrong={{ 1: 'The $-5$ inside the parentheses becomes $+5$ when subtracted.', 2: 'The whole second polynomial is subtracted, so $x$ becomes $-x$.', 3: '$3 - (-5) = 8$, not $2$.' }}
+/>
 
 <Practice client:visible lesson="4.4" skill="opposite" compact />
 
 <Practice client:visible lesson="4.4" skill="subtract" compact />
 
+## In a real context
+
+<StepReveal
+  client:visible
+  title="Profit"
+  problem="A workshop's weekly revenue from selling $x$ chairs is $R(x) = 60x$ dollars, and its cost is $C(x) = 0.5x^2 + 10x + 200$ dollars. Write the profit $P(x) = R(x) - C(x)$, and find the profit for $20$ chairs."
+  steps={[
+    { show: '**Translate.** $P(x) = 60x - (0.5x^2 + 10x + 200)$', why: 'Keep the cost in parentheses — all of it is subtracted.' },
+    { show: '**Solve.** $= 60x - 0.5x^2 - 10x - 200 = -0.5x^2 + 50x - 200$', why: 'Change every sign of the cost, then collect.' },
+    { show: '$P(20) = -0.5(400) + 50(20) - 200 = -200 + 1000 - 200 = 600$', why: '' },
+    { show: '**Check.** $R(20) = 1200$ and $C(20) = 200 + 200 + 200 = 600$; $1200 - 600 = 600$ ✓', why: '' },
+    { show: '**State.** $P(x) = -0.5x^2 + 50x - 200$; selling $20$ chairs earns $600$ dollars of profit.', why: '' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="A perimeter"
+  problem="A triangle has sides $2x + 1$, $x + 4$ and $3x - 2$. Write its perimeter."
+  steps={[
+    { show: '$(2x + 1) + (x + 4) + (3x - 2) = 6x + 3$', why: 'Perimeter = sum of the sides.' },
+  ]}
+/>
+
 <Practice client:visible lesson="4.4" skill="apply" compact />
+
+## Common mistakes
+
+<Callout type="warning" title="Change every sign">
+The most common mistake is changing only the first sign. In $-(-2x^5 + 5x^3 + 6)$, **all three** signs change.
+</Callout>
+
+<Callout type="warning" title="Subtracting in the wrong order">
+"Subtract $A$ from $B$" is $B - A$. "The difference of $A$ and $B$" is $A - B$.
+</Callout>
+
+<Callout type="warning" title="Adding exponents when adding terms">
+$3x^2 + 2x^2 = 5x^2$, not $5x^4$. Adding like terms adds the **coefficients**; the power stays the same.
+</Callout>
 
 ## Summary
 
 - **Add:** collect like terms.
-- **Opposite:** change the sign of every term.
+- **Opposite:** change the sign of every term (it is $-1$ times the polynomial).
 - **Subtract:** add the opposite of the second polynomial, then collect like terms.
+
+**Next, in 4.5:** multiplying polynomials — every term times every term.
 
 ## Practice
 

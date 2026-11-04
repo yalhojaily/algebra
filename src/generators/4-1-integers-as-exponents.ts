@@ -136,12 +136,40 @@ function mixed(): Problem {
   };
 }
 
+
+/** Word problems: doubling with the product and quotient rules. */
+function doublingWords(): Problem {
+  const [what, unit] = pick([['A bacteria colony doubles', 'hour'], ['The number of people sharing a video doubles', 'day'], ['The amount of data on a server doubles', 'year']] as [string, string][]);
+  const a = randInt(2, 6), b = randInt(1, 5);
+  if (Math.random() < 0.5) {
+    return {
+      skill: 'apply',
+      prompt: `${what} every ${unit}, so after $n$ ${unit}s it is $2^n$ times its starting size. How many times its **${a}-${unit}** size is it ${b} ${unit}${b > 1 ? 's' : ''} later?`,
+      answer: { type: 'number', value: 2 ** b },
+      hints: [`Unknown: a ratio. After ${a + b} ${unit}s the size is $2^{${a + b}}$; after ${a} ${unit}s it is $2^{${a}}$. "How many times" means **divide**.`, `Quotient rule: $\\dfrac{2^{${a + b}}}{2^{${a}}} = 2^{${a + b} - ${a}}$.`],
+      solution: [`$\\dfrac{2^{${a + b}}}{2^{${a}}} = 2^{${b}} = ${2 ** b}$`, `It is ${2 ** b} times as large — the starting time doesn't matter, only the ${b} extra ${unit}${b > 1 ? 's' : ''}.`],
+      mistakes: [{ answer: String(2 ** (a + b)), feedback: `That compares with the **start**, not with the ${a}-${unit} size. Divide by $2^{${a}}$.` }],
+      placeholder: '8',
+    };
+  }
+  return {
+    skill: 'apply',
+    prompt: `${what} every ${unit}, so after $n$ ${unit}s it is $2^n$ times its starting size; $n$ ${unit}s **before** the start it was $2^{-n}$ times that size. What fraction of the starting size was it ${b + 1} ${unit}s before the start?`,
+    answer: { type: 'number', value: 2 ** -(b + 1) },
+    hints: [`Unknown: a fraction of the starting size. Going back ${b + 1} ${unit}s means $n = -${b + 1}$.`, `$2^{-${b + 1}} = \\dfrac{1}{2^{${b + 1}}}$ — a negative exponent means a reciprocal.`],
+    solution: [`$2^{-${b + 1}} = \\dfrac{1}{2^{${b + 1}}} = \\dfrac{1}{${2 ** (b + 1)}}$`],
+    mistakes: [{ answer: String(-(2 ** (b + 1))), feedback: 'A negative exponent is a **reciprocal**, not a negative number.' }],
+    placeholder: '1/8',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'evaluate', label: '0, 1 & negative exponents', generate: evaluate },
   { id: 'product', label: 'Product rule', generate: productRule },
   { id: 'quotient', label: 'Quotient rule', generate: quotientRule },
   { id: 'negative', label: 'Negative exponents', generate: negative },
   { id: 'mixed', label: 'Mixed', generate: mixed },
+  { id: 'apply', label: 'Word problems', generate: doublingWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

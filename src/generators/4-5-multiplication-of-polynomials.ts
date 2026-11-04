@@ -71,11 +71,30 @@ function polyTimesPoly(): Problem {
   };
 }
 
+
+/** Area of a rectangle with binomial sides. */
+function areaWords(): Problem {
+  const a = pick([1, 1, 2, 3]), b = randInt(1, 9), c = pick([1, 1, 2]), d = randInt(1, 9);
+  const L = Poly.fromCoefs([a, b], 'x'), W = Poly.fromCoefs([c, d], 'x');
+  const A = L.mul(W);
+  const thing = pick(['garden', 'patio', 'classroom floor', 'solar panel']);
+  return {
+    skill: 'apply',
+    prompt: `A rectangular ${thing} is $${L.tex()}$ meters long and $${W.tex()}$ meters wide. Write its area as a polynomial (m²).`,
+    answer: ans(A),
+    hints: ['Unknown: the area. Area of a rectangle = length × width.', `Multiply $(${L.tex()})(${W.tex()})$: every term times every term, then collect like terms.`],
+    solution: [`$(${L.tex()})(${W.tex()}) = ${A.tex()}$`],
+    mistakes: [{ answer: Poly.fromCoefs([a * c, b * d], 'x').text().replace(/x(?!\^)/, 'x^2'), feedback: 'Every term must multiply every term: the two middle products are missing.' }],
+    placeholder: 'x^2 + 5x + 6',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'monomials', label: 'Monomials', generate: monomials },
   { id: 'distribute', label: 'Monomial × polynomial', generate: monoTimesPoly },
   { id: 'binomials', label: 'Two binomials', generate: binomials },
   { id: 'general', label: 'Any two polynomials', generate: polyTimesPoly },
+  { id: 'apply', label: 'Word problems', generate: areaWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

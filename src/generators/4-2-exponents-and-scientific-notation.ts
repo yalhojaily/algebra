@@ -123,6 +123,49 @@ function sciArithmetic(): Problem {
   };
 }
 
+
+/** Science word problems in scientific notation. */
+function sciWords(): Problem {
+  const kind = pick(['light', 'cells', 'drops'] as const);
+  if (kind === 'light') {
+    const t = pick([2, 4, 5, 6, 8]) * 100; // seconds
+    const d = 3e8 * t;
+    const e = Math.floor(Math.log10(d)), m = +(d / 10 ** e).toFixed(4);
+    return {
+      skill: 'apply',
+      prompt: `Light travels about $3 \\times 10^8$ meters per second. How far does it travel in ${t} seconds? Answer in scientific notation (meters).`,
+      answer: { type: 'number', value: d, sci: true },
+      hints: ['Unknown: the distance. Distance = speed × time.', `Write ${t} as $${t / 100} \\times 10^2$, multiply the decimal parts and **add** the exponents.`],
+      solution: [`$(3 \\times 10^8)(${t / 100} \\times 10^2) = ${3 * (t / 100)} \\times 10^{10}$`, ...(e !== 10 ? [`Adjust: $${m} \\times 10^{${e}}$ m`] : [`$= ${m} \\times 10^{${e}}$ m`])],
+      placeholder: '1.5*10^11',
+    };
+  }
+  if (kind === 'cells') {
+    const n = pick([2, 3, 4, 5]);
+    const total = 3.7e13 * n;
+    const e = Math.floor(Math.log10(total)), m = +(total / 10 ** e).toFixed(4);
+    return {
+      skill: 'apply',
+      prompt: `A human body has about $3.7 \\times 10^{13}$ cells. About how many cells are there in ${n} people? Answer in scientific notation.`,
+      answer: { type: 'number', value: total, sci: true, tol: total * 1e-9 },
+      hints: ['Unknown: the total number of cells. Multiply.', `$${n} \\times 3.7 = ${+(n * 3.7).toFixed(1)}$ — if that is 10 or more, move the decimal point and add 1 to the exponent.`],
+      solution: [`$${n}(3.7 \\times 10^{13}) = ${+(n * 3.7).toFixed(1)} \\times 10^{13}$`, ...(e !== 13 ? [`$= ${m} \\times 10^{${e}}$`] : [])],
+      placeholder: '7.4*10^13',
+    };
+  }
+  const V = pick([2, 3, 4, 6, 8]), drop = 5e-5; // liters per drop
+  const count = V / drop;
+  const e = Math.floor(Math.log10(count)), m = +(count / 10 ** e).toFixed(4);
+  return {
+    skill: 'apply',
+    prompt: `A drop of water is about $5 \\times 10^{-5}$ liters. About how many drops are in ${V} liters? Answer in scientific notation.`,
+    answer: { type: 'number', value: count, sci: true },
+    hints: ['Unknown: the number of drops. Total volume ÷ volume of one drop.', `$\\dfrac{${V}}{5 \\times 10^{-5}} = \\dfrac{${V}}{5} \\times 10^{5}$ — dividing by $10^{-5}$ is multiplying by $10^{5}$.`],
+    solution: [`$\\dfrac{${V}}{5} \\times 10^{5} = ${V / 5} \\times 10^5$`, ...(e !== 5 ? [`$= ${m} \\times 10^{${e}}$ drops`] : [])],
+    placeholder: '8*10^4',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'power', label: 'Power rule', generate: powerRule },
   { id: 'product', label: 'Raise a product', generate: productPower },
@@ -130,6 +173,7 @@ export const skills: Skill[] = [
   { id: 'tosci', label: 'To scientific notation', generate: toSci },
   { id: 'fromsci', label: 'To standard notation', generate: fromSci },
   { id: 'arith', label: '× and ÷ in sci. notation', generate: sciArithmetic },
+  { id: 'apply', label: 'Word problems', generate: sciWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

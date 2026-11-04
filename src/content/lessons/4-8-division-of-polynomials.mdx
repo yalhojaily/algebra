@@ -2,16 +2,18 @@
 id: "4.8"
 title: Division of Polynomials
 summary: Divide a polynomial by a monomial term by term, and by a binomial with long division — the same divide, multiply, subtract, bring down cycle you know from arithmetic.
-minutes: 40
+minutes: 45
 objectives:
-  - Divide a polynomial by a monomial.
+  - Divide a polynomial by a monomial, term by term.
   - Divide a polynomial by a binomial using long division.
-  - Write the result with a remainder as quotient + remainder/divisor.
-  - Handle missing terms by inserting zero coefficients.
+  - Write answers with a remainder, and check a division by multiplying.
+  - Divide when the dividend has missing terms.
+  - Use division to find an unknown dimension.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import LongDivision from '../../components/LongDivision.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -22,7 +24,7 @@ A rectangle has area $x^2 + 7x + 10$ and width $x + 2$. How long is it? You need
 
 ## Dividing by a monomial
 
-Divide **each term** of the polynomial by the monomial:
+Dividing is multiplying by the reciprocal, so the distributive law applies: divide **each term** of the polynomial by the monomial.
 
 $$\frac{a + b}{c} = \frac{a}{c} + \frac{b}{c}$$
 
@@ -32,8 +34,18 @@ $$\frac{a + b}{c} = \frac{a}{c} + \frac{b}{c}$$
   problem="Divide: $\;\dfrac{12x^4 - 8x^3 + 6x^2}{2x^2}$"
   steps={[
     { show: '$\\dfrac{12x^4}{2x^2} - \\dfrac{8x^3}{2x^2} + \\dfrac{6x^2}{2x^2}$', why: '' },
-    { show: '$= 6x^2 - 4x + 3$', why: 'Divide coefficients; subtract exponents.' },
+    { show: '$= 6x^2 - 4x + 3$', why: 'Divide coefficients; subtract exponents. Note $\\frac{6x^2}{2x^2} = 3$, not $0$.' },
+    { show: 'Check: $2x^2(6x^2 - 4x + 3) = 12x^4 - 8x^3 + 6x^2$ ✓', why: 'Multiply back.' },
   ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Divide: $\;\dfrac{10x^3 - 4x}{2x}$"
+  options={['$5x^2 - 2$', '$5x^2 - 4x$', '$5x^3 - 2x$', '$5x^2 - 2x$']}
+  answer={0}
+  explain="Divide each term: $\frac{10x^3}{2x} = 5x^2$ and $\frac{-4x}{2x} = -2$."
+  wrong={{ 1: 'The second term must be divided by $2x$ too.', 2: 'Divide the variables as well: $x^3 \\div x = x^2$.', 3: '$\\frac{4x}{2x} = 2$ — the $x$ cancels.' }}
 />
 
 <Practice client:visible lesson="4.8" skill="monomial" compact />
@@ -47,29 +59,109 @@ The cycle is the same as long division with numbers:
 3. **Subtract** (change all the signs!).
 4. **Bring down** and repeat until the remainder has lower degree than the divisor.
 
-<LongDivision client:visible />
+<StepReveal
+  client:visible
+  title="No remainder"
+  problem="Divide: $\;(x^2 + 7x + 10) \div (x + 2)$"
+  steps={[
+    { show: '**Divide:** $x^2 \\div x = x$', why: 'First term by first term.' },
+    { show: '**Multiply:** $x(x + 2) = x^2 + 2x$. **Subtract:** $(x^2 + 7x) - (x^2 + 2x) = 5x$. Bring down $+10$: $5x + 10$', why: '' },
+    { show: '**Divide:** $5x \\div x = 5$. **Multiply:** $5(x + 2) = 5x + 10$. **Subtract:** $0$', why: '' },
+    { show: 'Quotient $x + 5$, remainder $0$. Check: $(x + 2)(x + 5) = x^2 + 7x + 10$ ✓', why: '' },
+  ]}
+/>
 
-<Callout type="warning" title="Subtract every term">
-After multiplying, you subtract the **whole** product. Writing the product with its signs changed, then adding, prevents sign mistakes.
-</Callout>
+Try the cycle step by step:
+
+<LongDivision client:visible />
 
 <Practice client:visible lesson="4.8" skill="long" compact />
 
-## Remainders and missing terms
+## Remainders
 
-If the remainder isn't $0$, write the answer as $\;\text{quotient} + \dfrac{\text{remainder}}{\text{divisor}}$.
+If the remainder isn't $0$, write the answer as $\;\text{quotient} + \dfrac{\text{remainder}}{\text{divisor}}$ — just as $17 \div 5 = 3 + \frac{2}{5}$.
 
-If a power of $x$ is missing in the dividend, write it with a $0$ coefficient so the columns line up: $x^3 - 8 = x^3 + 0x^2 + 0x - 8$.
+<StepReveal
+  client:visible
+  title="With a remainder"
+  problem="Divide: $\;(2x^2 + 3x - 4) \div (x - 1)$"
+  steps={[
+    { show: '$2x^2 \\div x = 2x$; $\\;2x(x - 1) = 2x^2 - 2x$; subtract: $5x - 4$', why: '$3x - (-2x) = 5x$.' },
+    { show: '$5x \\div x = 5$; $\\;5(x - 1) = 5x - 5$; subtract: $1$', why: '$-4 - (-5) = 1$.' },
+    { show: '$= 2x + 5 + \\dfrac{1}{x - 1}$', why: 'The remainder $1$ has degree $0$, lower than $x - 1$, so we stop.' },
+    { show: 'Check: $(x - 1)(2x + 5) + 1 = 2x^2 + 3x - 5 + 1 = 2x^2 + 3x - 4$ ✓', why: 'divisor × quotient + remainder = dividend.' },
+  ]}
+/>
 
 <Practice client:visible lesson="4.8" skill="remainder" compact />
 
+## Missing terms
+
+If a power of $x$ is missing in the dividend, write it with a $0$ coefficient so the columns line up.
+
+<QuickCheck
+  client:visible
+  question="Before dividing $\;x^3 - 8\;$ by $\;x - 2$, how should you write the dividend?"
+  options={['$x^3 + 0x^2 + 0x - 8$', '$x^3 - 8$ is fine as it is', '$x^3 + 0x - 8$', '$x^2 - 8$']}
+  answer={0}
+  explain="Every power from $x^3$ down to the constant needs a place: $x^2$ and $x$ are missing, so give them $0$ coefficients."
+  wrong={{ 1: 'Without placeholders the subtraction steps put unlike terms in the same column.', 2: 'The $x^2$ term is missing too.', 3: 'Don\'t change the dividend — just add $0$ placeholders.' }}
+/>
+
+<StepReveal
+  client:visible
+  title="Fill the gaps"
+  problem="Divide: $\;(x^3 - 8) \div (x - 2)$"
+  steps={[
+    { show: '$x^3 + 0x^2 + 0x - 8$', why: 'Placeholders.' },
+    { show: '$x^2$: subtract $x^3 - 2x^2$ → $2x^2 + 0x$', why: '' },
+    { show: '$+2x$: subtract $2x^2 - 4x$ → $4x - 8$', why: '' },
+    { show: '$+4$: subtract $4x - 8$ → $0$', why: '' },
+    { show: '$= x^2 + 2x + 4$', why: 'So $x^3 - 8 = (x - 2)(x^2 + 2x + 4)$ — a factoring you will meet in 5.6.' },
+  ]}
+/>
+
 <Practice client:visible lesson="4.8" skill="missing" compact />
+
+## In a real context
+
+<StepReveal
+  client:visible
+  title="Find the length"
+  problem="A rectangle has area $x^2 + 7x + 10$ square meters and width $x + 2$ meters. Find its length."
+  steps={[
+    { show: '**Familiarize.** Area = length × width, so length = area ÷ width.', why: '' },
+    { show: '**Translate.** $L = (x^2 + 7x + 10) \\div (x + 2)$', why: '' },
+    { show: '**Solve.** $L = x + 5$', why: 'From the long division above.' },
+    { show: '**Check.** $(x + 5)(x + 2) = x^2 + 7x + 10$ ✓; with $x = 3$: $8 \\cdot 5 = 40 = 9 + 21 + 10$ ✓', why: '' },
+    { show: '**State.** The length is $x + 5$ meters.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="4.8" skill="apply" compact />
+
+## Common mistakes
+
+<Callout type="warning" title="Subtract every term">
+After multiplying, subtract the **whole** product. In $(2x^2 + 3x) - (2x^2 - 2x)$ the result is $5x$, not $x$.
+</Callout>
+
+<Callout type="warning" title="Dividing only the first term">
+$\frac{10x^3 - 4x}{2x}$ is $5x^2 - 2$, not $5x^2 - 4x$. Every term is divided.
+</Callout>
+
+<Callout type="warning" title="Skipping placeholders">
+Without $0x^2$ and $0x$ in $x^3 - 8$, the columns slip and the answer goes wrong.
+</Callout>
 
 ## Summary
 
 - By a monomial: divide each term.
 - By a binomial: divide, multiply, subtract, bring down — repeat.
 - Answer with remainder: $Q + \frac{R}{\text{divisor}}$. Check: divisor × quotient + remainder = dividend.
+- Fill in missing powers with $0$ coefficients.
+
+**Next, in Chapter 5:** factoring — running multiplication backwards to solve polynomial equations.
 
 ## Practice
 

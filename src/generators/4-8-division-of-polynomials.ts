@@ -84,11 +84,29 @@ function missingTerm(): Problem {
   };
 }
 
+
+/** Find a missing side from an area polynomial. */
+function sideWords(): Problem {
+  const r = randInt(1, 8), s = randInt(1, 9);
+  const W = Poly.fromCoefs([1, r], 'x');
+  const L = Poly.fromCoefs([pick([1, 2, 3]), s], 'x');
+  const A = L.mul(W);
+  return {
+    skill: 'apply',
+    prompt: `A rectangle has area $${A.tex()}$ and width $${W.tex()}$. Find its length.`,
+    answer: { type: 'expression', value: L.text(), maxTerms: 2 },
+    hints: ['Unknown: the length. Area = length × width, so length = area ÷ width.', `Divide $(${A.tex()}) \\div (${W.tex()})$ by long division.`],
+    solution: [...stepsTex(A, W, 'x'), `Length: $${L.tex()}$. Check: $(${L.tex()})(${W.tex()}) = ${A.tex()}$ ✓`],
+    placeholder: 'x + 5',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'monomial', label: 'Divide by a monomial', generate: byMonomial },
   { id: 'long', label: 'Long division', generate: longNoRemainder },
   { id: 'remainder', label: 'With a remainder', generate: longRemainder },
   { id: 'missing', label: 'Missing terms', generate: missingTerm },
+  { id: 'apply', label: 'Word problems', generate: sideWords },
 ];
 
 export const masterySet = makeMasterySet(skills);
