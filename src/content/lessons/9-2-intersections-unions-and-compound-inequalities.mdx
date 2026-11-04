@@ -2,44 +2,67 @@
 id: "9.2"
 title: Intersections, Unions, and Compound Inequalities
 summary: '"And" means both conditions at once — the intersection. "Or" means at least one — the union. Solve compound inequalities and write the answers in interval notation.'
-minutes: 40
+minutes: 45
 objectives:
   - Find intersections and unions of sets.
   - Solve conjunctions ("and" inequalities), including double inequalities.
   - Solve disjunctions ("or" inequalities).
+  - Recognize when the answer is the empty set or all real numbers.
+  - Solve applied problems with a range of allowed values.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import CompoundLine from '../../components/CompoundLine.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
 
 <Callout type="why">
-A ride requires riders to be at least 120 cm **and** at most 200 cm tall. A discount applies if you are under 12 **or** over 65. "And" and "or" change the answer completely.
+A ride requires riders to be at least 120 cm **and** at most 200 cm tall. A discount applies if you are under 12 **or** over 65. The same two numbers with "and" instead of "or" give a completely different set of people. This lesson makes those two little words precise.
 </Callout>
 
 ## Intersection and union
 
-- The **intersection** $A \cap B$ is the set of elements in **both** $A$ and $B$.
-- The **union** $A \cup B$ is the set of elements in $A$, in $B$, or in both.
+- The **intersection** $A \cap B$ is the set of elements in **both** $A$ and $B$ — the overlap.
+- The **union** $A \cup B$ is the set of elements in $A$, in $B$, or in both — everything together.
 - The **empty set** $\varnothing$ has no elements.
 
-$\{1, 2, 3, 4\} \cap \{3, 4, 5\} = \{3, 4\}$, and $\{1, 2, 3, 4\} \cup \{3, 4, 5\} = \{1, 2, 3, 4, 5\}$.
+$$\{1, 2, 3, 4\} \cap \{3, 4, 5\} = \{3, 4\}, \qquad \{1, 2, 3, 4\} \cup \{3, 4, 5\} = \{1, 2, 3, 4, 5\}.$$
+
+A number satisfies "$P$ **and** $Q$" exactly when it is in the intersection of their solution sets, and "$P$ **or** $Q$" exactly when it is in the union. In mathematics, "or" includes "both".
+
+<QuickCheck
+  client:visible
+  question="What is $\{2, 4, 6, 8\} \cap \{1, 2, 3, 4\}$?"
+  options={['$\\{2, 4\\}$', '$\\{1, 2, 3, 4, 6, 8\\}$', '$\\{6, 8\\}$', '$\\varnothing$']}
+  answer={0}
+  explain="The intersection keeps only the elements in **both** sets: $2$ and $4$."
+  wrong={{ 1: 'That is the **union** — everything in either set.', 2: '$6$ and $8$ are in the first set only.', 3: 'The sets do share some elements.' }}
+/>
 
 <Practice client:visible lesson="9.2" skill="sets" compact />
 
 ## "And" and "or" on the number line
 
+Shade each inequality on its own line, then combine: for **and**, keep only the overlap; for **or**, keep everything shaded.
+
 <CompoundLine client:visible />
+
+| Compound inequality | Solution |
+|---|---|
+| $x > -1$ **and** $x \le 4$ | $(-1, 4]$ — the overlap |
+| $x < 1$ **and** $x > 3$ | $\varnothing$ — no overlap |
+| $x < 1$ **or** $x > 3$ | $(-\infty, 1) \cup (3, \infty)$ — two pieces |
+| $x < 5$ **or** $x > 2$ | $(-\infty, \infty)$ — every number is in at least one |
 
 To type a union, use the letter U: `(-inf, -2) U [3, inf)`. For the empty set type `∅` or `no solution`.
 
 <Practice client:visible lesson="9.2" skill="combine" compact />
 
-## Conjunctions
+## Conjunctions: "and"
 
-A **conjunction** joins two inequalities with **and**. A double inequality like $-3 < 2x + 1 \le 7$ is a conjunction: you can solve it by doing the same thing to **all three parts**.
+A **conjunction** joins two inequalities with **and**. A double inequality like $-3 < 2x + 1 \le 7$ is a conjunction ($-3 < 2x + 1$ **and** $2x + 1 \le 7$). You can solve it in one go by doing the same thing to **all three parts**.
 
 <StepReveal
   client:visible
@@ -48,13 +71,24 @@ A **conjunction** joins two inequalities with **and**. A double inequality like 
   steps={[
     { show: '$-4 < 2x \\le 6$', why: 'Subtract $1$ from all three parts.' },
     { show: '$-2 < x \\le 3$', why: 'Divide all three parts by $2$.' },
-    { show: '$(-2, 3]$', why: '' },
+    { show: '$(-2, 3]$', why: 'Check $x = 0$: $-3 < 1 \\le 7$ ✓.' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="Dividing by a negative"
+  problem="Solve: $\;-4 \le 2 - 3x < 11$"
+  steps={[
+    { show: '$-6 \\le -3x < 9$', why: 'Subtract $2$ from all three parts.' },
+    { show: '$2 \\ge x > -3$', why: 'Divide all three parts by $-3$: **both** signs reverse.' },
+    { show: '$-3 < x \\le 2$, that is $(-3, 2]$', why: 'Rewrite from smallest to largest. Check: $x = 2$ gives $2 - 6 = -4$, included ✓; $x = -3$ gives $11$, excluded ✓.' },
   ]}
 />
 
 <Practice client:visible lesson="9.2" skill="and" compact />
 
-## Disjunctions
+## Disjunctions: "or"
 
 A **disjunction** joins two inequalities with **or**. Solve each one separately and take the **union**.
 
@@ -63,18 +97,89 @@ A **disjunction** joins two inequalities with **or**. Solve each one separately 
   title="Or"
   problem="Solve: $\;2x - 1 < -5\;$ or $\;3x + 2 \ge 8$"
   steps={[
-    { show: '$x < -2$ or $x \\ge 2$', why: 'Solve each inequality.' },
-    { show: '$(-\\infty, -2) \\cup [2, \\infty)$', why: 'Everything that satisfies at least one of them.' },
+    { show: '$x < -2$ or $x \\ge 2$', why: 'Solve each inequality on its own.' },
+    { show: '$(-\\infty, -2) \\cup [2, \\infty)$', why: 'Everything that satisfies at least one of them. Note that it can\'t be written as one double inequality.' },
   ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Which number is **not** a solution of $\;x \le 2\;$ or $\;x > 6$?"
+  options={['$4$', '$0$', '$7$', '$2$']}
+  answer={0}
+  explain="$4$ is neither $\le 2$ nor $> 6$, so it satisfies neither part."
+  wrong={{ 1: '$0 \\le 2$, so it satisfies the first part — enough for "or".', 2: '$7 > 6$ satisfies the second part.', 3: '$2 \\le 2$ is true: the endpoint is included.' }}
+/>
+
+<QuickCheck
+  client:visible
+  question="Solve: $\;x > 5\;$ and $\;x < 1$"
+  options={['$\\varnothing$ (no solution)', '$(1, 5)$', '$(-\\infty, 1) \\cup (5, \\infty)$', 'all real numbers']}
+  answer={0}
+  explain="No number is both greater than $5$ and less than $1$: the shadings don't overlap."
+  wrong={{ 1: '$(1, 5)$ is between the numbers, but those satisfy **neither** condition.', 2: 'That would be the answer with **or**.', 3: 'With **and**, a number must satisfy both conditions. Try $x = 3$.' }}
 />
 
 <Practice client:visible lesson="9.2" skill="or" compact />
 
+## In a real context
+
+A *range* of allowed values — "between", "from … to", "at least … and less than …" — is a conjunction.
+
+<StepReveal
+  client:visible
+  title="What do I need for a B?"
+  problem="A B grade needs an average of at least $80$ and less than $90$. Your first three test scores are $85$, $78$ and $92$. What scores on the fourth test (out of $100$) give a B?"
+  steps={[
+    { show: '**Familiarize.** Let $x$ = the fourth score, $0 \\le x \\le 100$.', why: 'Guess $x = 80$: average $\\frac{335}{4} = 83.75$, a B. So $80$ is in the answer.' },
+    { show: '**Translate.** $80 \\le \\dfrac{85 + 78 + 92 + x}{4} < 90$', why: '"At least 80 and less than 90" is a double inequality.' },
+    { show: '**Solve.** $320 \\le 255 + x < 360 \\;\\Rightarrow\\; 65 \\le x < 105$', why: 'Multiply all three parts by $4$, subtract $255$.' },
+    { show: '**Check.** $x = 65$: average $80$ ✓. But a score can\'t exceed $100$, so intersect with $[0, 100]$.', why: 'Every score up to $100$ keeps the average below $90$: $\\frac{355}{4} = 88.75$.' },
+    { show: '**State.** Any score from $65$ to $100$: the set $[65, 100]$.', why: '' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="Celsius to Fahrenheit"
+  problem="A vaccine must be stored between $2°C$ and $8°C$ (inclusive). Using $C = \tfrac{5}{9}(F - 32)$, what is the allowed range in degrees Fahrenheit?"
+  steps={[
+    { show: '**Familiarize.** Let $F$ = the temperature in °F.', why: 'Water freezes at $0°C = 32°F$, so the answer should be a little above $32$.' },
+    { show: '**Translate.** $2 \\le \\tfrac{5}{9}(F - 32) \\le 8$', why: '' },
+    { show: '**Solve.** $3.6 \\le F - 32 \\le 14.4 \\;\\Rightarrow\\; 35.6 \\le F \\le 46.4$', why: 'Multiply all three parts by $\\tfrac{9}{5}$, then add $32$.' },
+    { show: '**Check.** $F = 35.6$: $\\tfrac{5}{9}(3.6) = 2$ ✓; $F = 46.4$: $\\tfrac{5}{9}(14.4) = 8$ ✓', why: '' },
+    { show: '**State.** Between $35.6°F$ and $46.4°F$: $[35.6, 46.4]$.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="9.2" skill="apply" compact />
+
+## Common mistakes
+
+<Callout type="warning" title="Mixing up “and” and “or”">
+"And" keeps only the **overlap**; "or" keeps **everything** shaded. $x < 1$ and $x > 3$ has no solution, but $x < 1$ or $x > 3$ has infinitely many.
+</Callout>
+
+<Callout type="warning" title="Reversing only one sign">
+Dividing $-6 \le -3x < 9$ by $-3$ reverses **both** signs: $2 \ge x > -3$.
+</Callout>
+
+<Callout type="warning" title="Writing a disjunction as one interval">
+$x < -2$ or $x \ge 2$ is $(-\infty, -2) \cup [2, \infty)$. Writing $(-2, 2)$ or "$2 \le x < -2$" describes the wrong set (or an impossible one).
+</Callout>
+
+<Callout type="warning" title="Ignoring the real-world limits">
+A test score can't be $105$. Intersect your answer with the values that make sense.
+</Callout>
+
 ## Summary
 
-- **And** → intersection (overlap). **Or** → union (everything shaded).
-- Solve a double inequality by working on all three parts.
-- An "and" with no overlap has the empty set $\varnothing$ as its solution.
+- **And** → intersection (overlap); **or** → union (everything shaded). "Or" includes "both".
+- Solve a double inequality by working on all three parts; dividing by a negative reverses both signs.
+- An "and" with no overlap is $\varnothing$; an "or" that covers everything is $(-\infty, \infty)$.
+- In applications, a range of allowed values is a conjunction — and must respect real-world limits.
+
+**Next, in 9.3:** absolute value, where "less than" turns into an "and" and "greater than" into an "or".
 
 ## Practice
 

@@ -71,11 +71,28 @@ function scores(): Problem {
   };
 }
 
+
+/** Budget word problem: fixed fee + rate × quantity ≤ budget. */
+function budget(): Problem {
+  const [what, fee, unit, per, base] = pick([['A taxi ride', 'a 4-dollar pick-up fee', 'kilometer', 2, 4], ['A gym class pass', 'a 15-dollar sign-up fee', 'class', 6, 15], ['A phone top-up', 'a 5-dollar service charge', 'gigabyte', 3, 5]] as [string, string, string, number, number][]);
+  const n = randInt(5, 20), B = base + per * n + randInt(0, per - 1);
+  return {
+    skill: 'apply',
+    prompt: `${what} costs ${fee} plus ${per} dollars per ${unit}. You can spend **at most** ${B} dollars. How many whole ${unit}s can you afford? Give the largest number.`,
+    answer: { type: 'number', value: n },
+    hints: [`Let $n$ = number of ${unit}s. "At most" means $\\le$: $\;${base} + ${per}n \\le ${B}$.`, `Solve for $n$, then take the largest **whole** number that works.`],
+    solution: [`$${base} + ${per}n \\le ${B} \;\\Rightarrow\; ${per}n \\le ${B - base} \;\\Rightarrow\; n \\le ${+((B - base) / per).toFixed(3)}$`, `The largest whole number is $${n}$. Check: $${base} + ${per}(${n}) = ${base + per * n} \\le ${B}$ ✓, but $${base} + ${per}(${n + 1}) = ${base + per * (n + 1)} > ${B}$.`],
+    mistakes: [{ answer: String(n + 1), feedback: `Check it: $${base} + ${per}(${n + 1}) = ${base + per * (n + 1)}$, which is more than ${B}.` }],
+    placeholder: '8',
+  };
+}
+const applied = () => (Math.random() < 0.5 ? scores() : budget());
+
 export const skills: Skill[] = [
   { id: 'notation', label: 'Inequality → interval', generate: notation },
   { id: 'graph', label: 'Read a graph', generate: fromGraph },
   { id: 'solve', label: 'Solve inequalities', generate: solveLinear },
-  { id: 'apply', label: 'Applications', generate: scores },
+  { id: 'apply', label: 'Applications', generate: applied },
 ];
 
 export const masterySet = makeMasterySet(skills);

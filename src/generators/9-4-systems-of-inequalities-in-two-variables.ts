@@ -74,11 +74,56 @@ function vertex(): Problem {
   }
 }
 
+
+/** Word problems: production limits as a system of inequalities. */
+function production(): Problem {
+  for (;;) {
+    const [a1, b1, a2, b2] = [randInt(1, 4), randInt(1, 4), randInt(1, 4), randInt(1, 4)];
+    if (a1 * b2 === a2 * b1) continue;
+    const C1 = randInt(20, 60), C2 = randInt(20, 60);
+    const [X, Y, x1, y1, place, r1, r2] = pick([
+      ['cakes', 'pies', 'cake', 'pie', 'A bakery', 'baking', 'decorating'],
+      ['tables', 'chairs', 'table', 'chair', 'A workshop', 'cutting', 'painting'],
+      ['bracelets', 'necklaces', 'bracelet', 'necklace', 'A jewelry maker', 'wire work', 'polishing'],
+    ] as [string, string, string, string, string, string, string][]);
+    const nm = (n: number, one: string, many: string) => `${n} ${n === 1 ? one : many}`;
+    const hrs = (n: number) => `${n} hour${n === 1 ? '' : 's'}`;
+    if (Math.random() < 0.5) {
+      const x0 = randInt(1, Math.floor(Math.min(C1 / a1, C2 / a2)));
+      const ymax = Math.min(Math.floor((C1 - a1 * x0) / b1), Math.floor((C2 - a2 * x0) / b2));
+      if (ymax < 1) continue;
+      const which = (C1 - a1 * x0) / b1 <= (C2 - a2 * x0) / b2 ? 1 : 2;
+      return {
+        skill: 'apply',
+        prompt: `${place} makes $x$ ${X} and $y$ ${Y} a week. Each ${x1} needs ${hrs(a1)} of ${r1} and ${hrs(a2)} of ${r2}; each ${y1} needs ${hrs(b1)} of ${r1} and ${hrs(b2)} of ${r2}. There are at most ${C1} hours of ${r1} and ${C2} hours of ${r2} a week. If it makes ${nm(x0, x1, X)}, what is the **largest** number of ${Y} it can make?`,
+        answer: { type: 'number', value: ymax },
+        hints: [`Unknowns: $x$ = ${X}, $y$ = ${Y}. Each limit is an inequality: $\;${a1}x + ${b1}y \\le ${C1}$ and $${a2}x + ${b2}y \\le ${C2}$.`, `Put $x = ${x0}$ into **both** and solve for $y$. The answer must satisfy both — and be a whole number.`],
+        solution: [`$${a1}(${x0}) + ${b1}y \\le ${C1} \;\\Rightarrow\; y \\le ${+((C1 - a1 * x0) / b1).toFixed(2)}$`, `$${a2}(${x0}) + ${b2}y \\le ${C2} \;\\Rightarrow\; y \\le ${+((C2 - a2 * x0) / b2).toFixed(2)}$`, `Both must hold, so the ${which === 1 ? r1 : r2} limit decides: at most $${ymax}$ ${Y}.`],
+        placeholder: '6',
+      };
+    }
+    const want = Math.random() < 0.5;
+    const x0 = randInt(1, 12), y0 = randInt(1, 12);
+    const ok1 = a1 * x0 + b1 * y0 <= C1, ok2 = a2 * x0 + b2 * y0 <= C2;
+    const ok = ok1 && ok2;
+    if (ok !== want) continue;
+    if (Math.abs(a1 * x0 + b1 * y0 - C1) > 10 && Math.abs(a2 * x0 + b2 * y0 - C2) > 10) continue; // keep it close to a boundary
+    return {
+      skill: 'apply',
+      prompt: `${place} makes $x$ ${X} and $y$ ${Y} a week, with the limits $\;${a1}x + ${b1}y \\le ${C1}$ (hours of ${r1}) and $${a2}x + ${b2}y \\le ${C2}$ (hours of ${r2}). Can it make ${nm(x0, x1, X)} and ${nm(y0, y1, Y)} in one week?`,
+      answer: choice(ok ? 'Yes — both limits are met' : 'No — at least one limit is broken', [ok ? 'No — at least one limit is broken' : 'Yes — both limits are met']),
+      hints: [`A plan works only if the point $(${x0}, ${y0})$ satisfies **every** inequality of the system — it must lie in the overlap of the shaded regions.`],
+      solution: [`${r1[0].toUpperCase() + r1.slice(1)}: $${a1}(${x0}) + ${b1}(${y0}) = ${a1 * x0 + b1 * y0}$ ${ok1 ? `$\\le ${C1}$ ✓` : `$> ${C1}$ ✗`}`, `${r2[0].toUpperCase() + r2.slice(1)}: $${a2}(${x0}) + ${b2}(${y0}) = ${a2 * x0 + b2 * y0}$ ${ok2 ? `$\\le ${C2}$ ✓` : `$> ${C2}$ ✗`}`, ok ? 'Both limits hold, so yes.' : 'A limit is broken, so no.'],
+    };
+  }
+}
+
 export const skills: Skill[] = [
   { id: 'test', label: 'Test a point', generate: testPoint },
   { id: 'graph', label: 'Read a graph', generate: whichGraph },
   { id: 'system', label: 'Systems of inequalities', generate: systemPoint },
   { id: 'vertex', label: 'Vertices', generate: vertex },
+  { id: 'apply', label: 'Word problems', generate: production },
 ];
 
 export const masterySet = makeMasterySet(skills);

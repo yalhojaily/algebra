@@ -2,67 +2,176 @@
 id: "9.4"
 title: Systems of Inequalities in Two Variables
 summary: The solutions of an inequality in x and y fill a half-plane. Draw the boundary, test a point, shade — and for a system, find where the shadings overlap.
-minutes: 40
+minutes: 50
 objectives:
   - Determine whether an ordered pair is a solution of a linear inequality.
-  - Graph linear inequalities in two variables.
+  - Explain why a test point decides which side of the boundary to shade.
+  - Graph linear inequalities in two variables, with solid or dashed boundaries.
   - Graph systems of linear inequalities and find their vertices.
+  - Use a system of inequalities to describe what is possible with limited resources.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import HalfPlane from '../../components/HalfPlane.tsx';
+import { Plane } from '../../components/Plane.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
 
 <Callout type="why">
-A bakery has 40 hours of oven time and 30 hours of decorating time. Which combinations of cakes and pies can it make? Each limit is an inequality in two variables, and together they form a system whose solutions are a whole **region** of the plane.
+A bakery has 16 hours of oven time and 14 hours of decorating time a week. Which combinations of cakes and pies can it make? Each limit is an inequality in two variables, and together they form a system whose solutions are a whole **region** of the plane. The corners of that region turn out to be the most interesting points — they are where businesses look for the best plan.
 </Callout>
 
 ## Solutions are regions
 
-A solution of $y > 2x - 1$ is an ordered pair that makes it true, such as $(0, 0)$: $0 > -1$ ✓. The line $y = 2x - 1$ splits the plane in two; every point on one side is a solution.
+A solution of $y > 2x - 1$ is an ordered pair that makes it true. $(0, 0)$ is one: $0 > -1$ ✓. $(3, 1)$ is not: $1 > 5$ ✗.
+
+Why does a whole region work? The line $y = 2x - 1$ is where the two sides are **equal**. Above the line, $y$ is bigger than $2x - 1$; below it, smaller. As you move around the plane, the inequality can only switch from true to false by crossing the line. So the line splits the plane into two **half-planes**: one where every point is a solution and one where none is.
+
+<QuickCheck
+  client:visible
+  question="Is $(2, 3)$ a solution of $\;2x + y \le 6$?"
+  options={['No', 'Yes', 'Only if the boundary is solid', "Can't tell without a graph"]}
+  answer={0}
+  explain="$2(2) + 3 = 7$, and $7 \le 6$ is false."
+  wrong={{ 1: 'Substitute: $2(2) + 3 = 7$. Is $7 \\le 6$?', 2: 'The point is not on the boundary ($7 \\neq 6$), so solid or dashed doesn\'t matter.', 3: 'Substituting the point answers it directly.' }}
+/>
 
 <Practice client:visible lesson="9.4" skill="test" compact />
 
 ## Graphing an inequality
 
-1. Graph the boundary line. Use a **solid** line for $\le$ or $\ge$, a **dashed** line for $<$ or $>$.
-2. Test a point not on the line (the origin is easiest).
-3. Shade the side containing the test point if it works, otherwise the other side.
+1. Graph the **boundary** line (replace the inequality sign with $=$). Use a **solid** line for $\le$ or $\ge$ (the line is included) and a **dashed** line for $<$ or $>$ (it is not).
+2. Pick a **test point** not on the line — the origin is easiest if the line doesn't pass through it.
+3. If the test point makes the inequality true, shade its side; otherwise shade the other side.
+
+<StepReveal
+  client:visible
+  title="Graph an inequality"
+  problem="Graph: $\;2x - 3y < 6$"
+  steps={[
+    { show: 'Boundary $2x - 3y = 6$: intercepts $(3, 0)$ and $(0, -2)$. **Dashed**, because of $<$.', why: 'Points on the line make $2x - 3y$ equal to $6$, not less than $6$.' },
+    { show: 'Test $(0, 0)$: $0 < 6$ ✓', why: '' },
+    { show: 'Shade the side containing the origin (above the line).', why: 'See the graph below.' },
+  ]}
+/>
+
+<div class="fig-center">
+  <Plane range={6} size={280} regions={[{ a: 2, b: -3, c: 6, op: '<' }]} points={[{ x: 3, y: 0, label: '(3, 0)' }, { x: 0, y: -2, label: '(0, −2)' }]} label="The half-plane 2x − 3y < 6, with a dashed boundary" />
+</div>
 
 <HalfPlane client:visible />
 
 <Callout type="tip" title="Shortcut for y = mx + b form">
-When the inequality is solved for $y$: $y >$ or $y \ge$ means shade **above** the line; $y <$ or $y \le$ means shade **below**.
+When the inequality is solved for $y$: $y >$ or $y \ge$ means shade **above** the line; $y <$ or $y \le$ means shade **below**. ($2x - 3y < 6$ becomes $y > \frac{2}{3}x - 2$ — above, as we found.)
 </Callout>
+
+<QuickCheck
+  client:visible
+  question="To graph $\;y < 3x + 1$, you draw the line $y = 3x + 1$ and shade…"
+  options={['below it, with a dashed line', 'below it, with a solid line', 'above it, with a dashed line', 'above it, with a solid line']}
+  answer={0}
+  explain="$y <$ means below, and the strict $<$ leaves the line out, so it is dashed."
+  wrong={{ 1: 'A solid line would include points where $y = 3x + 1$, but $<$ is strict.', 2: '$y$ **less** than the line means **below** it. Test $(0, 0)$: $0 < 1$ ✓ — the origin is below the line.', 3: 'Both parts are off: $<$ means below and dashed.' }}
+/>
 
 <Practice client:visible lesson="9.4" skill="graph" compact />
 
 ## Systems of inequalities
 
-Graph each inequality; the solution set of the system is where **all** the shaded regions overlap. The corners of that region are its **vertices** — find each one by solving the system of the two boundary **equations** that meet there.
+A solution of a system makes **every** inequality true, so the solution set is where **all** the shaded regions overlap. The corners of that region are its **vertices**. A vertex lies on two boundary lines, so you find it by solving the system of the two boundary **equations** (with the methods of Chapter 8).
 
 <StepReveal
   client:visible
   title="Find a vertex"
   problem="Find the vertex of the region $\;y \le -x + 4,\; y \ge 2x - 2$."
   steps={[
-    { show: '$-x + 4 = 2x - 2$', why: 'The vertex is on both boundary lines.' },
+    { show: '$-x + 4 = 2x - 2$', why: 'The vertex is on both boundary lines, so solve the equations.' },
     { show: '$x = 2$, $y = 2$', why: '' },
-    { show: 'Vertex: $(2, 2)$', why: '' },
+    { show: 'Vertex: $(2, 2)$', why: 'Check: $2 \\le -2 + 4$ ✓ and $2 \\ge 4 - 2$ ✓ — on both boundaries.' },
   ]}
+/>
+
+<StepReveal
+  client:visible
+  title="A triangle of solutions"
+  problem="Graph the system $\;x + y \le 6,\; y \ge x,\; x \ge 0\;$ and find its vertices."
+  steps={[
+    { show: '$x + y \\le 6$: below the line through $(6, 0)$ and $(0, 6)$. $y \\ge x$: above the line $y = x$. $x \\ge 0$: right of the $y$-axis.', why: 'All three boundaries are solid ($\\le$, $\\ge$).' },
+    { show: 'The overlap is a triangle.', why: 'See the graph below: the shaded triangle is where all three conditions hold.' },
+    { show: 'Vertices: $(0, 0)$ from $y = x$ and $x = 0$; $(0, 6)$ from $x + y = 6$ and $x = 0$; $(3, 3)$ from $x + y = 6$ and $y = x$.', why: 'For the last one: $x + x = 6$, so $x = 3$.' },
+  ]}
+/>
+
+<div class="fig-center">
+  <Plane range={7} size={300} polygons={[{ pts: [[0, 0], [0, 6], [3, 3]] }]} lines={[{ a: 1, b: 1, c: 6 }, { a: -1, b: 1, c: 0 }, { a: 1, b: 0, c: 0 }]} points={[{ x: 0, y: 0, cls: 'red', label: '(0, 0)' }, { x: 0, y: 6, cls: 'red', label: '(0, 6)' }, { x: 3, y: 3, cls: 'red', label: '(3, 3)' }]} label="The solution region of x + y ≤ 6, y ≥ x, x ≥ 0 is a triangle" />
+</div>
+
+<QuickCheck
+  client:visible
+  question="What is the vertex of the region given by $\;y \le 4\;$ and $\;y \ge x$?"
+  options={['$(4, 4)$', '$(0, 4)$', '$(4, 0)$', '$(0, 0)$']}
+  answer={0}
+  explain="Solve the boundary equations $y = 4$ and $y = x$: $x = 4$, $y = 4$."
+  wrong={{ 1: 'Is $(0, 4)$ on the line $y = x$? A vertex must be on both boundaries.', 2: 'Is $(4, 0)$ on the line $y = 4$?', 3: 'Is $(0, 0)$ on the line $y = 4$?' }}
 />
 
 <Practice client:visible lesson="9.4" skill="system" compact />
 
 <Practice client:visible lesson="9.4" skill="vertex" compact />
 
+## In a real context
+
+Limited resources — hours, money, materials — each give an inequality. The region is the set of **possible plans**; a plan works only if its point is inside the region.
+
+<StepReveal
+  client:visible
+  title="Cakes and pies"
+  problem="A bakery makes $x$ cakes and $y$ pies a week. Each cake needs $2$ hours of oven time and $1$ hour of decorating; each pie needs $1$ hour of oven time and $2$ hours of decorating. There are $16$ oven hours and $14$ decorating hours. (a) Can it make $5$ cakes and $4$ pies? (b) If it makes $6$ cakes, how many pies at most?"
+  steps={[
+    { show: '**Familiarize.** $x$ = cakes, $y$ = pies; both are whole numbers $\\ge 0$.', why: 'Each resource limit becomes one inequality.' },
+    { show: '**Translate.** $\\;\\begin{cases} 2x + y \\le 16 & \\text{(oven)} \\\\ x + 2y \\le 14 & \\text{(decorating)} \\\\ x \\ge 0,\\; y \\ge 0 \\end{cases}$', why: '' },
+    { show: '**Solve (a).** $2(5) + 4 = 14 \\le 16$ ✓ and $5 + 2(4) = 13 \\le 14$ ✓', why: 'Test the point $(5, 4)$ in every inequality.' },
+    { show: '**Solve (b).** $x = 6$: oven $12 + y \\le 16 \\Rightarrow y \\le 4$; decorating $6 + 2y \\le 14 \\Rightarrow y \\le 4$. So $y \\le 4$.', why: 'Both limits must hold.' },
+    { show: '**State.** (a) Yes, $5$ cakes and $4$ pies fit. (b) With $6$ cakes it can make at most $4$ pies.', why: '$(6, 4)$ is exactly where the two boundary lines cross — a vertex, where both resources are used up.' },
+  ]}
+/>
+
+<div class="fig-center">
+  <Plane range={9} size={300} polygons={[{ pts: [[0, 0], [8, 0], [6, 4], [0, 7]] }]} lines={[{ a: 2, b: 1, c: 16 }, { a: 1, b: 2, c: 14, cls: 'alt' }]} points={[{ x: 5, y: 4, cls: 'amber' }, { x: 6, y: 4, cls: 'red', label: '(6, 4)' }]} label="Possible plans for the bakery: the region below both limits, with x ≥ 0 and y ≥ 0" />
+</div>
+
+<div class="fig-caption">Blue line: oven limit. Red line: decorating limit. The shaded region holds every possible plan; the amber point is $(5, 4)$, the red point the vertex $(6, 4)$.</div>
+
+<Practice client:visible lesson="9.4" skill="apply" compact />
+
+## Common mistakes
+
+<Callout type="warning" title="Solid or dashed">
+$\le$ and $\ge$: solid (points on the line count). $<$ and $>$: dashed.
+</Callout>
+
+<Callout type="warning" title="Using the shortcut on the wrong form">
+"$>$ means above" works only when the inequality is solved for $y$. $-y > x$ is $y < -x$: **below**. When in doubt, use a test point.
+</Callout>
+
+<Callout type="warning" title="A test point on the line">
+If the boundary passes through $(0, 0)$, the origin tells you nothing. Pick another point, like $(1, 0)$.
+</Callout>
+
+<Callout type="warning" title="Forgetting x ≥ 0 and y ≥ 0">
+You can't bake $-2$ cakes. In real problems the quantities are usually non-negative — two more inequalities.
+</Callout>
+
 ## Summary
 
-- Boundary line: solid for $\le, \ge$; dashed for $<, >$.
-- Test a point to decide which side to shade.
-- A system's solutions are the overlap; vertices are where boundary lines cross.
+- The boundary line splits the plane; one side is all solutions, the other none. A test point decides which.
+- Solid boundary for $\le, \ge$; dashed for $<, >$.
+- A system's solutions are the overlap; vertices come from solving pairs of boundary **equations**.
+- In applications, each limited resource is an inequality, and the region is the set of possible plans.
+
+**Next, in Chapter 10:** radical expressions — square roots, cube roots and rational exponents.
 
 ## Practice
 

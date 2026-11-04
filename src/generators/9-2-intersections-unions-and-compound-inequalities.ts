@@ -79,11 +79,47 @@ function combine(): Problem {
   };
 }
 
+
+/** Word problems with "and": a range for a test score, or a temperature range in another unit. */
+function compoundWords(): Problem {
+  if (Math.random() < 0.5) {
+    for (;;) {
+      const tests = [randInt(70, 95), randInt(68, 96), randInt(70, 95)];
+      const S = tests.reduce((s, t) => s + t, 0);
+      const lo = 80 * 4 - S, hi = 90 * 4 - S;
+      if (lo < 30 || hi > 100) continue;
+      const ans = iv(lo, hi, true, false);
+      return {
+        skill: 'apply',
+        prompt: `A **B** grade needs an average of at least 80 **and** less than 90. Your first three test scores are ${tests.join(', ')}. What scores on the fourth test give a B? Write the set in interval notation.`,
+        answer: { type: 'interval', ...ans },
+        hints: [`Unknown: the fourth score $x$. "At least 80 and less than 90" is a double inequality: $\;80 \\le \\dfrac{${S} + x}{4} < 90$.`, 'Multiply all three parts by 4, then subtract.'],
+        solution: [`$320 \\le ${S} + x < 360$`, `$${lo} \\le x < ${hi}$`, `Interval: $${ivTex(ans)}$ — the bracket includes ${lo}, the parenthesis excludes ${hi}.`],
+        mistakes: [{ answer: `[${lo}, ${hi}]`, feedback: `"Less than 90" excludes the endpoint: ${hi} would give an average of exactly 90, an A.` }],
+        placeholder: '[72, 100)',
+      };
+    }
+  }
+  const a = pick([-10, -5, 0, 5, 10, 15]), b = a + pick([10, 15, 20, 25, 30]);
+  const lo = (9 * a) / 5 + 32, hi = (9 * b) / 5 + 32;
+  const ans = iv(lo, hi, true, true);
+  const what = pick(['A medicine must be stored', 'A plant grows best', 'A fish tank should be kept']);
+  return {
+    skill: 'apply',
+    prompt: `${what} between ${a}°C and ${b}°C (inclusive). Using $C = \\dfrac{5}{9}(F - 32)$, find the range in degrees **Fahrenheit**. Write it in interval notation.`,
+    answer: { type: 'interval', ...ans },
+    hints: [`Unknown: the Fahrenheit temperature $F$. "Between … inclusive" means "and": $\;${a} \\le \\dfrac{5}{9}(F - 32) \\le ${b}$.`, 'Multiply all three parts by $\\dfrac{9}{5}$, then add 32.'],
+    solution: [`$${(9 * a) / 5} \\le F - 32 \\le ${(9 * b) / 5}$`, `$${lo} \\le F \\le ${hi}$, that is $${ivTex(ans)}$`],
+    placeholder: '[41, 77]',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'sets', label: 'Intersection and union of sets', generate: finiteSets },
   { id: 'combine', label: 'Intervals', generate: combine },
   { id: 'and', label: '"And" (conjunctions)', generate: conjunction },
   { id: 'or', label: '"Or" (disjunctions)', generate: disjunction },
+  { id: 'apply', label: 'Word problems', generate: compoundWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

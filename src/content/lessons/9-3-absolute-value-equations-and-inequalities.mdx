@@ -2,56 +2,101 @@
 id: "9.3"
 title: Absolute-Value Equations and Inequalities
 summary: "|X| is a distance from 0. |X| = d gives two points, |X| < d gives the stretch between them, and |X| > d gives everything outside."
-minutes: 40
+minutes: 50
 objectives:
-  - Solve equations with one or two absolute values.
+  - Interpret |x − h| as the distance between x and h.
+  - Solve equations with one or two absolute values, isolating the absolute value first.
   - Solve absolute-value inequalities of the forms |X| < d and |X| > d.
-  - Recognize absolute-value problems with no solution.
+  - Recognize absolute-value problems with no solution or every real number as a solution.
+  - Model tolerances and margins of error with absolute value.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import AbsDistance from '../../components/AbsDistance.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
 
 <Callout type="why">
-A machine part must be $50$ mm long, give or take $0.2$ mm: $|L - 50| \le 0.2$. Absolute value is the natural language of **tolerance** — how far something is from a target.
+A machine part must be $50$ mm long, give or take $0.2$ mm: $|L - 50| \le 0.2$. A poll's result is $52\%$ with a margin of error of $3$ points: $|s - 52| \le 3$. Absolute value is the natural language of **tolerance** — how far something is from a target — and each of these statements hides an "and" or an "or".
 </Callout>
 
 ## Absolute value as distance
 
-$|a|$ is the distance from $a$ to $0$, and $|x - h|$ is the distance from $x$ to $h$. For $d > 0$:
+$|a|$ is the distance from $a$ to $0$, so it is never negative. More generally, $|x - h|$ is the **distance between $x$ and $h$**: $|7 - 4| = 3$ and $|1 - 4| = 3$, because $7$ and $1$ are both $3$ units from $4$.
 
-| | means | solution |
-|---|---|---|
-| $\lvert X \rvert = d$ | $X = d$ or $X = -d$ | two points |
-| $\lvert X \rvert < d$ | $-d < X < d$ | one interval |
-| $\lvert X \rvert > d$ | $X < -d$ or $X > d$ | two pieces |
+Thinking in distances explains every rule in this lesson. For $d > 0$:
+
+| | in words | means | solution |
+|---|---|---|---|
+| $\lvert X \rvert = d$ | exactly $d$ from $0$ | $X = d$ **or** $X = -d$ | two points |
+| $\lvert X \rvert < d$ | less than $d$ from $0$ | $-d < X < d$ (an **and**) | one interval |
+| $\lvert X \rvert > d$ | more than $d$ from $0$ | $X < -d$ **or** $X > d$ | two pieces |
 
 <AbsDistance client:visible />
 
+<QuickCheck
+  client:visible
+  question="$|x - 5| < 2$ means that $x$ is…"
+  options={['less than $2$ units from $5$', 'more than $2$ units from $5$', 'less than $5$ units from $2$', 'between $-2$ and $2$']}
+  answer={0}
+  explain="$|x - 5|$ is the distance from $x$ to $5$, and it must be less than $2$. So $3 < x < 7$."
+  wrong={{ 1: '“Less than” is about being **close**. More than $2$ units away would be $|x - 5| > 2$.', 2: 'The distance is measured from $5$ (the number subtracted from $x$), and it must be less than $2$.', 3: 'That would be $|x| < 2$. Here the center is $5$.' }}
+/>
+
 ## Equations
+
+Always **isolate the absolute value first**, then split into the two cases.
 
 <StepReveal
   client:visible
-  title="Absolute-value equation"
+  title="Two cases"
   problem="Solve: $\;|2x - 3| = 7$"
   steps={[
-    { show: '$2x - 3 = 7$ or $2x - 3 = -7$', why: 'The inside is $7$ units from $0$: either $7$ or $-7$.' },
-    { show: '$x = 5$ or $x = -2$', why: '' },
+    { show: '$2x - 3 = 7$ or $2x - 3 = -7$', why: 'The inside is $7$ units from $0$: it is either $7$ or $-7$.' },
+    { show: '$x = 5$ or $x = -2$', why: 'Check: $|10 - 3| = 7$ ✓ and $|-4 - 3| = 7$ ✓.' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="Isolate first"
+  problem="Solve: $\;3|x + 1| - 2 = 10$"
+  steps={[
+    { show: '$3|x + 1| = 12 \\;\\Rightarrow\\; |x + 1| = 4$', why: 'Add $2$, divide by $3$ — treat $|x + 1|$ like a single unknown until it is alone.' },
+    { show: '$x + 1 = 4$ or $x + 1 = -4$', why: '' },
+    { show: '$x = 3$ or $x = -5$', why: 'Check $x = -5$: $3|-4| - 2 = 10$ ✓.' },
   ]}
 />
 
 <Practice client:visible lesson="9.3" skill="equation" compact />
 
-<Callout type="warning" title="Negative right side">
 $|X| = -4$ has **no solution**: a distance is never negative. $|X| = 0$ has exactly one solution, $X = 0$.
-</Callout>
+
+<QuickCheck
+  client:visible
+  question="How many solutions does $\;|x - 2| = -3\;$ have?"
+  options={['none', 'one', 'two', 'infinitely many']}
+  answer={0}
+  explain="An absolute value is a distance, so it can never equal a negative number."
+  wrong={{ 1: 'One solution happens only for $|X| = 0$.', 2: 'Splitting into $x - 2 = \\pm 3$ ignores that $|x - 2|$ can never be $-3$. Check: $x = 5$ gives $|3| = 3 \\neq -3$.', 3: 'No number at all has a negative distance from $2$.' }}
+/>
 
 <Practice client:visible lesson="9.3" skill="special" compact />
 
-When two absolute values are equal, $|A| = |B|$, the insides are equal or opposite: $A = B$ or $A = -B$.
+When two absolute values are equal, $|A| = |B|$, the insides are the same distance from $0$, so they are equal or opposite: $A = B$ or $A = -B$.
+
+<StepReveal
+  client:visible
+  title="Two absolute values"
+  problem="Solve: $\;|x - 3| = |2x + 1|$"
+  steps={[
+    { show: '$x - 3 = 2x + 1 \\;\\Rightarrow\\; x = -4$', why: 'Case 1: the insides are equal.' },
+    { show: '$x - 3 = -(2x + 1) \\;\\Rightarrow\\; 3x = 2 \\;\\Rightarrow\\; x = \\tfrac{2}{3}$', why: 'Case 2: the insides are opposites. Keep the parentheses.' },
+    { show: 'Solutions: $-4$ and $\\tfrac{2}{3}$', why: 'Check: $|-7| = |-7|$ ✓; $\\left|-\\tfrac{7}{3}\\right| = \\left|\\tfrac{7}{3}\\right|$ ✓.' },
+  ]}
+/>
 
 <Practice client:visible lesson="9.3" skill="two" compact />
 
@@ -67,6 +112,17 @@ When two absolute values are equal, $|A| = |B|$, the insides are equal or opposi
   ]}
 />
 
+<StepReveal
+  client:visible
+  title="A negative coefficient inside"
+  problem="Solve: $\;|5 - 2x| \le 9$"
+  steps={[
+    { show: '$-9 \\le 5 - 2x \\le 9$', why: '' },
+    { show: '$-14 \\le -2x \\le 4$', why: 'Subtract $5$.' },
+    { show: '$7 \\ge x \\ge -2$, that is $[-2, 7]$', why: 'Divide by $-2$: both signs reverse. Check $x = 0$: $|5| \\le 9$ ✓.' },
+  ]}
+/>
+
 <Practice client:visible lesson="9.3" skill="less" compact />
 
 <StepReveal
@@ -76,17 +132,79 @@ When two absolute values are equal, $|A| = |B|$, the insides are equal or opposi
   steps={[
     { show: '$2x + 1 \\le -5$ or $2x + 1 \\ge 5$', why: 'Far from $0$ in either direction.' },
     { show: '$x \\le -3$ or $x \\ge 2$', why: '' },
-    { show: '$(-\\infty, -3] \\cup [2, \\infty)$', why: '' },
+    { show: '$(-\\infty, -3] \\cup [2, \\infty)$', why: 'Check $x = 0$ (not in the answer): $|1| \\ge 5$ is false ✓.' },
   ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Solve: $\;|x + 1| > -3$"
+  options={['all real numbers', 'no solution', '$(-4, 2)$', '$(-\\infty, -4) \\cup (2, \\infty)$']}
+  answer={0}
+  explain="A distance is always $\ge 0$, and $0 > -3$. So every $x$ works."
+  wrong={{ 1: 'Compare a distance (never negative) with $-3$: is it always bigger?', 2: 'Splitting into cases doesn\'t apply when the right side is negative. Think distance.', 3: 'Splitting into cases doesn\'t apply when the right side is negative. Try $x = 0$: $|1| > -3$ is true.' }}
 />
 
 <Practice client:visible lesson="9.3" skill="greater" compact />
 
+## In a real context
+
+"Within $d$ of a target $T$" is $|x - T| \le d$: one interval, from $T - d$ to $T + d$. "More than $d$ away" is $|x - T| > d$: two pieces.
+
+<StepReveal
+  client:visible
+  title="Machine tolerance"
+  problem="A bolt must be $50$ mm long with a tolerance of $0.2$ mm: its length $x$ must satisfy $|x - 50| \le 0.2$. Which lengths are accepted?"
+  steps={[
+    { show: '**Familiarize.** $x$ = length in mm. Accepted lengths are close to $50$: within $0.2$.', why: 'A $50.1$ mm bolt is fine; a $50.3$ mm bolt is not.' },
+    { show: '**Translate.** $-0.2 \\le x - 50 \\le 0.2$', why: '"Less than or equal" gives one interval.' },
+    { show: '**Solve.** $49.8 \\le x \\le 50.2$', why: 'Add $50$ to all three parts.' },
+    { show: '**Check.** $x = 50.2$: $|0.2| \\le 0.2$ ✓; $x = 50.3$: $|0.3| \\le 0.2$ ✗', why: '' },
+    { show: '**State.** Bolts from $49.8$ mm to $50.2$ mm are accepted: $[49.8, 50.2]$.', why: '' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="Margin of error"
+  problem="A poll reports $52\%$ support with a margin of error of $3$ percentage points: the true support $s$ satisfies $|s - 52| \le 3$. Can we be sure that a majority (more than $50\%$) supports the plan?"
+  steps={[
+    { show: '**Familiarize.** $s$ = the true support, in percent.', why: '' },
+    { show: '**Translate & solve.** $-3 \\le s - 52 \\le 3 \\;\\Rightarrow\\; 49 \\le s \\le 55$', why: '' },
+    { show: '**Check.** The interval $[49, 55]$ includes values below $50$, such as $49.5$.', why: '' },
+    { show: '**State.** No — the true support could be anywhere from $49\\%$ to $55\\%$, so a majority is likely but not certain.', why: 'This is why news reports call such polls “too close to call”.' },
+  ]}
+/>
+
+<Practice client:visible lesson="9.3" skill="apply" compact />
+
+## Common mistakes
+
+<Callout type="warning" title="Splitting before isolating">
+In $3|x + 1| - 2 = 10$, writing $3(x + 1) - 2 = \pm 10$ is wrong. Isolate first: $|x + 1| = 4$, then split.
+</Callout>
+
+<Callout type="warning" title="“Less than” written as “or”">
+$|x - 4| < 3$ is **one** interval: $-3 < x - 4 < 3$. "Or" belongs to "greater than". Memory aid: *less than* → *between*; *greater than* → *outside*.
+</Callout>
+
+<Callout type="warning" title="Forgetting the negative case">
+$|2x - 3| = 7$ has two solutions. Solving only $2x - 3 = 7$ loses $x = -2$.
+</Callout>
+
+<Callout type="warning" title="Solving |X| = −4 anyway">
+If the isolated absolute value equals a negative number, stop: no solution. For $|X| > -4$, every number works.
+</Callout>
+
 ## Summary
 
-- $|X| = d$: $X = \pm d$ (no solution if $d < 0$).
-- $|X| < d$: $-d < X < d$ — "less than" gives one interval ("and").
-- $|X| > d$: $X < -d$ or $X > d$ — "greater than" gives two pieces ("or").
+- $|x - h|$ is the distance between $x$ and $h$. Isolate the absolute value before splitting.
+- $|X| = d$: $X = \pm d$; $|A| = |B|$: $A = B$ or $A = -B$.
+- $|X| < d$: $-d < X < d$ (between); $|X| > d$: $X < -d$ or $X > d$ (outside).
+- Negative right side: $|X| = -d$ and $|X| < -d$ have no solution; $|X| > -d$ is every real number.
+- "Within $d$ of $T$" is $|x - T| \le d$.
+
+**Next, in 9.4:** inequalities in **two** variables, whose solutions fill whole regions of the plane.
 
 ## Practice
 

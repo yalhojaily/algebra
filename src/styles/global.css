@@ -159,3 +159,4 @@ table.nice th { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0
 .table-scroll { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .fig-center { display: flex; justify-content: center; margin: 1em 0; }
 .fig-center svg { max-width: 100%; height: auto; }
+.fig-caption { text-align: center; font-size: 0.88rem; color: var(--ink-3); margin: -0.4em auto 1.2em; max-width: 520px; }

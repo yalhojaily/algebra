@@ -2,22 +2,24 @@
 id: "9.1"
 title: Sets, Inequalities, and Interval Notation
 summary: Describe solution sets three ways — with an inequality, on a number line, and in interval notation — and solve inequalities with the addition and multiplication principles.
-minutes: 35
+minutes: 45
 objectives:
   - Write solution sets in set-builder and interval notation.
   - Graph sets on a number line and read sets from graphs.
-  - Solve linear inequalities, reversing the sign when multiplying or dividing by a negative.
-  - Solve applied problems with inequalities.
+  - Explain why the inequality sign reverses when multiplying or dividing by a negative number.
+  - Solve linear inequalities, including ones with variables on both sides and fractions.
+  - Translate "at least", "at most" and similar phrases, and solve applied problems.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import IntervalBuilder from '../../components/IntervalBuilder.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
 
 <Callout type="why">
-An equation like $2x + 1 = 7$ has one answer. An inequality like $2x + 1 < 7$ has infinitely many — every number less than $3$. We need compact ways to write such **sets** of numbers.
+An equation like $2x + 1 = 7$ has one answer. An inequality like $2x + 1 < 7$ has infinitely many — every number less than $3$. Real limits are like that: a budget of *at most* 50 dollars, a speed of *no more than* 120 km/h, a grade of *at least* 85. We need compact, precise ways to write such **sets** of numbers, and reliable rules for finding them.
 </Callout>
 
 ## Three ways to write a set
@@ -28,19 +30,47 @@ An equation like $2x + 1 = 7$ has one answer. An inequality like $2x + 1 < 7$ ha
 | $x > 1$ | $\{x \mid x > 1\}$ | $(1, \infty)$ |
 | $x \le 3$ | $\{x \mid x \le 3\}$ | $(-\infty, 3]$ |
 
-Brackets $[\ ]$ mean the endpoint is **included**; parentheses $(\ )$ mean it is **not**. $\infty$ always takes a parenthesis. Build your own:
+Set-builder notation is read "the set of all $x$ such that …". In interval notation, a bracket $[\ ]$ means the endpoint is **included**; a parenthesis $(\ )$ means it is **not**. $\infty$ is not a number you can reach, so it always takes a parenthesis. On a number line, a filled dot is an included endpoint and an open dot is an excluded one.
+
+Build your own and watch all three forms change together:
 
 <IntervalBuilder client:visible />
+
+<QuickCheck
+  client:visible
+  question="Which interval is the set $\{x \mid x \ge -2\}$?"
+  options={['$[-2, \\infty)$', '$(-2, \\infty)$', '$[-2, \\infty]$', '$(-\\infty, -2]$']}
+  answer={0}
+  explain="$-2$ is included ($\ge$), so it gets a bracket; the set goes on forever to the right, and $\infty$ always gets a parenthesis."
+  wrong={{ 1: 'A parenthesis would leave $-2$ out, but $\\ge$ includes it.', 2: '$\\infty$ is never included, so it always gets a parenthesis.', 3: 'That is $x \\le -2$: the numbers to the **left** of $-2$.' }}
+/>
 
 <Practice client:visible lesson="9.1" skill="notation" compact />
 
 <Practice client:visible lesson="9.1" skill="graph" compact />
 
-## Solving inequalities
+## Solving inequalities — and why the sign can flip
 
-The **addition principle** — add or subtract the same number on both sides — works exactly as for equations. The **multiplication principle** has one twist:
+The **addition principle** works exactly as for equations: adding or subtracting the same number on both sides keeps the inequality true, because it slides both numbers the same distance along the number line.
+
+The **multiplication principle** has one twist. Multiplying both sides by a **positive** number keeps the order. Multiplying by a **negative** number reverses it:
+
+$$2 < 5, \qquad \text{but} \qquad -1 \cdot 2 = -2 \;>\; -5 = -1 \cdot 5.$$
+
+Multiplying by $-1$ reflects every number across $0$, so whatever was further right ends up further left. That is why:
 
 > Multiplying or dividing both sides by a **negative** number **reverses** the inequality sign.
+
+<StepReveal
+  client:visible
+  title="No flip needed"
+  problem="Solve: $\;3x - 4 < 11$"
+  steps={[
+    { show: '$3x < 15$', why: 'Add $4$ to both sides.' },
+    { show: '$x < 5$', why: 'Divide by $3$, a positive number: the sign stays.' },
+    { show: '$(-\\infty, 5)$', why: 'Check one number: $x = 0$ gives $-4 < 11$ ✓.' },
+  ]}
+/>
 
 <StepReveal
   client:visible
@@ -49,27 +79,117 @@ The **addition principle** — add or subtract the same number on both sides —
   steps={[
     { show: '$-3x \\le 12$', why: 'Subtract $5$ from both sides.' },
     { show: '$x \\ge -4$', why: 'Divide by $-3$ — and reverse $\\le$ to $\\ge$.' },
-    { show: '$[-4, \\infty)$', why: 'Check: $x = 0$ gives $5 \\le 17$ ✓; $x = -5$ gives $20 \\le 17$ ✗.' },
+    { show: '$[-4, \\infty)$', why: 'Check: $x = 0$ gives $5 \\le 17$ ✓; $x = -5$ gives $20 \\le 17$ ✗, as expected.' },
   ]}
 />
 
-<Callout type="warning" title="Why the sign flips">
-$2 < 5$ is true. Multiply both sides by $-1$: $-2$ and $-5$. Now $-2 > -5$. Multiplying by a negative mirrors the number line, so the order reverses.
-</Callout>
+<StepReveal
+  client:visible
+  title="Variables on both sides"
+  problem="Solve: $\;5x + 2 \ge 2x - 7$"
+  steps={[
+    { show: '$3x + 2 \\ge -7$', why: 'Subtract $2x$ from both sides — collect $x$ on the side where its coefficient stays positive.' },
+    { show: '$3x \\ge -9 \\;\\Rightarrow\\; x \\ge -3$', why: 'Dividing by positive $3$: no flip.' },
+    { show: '$[-3, \\infty)$', why: 'Check: $x = 0$ gives $2 \\ge -7$ ✓.' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="Clear the fractions"
+  problem="Solve: $\;\dfrac{x}{2} - 1 > \dfrac{x}{3}$"
+  steps={[
+    { show: '$3x - 6 > 2x$', why: 'Multiply every term by the LCD, $6$ (positive, so no flip).' },
+    { show: '$x > 6$', why: 'Subtract $2x$, add $6$.' },
+    { show: '$(6, \\infty)$', why: 'Check: $x = 12$ gives $6 - 1 = 5 > 4$ ✓.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Solve: $\;-2x > 8$"
+  options={['$x < -4$', '$x > -4$', '$x < 4$', '$x > 4$']}
+  answer={0}
+  explain="Divide by $-2$ and reverse the sign: $x < -4$. Check $x = -5$: $-2(-5) = 10 > 8$ ✓."
+  wrong={{ 1: 'You divided by a negative number, so the sign must reverse. Check $x = 0$: is $0 > 8$?', 2: '$8 \\div (-2) = -4$, not $4$.', 3: 'Two slips: $8 \\div (-2) = -4$, and the sign must reverse.' }}
+/>
 
 <Practice client:visible lesson="9.1" skill="solve" compact />
 
-## Applications
+## In a real context
 
-Words like **at least** ($\ge$), **at most** ($\le$), **more than** ($>$) and **less than** ($<$) signal inequalities.
+Inequality words have exact meanings:
+
+| Words | Symbol | Example |
+|---|---|---|
+| at least, no less than, a minimum of | $\ge$ | at least 18 years old: $a \ge 18$ |
+| at most, no more than, a maximum of | $\le$ | at most 50 dollars: $c \le 50$ |
+| more than, exceeds | $>$ | more than 3 hours: $t > 3$ |
+| less than, under | $<$ | under 12: $a < 12$ |
+
+<StepReveal
+  client:visible
+  title="A taxi budget"
+  problem="A taxi charges a $4$-dollar pick-up fee plus $2$ dollars per kilometer. You can spend at most $24$ dollars. How far can you go?"
+  steps={[
+    { show: '**Familiarize.** Let $n$ = kilometers. "At most" means $\\le$.', why: 'Guess: $5$ km costs $4 + 10 = 14$ dollars — you can go further.' },
+    { show: '**Translate.** $4 + 2n \\le 24$', why: 'Fee plus distance cost must not exceed the budget.' },
+    { show: '**Solve.** $2n \\le 20 \\;\\Rightarrow\\; n \\le 10$', why: '' },
+    { show: '**Check.** $4 + 2(10) = 24$ ✓ (exactly the budget); $11$ km would cost $26$ ✗', why: '' },
+    { show: '**State.** You can go at most $10$ km.', why: '' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="What score do I need?"
+  problem="Your test scores are $88$, $81$ and $94$. What scores on a fourth test (out of $100$) give an average of at least $85$?"
+  steps={[
+    { show: '**Familiarize.** Let $x$ = the fourth score, between $0$ and $100$.', why: 'Guess $x = 80$: average $\\frac{343}{4} = 85.75$ — enough. So the answer is a range that includes $80$.' },
+    { show: '**Translate.** $\\dfrac{88 + 81 + 94 + x}{4} \\ge 85$', why: '' },
+    { show: '**Solve.** $263 + x \\ge 340 \\;\\Rightarrow\\; x \\ge 77$', why: 'Multiply by $4$ (positive), then subtract $263$.' },
+    { show: '**Check.** $x = 77$: average $\\frac{340}{4} = 85$ ✓', why: 'And a score can be at most $100$.' },
+    { show: '**State.** Any score from $77$ to $100$: the set $[77, 100]$.', why: '' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="“No more than $50$ people” means, for the number of people $p$…"
+  options={['$p \\le 50$', '$p < 50$', '$p \\ge 50$', '$p > 50$']}
+  answer={0}
+  explain="“No more than 50” allows exactly $50$ and anything below it."
+  wrong={{ 1: 'Exactly $50$ people is allowed — “no more than” includes $50$.', 2: 'That is “at least 50”.', 3: 'That is “more than 50”.' }}
+/>
 
 <Practice client:visible lesson="9.1" skill="apply" compact />
 
+## Common mistakes
+
+<Callout type="warning" title="Forgetting to reverse the sign">
+From $-3x \le 12$, dividing by $-3$ gives $x \ge -4$, not $x \le -4$. Check with a number: $x = 0$ should make the original true.
+</Callout>
+
+<Callout type="warning" title="Reversing when you shouldn't">
+Only **multiplying or dividing by a negative** reverses the sign. Subtracting $5$ — even from a negative number — doesn't. Neither does dividing a negative number by a positive one: from $3x < -12$, $x < -4$.
+</Callout>
+
+<Callout type="warning" title="A bracket on infinity">
+$[-2, \infty]$ is wrong: $\infty$ is not a number that can be included. Write $[-2, \infty)$.
+</Callout>
+
+<Callout type="warning" title="“At least” as “more than”">
+"At least 85" includes $85$: use $\ge$, and a bracket in interval notation.
+</Callout>
+
 ## Summary
 
-- Inequality, set-builder and interval notation describe the same set.
-- $[\ ]$ includes the endpoint, $(\ )$ excludes it; $\pm\infty$ always gets $(\ )$.
-- Reverse the sign when multiplying or dividing by a negative.
+- Inequality, set-builder and interval notation describe the same set; $[\ ]$ includes an endpoint, $(\ )$ excludes it, $\pm\infty$ always gets $(\ )$.
+- Add or subtract anything; multiply or divide by a positive number freely.
+- Multiplying or dividing by a **negative** reverses the sign, because it reflects the number line.
+- "At least" is $\ge$, "at most" is $\le$; check one number from your answer in the original inequality.
+
+**Next, in 9.2:** two conditions at once — "at least 120 cm **and** at most 200 cm", "under 12 **or** over 65".
 
 ## Practice
 

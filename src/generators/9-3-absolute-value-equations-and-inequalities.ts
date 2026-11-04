@@ -86,12 +86,66 @@ function twoAbs(): Problem {
   }
 }
 
+
+/** Tolerance word problems: |x − target| ≤ tolerance. */
+function tolerance(): Problem {
+  const kind = pick(['part', 'poll', 'oven'] as const);
+  if (kind === 'poll') {
+    const p = randInt(35, 65), m = pick([2, 3, 4]);
+    const ans = iv(p - m, p + m, true, true);
+    return {
+      skill: 'apply',
+      prompt: `A poll says ${p}% of voters support a plan, with a margin of error of ${m} percentage points. So the true support $s$ satisfies $|s - ${p}| \\le ${m}$. Write the possible values of $s$ in interval notation.`,
+      answer: { type: 'interval', ...ans },
+      hints: ['Unknown: the true support $s$. "Within the margin of error" means the distance from ' + p + ' is at most ' + m + ': a **less-than** absolute value, so one interval.', `$-${m} \\le s - ${p} \\le ${m}$`],
+      solution: [`$-${m} \\le s - ${p} \\le ${m}$`, `$${p - m} \\le s \\le ${p + m}$, that is $${ivTex(ans)}$`],
+      placeholder: '[49, 55]',
+    };
+  }
+  if (kind === 'oven') {
+    const T = pick([180, 200, 220, 250]), d = pick([5, 10, 15]);
+    const ans = iv(T - d, T + d, true, true);
+    return {
+      skill: 'apply',
+      prompt: `An oven set to ${T}°C stays within ${d}°C of the setting. Write an interval for the possible temperatures $t$, using $|t - ${T}| \\le ${d}$.`,
+      answer: { type: 'interval', ...ans },
+      hints: [`Unknown: the temperature $t$. "Within ${d} of ${T}" is a distance: $|t - ${T}| \\le ${d}$, so $-${d} \\le t - ${T} \\le ${d}$.`],
+      solution: [`$${T - d} \\le t \\le ${T + d}$, that is $${ivTex(ans)}$`],
+      placeholder: '[190, 210]',
+    };
+  }
+  const L = pick([25, 40, 50, 75, 120]), t = pick([0.1, 0.2, 0.25, 0.5]);
+  const lo = +(L - t).toFixed(2), hi = +(L + t).toFixed(2);
+  const ans = iv(lo, hi, true, true);
+  const out = Math.random() < 0.4;
+  if (out) {
+    const parts = [iv(-Infinity, lo, false, false), iv(hi, Infinity, false, false)];
+    return {
+      skill: 'apply',
+      prompt: `A bolt should be ${L} mm long. A bolt is **rejected** if $|x - ${L}| > ${t}$, where $x$ is its length. Which lengths are rejected? Write the set in interval notation.`,
+      answer: { type: 'intervals', parts },
+      hints: [`Unknown: the length $x$. A **greater-than** absolute value gives two pieces ("or"): too short **or** too long.`, `$x - ${L} < -${t}$ or $x - ${L} > ${t}$`],
+      solution: [`$x < ${lo}$ or $x > ${hi}$`, `$(-\\infty, ${lo}) \\cup (${hi}, \\infty)$`],
+      placeholder: '(-inf, 49.8) U (50.2, inf)',
+    };
+  }
+  return {
+    skill: 'apply',
+    prompt: `A bolt must be ${L} mm long, with a tolerance of ${t} mm: its length $x$ must satisfy $|x - ${L}| \\le ${t}$. Which lengths are accepted? Write the set in interval notation.`,
+    answer: { type: 'interval', ...ans },
+    hints: [`Unknown: the length $x$. A **less-than** absolute value gives one interval ("and"): $-${t} \\le x - ${L} \\le ${t}$.`],
+    solution: [`$-${t} \\le x - ${L} \\le ${t}$`, `$${lo} \\le x \\le ${hi}$, that is $[${lo}, ${hi}]$`],
+    placeholder: '[49.8, 50.2]',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'equation', label: '|X| = c', generate: equation },
   { id: 'special', label: 'How many solutions?', generate: special },
   { id: 'less', label: '|X| < c', generate: lessThan },
   { id: 'greater', label: '|X| > c', generate: greaterThan },
   { id: 'two', label: '|A| = |B|', generate: twoAbs },
+  { id: 'apply', label: 'Word problems', generate: tolerance },
 ];
 
 export const masterySet = makeMasterySet(skills);

@@ -15,6 +15,8 @@ export interface PlaneProps {
   circles?: { cx: number; cy: number; r: number; cls?: string }[];
   /** Shaded half-planes a x + b y (op) c, with a dashed boundary when the inequality is strict. */
   regions?: { a: number; b: number; c: number; op: '<' | '<=' | '>' | '>='; cls?: string }[];
+  /** Filled polygons, e.g. the solution region of a system of inequalities. */
+  polygons?: { pts: [number, number][]; cls?: string }[];
   /** Pixel size of the square drawing (viewBox units). */
   size?: number;
   onPick?: (x: number, y: number) => void;
@@ -33,7 +35,7 @@ export interface PlaneMap {
 }
 
 /** A coordinate plane with grid, axes, points, lines and curves. Click handling snaps to integer points. */
-export function Plane({ range = 10, yRange, points = [], lines = [], curves = [], xcurves = [], segments = [], circles = [], regions = [], size = 420, onPick, children, label, every }: PlaneProps) {
+export function Plane({ range = 10, yRange, points = [], lines = [], curves = [], xcurves = [], segments = [], circles = [], regions = [], polygons = [], size = 420, onPick, children, label, every }: PlaneProps) {
   const r = range;
   const ry = yRange ?? range;
   const pad = 24;
@@ -126,6 +128,7 @@ export function Plane({ range = 10, yRange, points = [], lines = [], curves = []
       {xs.filter((x) => x !== 0 && x % step === 0).map((x) => <text key={`lx${x}`} x={X(x)} y={Y(0) + 15} className="pl-num">{x}</text>)}
       {ys.filter((y) => y !== 0 && y % step === 0).map((y) => <text key={`ly${y}`} x={X(0) - 6} y={Y(y) + 4} className="pl-num" style={{ textAnchor: 'end' }}>{y}</text>)}
       <g clipPath={`url(#plane-clip-${size}-${r}-${ry})`}>
+        {polygons.map((g, i) => <polygon key={`pg${i}`} points={g.pts.map(([x, y]) => `${X(x)},${Y(y)}`).join(' ')} className={`pl-poly ${g.cls ?? ''}`} />)}
         {regions.map((g, i) => <polygon key={`r${i}`} points={halfPlane(g.a, g.b, g.c, g.op)} className={`pl-region ${g.cls ?? ''}`} />)}
         {regions.map((g, i) => {
           const [x1, y1, x2, y2] = segment(g.a, g.b, g.c);
