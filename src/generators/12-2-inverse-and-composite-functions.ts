@@ -78,11 +78,48 @@ function inverse(): Problem {
   };
 }
 
+
+/** Word problems: discount-then-coupon compositions, and inverse conversions. */
+function functionWords(): Problem {
+  if (Math.random() < 0.5) {
+    const d = pick([10, 15, 20, 25, 30]), c = pick([5, 10, 15]), p = pick([40, 50, 60, 80, 100, 120]);
+    const discountFirst = Math.random() < 0.5;
+    const val = discountFirst ? (1 - d / 100) * p - c : (1 - d / 100) * (p - c);
+    const m = +(1 - d / 100).toFixed(2);
+    return {
+      skill: 'apply',
+      prompt: `A store takes ${d}% off a price, $f(p) = ${m}p$, and a coupon takes ${c} dollars off, $g(p) = p - ${c}$. ${discountFirst ? `The discount is applied **first**, then the coupon: the final price is $g(f(p))$.` : `The coupon is applied **first**, then the discount: the final price is $f(g(p))$.`} What do you pay for an item priced at ${p} dollars?`,
+      answer: { type: 'number', value: +val.toFixed(2), tol: 0.001 },
+      hints: [`Unknown: the final price. In a composition, the **inside** function acts first: ${discountFirst ? '$f$ (the discount)' : '$g$ (the coupon)'}.`, discountFirst ? `$f(${p}) = ${+(m * p).toFixed(2)}$, then apply $g$.` : `$g(${p}) = ${p - c}$, then apply $f$.`],
+      solution: discountFirst
+        ? [`$f(${p}) = ${m}(${p}) = ${+(m * p).toFixed(2)}$`, `$g(${+(m * p).toFixed(2)}) = ${+(m * p).toFixed(2)} - ${c} = ${+val.toFixed(2)}$ dollars`]
+        : [`$g(${p}) = ${p} - ${c} = ${p - c}$`, `$f(${p - c}) = ${m}(${p - c}) = ${+val.toFixed(2)}$ dollars`],
+      mistakes: [{ answer: String(+(discountFirst ? m * (p - c) : m * p - c).toFixed(2)), feedback: 'That applies the two steps in the other order. The inside function acts first.' }],
+      placeholder: '30',
+    };
+  }
+  const [what, fx, inv, unitIn, unitOut, a, b] = pick([
+    ['A taxi charges', 'C(d) = 3 + 2d', 'd = \\dfrac{C - 3}{2}', 'kilometers', 'dollars', 2, 3],
+    ['A plumber charges', 'C(h) = 40 + 60h', 'h = \\dfrac{C - 40}{60}', 'hours', 'dollars', 60, 40],
+    ['A phone plan costs', 'C(g) = 15 + 5g', 'g = \\dfrac{C - 15}{5}', 'gigabytes', 'dollars', 5, 15],
+  ] as [string, string, string, string, string, number, number][]);
+  const x = randInt(2, 12), y = a * x + b;
+  return {
+    skill: 'apply',
+    prompt: `${what} $${fx}$ ${unitOut} for $${fx[2]}$ ${unitIn}. Find the inverse function and use it: how many ${unitIn} cost ${y} ${unitOut}?`,
+    answer: { type: 'number', value: x },
+    hints: [`Unknown: the number of ${unitIn}. The inverse function goes **backwards**, from cost to ${unitIn}: solve $C = ${b} + ${a}${fx[2]}$ for $${fx[2]}$.`, `$${inv}$. Now put $C = ${y}$.`],
+    solution: [`Inverse: $${inv}$`, `$${fx[2]} = \\dfrac{${y} - ${b}}{${a}} = ${x}$ ${unitIn}. Check: $${b} + ${a}(${x}) = ${y}$ ✓`],
+    placeholder: '6',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'value', label: 'Composition at a number', generate: composeValue },
   { id: 'expr', label: 'Composition formula', generate: composeExpr },
   { id: 'onetoone', label: 'One-to-one?', generate: oneToOne },
   { id: 'inverse', label: 'Find the inverse', generate: inverse },
+  { id: 'apply', label: 'Word problems', generate: functionWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

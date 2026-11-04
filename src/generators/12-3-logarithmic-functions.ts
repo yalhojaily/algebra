@@ -67,11 +67,52 @@ function domain(): Problem {
   };
 }
 
+
+/** Logarithmic scales: pH, decibels, Richter magnitude. */
+function logScales(): Problem {
+  const kind = pick(['ph', 'db', 'quake'] as const);
+  if (kind === 'ph') {
+    const k = randInt(2, 12);
+    const thing = k <= 3 ? 'lemon juice' : k <= 5 ? 'coffee' : k <= 7 ? 'milk' : k <= 9 ? 'baking soda solution' : 'household ammonia';
+    return {
+      skill: 'apply',
+      prompt: `The pH of a solution is $\\text{pH} = -\\log[\\text{H}^+]$, where $[\\text{H}^+]$ is the hydrogen-ion concentration. A sample of ${thing} has $[\\text{H}^+] = 10^{-${k}}$. What is its pH?`,
+      answer: { type: 'number', value: k },
+      hints: ['Unknown: the pH. Substitute the concentration into the formula.', `$\\log 10^{-${k}}$ asks: 10 to what power is $10^{-${k}}$?`],
+      solution: [`$\\text{pH} = -\\log 10^{-${k}} = -(-${k}) = ${k}$`],
+      placeholder: '7',
+    };
+  }
+  if (kind === 'db') {
+    const k = randInt(3, 12);
+    const thing = k <= 4 ? 'a quiet library' : k <= 6 ? 'normal conversation' : k <= 8 ? 'busy traffic' : k <= 10 ? 'a lawn mower' : 'a rock concert';
+    return {
+      skill: 'apply',
+      prompt: `Sound level in decibels is $L = 10\\log\\dfrac{I}{I_0}$, where $I_0$ is the faintest sound we can hear. The sound of ${thing} is $10^{${k}}$ times as intense as $I_0$. What is its sound level (dB)?`,
+      answer: { type: 'number', value: 10 * k },
+      hints: [`Unknown: the level $L$. Here $\\dfrac{I}{I_0} = 10^{${k}}$.`, `$\\log 10^{${k}} = ${k}$; then multiply by 10.`],
+      solution: [`$L = 10\\log 10^{${k}} = 10 \\cdot ${k} = ${10 * k}$ dB`],
+      mistakes: [{ answer: String(k), feedback: `$\\log 10^{${k}} = ${k}$, but the formula multiplies by 10.` }],
+      placeholder: '60',
+    };
+  }
+  const k = randInt(2, 8);
+  return {
+    skill: 'apply',
+    prompt: `An earthquake's Richter magnitude is $M = \\log\\dfrac{A}{A_0}$, where $A$ is the amplitude of its seismic waves and $A_0$ a tiny reference amplitude. An earthquake has $A = ${(10 ** k).toLocaleString('en-US')}A_0$. What is its magnitude?`,
+    answer: { type: 'number', value: k },
+    hints: [`Unknown: the magnitude $M$. $\\dfrac{A}{A_0} = ${(10 ** k).toLocaleString('en-US')} = 10^{${k}}$.`, 'A logarithm is an exponent: 10 to what power?'],
+    solution: [`$M = \\log ${10 ** k} = \\log 10^{${k}} = ${k}$`],
+    placeholder: '5',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'convert', label: 'Exponential ↔ logarithmic form', generate: convert },
   { id: 'evaluate', label: 'Evaluate logarithms', generate: evaluate },
   { id: 'solve', label: 'Solve simple log equations', generate: solveLog },
   { id: 'domain', label: 'Domain', generate: domain },
+  { id: 'apply', label: 'Word problems', generate: logScales },
 ];
 
 export const masterySet = makeMasterySet(skills);

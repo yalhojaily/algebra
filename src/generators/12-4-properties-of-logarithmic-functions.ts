@@ -92,11 +92,40 @@ function inverseProps(): Problem {
   };
 }
 
+
+/** Log rules on logarithmic scales: multiplying the intensity adds to the level. */
+function scaleRules(): Problem {
+  if (Math.random() < 0.5) {
+    const k = randInt(1, 3), M = randInt(3, 6) + pick([0, 0.5]);
+    return {
+      skill: 'apply',
+      prompt: `Richter magnitude is $M = \\log\\dfrac{A}{A_0}$. One earthquake has magnitude ${M}. Another has seismic waves ${(10 ** k).toLocaleString('en-US')} times as large in amplitude. What is the magnitude of the second earthquake?`,
+      answer: { type: 'number', value: M + k },
+      hints: [`Unknown: the new magnitude. The new amplitude is $${10 ** k}A$, so its magnitude is $\\log\\dfrac{${10 ** k}A}{A_0}$.`, `Product rule: $\\log\\left(${10 ** k}\\cdot\\dfrac{A}{A_0}\\right) = \\log ${10 ** k} + \\log\\dfrac{A}{A_0}$.`],
+      solution: [`$\\log\\left(${10 ** k}\\cdot\\dfrac{A}{A_0}\\right) = \\log ${10 ** k} + \\log\\dfrac{A}{A_0} = ${k} + ${M} = ${M + k}$`, `Multiplying the amplitude by ${10 ** k} **adds** ${k} to the magnitude.`],
+      mistakes: [{ answer: String(M * 10 ** k), feedback: 'A logarithmic scale doesn\'t multiply: the product rule turns “times ' + 10 ** k + '” into “plus ' + k + '”.' }],
+      placeholder: '7',
+    };
+  }
+  const f = pick([2, 3, 4, 5, 10, 100]), L = randInt(4, 9) * 10;
+  const add = 10 * Math.log10(f);
+  return {
+    skill: 'apply',
+    prompt: `Sound level is $L = 10\\log\\dfrac{I}{I_0}$ decibels. A speaker plays at ${L} dB. If the sound intensity is multiplied by ${f}, what is the new level? Round to the nearest hundredth of a decibel.`,
+    answer: { type: 'number', value: +(L + add).toFixed(2), tol: 0.006 },
+    hints: [`Unknown: the new level. New intensity $${f}I$: $\;10\\log\\dfrac{${f}I}{I_0} = 10\\left(\\log ${f} + \\log\\dfrac{I}{I_0}\\right)$.`, `That is $10\\log ${f} + ${L}$.`],
+    solution: [`$10\\log\\dfrac{${f}I}{I_0} = 10\\log ${f} + 10\\log\\dfrac{I}{I_0} = ${+add.toFixed(2)} + ${L}$`, `$\\approx ${(L + add).toFixed(2)}$ dB`],
+    mistakes: [{ answer: String(L * f), feedback: `Multiplying the intensity by ${f} doesn't multiply the decibels — it **adds** $10\\log ${f}$.` }],
+    placeholder: '63.01',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'expand', label: 'Expand', generate: expand },
   { id: 'condense', label: 'Condense', generate: condense },
   { id: 'numeric', label: 'Simplify with numbers', generate: numeric },
   { id: 'inverse', label: 'Inverse properties', generate: inverseProps },
+  { id: 'apply', label: 'Word problems', generate: scaleRules },
 ];
 
 export const masterySet = makeMasterySet(skills);

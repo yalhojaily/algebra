@@ -82,11 +82,28 @@ function domainLn(): Problem {
   };
 }
 
+
+/** Continuous compounding A = Pe^{rt}. */
+function continuous(): Problem {
+  const P = pick([500, 1000, 2500, 5000, 10000]), r = pick([2, 3, 4, 5, 6, 8]), t = pick([2, 5, 10, 15, 20]);
+  const A = P * Math.exp((r / 100) * t);
+  return {
+    skill: 'apply',
+    prompt: `${P.toLocaleString('en-US')} dollars is invested at ${r}% interest **compounded continuously**: $A = Pe^{rt}$. How much is there after ${t} years? Round to the nearest cent.`,
+    answer: { type: 'number', value: +A.toFixed(2), tol: 0.011 },
+    hints: [`Unknown: the amount $A$. Use the rate as a decimal: $r = ${r / 100}$.`, `$A = ${P}e^{${r / 100}\\cdot ${t}} = ${P}e^{${+((r / 100) * t).toFixed(4)}}$ — use the $e^x$ key.`],
+    solution: [`$A = ${P}e^{${+((r / 100) * t).toFixed(4)}} \\approx ${P}(${Math.exp((r / 100) * t).toFixed(6)}) \\approx ${A.toFixed(2)}$ dollars`],
+    mistakes: [{ answer: (P * Math.exp(r * t)).toFixed(2), feedback: `Use the rate as a decimal: ${r}% = ${r / 100}.` }],
+    placeholder: '1491.82',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'exact', label: 'Exact values', generate: exact },
   { id: 'calc', label: 'Calculator values', generate: calculator },
   { id: 'base', label: 'Change of base', generate: changeBase },
   { id: 'domain', label: 'Domain', generate: domainLn },
+  { id: 'apply', label: 'Word problems', generate: continuous },
 ];
 
 export const masterySet = makeMasterySet(skills);

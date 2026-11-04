@@ -2,68 +2,110 @@
 id: "12.2"
 title: Inverse and Composite Functions
 summary: "Composition feeds one function's output into another: (f ∘ g)(x) = f(g(x)). An inverse function undoes f, and exists exactly when f is one-to-one."
-minutes: 40
+minutes: 45
 objectives:
-  - Find composite functions and their values.
-  - Decide whether a function is one-to-one.
-  - Find a formula for the inverse of a one-to-one function.
+  - Find composite functions and their values, and see that order matters.
+  - Explain why only one-to-one functions have inverses, and use the horizontal-line test.
+  - Find a formula for the inverse of a one-to-one function and check it by composition.
   - Understand the graph of an inverse as a reflection in y = x.
+  - Use compositions and inverses in everyday situations.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import InverseMirror from '../../components/InverseMirror.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
 
 <Callout type="why">
-Converting euros to dollars and then dollars to yen is a **composition** of two conversions. Converting back from yen to euros needs **inverse** functions. Logarithms, coming in 12.3, are defined as inverses of exponential functions.
+A store takes 20% off and you also have a 10-dollar coupon: which is applied first changes what you pay. That's a **composition** of two functions. Converting a temperature from Fahrenheit back to Celsius **undoes** a conversion — an **inverse** function. Logarithms, coming in 12.3, are defined exactly this way: as the inverses of exponential functions.
 </Callout>
 
 ## Composite functions
 
 $$(f \circ g)(x) = f(g(x))$$
 
-Apply $g$ first, then $f$. Order matters: usually $f(g(x)) \ne g(f(x))$.
+Read it from the inside out: apply $g$ first, then feed the result to $f$. Order matters — usually $f(g(x)) \ne g(f(x))$.
 
 <StepReveal
   client:visible
   title="Compose"
-  problem="$f(x) = 3x - 1$, $g(x) = x^2$. Find $(f \circ g)(x)$ and $(g \circ f)(x)$."
+  problem="$f(x) = 3x - 1$, $g(x) = x^2$. Find $(f \circ g)(2)$, $(f \circ g)(x)$ and $(g \circ f)(x)$."
   steps={[
-    { show: '$(f \\circ g)(x) = f(x^2) = 3x^2 - 1$', why: 'Put $g(x)$ into $f$.' },
-    { show: '$(g \\circ f)(x) = g(3x - 1) = (3x - 1)^2 = 9x^2 - 6x + 1$', why: 'Put $f(x)$ into $g$ — a different result.' },
+    { show: '$(f \\circ g)(2) = f(g(2)) = f(4) = 11$', why: 'Inside first: $g(2) = 4$.' },
+    { show: '$(f \\circ g)(x) = f(x^2) = 3x^2 - 1$', why: 'Put $g(x)$ into $f$ wherever $f$ has $x$.' },
+    { show: '$(g \\circ f)(x) = g(3x - 1) = (3x - 1)^2 = 9x^2 - 6x + 1$', why: 'The other order gives a different function.' },
   ]}
+/>
+
+<StepReveal
+  client:visible
+  title="Break a function apart"
+  problem="Write $\;h(x) = (2x + 1)^3\;$ as $f(g(x))$."
+  steps={[
+    { show: '$g(x) = 2x + 1$ (the inside), $\\;f(x) = x^3$ (what is done to it)', why: 'Then $f(g(x)) = (2x + 1)^3$ ✓.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="If $f(x) = x + 3$ and $g(x) = 2x$, what is $(f \circ g)(1)$?"
+  options={['$5$', '$8$', '$4$', '$6$']}
+  answer={0}
+  explain="Inside first: $g(1) = 2$, then $f(2) = 5$."
+  wrong={{ 1: 'That is $(g \\circ f)(1) = g(4)$ — the other order.', 2: 'That is $f(1)$ only.', 3: 'Apply $g$, then $f$: $g(1) = 2$, $f(2) = 5$.' }}
 />
 
 <Practice client:visible lesson="12.2" skill="value" compact />
 
 <Practice client:visible lesson="12.2" skill="expr" compact />
 
-## One-to-one functions and inverses
+## One-to-one functions — and why only they have inverses
+
+An inverse must send each output **back** to the input it came from. That's only possible if no two inputs share an output. $f(x) = x^2$ sends both $2$ and $-2$ to $4$; given $4$, an "inverse" couldn't know which to return.
 
 A function is **one-to-one** if different inputs always give different outputs. Graphically: no horizontal line crosses the graph more than once (the **horizontal-line test**). Only one-to-one functions have inverses.
 
-<InverseMirror client:visible />
+<QuickCheck
+  client:visible
+  question="Which function is one-to-one?"
+  options={['$f(x) = x^3$', '$f(x) = x^2$', '$f(x) = |x|$', '$f(x) = 5$']}
+  answer={0}
+  explain="Different inputs always give different cubes: every horizontal line crosses $y = x^3$ exactly once."
+  wrong={{ 1: '$2$ and $-2$ both give $4$.', 2: '$3$ and $-3$ both give $3$.', 3: 'Every input gives $5$ — the most "not one-to-one" a function can be.' }}
+/>
 
 <Practice client:visible lesson="12.2" skill="onetoone" compact />
 
 ## Finding a formula for the inverse
 
+The inverse **swaps** the roles of input and output. So:
+
 1. Replace $f(x)$ with $y$.
 2. **Swap** $x$ and $y$.
 3. Solve for $y$.
-4. Replace $y$ with $f^{-1}(x)$.
+4. Replace $y$ with $f^{-1}(x)$, and check: $f(f^{-1}(x)) = x$.
 
 <StepReveal
   client:visible
-  title="Find the inverse"
+  title="A linear function"
   problem="Find $f^{-1}(x)$ for $\;f(x) = 2x + 3$."
   steps={[
     { show: '$y = 2x + 3$', why: '' },
     { show: '$x = 2y + 3$', why: 'Swap $x$ and $y$.' },
-    { show: '$y = \\dfrac{x - 3}{2}$', why: 'Solve for $y$.' },
+    { show: '$y = \\dfrac{x - 3}{2}$', why: 'Solve for $y$. In words: $f$ doubles and adds $3$; $f^{-1}$ subtracts $3$ and halves — the steps undone in reverse order.' },
     { show: '$f^{-1}(x) = \\dfrac{x - 3}{2}$', why: 'Check: $f(f^{-1}(x)) = 2 \\cdot \\frac{x - 3}{2} + 3 = x$ ✓' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="A cubic"
+  problem="Find $f^{-1}(x)$ for $\;f(x) = x^3 - 1$."
+  steps={[
+    { show: '$x = y^3 - 1 \\;\\Rightarrow\\; y^3 = x + 1$', why: 'Swap, then isolate $y^3$.' },
+    { show: '$f^{-1}(x) = \\sqrt[3]{x + 1}$', why: 'Check: $f(\\sqrt[3]{x + 1}) = (x + 1) - 1 = x$ ✓' },
   ]}
 />
 
@@ -73,11 +115,68 @@ The $-1$ in $f^{-1}$ is not an exponent. $f^{-1}$ is the function that undoes $f
 
 <Practice client:visible lesson="12.2" skill="inverse" compact />
 
+## The graph of an inverse
+
+If $(a, b)$ is on the graph of $f$, then $f^{-1}(b) = a$, so $(b, a)$ is on the graph of $f^{-1}$. Swapping coordinates reflects a point across the line $y = x$ — so the graph of $f^{-1}$ is the **mirror image** of the graph of $f$ in $y = x$.
+
+<InverseMirror client:visible />
+
+<QuickCheck
+  client:visible
+  question="If $f(3) = 7$, what is $f^{-1}(7)$?"
+  options={['$3$', '$7$', '$\\tfrac{1}{7}$', '$\\tfrac{1}{3}$']}
+  answer={0}
+  explain="$f$ sends $3$ to $7$, so $f^{-1}$ sends $7$ back to $3$."
+  wrong={{ 1: '$f^{-1}$ undoes $f$; it returns the input that produced $7$.', 2: '$f^{-1}$ is not a reciprocal.', 3: '$f^{-1}$ is not a reciprocal.' }}
+/>
+
+## In a real context
+
+<StepReveal
+  client:visible
+  title="Discount and coupon"
+  problem="A shirt costs $50$ dollars. The store takes $20\%$ off, $f(p) = 0.8p$, and you have a $10$-dollar coupon, $g(p) = p - 10$. Compare $g(f(50))$ and $f(g(50))$."
+  steps={[
+    { show: '**Discount first:** $g(f(50)) = g(40) = 30$ dollars', why: '$f$ acts first because it is inside.' },
+    { show: '**Coupon first:** $f(g(50)) = f(40) = 32$ dollars', why: '' },
+    { show: 'Discount first saves $2$ more dollars.', why: 'In general $g(f(p)) = 0.8p - 10$ and $f(g(p)) = 0.8p - 8$: taking 20% off first shrinks the price before the fixed 10 comes off.' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="Undo a conversion"
+  problem="$F(C) = 1.8C + 32$ converts Celsius to Fahrenheit. Find the inverse and convert $77°F$ to Celsius."
+  steps={[
+    { show: '$F = 1.8C + 32 \\;\\Rightarrow\\; C = \\dfrac{F - 32}{1.8}$', why: 'Solve for the input.' },
+    { show: '$C = \\dfrac{77 - 32}{1.8} = \\dfrac{45}{1.8} = 25$', why: 'Check: $1.8(25) + 32 = 77$ ✓.' },
+  ]}
+/>
+
+<Practice client:visible lesson="12.2" skill="apply" compact />
+
+## Common mistakes
+
+<Callout type="warning" title="Composing in the wrong order">
+$(f \circ g)(x) = f(g(x))$: $g$ acts **first**, even though $f$ is written first.
+</Callout>
+
+<Callout type="warning" title="Forgetting to swap">
+Solving $y = 2x + 3$ for $x$ gives the right formula with the letters in the wrong roles. Swap $x$ and $y$, then solve for $y$.
+</Callout>
+
+<Callout type="warning" title="Inverting a function that isn't one-to-one">
+$y = x^2$ has no inverse on all real numbers; $\pm\sqrt{x}$ is not a function. (Restricting to $x \ge 0$ fixes it: then $f^{-1}(x) = \sqrt{x}$.)
+</Callout>
+
 ## Summary
 
-- $(f \circ g)(x) = f(g(x))$ — inside first.
-- One-to-one ⇔ passes the horizontal-line test ⇔ has an inverse.
-- Find $f^{-1}$ by swapping $x$ and $y$ and solving; its graph is $f$ reflected in $y = x$.
+- $(f \circ g)(x) = f(g(x))$ — inside first; order matters.
+- Only one-to-one functions (horizontal-line test) have inverses, because an inverse must send each output back to one input.
+- Find $f^{-1}$ by swapping $x$ and $y$ and solving; check that $f(f^{-1}(x)) = x$.
+- The graph of $f^{-1}$ is the graph of $f$ reflected in $y = x$.
+
+**Next, in 12.3:** the inverse of the exponential function $b^x$ — the logarithm.
 
 ## Practice
 

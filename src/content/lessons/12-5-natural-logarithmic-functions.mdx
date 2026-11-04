@@ -2,39 +2,81 @@
 id: "12.5"
 title: Natural Logarithmic Functions
 summary: "The number e ≈ 2.71828 appears naturally in continuous growth. Logarithms base e are natural logarithms, written ln, and the change-of-base formula turns any logarithm into ln."
-minutes: 35
+minutes: 45
 objectives:
-  - Understand the number e.
+  - Explain where the number e comes from.
   - Evaluate natural logarithms and powers of e, exactly and with a calculator.
-  - Use the change-of-base formula.
+  - Derive and use the change-of-base formula.
   - Find domains of natural-log functions.
+  - Use continuous compounding.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import EApproach from '../../components/EApproach.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
 
 <Callout type="why">
-Calculators have only two log keys: LOG (base 10) and LN (base $e$). With the change-of-base formula, those two are enough to compute any logarithm.
+Calculators have only two log keys: LOG (base 10) and LN (base $e$). Why $e$, a strange number like $2.71828\ldots$? Because it is what you get when growth happens **continuously** — every instant instead of once a year — and that is how populations, radioactive decay and continuously compounded interest really behave. And with the change-of-base formula, those two keys are enough to compute any logarithm.
 </Callout>
 
-## The number e
+## Where e comes from
+
+Invest $1$ dollar at $100\%$ interest for a year. Compounded once, you get $2$. Compounded $n$ times, you get $\left(1 + \frac{1}{n}\right)^n$ — more, because interest earns interest sooner. But it doesn't grow without limit: as $n$ grows, the amount levels off at a special number,
+
+$$e = \lim_{n \to \infty}\left(1 + \frac{1}{n}\right)^n \approx 2.718281828.$$
 
 <EApproach client:visible />
 
+So compounding **continuously** at rate $r$ multiplies the money by $e^r$ each year: $A = Pe^{rt}$.
+
 ## Natural logarithms
 
-$$\ln x = \log_e x \qquad \ln e^x = x \qquad e^{\ln x} = x \qquad \ln 1 = 0 \qquad \ln e = 1$$
+The logarithm with base $e$ is the **natural logarithm**, $\ln x = \log_e x$. All the rules from 12.4 hold, and:
 
-All the rules from 12.4 hold for $\ln$. Type `ln(x)` and `e^(2x)`.
+$$\ln e^x = x \qquad e^{\ln x} = x \qquad \ln 1 = 0 \qquad \ln e = 1$$
+
+Type `ln(x)` and `e^(2x)`.
+
+<StepReveal
+  client:visible
+  title="Exact values"
+  problem="Simplify: $\;\ln e^5,\;\; e^{\ln 7},\;\; \ln\dfrac{1}{e^2},\;\; \ln \sqrt{e}$"
+  steps={[
+    { show: '$\\ln e^5 = 5$ and $e^{\\ln 7} = 7$', why: 'Inverse properties.' },
+    { show: '$\\ln\\dfrac{1}{e^2} = \\ln e^{-2} = -2$', why: 'Rewrite as a power of $e$ first.' },
+    { show: '$\\ln \\sqrt{e} = \\ln e^{1/2} = \\tfrac{1}{2}$', why: '' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="What is $\;\ln e^3$?"
+  options={['$3$', '$e^3$', '$3e$', '$1$']}
+  answer={0}
+  explain="$\ln$ asks for the exponent on $e$: here it is $3$."
+  wrong={{ 1: '$\\ln$ undoes the power of $e$; it returns the exponent.', 2: 'Power rule: $\\ln e^3 = 3\\ln e = 3 \\cdot 1$.', 3: '$\\ln e = 1$, but $\\ln e^3$ is $3$.' }}
+/>
 
 <Practice client:visible lesson="12.5" skill="exact" compact />
+
+<StepReveal
+  client:visible
+  title="Calculator values"
+  problem="Find $\;\ln 10\;$ and $\;e^{1.5}\;$ to four decimal places."
+  steps={[
+    { show: '$\\ln 10 \\approx 2.3026$', why: 'So $e^{2.3026} \\approx 10$.' },
+    { show: '$e^{1.5} \\approx 4.4817$', why: 'Use the $e^x$ key (often SHIFT + LN).' },
+  ]}
+/>
 
 <Practice client:visible lesson="12.5" skill="calc" compact />
 
 ## Change of base
+
+How do you find $\log_3 20$ with only LOG and LN keys? Let $x = \log_3 20$. Then $3^x = 20$. Take $\ln$ of both sides and use the power rule: $x\ln 3 = \ln 20$, so
 
 $$\log_b M = \frac{\ln M}{\ln b} = \frac{\log M}{\log b}$$
 
@@ -44,19 +86,73 @@ $$\log_b M = \frac{\ln M}{\ln b} = \frac{\log M}{\log b}$$
   problem="Find $\;\log_3 20$."
   steps={[
     { show: '$= \\dfrac{\\ln 20}{\\ln 3}$', why: '' },
-    { show: '$\\approx \\dfrac{2.9957}{1.0986} \\approx 2.7268$', why: 'Check: $3^{2.7268} \\approx 20$ ✓' },
+    { show: '$\\approx \\dfrac{2.9957}{1.0986} \\approx 2.7268$', why: 'Check: $3^{2.7268} \\approx 20$ ✓. It makes sense: $3^2 = 9$ and $3^3 = 27$.' },
   ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Approximately, what is $\;\log_2 10$?"
+  options={['$3.32$', '$5$', '$0.30$', '$1.25$']}
+  answer={0}
+  explain="$\frac{\ln 10}{\ln 2} \approx \frac{2.3026}{0.6931} \approx 3.32$ — between $3$ and $4$, since $2^3 = 8$ and $2^4 = 16$."
+  wrong={{ 1: '$10 \\div 2 = 5$, but a log is an exponent: $2^5 = 32$.', 2: 'That is $\\frac{\\ln 2}{\\ln 10} = \\log 2$ — the formula upside down.', 3: 'Check: $2^{1.25} \\approx 2.4$, not $10$.' }}
 />
 
 <Practice client:visible lesson="12.5" skill="base" compact />
 
+## Domains
+
+As with any logarithm, the argument of $\ln$ must be **positive**.
+
+<StepReveal
+  client:visible
+  title="Domain"
+  problem="Find the domain of $\;f(x) = \ln(2x - 6)$."
+  steps={[
+    { show: '$2x - 6 > 0 \\;\\Rightarrow\\; x > 3$: domain $(3, \\infty)$', why: '' },
+  ]}
+/>
+
 <Practice client:visible lesson="12.5" skill="domain" compact />
+
+## In a real context
+
+<StepReveal
+  client:visible
+  title="Continuous compounding"
+  problem="$5000$ dollars is invested at $4\%$ compounded continuously. How much is there after $10$ years? Compare with yearly compounding."
+  steps={[
+    { show: '**Translate.** $A = 5000e^{0.04 \\cdot 10} = 5000e^{0.4}$', why: 'Rate as a decimal: $0.04$.' },
+    { show: '**Solve.** $e^{0.4} \\approx 1.491825$, so $A \\approx 7459.12$ dollars', why: '' },
+    { show: '**Compare.** Yearly: $5000(1.04)^{10} \\approx 5000(1.480244) \\approx 7401.22$ dollars', why: 'Continuous compounding earns about $58$ dollars more — the most any compounding can give at $4\\%$.' },
+    { show: '**State.** About $7459.12$ dollars after 10 years.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="12.5" skill="apply" compact />
+
+## Common mistakes
+
+<Callout type="warning" title="ln e = 0">
+$\ln e = 1$, because $e^1 = e$. It is $\ln 1$ that equals $0$.
+</Callout>
+
+<Callout type="warning" title="Change of base upside down">
+$\log_b M = \frac{\ln M}{\ln b}$: the number you take the log **of** goes on top.
+</Callout>
+
+<Callout type="warning" title="ln of a sum">
+$\ln(x + y) \ne \ln x + \ln y$ — the same as for any logarithm.
+</Callout>
 
 ## Summary
 
-- $e \approx 2.71828$; $\ln x = \log_e x$.
-- $\ln e^x = x$, $e^{\ln x} = x$.
-- $\log_b M = \frac{\ln M}{\ln b}$.
+- $e = \lim\limits_{n \to \infty}\left(1 + \frac{1}{n}\right)^n \approx 2.71828$: the result of continuous compounding; $A = Pe^{rt}$.
+- $\ln x = \log_e x$; $\ln e^x = x$, $e^{\ln x} = x$, $\ln 1 = 0$, $\ln e = 1$.
+- $\log_b M = \frac{\ln M}{\ln b}$, from taking $\ln$ of $b^x = M$.
+
+**Next, in 12.6:** solving equations where the unknown is in an exponent or inside a logarithm.
 
 ## Practice
 

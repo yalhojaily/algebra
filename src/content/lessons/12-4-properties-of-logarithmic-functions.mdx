@@ -2,25 +2,27 @@
 id: "12.4"
 title: Properties of Logarithmic Functions
 summary: "Because logarithms are exponents, the exponent laws become log laws: products become sums, quotients become differences, powers become multiples."
-minutes: 40
+minutes: 45
 objectives:
-  - Use the product, quotient and power rules for logarithms.
+  - Derive the product, quotient and power rules from the laws of exponents.
   - Expand logarithmic expressions.
   - Condense sums and differences into a single logarithm.
   - "Use log_b bˣ = x and b^(log_b x) = x."
+  - Use the rules to compare quantities on logarithmic scales.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import LogRules from '../../components/LogRules.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
 
 <Callout type="why">
-Before calculators, logarithm tables let scientists multiply huge numbers by **adding** their logarithms. The rules in this lesson are why that worked — and they're the key tools for solving exponential equations in 12.6.
+Before calculators, logarithm tables let scientists multiply huge numbers by **adding** their logarithms. The rules in this lesson are why that worked. They also explain why an earthquake with waves 100 times larger is only 2 points higher on the Richter scale — and they are the key tools for solving exponential equations in 12.6.
 </Callout>
 
-## The rules
+## The rules — and where they come from
 
 For $M, N > 0$:
 
@@ -28,11 +30,15 @@ $$\log_b(MN) = \log_b M + \log_b N \qquad \log_b\frac{M}{N} = \log_b M - \log_b 
 
 $$\log_b b^x = x \qquad b^{\log_b x} = x$$
 
+**Why.** Logarithms are exponents, so each rule is an exponent law in disguise. Write $M = b^m$ and $N = b^n$, so $\log_b M = m$ and $\log_b N = n$. Then
+
+- $MN = b^m b^n = b^{m+n}$, so $\log_b(MN) = m + n$ — **product → sum**;
+- $\frac{M}{N} = b^{m-n}$, so $\log_b \frac{M}{N} = m - n$ — **quotient → difference**;
+- $M^p = (b^m)^p = b^{mp}$, so $\log_b M^p = pm$ — **power → multiple**.
+
+The last two rules say that $\log_b$ and "raise $b$ to a power" undo each other (12.2).
+
 <LogRules client:visible />
-
-<Practice client:visible lesson="12.4" skill="numeric" compact />
-
-<Practice client:visible lesson="12.4" skill="inverse" compact />
 
 ## Expanding
 
@@ -41,9 +47,19 @@ $$\log_b b^x = x \qquad b^{\log_b x} = x$$
   title="Expand"
   problem="Expand $\;\log \dfrac{x^3 y}{z^2}$."
   steps={[
-    { show: '$= \\log(x^3y) - \\log z^2$', why: 'Quotient rule.' },
+    { show: '$= \\log(x^3y) - \\log z^2$', why: 'Quotient rule: numerator minus denominator.' },
     { show: '$= \\log x^3 + \\log y - \\log z^2$', why: 'Product rule.' },
     { show: '$= 3\\log x + \\log y - 2\\log z$', why: 'Power rule.' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="A root"
+  problem="Expand $\;\log_b \sqrt{\dfrac{x}{y}}$."
+  steps={[
+    { show: '$= \\log_b \\left(\\dfrac{x}{y}\\right)^{1/2} = \\dfrac{1}{2}\\log_b \\dfrac{x}{y}$', why: 'Write the root as a power $\\frac{1}{2}$ (10.2), then the power rule.' },
+    { show: '$= \\dfrac{1}{2}\\log_b x - \\dfrac{1}{2}\\log_b y$', why: 'Distribute the $\\frac{1}{2}$ to both terms.' },
   ]}
 />
 
@@ -53,21 +69,102 @@ Type logs with parentheses: `3log(x) + log(y)`, `2log_3(x) - log_3(y)`.
 
 ## Condensing
 
-Run the rules backwards: powers first, then combine sums and differences.
+Run the rules backwards: **coefficients become powers first**, then combine sums (products) and differences (quotients).
 
-$$2\log x + \log y = \log x^2 + \log y = \log(x^2y)$$
+<StepReveal
+  client:visible
+  title="Condense"
+  problem="Write as a single logarithm: $\;3\log_2 x - \tfrac{1}{2}\log_2 y + \log_2 5$"
+  steps={[
+    { show: '$= \\log_2 x^3 - \\log_2 y^{1/2} + \\log_2 5$', why: 'Power rule first.' },
+    { show: '$= \\log_2 \\dfrac{5x^3}{\\sqrt{y}}$', why: 'Plus terms go in the numerator, minus terms in the denominator.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Simplify: $\;\log 2 + \log 50$"
+  options={['$2$', '$\\log 52$', '$100$', '$\\log 25$']}
+  answer={0}
+  explain="$\log 2 + \log 50 = \log(2 \cdot 50) = \log 100 = 2$."
+  wrong={{ 1: 'A sum of logs is the log of a **product**, not of a sum.', 2: '$\\log 100$ is $2$: it asks for the exponent on $10$.', 3: '$\\log 50 - \\log 2 = \\log 25$ — that is the difference.' }}
+/>
 
 <Practice client:visible lesson="12.4" skill="condense" compact />
+
+## Numbers and inverse properties
+
+<StepReveal
+  client:visible
+  title="Simplify with numbers"
+  problem="Find $\;\log_2 12 - \log_2 3,\;\; \log_5 5^7,\;\; 10^{\log 4}$; and, given $\log 2 \approx 0.301$ and $\log 3 \approx 0.477$, estimate $\log 6$."
+  steps={[
+    { show: '$\\log_2 12 - \\log_2 3 = \\log_2 4 = 2$', why: 'Quotient rule.' },
+    { show: '$\\log_5 5^7 = 7$ and $10^{\\log 4} = 4$', why: 'Inverse properties: log and power undo each other.' },
+    { show: '$\\log 6 = \\log 2 + \\log 3 \\approx 0.778$', why: 'Product rule — exactly how log tables were used.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Which of these equals $\;\log(M + N)$?"
+  options={["None of them — it can't be simplified", '$\\log M + \\log N$', '$\\log M \\cdot \\log N$', '$\\log(MN)$']}
+  answer={0}
+  explain="There is no rule for the log of a **sum**. Test: $\log(1 + 1) = \log 2 \approx 0.301$, but $\log 1 + \log 1 = 0$."
+  wrong={{ 1: 'That equals $\\log(MN)$, a product. Test $M = N = 1$: $\\log 2 \\ne 0$.', 2: 'No rule multiplies logs.', 3: '$\\log(MN)$ is the log of a product, not of a sum.' }}
+/>
+
+<Practice client:visible lesson="12.4" skill="numeric" compact />
+
+<Practice client:visible lesson="12.4" skill="inverse" compact />
+
+## In a real context
+
+<StepReveal
+  client:visible
+  title="Comparing earthquakes"
+  problem="Richter magnitude is $M = \log\dfrac{A}{A_0}$. An earthquake of magnitude $5$ is followed by one whose seismic waves are $100$ times larger. What is the magnitude of the second?"
+  steps={[
+    { show: '**Translate.** $M_2 = \\log\\dfrac{100A}{A_0}$', why: 'The amplitude is multiplied by $100$.' },
+    { show: '**Solve.** $= \\log 100 + \\log\\dfrac{A}{A_0} = 2 + 5 = 7$', why: 'Product rule.' },
+    { show: '**State.** Magnitude $7$: a factor of $100$ in amplitude adds only $2$ to the magnitude.', why: '' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="Twice as loud?"
+  problem="With $L = 10\log\dfrac{I}{I_0}$, how many decibels are added when the intensity doubles?"
+  steps={[
+    { show: '$10\\log\\dfrac{2I}{I_0} = 10\\log 2 + 10\\log\\dfrac{I}{I_0}$', why: '' },
+    { show: 'Doubling adds $10\\log 2 \\approx 3.01$ dB.', why: 'Two speakers playing the same sound are about $3$ dB louder than one, not twice as many decibels.' },
+  ]}
+/>
+
+<Practice client:visible lesson="12.4" skill="apply" compact />
+
+## Common mistakes
 
 <Callout type="warning" title="Rules that don't exist">
 $\log(M + N) \ne \log M + \log N$, and $\dfrac{\log M}{\log N} \ne \log\dfrac{M}{N}$. Test with numbers if you're unsure — the table above does exactly that.
 </Callout>
 
+<Callout type="warning" title="Power rule on the wrong thing">
+$\log x^2 = 2\log x$, but $(\log x)^2$ is different: the power is on the whole logarithm.
+</Callout>
+
+<Callout type="warning" title="Condensing in the wrong order">
+Turn coefficients into powers **before** combining: $2\log x + \log y = \log(x^2y)$, not $\log(2xy)$.
+</Callout>
+
 ## Summary
 
-- Product → sum, quotient → difference, power → multiple.
+- Product → sum, quotient → difference, power → multiple: each is an exponent law, because logs are exponents.
 - Expand: break the argument apart. Condense: powers first, then combine.
 - $\log_b b^x = x$ and $b^{\log_b x} = x$.
+- On log scales, multiplying the quantity **adds** to the level.
+
+**Next, in 12.5:** the most important base of all, $e$, and natural logarithms.
 
 ## Practice
 

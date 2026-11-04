@@ -2,30 +2,43 @@
 id: "12.1"
 title: Exponential Functions
 summary: "In f(x) = bˣ the variable is in the exponent. Each step in x multiplies the output by b — growth when b > 1, decay when 0 < b < 1."
-minutes: 40
+minutes: 45
 objectives:
+  - Explain how exponential change (multiplying) differs from linear change (adding).
   - Evaluate exponential functions, including negative exponents.
-  - Identify exponential growth and decay.
-  - Find y-intercepts and describe the asymptote.
-  - Use the compound-interest formula.
+  - Identify exponential growth and decay, find y-intercepts and describe the asymptote.
+  - Use the compound-interest formula and other exponential models.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import ExpGraph from '../../components/ExpGraph.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
 
 <Callout type="why">
-Fold a sheet of paper in half 10 times and it is $2^{10} = 1024$ sheets thick. Money in a bank, bacteria, and the number of people who've seen a viral video all grow this way: by **multiplying** at a steady rate, not adding.
+Fold a sheet of paper in half 10 times and it is $2^{10} = 1024$ sheets thick. Money in a bank, bacteria in a dish and the number of people who've seen a viral video all grow this way: by **multiplying** at a steady rate, not by adding. Exponential functions describe that kind of change — and its mirror image, decay, as in medicine leaving the bloodstream or a car losing value.
 </Callout>
+
+## Adding versus multiplying
+
+Compare $f(x) = 2x$ and $g(x) = 2^x$:
+
+| $x$ | $0$ | $1$ | $2$ | $3$ | $4$ | $10$ |
+|---|---|---|---|---|---|---|
+| $2x$ (add $2$ each step) | $0$ | $2$ | $4$ | $6$ | $8$ | $20$ |
+| $2^x$ (multiply by $2$ each step) | $1$ | $2$ | $4$ | $8$ | $16$ | $1024$ |
+
+A linear function adds the same amount at each step. An exponential function **multiplies** by the same factor: $b^{x+1} = b \cdot b^x$. Early on the difference is small; soon it is enormous.
 
 ## Exponential functions
 
-The function $f(x) = b^x$, with $b > 0$ and $b \ne 1$, is an **exponential function** with base $b$.
+The function $f(x) = b^x$, with $b > 0$ and $b \ne 1$, is an **exponential function** with base $b$. (If $b = 1$ it is the constant $1$; if $b < 0$, values like $(-2)^{1/2}$ aren't real.)
 
-- $f(0) = b^0 = 1$, so the graph passes through $(0, 1)$.
-- $b^x > 0$ for every $x$: the graph stays above the $x$-axis, which is a horizontal **asymptote**.
+- $f(0) = b^0 = 1$, so the graph passes through $(0, 1)$. For $f(x) = a \cdot b^x$ the $y$-intercept is $(0, a)$.
+- $b^x > 0$ for every $x$: the graph stays above the $x$-axis and gets closer and closer to it — the $x$-axis is a horizontal **asymptote**.
+- If $b > 1$ the function **grows**; if $0 < b < 1$ it **decays**.
 - Domain: all real numbers. Range: $(0, \infty)$.
 
 <ExpGraph client:visible />
@@ -33,32 +46,121 @@ The function $f(x) = b^x$, with $b > 0$ and $b \ne 1$, is an **exponential funct
 <StepReveal
   client:visible
   title="Evaluate"
-  problem="For $f(x) = 3 \cdot 2^x$, find $f(-2)$."
+  problem="For $f(x) = 3 \cdot 2^x$, find $f(-2)$; for $g(x) = \left(\tfrac{1}{2}\right)^x$, find $g(-3)$."
   steps={[
-    { show: '$f(-2) = 3 \\cdot 2^{-2}$', why: '' },
-    { show: '$= 3 \\cdot \\dfrac{1}{4} = \\dfrac{3}{4}$', why: '$2^{-2} = \\frac{1}{2^2}$.' },
+    { show: '$f(-2) = 3 \\cdot 2^{-2} = 3 \\cdot \\dfrac{1}{4} = \\dfrac{3}{4}$', why: '$2^{-2} = \\frac{1}{2^2}$. Note $3 \\cdot 2^x$ is not $6^x$: the power applies to $2$ only.' },
+    { show: '$g(-3) = \\left(\\tfrac{1}{2}\\right)^{-3} = 2^3 = 8$', why: 'A negative exponent flips the fraction. Going backwards in time, a decaying quantity was larger.' },
   ]}
 />
 
 <Practice client:visible lesson="12.1" skill="evaluate" compact />
 
+<StepReveal
+  client:visible
+  title="Growth or decay?"
+  problem="Classify: $\;f(x) = 5(0.8)^x,\;\; g(x) = 2(1.5)^x,\;\; h(x) = 3^{-x}$"
+  steps={[
+    { show: '$f$: base $0.8 < 1$ — **decay** (each step keeps $80\\%$)', why: '' },
+    { show: '$g$: base $1.5 > 1$ — **growth** (each step adds $50\\%$)', why: '' },
+    { show: '$h(x) = 3^{-x} = \\left(\\tfrac{1}{3}\\right)^x$ — **decay**', why: 'Rewrite with a positive exponent to see the true base.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Which function shows exponential **decay**?"
+  options={['$y = 4(0.9)^x$', '$y = 0.9x$', '$y = 4(1.1)^x$', '$y = x^{0.9}$']}
+  answer={0}
+  explain="The variable is in the exponent and the base $0.9$ is between $0$ and $1$: each step keeps $90\%$."
+  wrong={{ 1: 'That is linear: $x$ is not in an exponent.', 2: 'Base $1.1 > 1$ means growth.', 3: 'Here $x$ is the base, not the exponent — a power function, not an exponential one.' }}
+/>
+
 <Practice client:visible lesson="12.1" skill="type" compact />
+
+<QuickCheck
+  client:visible
+  question="What is the $y$-intercept of $\;y = 5 \cdot 2^x$?"
+  options={['$(0, 5)$', '$(0, 1)$', '$(0, 10)$', '$(0, 0)$']}
+  answer={0}
+  explain="At $x = 0$: $5 \cdot 2^0 = 5 \cdot 1 = 5$."
+  wrong={{ 1: '$(0, 1)$ is the intercept of $2^x$ alone. Multiply by $5$.', 2: '$2^0 = 1$, not $2$.', 3: 'Exponential functions never reach $0$.' }}
+/>
 
 <Practice client:visible lesson="12.1" skill="intercept" compact />
 
 ## Compound interest
 
-If $P$ dollars is invested at annual rate $r$, compounded $n$ times per year, then after $t$ years the amount is
+If $P$ dollars earns annual rate $r$, compounded $n$ times per year, then each period multiplies the balance by $1 + \frac{r}{n}$, and there are $nt$ periods in $t$ years:
 
 $$A = P\left(1 + \frac{r}{n}\right)^{nt}$$
 
+<StepReveal
+  client:visible
+  title="Monthly compounding"
+  problem="$1000$ dollars is invested at $6\%$ compounded monthly. How much is there after $5$ years?"
+  steps={[
+    { show: '$P = 1000,\\ r = 0.06,\\ n = 12,\\ t = 5$', why: 'Write the rate as a decimal.' },
+    { show: '$A = 1000\\left(1 + \\dfrac{0.06}{12}\\right)^{12 \\cdot 5} = 1000(1.005)^{60}$', why: 'Each month multiplies by $1.005$; there are $60$ months.' },
+    { show: '$\\approx 1000(1.348850) \\approx 1348.85$ dollars', why: 'Simple interest would give only $1300$: interest earns interest.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="At $6\%$ compounded monthly, by what number is the balance multiplied each month?"
+  options={['$1.005$', '$1.06$', '$1.5$', '$0.005$']}
+  answer={0}
+  explain="The monthly rate is $\frac{0.06}{12} = 0.005$, so each month multiplies by $1 + 0.005$."
+  wrong={{ 1: 'That is the yearly factor. Divide the rate by $12$ months.', 2: 'Write $6\\%$ as $0.06$, then divide by $12$.', 3: 'That is the interest rate per month; the balance is multiplied by $1 + 0.005$.' }}
+/>
+
 <Practice client:visible lesson="12.1" skill="interest" compact />
+
+## In a real context
+
+<StepReveal
+  client:visible
+  title="Bacteria"
+  problem="A culture starts with $100$ bacteria and doubles every $3$ hours: $N(t) = 100 \cdot 2^{t/3}$. How many bacteria are there after $12$ hours?"
+  steps={[
+    { show: '**Familiarize.** $t$ in hours; $\\frac{t}{3}$ counts the doublings.', why: '12 hours is 4 doubling periods.' },
+    { show: '**Translate.** $N(12) = 100 \\cdot 2^{12/3}$', why: '' },
+    { show: '**Solve.** $= 100 \\cdot 2^4 = 1600$', why: '' },
+    { show: '**Check.** $100 \\to 200 \\to 400 \\to 800 \\to 1600$ ✓', why: 'Doubling four times by hand.' },
+    { show: '**State.** After 12 hours there are $1600$ bacteria.', why: '' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="Annual compounding"
+  problem="$2000$ dollars earns $5\%$ compounded annually. What is it worth after $3$ years?"
+  steps={[
+    { show: '$A = 2000(1.05)^3 = 2000(1.157625) = 2315.25$ dollars', why: '$n = 1$: once a year.' },
+  ]}
+/>
+
+## Common mistakes
+
+<Callout type="warning" title="3 · 2ˣ is not 6ˣ">
+The exponent applies only to the base right before it: $3 \cdot 2^2 = 12$, while $6^2 = 36$.
+</Callout>
+
+<Callout type="warning" title="Percent as a whole number">
+In $A = P(1 + \frac{r}{n})^{nt}$, $6\%$ is $r = 0.06$, not $6$.
+</Callout>
+
+<Callout type="warning" title="The wrong exponent">
+Compounded monthly for $5$ years means $nt = 60$ periods, not $5$ or $12$.
+</Callout>
 
 ## Summary
 
-- $f(x) = b^x$: growth if $b > 1$, decay if $0 < b < 1$.
-- Passes through $(0, 1)$; the $x$-axis is an asymptote.
-- $A = P(1 + \frac{r}{n})^{nt}$.
+- Linear change adds; exponential change multiplies: $b^{x+1} = b \cdot b^x$.
+- $f(x) = a \cdot b^x$: growth if $b > 1$, decay if $0 < b < 1$; $y$-intercept $(0, a)$; the $x$-axis is an asymptote.
+- $A = P\left(1 + \frac{r}{n}\right)^{nt}$: $nt$ periods, each multiplying by $1 + \frac{r}{n}$.
+
+**Next, in 12.2:** composing functions and undoing them — the idea behind logarithms.
 
 ## Practice
 

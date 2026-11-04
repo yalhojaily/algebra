@@ -2,50 +2,106 @@
 id: "12.6"
 title: Solving Exponential and Logarithmic Equations
 summary: "Variable in an exponent? Match the bases or take logarithms. Variable inside a log? Rewrite in exponential form — and check the answers."
-minutes: 40
+minutes: 50
 objectives:
   - Solve exponential equations by writing both sides with the same base.
-  - Solve exponential equations by taking logarithms.
+  - Solve exponential equations by taking logarithms, isolating the exponential first.
   - Solve logarithmic equations, rejecting answers outside the domain.
+  - Find when an exponential process reaches a given value.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import ExpEquationGraph from '../../components/ExpEquationGraph.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
 
 <Callout type="why">
-How long until an investment doubles? When will a population reach a million? Questions about **when** an exponential process reaches a value need these techniques.
+How long until an investment doubles? When will a town reach 80,000 people? Questions about **when** an exponential process reaches a value put the unknown in an exponent. Logarithms were invented for exactly this: they bring the exponent down where you can solve for it.
 </Callout>
 
 ## Same base
 
-If $b^M = b^N$, then $M = N$.
+Exponential functions are one-to-one (12.2), so equal powers of the same base must have equal exponents:
+
+$$\text{If } b^M = b^N, \text{ then } M = N.$$
 
 <StepReveal
   client:visible
   title="Match the bases"
-  problem="Solve: $\;2^{3x - 1} = 32$"
+  problem="Solve: $\;2^{3x - 1} = 32,\;\; 9^x = 27,\;\; 4^{x + 1} = \tfrac{1}{8}$"
   steps={[
-    { show: '$2^{3x - 1} = 2^5$', why: '$32 = 2^5$.' },
-    { show: '$3x - 1 = 5 \\;\\Rightarrow\\; x = 2$', why: 'Set the exponents equal.' },
+    { show: '$2^{3x - 1} = 2^5 \\;\\Rightarrow\\; 3x - 1 = 5 \\;\\Rightarrow\\; x = 2$', why: '$32 = 2^5$.' },
+    { show: '$3^{2x} = 3^3 \\;\\Rightarrow\\; 2x = 3 \\;\\Rightarrow\\; x = \\tfrac{3}{2}$', why: '$9 = 3^2$ and $27 = 3^3$: both are powers of $3$.' },
+    { show: '$2^{2(x + 1)} = 2^{-3} \\;\\Rightarrow\\; 2x + 2 = -3 \\;\\Rightarrow\\; x = -\\tfrac{5}{2}$', why: '$4 = 2^2$ and $\\frac{1}{8} = 2^{-3}$.' },
   ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Solve: $\;2^x = 32$"
+  options={['$5$', '$16$', '$6$', '$\\tfrac{1}{5}$']}
+  answer={0}
+  explain="$32 = 2^5$, so $x = 5$."
+  wrong={{ 1: '$32 \\div 2 = 16$, but the unknown is an exponent: $2^{16}$ is huge.', 2: '$2^6 = 64$.', 3: 'Write $32$ as a power of $2$.' }}
 />
 
 <Practice client:visible lesson="12.6" skill="same" compact />
 
 ## Taking logarithms
 
-When the bases can't be matched, take $\ln$ (or $\log$) of both sides and use the power rule to bring the exponent down.
+When the bases can't be matched, take $\ln$ (or $\log$) of both sides. The power rule brings the exponent down: $\ln b^x = x\ln b$. **Isolate the exponential first.**
+
+<StepReveal
+  client:visible
+  title="Take ln of both sides"
+  problem="Solve: $\;3^x = 20$"
+  steps={[
+    { show: '$\\ln 3^x = \\ln 20 \\;\\Rightarrow\\; x\\ln 3 = \\ln 20$', why: 'Power rule.' },
+    { show: '$x = \\dfrac{\\ln 20}{\\ln 3} \\approx 2.7268$', why: 'Divide by the number $\\ln 3$. (That is $\\log_3 20$ — compare 12.5.)' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="Isolate, then take ln"
+  problem="Solve: $\;5e^{0.2t} = 40$"
+  steps={[
+    { show: '$e^{0.2t} = 8$', why: 'Divide by $5$ first. Taking $\\ln$ of $5e^{0.2t}$ directly would need the product rule.' },
+    { show: '$0.2t = \\ln 8$', why: '$\\ln e^{0.2t} = 0.2t$.' },
+    { show: '$t = \\dfrac{\\ln 8}{0.2} \\approx 10.397$', why: '' },
+  ]}
+/>
+
+The solution of $b^x = c$ is where the graphs of $y = b^x$ and $y = c$ meet:
 
 <ExpEquationGraph client:visible />
+
+<QuickCheck
+  client:visible
+  question="After taking logs, $\;x = \dfrac{\ln 20}{\ln 3}$. Which of these is the same number?"
+  options={['$\\log_3 20$', '$\\ln \\tfrac{20}{3}$', '$\\ln 20 - \\ln 3$', '$\\ln 17$']}
+  answer={0}
+  explain="By change of base, $\frac{\ln 20}{\ln 3} = \log_3 20 \approx 2.73$."
+  wrong={{ 1: 'A **quotient of logs** is not the log of a quotient: $\\ln\\frac{20}{3} \\approx 1.90$.', 2: 'That equals $\\ln\\frac{20}{3}$, the log of a quotient — a different number.', 3: 'Logs don\'t subtract inside like that.' }}
+/>
 
 <Practice client:visible lesson="12.6" skill="logs" compact />
 
 ## Logarithmic equations
 
-Rewrite in exponential form (combining logs first if needed). Then **check**: each logarithm's argument must be positive.
+Isolate a single logarithm (combining logs if needed), rewrite in exponential form, solve. Then **check**: each logarithm's argument must be positive in the **original** equation.
+
+<StepReveal
+  client:visible
+  title="One logarithm"
+  problem="Solve: $\;\log_3(2x + 1) = 2\;$ and $\;\ln x = 3$"
+  steps={[
+    { show: '$2x + 1 = 3^2 = 9 \\;\\Rightarrow\\; x = 4$', why: 'Exponential form. Check: $\\log_3 9 = 2$ ✓.' },
+    { show: '$x = e^3 \\approx 20.09$', why: '' },
+  ]}
+/>
 
 <StepReveal
   client:visible
@@ -55,19 +111,82 @@ Rewrite in exponential form (combining logs first if needed). Then **check**: ea
     { show: '$\\log[x(x - 3)] = 1$', why: 'Product rule.' },
     { show: '$x(x - 3) = 10^1$', why: 'Exponential form.' },
     { show: '$x^2 - 3x - 10 = 0 \\;\\Rightarrow\\; (x - 5)(x + 2) = 0$', why: '' },
-    { show: '$x = 5$ (reject $x = -2$: $\\log(-2)$ is undefined)', why: 'Always check.' },
+    { show: '$x = 5$ (reject $x = -2$: $\\log(-2)$ is undefined)', why: 'Always check in the original equation.' },
   ]}
+/>
+
+<StepReveal
+  client:visible
+  title="A difference of logs"
+  problem="Solve: $\;\log_2 x - \log_2(x - 2) = 3$"
+  steps={[
+    { show: '$\\log_2 \\dfrac{x}{x - 2} = 3 \\;\\Rightarrow\\; \\dfrac{x}{x - 2} = 8$', why: 'Quotient rule, then exponential form.' },
+    { show: '$x = 8x - 16 \\;\\Rightarrow\\; x = \\tfrac{16}{7}$', why: '' },
+    { show: 'Check: $x - 2 = \\tfrac{2}{7} > 0$ ✓', why: 'Both arguments are positive, so $x = \\frac{16}{7}$ stands.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Solving $\;\log x + \log(x - 3) = 1\;$ gives $x = 5$ or $x = -2$. Which do you keep?"
+  options={['only $5$', 'only $-2$', 'both', 'neither']}
+  answer={0}
+  explain="$x = -2$ would need $\log(-2)$, which doesn't exist. $x = 5$: $\log 5 + \log 2 = \log 10 = 1$ ✓."
+  wrong={{ 1: '$\\log(-2)$ is undefined.', 2: 'Check each in the original: logs need positive arguments.', 3: '$x = 5$ checks out.' }}
 />
 
 <Practice client:visible lesson="12.6" skill="log" compact />
 
 <Practice client:visible lesson="12.6" skill="sum" compact />
 
+## In a real context
+
+<StepReveal
+  client:visible
+  title="When does it double?"
+  problem="Money grows at $5\%$ a year, compounded annually. How long until it doubles?"
+  steps={[
+    { show: '**Familiarize.** $A = P(1.05)^t$; "doubles" means $A = 2P$.', why: 'Guess: $10$ years gives $1.05^{10} \\approx 1.63$ — not yet.' },
+    { show: '**Translate.** $P(1.05)^t = 2P \\;\\Rightarrow\\; 1.05^t = 2$', why: 'The starting amount cancels: doubling time doesn\'t depend on it.' },
+    { show: '**Solve.** $t = \\dfrac{\\ln 2}{\\ln 1.05} \\approx 14.21$', why: 'Take $\\ln$ of both sides.' },
+    { show: '**Check.** $1.05^{14.21} \\approx 2.00$ ✓', why: '' },
+    { show: '**State.** About $14.2$ years. (With interest added once a year, the balance first passes double at the 15th year-end.)', why: '' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="A growing town"
+  problem="A town of $50{,}000$ grows as $P(t) = 50000e^{0.02t}$. When will it reach $80{,}000$?"
+  steps={[
+    { show: '$e^{0.02t} = 1.6 \\;\\Rightarrow\\; 0.02t = \\ln 1.6 \\;\\Rightarrow\\; t = \\dfrac{\\ln 1.6}{0.02} \\approx 23.50$ years', why: 'Divide by $50000$ first, then take $\\ln$.' },
+  ]}
+/>
+
+<Practice client:visible lesson="12.6" skill="apply" compact />
+
+## Common mistakes
+
+<Callout type="warning" title="Taking logs before isolating">
+In $5e^{0.2t} = 40$, divide by $5$ first. $\ln(5e^{0.2t})$ is $\ln 5 + 0.2t$, not $5 \cdot 0.2t$.
+</Callout>
+
+<Callout type="warning" title="A quotient of logs is not a log of a quotient">
+$\frac{\ln 20}{\ln 3} \ne \ln\frac{20}{3}$. Divide the two numbers on a calculator.
+</Callout>
+
+<Callout type="warning" title="Skipping the domain check">
+Logarithmic equations can produce solutions that make an argument negative or zero. Check every one in the original.
+</Callout>
+
 ## Summary
 
-- Same base: set exponents equal.
-- Otherwise: take logs, use the power rule, divide.
-- Log equations: condense, convert to exponential form, solve, check the domain.
+- Same base: set exponents equal (exponential functions are one-to-one).
+- Otherwise: isolate the exponential, take logs, use the power rule, divide.
+- Log equations: condense to one log, convert to exponential form, solve, check the domain.
+- "When does it reach…?" questions are exponential equations.
+
+**Next, in 12.7:** the chapter's models put together — growth, decay, doubling time and half-life.
 
 ## Practice
 

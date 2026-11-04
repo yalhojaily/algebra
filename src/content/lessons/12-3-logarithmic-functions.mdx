@@ -2,65 +2,178 @@
 id: "12.3"
 title: Logarithmic Functions
 summary: "log_b a is the exponent you put on b to get a. Logarithmic functions are the inverses of exponential functions."
-minutes: 40
+minutes: 45
 objectives:
+  - Explain a logarithm as an exponent and as the inverse of an exponential function.
   - Convert between exponential and logarithmic form.
-  - Evaluate logarithms.
-  - Solve simple logarithmic equations.
+  - Evaluate logarithms and solve simple logarithmic equations.
   - Find the domain of a logarithmic function.
+  - Use logarithmic scales such as pH, decibels and the Richter scale.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import LogExpPair from '../../components/LogExpPair.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
 
 <Callout type="why">
-$2^x = 8$ is easy: $x = 3$. But what about $2^x = 10$? We need a name for "the exponent on 2 that gives 10." That name is $\log_2 10$.
+$2^x = 8$ is easy: $x = 3$. But what about $2^x = 10$? We need a name for "the exponent on 2 that gives 10." That name is $\log_2 10$. Logarithms also tame numbers that span huge ranges: the acidity of lemon juice and of soap differ by a factor of a billion, but on the pH scale they are just 2 and 11.
 </Callout>
 
 ## The definition
 
 $$\log_b a = c \quad\text{means}\quad b^c = a \qquad (b > 0,\ b \ne 1,\ a > 0)$$
 
-**A logarithm is an exponent.** $\log_{10} a$ is written simply $\log a$ (the **common logarithm**).
+**A logarithm is an exponent.** $\log_b a$ answers the question "**$b$ to what power is $a$?**" The logarithm with base $10$ is written simply $\log a$ (the **common logarithm**).
 
 <LogExpPair client:visible />
+
+<StepReveal
+  client:visible
+  title="Convert between forms"
+  problem="Write in the other form: $\;\log_2 8 = 3,\;\; 10^{-2} = 0.01,\;\; \log_5 \sqrt{5} = \tfrac{1}{2}$"
+  steps={[
+    { show: '$\\log_2 8 = 3 \\iff 2^3 = 8$', why: 'The base of the log is the base of the power; the log is the exponent.' },
+    { show: '$10^{-2} = 0.01 \\iff \\log 0.01 = -2$', why: 'Base $10$: the common log.' },
+    { show: '$\\log_5 \\sqrt{5} = \\tfrac{1}{2} \\iff 5^{1/2} = \\sqrt{5}$', why: '' },
+  ]}
+/>
 
 <Practice client:visible lesson="12.3" skill="convert" compact />
 
 ## Evaluating logarithms
 
-To find $\log_b a$, ask: "**$b$ to what power is $a$?**"
+To find $\log_b a$, write $a$ as a power of $b$.
 
 <StepReveal
   client:visible
   title="Evaluate"
-  problem="Find $\;\log_2 \tfrac{1}{8}$."
+  problem="Find $\;\log 1000,\;\; \log_2 \tfrac{1}{8},\;\; \log_9 3,\;\; \log_7 1,\;\; \log_7 7$."
   steps={[
-    { show: '$2^c = \\tfrac{1}{8}$', why: 'Exponential form.' },
-    { show: '$\\tfrac{1}{8} = 2^{-3}$, so $c = -3$', why: '' },
+    { show: '$\\log 1000 = 3$', why: '$10^3 = 1000$.' },
+    { show: '$\\log_2 \\tfrac{1}{8} = -3$', why: '$\\frac{1}{8} = 2^{-3}$. Logs of numbers between $0$ and $1$ are negative.' },
+    { show: '$\\log_9 3 = \\tfrac{1}{2}$', why: '$9^{1/2} = \\sqrt{9} = 3$.' },
+    { show: '$\\log_7 1 = 0$ and $\\log_7 7 = 1$', why: '$7^0 = 1$ and $7^1 = 7$ — true for every base.' },
   ]}
 />
 
 Type logarithms as `log_2(8)`, `log(1000)` (base 10) or `ln(x)`.
 
+<QuickCheck
+  client:visible
+  question="What is $\;\log_3 81$?"
+  options={['$4$', '$27$', '$3$', '$\\tfrac{1}{4}$']}
+  answer={0}
+  explain="$3^4 = 81$, so the exponent is $4$."
+  wrong={{ 1: 'A logarithm is an exponent, not a quotient: $81 \\div 3 = 27$ is not the question.', 2: '$3^3 = 27$, not $81$.', 3: '$81^{1/4} = 3$ — that is $\\log_{81} 3$, the reverse.' }}
+/>
+
 <Practice client:visible lesson="12.3" skill="evaluate" compact />
+
+## Solving simple logarithmic equations
+
+Rewrite in exponential form, then solve.
+
+<StepReveal
+  client:visible
+  title="Three unknowns in three places"
+  problem="Solve: $\;\log_2 x = -3,\;\; \log_4 x = \tfrac{3}{2},\;\; \log_x 49 = 2$"
+  steps={[
+    { show: '$x = 2^{-3} = \\tfrac{1}{8}$', why: '' },
+    { show: '$x = 4^{3/2} = (\\sqrt{4})^3 = 8$', why: 'Rational exponent (10.2).' },
+    { show: '$x^2 = 49 \\;\\Rightarrow\\; x = 7$', why: 'A base must be positive, so reject $-7$.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Solve: $\;\log_2 x = 5$"
+  options={['$32$', '$10$', '$25$', '$\\tfrac{5}{2}$']}
+  answer={0}
+  explain="Exponential form: $x = 2^5 = 32$."
+  wrong={{ 1: '$2 \\cdot 5 = 10$; a logarithm equation means $2^5$.', 2: '$5^2 = 25$ swaps the base and the exponent.', 3: 'Dividing isn\'t the inverse of a log. Rewrite as $2^5 = x$.' }}
+/>
 
 <Practice client:visible lesson="12.3" skill="solve" compact />
 
 ## The logarithmic function
 
-$f(x) = \log_b x$ is the inverse of $g(x) = b^x$. So its domain is $(0, \infty)$ — you can only take the logarithm of a positive number — and its range is all real numbers.
+Since $\log_b a$ is the exponent that undoes "raise $b$ to a power", $f(x) = \log_b x$ is the **inverse** of $g(x) = b^x$ (12.2): its graph is the graph of $b^x$ reflected in $y = x$. The inputs and outputs swap, so:
+
+- Domain of $\log_b x$: $(0, \infty)$ — the range of $b^x$. You can only take the logarithm of a **positive** number.
+- Range: all real numbers. The $y$-axis is a vertical asymptote, and the graph passes through $(1, 0)$.
+
+<StepReveal
+  client:visible
+  title="Find a domain"
+  problem="Find the domain of $\;f(x) = \log(x - 3)$."
+  steps={[
+    { show: '$x - 3 > 0 \\;\\Rightarrow\\; x > 3$', why: 'The argument must be **positive** — strictly, because $\\log 0$ is undefined too.' },
+    { show: 'Domain: $(3, \\infty)$', why: '' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="What is the domain of $\;f(x) = \log_2(x + 4)$?"
+  options={['$(-4, \\infty)$', '$[-4, \\infty)$', '$(4, \\infty)$', 'all real numbers']}
+  answer={0}
+  explain="$x + 4 > 0$, so $x > -4$. The endpoint is excluded because $\log_2 0$ is undefined."
+  wrong={{ 1: '$x = -4$ gives $\\log_2 0$, which is undefined. Use a parenthesis.', 2: 'Solve $x + 4 > 0$: subtract $4$.', 3: 'Logs need a positive argument.' }}
+/>
 
 <Practice client:visible lesson="12.3" skill="domain" compact />
 
+## In a real context
+
+Logarithmic scales turn "times 10" into "plus 1", so huge ranges become manageable numbers.
+
+<StepReveal
+  client:visible
+  title="pH"
+  problem="The pH of a solution is $\text{pH} = -\log[\text{H}^+]$. Lemon juice has $[\text{H}^+] = 10^{-2}$ and soapy water $[\text{H}^+] = 10^{-11}$ (moles per liter). Find their pH values."
+  steps={[
+    { show: '**Lemon juice:** $-\\log 10^{-2} = -(-2) = 2$', why: '$\\log 10^{-2}$ is the exponent, $-2$.' },
+    { show: '**Soapy water:** $-\\log 10^{-11} = 11$', why: '' },
+    { show: 'Lemon juice is $10^{9}$ — a billion — times more acidic, yet the pH values differ by only $9$.', why: 'That is the point of a logarithmic scale.' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="Decibels"
+  problem="Sound level is $L = 10\log\dfrac{I}{I_0}$ decibels. A lawn mower is $10^9$ times as intense as the faintest audible sound $I_0$. What is its level?"
+  steps={[
+    { show: '$L = 10\\log 10^9 = 10 \\cdot 9 = 90$ dB', why: 'Each factor of $10$ in intensity adds $10$ dB.' },
+  ]}
+/>
+
+<Practice client:visible lesson="12.3" skill="apply" compact />
+
+## Common mistakes
+
+<Callout type="warning" title="Mixing up the parts">
+$\log_b a = c$ means $b^c = a$: the **base** stays the base. $\log_2 8 = 3$ is $2^3 = 8$, not $3^2 = 8$ or $8^3 = 2$.
+</Callout>
+
+<Callout type="warning" title="Logs of zero or negative numbers">
+$\log 0$ and $\log(-5)$ are undefined: no power of a positive base is $0$ or negative.
+</Callout>
+
+<Callout type="warning" title="Dividing instead">
+$\log_2 8$ is not $\frac{8}{2}$. Ask "2 to what power is 8?"
+</Callout>
+
 ## Summary
 
-- $\log_b a = c \iff b^c = a$.
-- $\log a$ means $\log_{10} a$.
-- $\log_b 1 = 0$, $\log_b b = 1$; logs of zero or negative numbers are undefined.
+- $\log_b a = c \iff b^c = a$: a logarithm is an exponent.
+- $\log a$ means $\log_{10} a$; $\log_b 1 = 0$, $\log_b b = 1$.
+- $\log_b x$ is the inverse of $b^x$: domain $(0, \infty)$, range all reals, graph through $(1, 0)$.
+- Logarithmic scales (pH, decibels, magnitude) turn multiplication by $10$ into adding $1$.
+
+**Next, in 12.4:** the rules for logarithms — and why they come straight from the rules for exponents.
 
 ## Practice
 

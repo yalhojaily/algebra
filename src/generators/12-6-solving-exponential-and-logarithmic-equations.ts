@@ -75,11 +75,40 @@ function logSum(): Problem {
   }
 }
 
+
+/** When does an exponential process reach a value? Take logarithms. */
+function whenWords(): Problem {
+  if (Math.random() < 0.5) {
+    const r = pick([3, 4, 5, 6, 7, 8]), k = pick([2, 3, 1.5]);
+    const t = Math.log(k) / Math.log(1 + r / 100);
+    return {
+      skill: 'apply',
+      prompt: `Money in an account grows by ${r}% a year, compounded annually: $A = P(1.${String(r).padStart(2, '0')})^t$. How many years until it is **${k === 2 ? 'double' : k === 3 ? 'triple' : '1.5 times'}** the starting amount? Round to the nearest hundredth.`,
+      answer: { type: 'number', value: +t.toFixed(2), tol: 0.006 },
+      hints: [`Unknown: the time $t$. "${k === 2 ? 'Double' : k === 3 ? 'Triple' : '1.5 times'}" means $A = ${k}P$, so $P(1.${String(r).padStart(2, '0')})^t = ${k}P$ — divide by $P$.`, `Take $\\ln$ of both sides: $t\\ln 1.${String(r).padStart(2, '0')} = \\ln ${k}$.`],
+      solution: [`$(1.${String(r).padStart(2, '0')})^t = ${k}$`, `$t = \\dfrac{\\ln ${k}}{\\ln 1.${String(r).padStart(2, '0')}} \\approx ${t.toFixed(2)}$ years`],
+      mistakes: [{ answer: (k / (1 + r / 100)).toFixed(2), feedback: 'The unknown is in the **exponent**: take logarithms, then divide.' }],
+      placeholder: '14.21',
+    };
+  }
+  const P0 = pick([20000, 50000, 80000]), kk = pick([1.5, 2, 2.5, 3]), N = P0 * pick([1.5, 2, 3]);
+  const t = Math.log(N / P0) / (kk / 100);
+  return {
+    skill: 'apply',
+    prompt: `A town of ${P0.toLocaleString('en-US')} people grows as $P(t) = ${P0}e^{${kk / 100}t}$, with $t$ in years. When will it reach ${N.toLocaleString('en-US')} people? Round to the nearest hundredth of a year.`,
+    answer: { type: 'number', value: +t.toFixed(2), tol: 0.006 },
+    hints: [`Unknown: the time $t$. Set $${P0}e^{${kk / 100}t} = ${N}$ and isolate the exponential: divide by ${P0} first.`, `$e^{${kk / 100}t} = ${N / P0}$, so $${kk / 100}t = \\ln ${N / P0}$.`],
+    solution: [`$e^{${kk / 100}t} = ${N / P0}$`, `$t = \\dfrac{\\ln ${N / P0}}{${kk / 100}} \\approx ${t.toFixed(2)}$ years`],
+    placeholder: '23.5',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'same', label: 'Same base', generate: sameBase },
   { id: 'logs', label: 'Take logarithms', generate: takeLogs },
   { id: 'log', label: 'Logarithmic equations', generate: logEq },
   { id: 'sum', label: 'Combine logs first', generate: logSum },
+  { id: 'apply', label: 'Word problems', generate: whenWords },
 ];
 
 export const masterySet = makeMasterySet(skills);
