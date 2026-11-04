@@ -2,15 +2,17 @@
 id: "7.2"
 title: Finding Domain and Range
 summary: The domain is every input a function accepts; the range is every output it produces. Read them from graphs, find them from formulas, and write them in interval notation.
-minutes: 35
+minutes: 40
 objectives:
   - Write sets of numbers in interval notation.
   - Find the domain and range of a function from its graph.
   - Find the domain of a function from its formula.
+  - Decide which inputs make sense when a function models a situation.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import DomainRange from '../../components/DomainRange.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -31,6 +33,15 @@ A calculator says "Error" when you divide by $0$ — that input is outside the *
 | $(-\infty, \infty)$ | all real numbers | |
 
 $\infty$ is not a number you can reach, so it **always** gets a round parenthesis. To type an interval, write something like `[-3, 5)` or `(-inf, 2]`.
+
+<QuickCheck
+  client:visible
+  question="Write $\;-2 < x \le 5\;$ in interval notation."
+  options={['$(-2, 5]$', '$[-2, 5)$', '$(-2, 5)$', '$[-2, 5]$']}
+  answer={0}
+  explain="$-2$ is not included (round parenthesis); $5$ is included (square bracket)."
+  wrong={{ 1: 'The brackets are reversed: $<$ means not included.', 2: '$\\le 5$ includes $5$, so use $]$.', 3: '$< $ means $-2$ is **not** included.' }}
+/>
 
 ## Domain and range from a graph
 
@@ -57,6 +68,15 @@ When a function is given by a formula and nothing else is said, its domain is **
 - $f(x) = x^2 - 5x + 1$: domain is all real numbers.
 - $g(x) = \dfrac{3}{x - 4}$: every real number **except** $4$.
 
+<QuickCheck
+  client:visible
+  question="What is the domain of $\;f(x) = \dfrac{1}{x + 5}$?"
+  options={['All real numbers except $-5$', 'All real numbers except $5$', 'All real numbers except $0$', '$(-5, \\infty)$']}
+  answer={0}
+  explain="$x + 5 = 0$ when $x = -5$. Every other real number works."
+  wrong={{ 1: 'Solve $x + 5 = 0$: $x = -5$, not $5$.', 2: '$x = 0$ gives $\\frac{1}{5}$ — no problem.', 3: 'Numbers less than $-5$ work too, e.g. $f(-6) = -1$.' }}
+/>
+
 <Practice client:visible lesson="7.2" skill="formula" compact />
 
 <StepReveal
@@ -72,12 +92,46 @@ When a function is given by a formula and nothing else is said, its domain is **
 
 <Practice client:visible lesson="7.2" skill="rational" compact />
 
+## In a real context
+
+<StepReveal
+  client:visible
+  title="A ball in the air"
+  problem="A ball is thrown up from the ground. Its height is $h(t) = -5t^2 + 20t$ meters until it lands at $t = 4$ s. Its highest point is at $t = 2$. Find the domain and range of $h$ in this situation."
+  steps={[
+    { show: '**Familiarize.** The formula only describes the flight, from $t = 0$ to $t = 4$.', why: '' },
+    { show: '**Solve.** Domain: $[0, 4]$', why: 'Both moments are part of the flight.' },
+    { show: '$h(2) = -20 + 40 = 20$, so the heights run from $0$ up to $20$. Range: $[0, 20]$', why: '' },
+    { show: '**Check.** $h(0) = 0$ and $h(4) = -80 + 80 = 0$ ✓ — it starts and ends on the ground.', why: '' },
+    { show: '**State.** Domain $[0, 4]$ seconds; range $[0, 20]$ meters.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="7.2" skill="apply" compact />
+
+
+## Common mistakes
+
+<Callout type="warning" title="Mixing up domain and range">
+Domain = inputs ($x$, horizontal). Range = outputs ($y$, vertical).
+</Callout>
+
+<Callout type="warning" title="A bracket at infinity">
+$[3, \infty]$ is wrong: $\infty$ is never reached, so write $[3, \infty)$.
+</Callout>
+
+<Callout type="warning" title="Excluding the wrong values">
+Only the **denominator** matters. In $\dfrac{x - 2}{x + 1}$, $x = 2$ is fine; $x = -1$ is excluded.
+</Callout>
+
 ## Summary
 
 - Domain = all inputs ($x$-values); range = all outputs ($y$-values).
 - On a graph: domain is the shadow on the $x$-axis, range is the shadow on the $y$-axis.
 - Brackets $[\ ]$ include an endpoint; parentheses $(\ )$ don't; $\infty$ always gets a parenthesis.
 - From a formula: exclude values that make a denominator $0$.
+
+**Next, in 7.3:** linear functions — where slope becomes a rate of change.
 
 ## Practice
 

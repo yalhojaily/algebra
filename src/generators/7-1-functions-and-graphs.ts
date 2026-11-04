@@ -100,11 +100,50 @@ function readGraph(): Problem {
   }
 }
 
+function contextEval(): Problem {
+  const kind = pick(['taxi', 'temp', 'ball'] as const);
+  if (kind === 'taxi') {
+    const a = pick([2, 3, 4, 5]), b = pick([1.5, 2, 2.5, 3]), m = randInt(3, 20);
+    const v = a + b * m;
+    return {
+      skill: 'apply',
+      prompt: `A taxi ride of $m$ km costs $C(m) = ${a} + ${b}m$ dollars. Find $C(${m})$ and say what it means.`,
+      answer: { type: 'number', value: v },
+      hints: [`Unknown: $C(${m})$ — the output when the input is $${m}$. Key words: $C(${m})$ means "replace $m$ with $${m}$".`, `$C(${m}) = ${a} + ${b}(${m})$.`],
+      solution: [`$C(${m}) = ${a} + ${b} \\cdot ${m} = ${a} + ${+(b * m).toFixed(2)} = ${+v.toFixed(2)}$`, `A ${m}-km ride costs $${+v.toFixed(2)}$ dollars.`],
+      placeholder: 'e.g. 23',
+    };
+  }
+  if (kind === 'temp') {
+    const c = pick([-40, -10, -5, 0, 5, 10, 15, 20, 25, 30, 35, 40, 100]);
+    const v = 1.8 * c + 32;
+    return {
+      skill: 'apply',
+      prompt: `The function $F(C) = 1.8C + 32$ converts a temperature in degrees Celsius to degrees Fahrenheit. Find $F(${c})$.`,
+      answer: { type: 'number', value: v },
+      hints: [`Unknown: the Fahrenheit temperature. Key words: $F(${c})$ means the output when $C = ${c}$.`, `$F(${c}) = 1.8(${c}) + 32$.`],
+      solution: [`$F(${c}) = 1.8(${c}) + 32 = ${+(1.8 * c).toFixed(2)} + 32 = ${+v.toFixed(2)}$`, `$${c}°$C is $${+v.toFixed(2)}°$F.`],
+      placeholder: 'e.g. 68',
+    };
+  }
+  const v0 = pick([10, 15, 20, 25, 30]), h0 = pick([0, 1, 2, 5]), t = randInt(1, Math.floor(v0 / 5));
+  const v = -5 * t * t + v0 * t + h0;
+  return {
+    skill: 'apply',
+    prompt: `A ball's height after $t$ seconds is $h(t) = -5t^2 + ${v0}t${h0 ? ` + ${h0}` : ''}$ meters. Find $h(${t})$, the height after $${t}$ s.`,
+    answer: { type: 'number', value: v },
+    hints: [`Unknown: $h(${t})$. Key words: "height after ${t} s" is the output when the input is $${t}$.`, `Square first: $-5(${t})^2 = ${-5 * t * t}$.`],
+    solution: [`$h(${t}) = -5(${t})^2 + ${v0}(${t})${h0 ? ` + ${h0}` : ''} = ${-5 * t * t} + ${v0 * t}${h0 ? ` + ${h0}` : ''} = ${v}$`, `The ball is $${v}$ m high.`],
+    placeholder: 'e.g. 20',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'pairs', label: 'Function or not?', generate: isFunctionPairs },
   { id: 'evaluate', label: 'Evaluate f(x)', generate: evaluate },
   { id: 'vertical', label: 'Vertical-line test', generate: verticalLine },
   { id: 'read', label: 'Read values from a graph', generate: readGraph },
+  { id: 'apply', label: 'Word problems', generate: contextEval },
 ];
 
 export const masterySet = makeMasterySet(skills);

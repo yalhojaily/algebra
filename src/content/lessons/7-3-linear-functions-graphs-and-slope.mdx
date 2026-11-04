@@ -2,7 +2,7 @@
 id: "7.3"
 title: "Linear Functions: Graphs and Slope"
 summary: "f(x) = mx + b is a linear function: m is its slope — the rate of change — and b gives the y-intercept. Graph it and use it as a model."
-minutes: 35
+minutes: 40
 objectives:
   - "Identify the slope and y-intercept of f(x) = mx + b."
   - Graph a linear function using its slope and y-intercept.
@@ -11,6 +11,7 @@ objectives:
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import LinearModel from '../../components/LinearModel.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -28,7 +29,27 @@ $$f(x) = mx + b$$
 - $m$ is the **slope**: the change in $f(x)$ when $x$ increases by $1$.
 - $(0, b)$ is the **$y$-intercept**: the output when the input is $0$.
 
+<QuickCheck
+  client:visible
+  question="For $\;f(x) = 5 - 2x$, what are the slope and the $y$-intercept?"
+  options={['$m = -2$, $(0, 5)$', '$m = 5$, $(0, -2)$', '$m = 2$, $(0, 5)$', '$m = -2$, $(0, -5)$']}
+  answer={0}
+  explain="Rewrite as $f(x) = -2x + 5$: the coefficient of $x$ is the slope, the constant is $b$."
+  wrong={{ 1: 'The slope is the coefficient of $x$, wherever it is written.', 2: 'The sign belongs to the slope: $-2x$.', 3: 'The constant term is $+5$.' }}
+/>
+
 <Practice client:visible lesson="7.3" skill="slope" compact />
+
+<StepReveal
+  client:visible
+  title="Solve for y first"
+  problem="Find the slope and $y$-intercept of $\;3x + 2y = 8$."
+  steps={[
+    { show: '$2y = -3x + 8$', why: 'Subtract $3x$ from both sides.' },
+    { show: '$y = -\\dfrac{3}{2}x + 4$', why: 'Divide **every** term by $2$.' },
+    { show: 'Slope $-\\dfrac{3}{2}$; $y$-intercept $(0, 4)$', why: 'Not $3$ and $8$ — read them only after solving for $y$.' },
+  ]}
+/>
 
 <Practice client:visible lesson="7.3" skill="intercept" compact />
 
@@ -55,11 +76,53 @@ In applications, the slope is a **rate** (dollars per month, centimeters per hou
 
 <Practice client:visible lesson="7.3" skill="model" compact />
 
+
+<QuickCheck
+  client:visible
+  question="A candle is $h(t) = 20 - 1.5t$ cm tall after burning $t$ hours. What does the $-1.5$ mean?"
+  options={['It burns down $1.5$ cm per hour', 'It starts $1.5$ cm tall', 'It burns out after $1.5$ hours', 'It grows $1.5$ cm per hour']}
+  answer={0}
+  explain="The slope is the rate of change: each hour, the height changes by $-1.5$ cm."
+  wrong={{ 1: 'The starting height is $h(0) = 20$ cm.', 2: 'It burns out when $h = 0$: $t = \\frac{20}{1.5} \\approx 13.3$ hours.', 3: 'A negative slope means the height **decreases**.' }}
+/>
+
+## In a real context
+
+<StepReveal
+  client:visible
+  title="A phone plan"
+  problem="A phone plan costs $C(t) = 20t + 15$ dollars after $t$ months. What do $20$ and $15$ mean? How much has been paid after a year?"
+  steps={[
+    { show: '**Familiarize.** Slope = rate; $y$-intercept = starting value.', why: '' },
+    { show: '**Translate.** $20$ dollars per month; $15$ dollars at $t = 0$ (the sign-up fee).', why: '' },
+    { show: '**Solve.** $C(12) = 20(12) + 15 = 255$', why: 'A year is $12$ months.' },
+    { show: '**Check.** $12$ payments of $20$ is $240$, plus the $15$ fee: $255$ ✓', why: '' },
+    { show: '**State.** $255$ dollars after one year.', why: '' },
+  ]}
+/>
+
+## Common mistakes
+
+<Callout type="warning" title="Reading the slope before solving for y">
+In $2x + y = 7$ the slope is not $2$: $y = -2x + 7$, so $m = -2$.
+</Callout>
+
+<Callout type="warning" title="Rise and run in the wrong direction">
+Slope $-\frac{2}{3}$: from a point, go **down** $2$ and **right** $3$ (or up $2$ and left $3$).
+</Callout>
+
+<Callout type="warning" title="Units of the slope">
+A slope in a model always has units of output per input — dollars **per month**, not just dollars.
+</Callout>
+
+
 ## Summary
 
 - $f(x) = mx + b$: slope $m$, $y$-intercept $(0, b)$.
 - To graph: plot $(0, b)$, then use rise over run.
 - In a model, slope = rate of change; $b$ = starting value.
+
+**Next, in 7.4:** horizontal and vertical lines, and parallel and perpendicular lines.
 
 ## Practice
 

@@ -86,11 +86,35 @@ function polyDomain(): Problem {
   };
 }
 
+function contextDomain(): Problem {
+  if (Math.random() < 0.5) {
+    const half = pick([5, 6, 8, 10, 12, 15, 20, 25]);
+    return {
+      skill: 'apply',
+      prompt: `A rectangle has perimeter $${2 * half}$ m. If its width is $w$ m, its area is $A(w) = w(${half} - w)$. What is the domain of $A$ in this situation? Use interval notation.`,
+      answer: { type: 'interval', lo: 0, hi: half, loClosed: false, hiClosed: false },
+      hints: ['Unknown: the widths that make sense. Key words: a width must be **positive**, and so must the length.', `The length is $${half} - w$. Both $w > 0$ and $${half} - w > 0$.`],
+      solution: [`$w > 0$ and $${half} - w > 0 \\Rightarrow w < ${half}$`, `Domain: $(0, ${half})$`],
+      placeholder: '(0, 10)',
+    };
+  }
+  const T = pick([2, 3, 4, 5, 6]);
+  return {
+    skill: 'apply',
+    prompt: `A ball is thrown up from the ground and lands after $${T}$ seconds. Its height is $h(t) = -5t^2 + ${5 * T}t$ meters, from the moment it is thrown until it lands. What is the domain of $h$ in this situation? Use interval notation.`,
+    answer: { type: 'interval', lo: 0, hi: T, loClosed: true, hiClosed: true },
+    hints: ['Unknown: the times that make sense. Key words: "from the moment it is thrown" ($t = 0$) "until it lands" ($t = ' + T + '$).', 'Both endpoints are real moments of the flight, so include them.'],
+    solution: [`Time starts at $t = 0$ and ends at $t = ${T}$, both included.`, `Domain: $[0, ${T}]$`, `(Outside this interval the formula gives negative heights — not part of this situation.)`],
+    placeholder: '[0, 4]',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'graph', label: 'Domain and range from a graph', generate: segmentGraph },
   { id: 'parabola', label: 'Parabolas', generate: parabolaRange },
   { id: 'formula', label: 'Domain from a formula', generate: polyDomain },
   { id: 'rational', label: 'Excluded values', generate: excludedValues },
+  { id: 'apply', label: 'Word problems', generate: contextDomain },
 ];
 
 export const masterySet = makeMasterySet(skills);

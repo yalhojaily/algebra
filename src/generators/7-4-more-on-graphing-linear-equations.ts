@@ -66,11 +66,45 @@ function perpSlope(): Problem {
   };
 }
 
+function contextLines(): Problem {
+  const kind = pick(['flat', 'parallel', 'perp'] as const);
+  if (kind === 'flat') {
+    const k = pick([25, 30, 40, 45, 60]);
+    return {
+      skill: 'apply',
+      prompt: `A phone plan costs ${k} dollars per month no matter how many minutes you use. On a graph of cost (vertical) against minutes (horizontal), what is the slope of the line?`,
+      answer: choice('$0$', ['Undefined', `$${k}$`, '$1$']),
+      hints: ['Unknown: the slope. Key words: "no matter how many minutes" — the cost never changes.', 'A constant cost gives a **horizontal** line, $C = ' + k + '$.'],
+      solution: [`The graph is the horizontal line $C = ${k}$.`, 'Horizontal lines have slope $0$: the rise is always $0$.'],
+    };
+  }
+  if (kind === 'parallel') {
+    const r = pick([0.05, 0.1, 0.15, 0.2]), a = pick([10, 15, 20]), b = a + pick([5, 10, 15]);
+    return {
+      skill: 'apply',
+      prompt: `Plan A costs $C = ${a} + ${r}m$ dollars and Plan B costs $C = ${b} + ${r}m$ dollars for $m$ minutes. How are their graphs related?`,
+      answer: choice('Parallel', ['Perpendicular', 'The same line', 'Neither']),
+      hints: ['Unknown: how the lines are related. Key words: compare the **slopes** (per-minute rates) and the intercepts (base fees).', `Both slopes are $${r}$; the $y$-intercepts are different.`],
+      solution: [`Slopes: $${r}$ and $${r}$ — equal.`, `Intercepts: $${a}$ and $${b}$ — different.`, 'Equal slopes, different intercepts: **parallel** lines. Plan B always costs ' + (b - a) + ' dollars more.'],
+    };
+  }
+  const [n, d] = pick([[1, 2], [2, 3], [3, 4], [1, 3], [3, 2], [4, 3], [2, 5]]);
+  return {
+    skill: 'apply',
+    prompt: `On a city map, Main Street has slope $\\frac{${n}}{${d}}$. Oak Street is perpendicular to it. What is the slope of Oak Street?`,
+    answer: { type: 'number', value: -d / n },
+    hints: ['Unknown: the slope of the perpendicular street. Key words: "perpendicular" — the slopes multiply to $-1$.', `Take the reciprocal of $\\frac{${n}}{${d}}$ and change its sign.`],
+    solution: [`$m = -\\frac{${d}}{${n}}$`, `Check: $\\frac{${n}}{${d}} \\cdot \\left(-\\frac{${d}}{${n}}\\right) = -1$ ✓`],
+    placeholder: 'e.g. -3/2',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'hv', label: 'Horizontal and vertical lines', generate: horizontalVertical },
   { id: 'hvslope', label: 'Slope of horizontal/vertical lines', generate: hvSlope },
   { id: 'classify', label: 'Parallel or perpendicular?', generate: classify },
   { id: 'perp', label: 'Parallel and perpendicular slopes', generate: perpSlope },
+  { id: 'apply', label: 'Word problems', generate: contextLines },
 ];
 
 export const masterySet = makeMasterySet(skills);

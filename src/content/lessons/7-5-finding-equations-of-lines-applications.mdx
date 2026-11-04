@@ -2,7 +2,7 @@
 id: "7.5"
 title: "Finding Equations of Lines; Applications"
 summary: Given a slope and a point, or two points, write the equation of the line — then use lines to model data and make predictions.
-minutes: 40
+minutes: 45
 objectives:
   - Use the point–slope form to write the equation of a line.
   - Find the equation of a line through two points.
@@ -12,6 +12,7 @@ objectives:
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import TwoPointLine from '../../components/TwoPointLine.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -39,6 +40,15 @@ This comes straight from the slope formula: $\dfrac{y - y_1}{x - x_1} = m$.
   ]}
 />
 
+<QuickCheck
+  client:visible
+  question="Which is the line through $(2, 5)$ with slope $3$?"
+  options={['$y - 5 = 3(x - 2)$', '$y - 2 = 3(x - 5)$', '$y + 5 = 3(x + 2)$', '$y = 3x + 5$']}
+  answer={0}
+  explain="Point–slope form with $x_1 = 2$, $y_1 = 5$."
+  wrong={{ 1: 'The $y$-coordinate goes with $y$: $y - 5$.', 2: 'Subtract the coordinates: $y - 5$ and $x - 2$.', 3: 'Check: $(2, 5)$ gives $5 \\ne 11$. The point isn\'t on that line.' }}
+/>
+
 <Practice client:visible lesson="7.5" skill="pointslope" compact />
 
 ## Two points
@@ -46,6 +56,26 @@ This comes straight from the slope formula: $\dfrac{y - y_1}{x - x_1} = m$.
 First find the slope, then use either point.
 
 <TwoPointLine client:visible />
+
+<StepReveal
+  client:visible
+  title="Through two points"
+  problem="Find the line through $(-1, 4)$ and $(3, -4)$."
+  steps={[
+    { show: '$m = \\dfrac{-4 - 4}{3 - (-1)} = \\dfrac{-8}{4} = -2$', why: 'Slope first.' },
+    { show: '$y - 4 = -2(x + 1)$', why: 'Use the point $(-1, 4)$: $x - (-1) = x + 1$.' },
+    { show: '$y = -2x + 2$', why: 'Check with $(3, -4)$: $-6 + 2 = -4$ ✓' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="What is the slope of the line through $(1, 2)$ and $(4, 11)$?"
+  options={['$3$', '$\\frac{1}{3}$', '$-3$', '$9$']}
+  answer={0}
+  explain="$m = \frac{11 - 2}{4 - 1} = \frac{9}{3} = 3$."
+  wrong={{ 1: 'That is run over rise. Slope is **rise** over run.', 2: 'Both differences are positive, so the slope is positive.', 3: '$9$ is the rise; divide by the run $3$.' }}
+/>
 
 <Practice client:visible lesson="7.5" skill="twopoints" compact />
 
@@ -82,12 +112,45 @@ Use the slope rules from Lesson 7.4, then point–slope form.
 
 <Practice client:visible lesson="7.5" skill="model" compact />
 
+## In a real context
+
+<StepReveal
+  client:visible
+  title="Taxi data"
+  problem="A 5-km taxi ride costs $14$ dollars and a 12-km ride costs $28$ dollars. Assuming a linear cost, find a model and predict the cost of a 20-km ride."
+  steps={[
+    { show: '**Familiarize.** Data points $(5, 14)$ and $(12, 28)$: distance in, cost out.', why: '' },
+    { show: '**Translate.** $m = \\dfrac{28 - 14}{12 - 5} = 2$ dollars per km', why: '' },
+    { show: '**Solve.** $C - 14 = 2(d - 5) \\;\\Rightarrow\\; C = 2d + 4$', why: 'The $4$ is the fixed starting fee.' },
+    { show: '$C(20) = 2(20) + 4 = 44$', why: '' },
+    { show: '**Check.** $C(5) = 14$ ✓ and $C(12) = 28$ ✓', why: '' },
+    { show: '**State.** $C = 2d + 4$; a 20-km ride costs about $44$ dollars.', why: '' },
+  ]}
+/>
+
+## Common mistakes
+
+<Callout type="warning" title="Signs in point–slope form">
+Through $(-1, 4)$: $y - 4 = m(x - (-1)) = m(x + 1)$.
+</Callout>
+
+<Callout type="warning" title="Slope upside down">
+$m = \dfrac{y_2 - y_1}{x_2 - x_1}$ — change in $y$ on top.
+</Callout>
+
+<Callout type="warning" title="Predicting too far">
+A linear model fits the data it came from. Predictions far outside that range are guesses — real growth often isn't linear forever.
+</Callout>
+
+
 ## Summary
 
 - Point–slope: $y - y_1 = m(x - x_1)$; solve for $y$ to get $y = mx + b$.
 - Two points: slope first, then point–slope.
 - Parallel: same slope. Perpendicular: opposite reciprocal.
 - Models: slope = rate of change; use the line to predict.
+
+**Next, in Chapter 8:** systems of equations — where two lines meet.
 
 ## Practice
 
