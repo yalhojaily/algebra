@@ -888,19 +888,32 @@ a.tag:hover { color: var(--ink); }
 .el-slider-wide output { font-size: 0.9rem; }
 
 /* ---------- Stop and check ---------- */
-.qc { border-left: 4px solid var(--amber); }
-.qc-kicker { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--amber); margin-bottom: 6px; }
-.qc-q { font-weight: 600; margin-bottom: 10px; }
-.qc-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 8px; }
-.qc-opt { display: flex; gap: 10px; align-items: center; text-align: left; padding: 9px 12px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--card); color: var(--ink); font: inherit; cursor: pointer; transition: border-color 0.15s, background 0.15s; }
-.qc-opt:hover:not(:disabled) { border-color: var(--blue); }
+.qc { position: relative; margin: 1.8em 0; padding: 18px 22px 20px; border-left: 5px solid var(--amber); background: linear-gradient(180deg, color-mix(in srgb, var(--amber) 7%, var(--card)) 0, var(--card) 70px); }
+.qc-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.qc-icon { flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--amber-soft); color: var(--amber); font-size: 1rem; }
+.qc-kicker { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--amber); }
+.qc-tip { margin-left: auto; font-size: 0.8rem; color: var(--ink-3); }
+.qc-q { font-weight: 600; line-height: 1.55; margin: 0 0 14px; }
+.qc-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 10px; }
+.qc-opt { display: flex; gap: 12px; align-items: center; text-align: left; min-height: 48px; padding: 10px 14px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--card); color: var(--ink); font: inherit; cursor: pointer; transition: border-color 0.15s, background 0.15s, transform 0.1s; }
+.qc-opt:hover:not(:disabled) { border-color: var(--blue); background: var(--blue-soft); }
+.qc-opt:active:not(:disabled) { transform: scale(0.99); }
 .qc-opt:disabled { cursor: default; }
-.qc-opt.ok { border-color: var(--green); background: var(--green-soft); }
-.qc-opt.bad { border-color: var(--red); background: var(--red-soft); opacity: 0.8; }
-.qc-opt.dim { opacity: 0.5; }
-.qc-letter { flex: none; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: var(--paper-2); font-size: 0.78rem; font-weight: 700; }
-.qc-opt.ok .qc-letter { background: var(--green); color: white; }
-.qc-opt.bad .qc-letter { background: var(--red); color: white; }
-.qc-feedback { margin-top: 10px; padding: 8px 12px; border-radius: 8px; font-size: 0.95rem; }
-.qc-feedback.ok { background: var(--green-soft); }
-.qc-feedback.bad { background: var(--red-soft); }
+.qc-opt.ok { border-color: var(--green); background: var(--green-soft); font-weight: 600; }
+.qc-opt.bad { border-color: var(--red); background: var(--red-soft); }
+.qc-opt.dim { opacity: 0.45; }
+.qc-letter { flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--paper-2); border: 1px solid var(--line); font-size: 0.78rem; font-weight: 700; }
+.qc-opt.ok .qc-letter { background: var(--green); border-color: var(--green); color: white; }
+.qc-opt.bad .qc-letter { background: var(--red); border-color: var(--red); color: white; }
+.qc-feedback { display: flex; gap: 10px; align-items: flex-start; margin-top: 14px; padding: 12px 14px; border-radius: 10px; border-left: 4px solid; line-height: 1.55; }
+.qc-feedback.ok { background: var(--green-soft); border-color: var(--green); }
+.qc-feedback.bad { background: var(--red-soft); border-color: var(--red); }
+.qc-mark { flex: none; font-weight: 700; }
+.qc-feedback.ok .qc-mark { color: var(--green); }
+.qc-feedback.bad .qc-mark { color: var(--red); }
+.qc-reset { margin-top: 10px; }
+@media (max-width: 560px) { .qc { padding: 14px 16px 16px; } .qc-tip { display: none; } }
+
+/* Appendix A widgets: inner spacing like the other cards */
+.fb, .mr, .pv, .df, .mn, .hg { padding: 16px 20px; margin: 1.4em 0; }
+@media (max-width: 560px) { .fb, .mr, .pv, .df, .mn, .hg { padding: 14px 14px; } }

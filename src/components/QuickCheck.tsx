@@ -22,7 +22,11 @@ export default function QuickCheck({ question, options, answer, explain, wrong =
   const pick = (i: number) => { if (!solved && !tried.includes(i)) setTried([...tried, i]); };
   return (
     <div className="qc card" role="group" aria-label="Stop and check">
-      <div className="qc-kicker">✋ Stop and check</div>
+      <div className="qc-head">
+        <span className="qc-icon" aria-hidden="true">✋</span>
+        <span className="qc-kicker">Stop and check</span>
+        <span className="qc-tip">{solved ? '' : 'Pick an answer'}</span>
+      </div>
       <MathText as="div" className="qc-q">{question}</MathText>
       <div className="qc-options">
         {options.map((o, i) => {
@@ -36,9 +40,12 @@ export default function QuickCheck({ question, options, answer, explain, wrong =
         })}
       </div>
       {solved ? (
-        <div className="qc-feedback ok"><strong>{tried.length === 1 ? 'Right!' : 'Yes — got it.'}</strong> <MathText>{explain}</MathText></div>
+        <>
+          <div className="qc-feedback ok" aria-live="polite"><span className="qc-mark">✓</span><div><strong>{tried.length === 1 ? 'Right!' : 'Yes — got it.'}</strong> <MathText>{explain}</MathText></div></div>
+          <button className="btn btn-ghost qc-reset" onClick={() => setTried([])}>↺ Try again</button>
+        </>
       ) : last !== undefined ? (
-        <div className="qc-feedback bad"><strong>Not quite.</strong> <MathText>{wrong[last] ?? 'Think again and try another choice.'}</MathText></div>
+        <div className="qc-feedback bad" aria-live="polite"><span className="qc-mark">✗</span><div><strong>Not quite.</strong> <MathText>{wrong[last] ?? 'Think again and try another choice.'}</MathText></div></div>
       ) : null}
     </div>
   );
