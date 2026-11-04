@@ -179,12 +179,32 @@ function grouping(): Problem {
   }
 }
 
+function changeWords(): Problem {
+  for (;;) {
+    const na = randInt(2, 5), a = randInt(3, 15), nb = randInt(2, 6), b = randInt(2, 9);
+    const total = na * a + nb * b;
+    const pay = [50, 100, 200].find((x) => x > total);
+    if (!pay) continue;
+    const [A, B] = pick([['notebooks', 'pens'], ['coffees', 'pastries'], ['tickets', 'drinks']]);
+    return {
+      skill: 'apply',
+      prompt: `You buy $${na}$ ${A} at $${a}$ riyals each and $${nb}$ ${B} at $${b}$ riyals each, and pay with a $${pay}$-riyal note. Your change is $${pay} - (${na} \\cdot ${a} + ${nb} \\cdot ${b})$. How much change do you get?`,
+      answer: { type: 'number', value: pay - total },
+      hints: ['Unknown: the change. Key words: change = amount paid **minus** the total cost — the whole total, so it is in parentheses.', `Inside the parentheses first: multiply, then add. Then subtract from $${pay}$.`],
+      solution: [`$${na} \\cdot ${a} + ${nb} \\cdot ${b} = ${na * a} + ${nb * b} = ${total}$`, `$${pay} - ${total} = ${pay - total}$ riyals`],
+      mistakes: [{ answer: String(pay - na * a + nb * b), feedback: 'The parentheses mean the **whole** cost is subtracted — the second item must be subtracted too.' }],
+      placeholder: 'e.g. 23',
+    };
+  }
+}
+
 export const skills: Skill[] = [
   { id: 'opposite', label: 'Opposite of a sum', generate: oppositeOfSum },
   { id: 'collect', label: 'Remove ( ) & collect', generate: removeAndCollect },
   { id: 'exponents', label: 'Exponents', generate: exponents },
   { id: 'order', label: 'Order of operations', generate: orderOfOperations },
   { id: 'grouping', label: 'Nested grouping', generate: grouping },
+  { id: 'apply', label: 'Word problems', generate: changeWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

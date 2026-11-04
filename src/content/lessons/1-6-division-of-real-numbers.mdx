@@ -9,10 +9,12 @@ objectives:
   - Find the reciprocal of a number.
   - Divide fractions by multiplying by the reciprocal.
   - Recognize equivalent ways of writing negative fractions.
+  - Use division to find an average change.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import DivisionCheck from '../../components/DivisionCheck.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -62,6 +64,15 @@ $\dfrac{0}{5} = 0$, but $\dfrac{5}{0}$ is undefined. It's easy to mix them up �
   ]}
 />
 
+<QuickCheck
+  client:visible
+  question="Divide: $\;\dfrac{-36}{4}$"
+  options={['$-9$', '$9$', '$-32$', '$-\\frac{1}{9}$']}
+  answer={0}
+  explain="Different signs → negative: $36 \div 4 = 9$, so $-9$. Check: $(-9) \cdot 4 = -36$ ✓"
+  wrong={{ 1: 'Different signs give a negative quotient.', 2: 'That subtracts instead of dividing.', 3: 'That is $\\frac{4}{-36}$, upside down.' }}
+/>
+
 <Practice client:visible lesson="1.6" skill="integers" compact />
 
 <Practice client:visible lesson="1.6" skill="zero" compact />
@@ -81,6 +92,15 @@ A number and its reciprocal always have the **same sign** (their product, $1$, i
 <Callout type="warning" title="Reciprocal vs. opposite">
 The **opposite** of $5$ is $-5$ (they add to $0$). The **reciprocal** of $5$ is $\tfrac{1}{5}$ (they multiply to $1$). Don't mix them up.
 </Callout>
+
+<QuickCheck
+  client:visible
+  question="What is the reciprocal of $\;-\frac{2}{5}$?"
+  options={['$-\\frac{5}{2}$', '$\\frac{5}{2}$', '$\\frac{2}{5}$', '$-\\frac{2}{5}$']}
+  answer={0}
+  explain="Flip it and keep the sign: $-\frac{2}{5} \cdot \left(-\frac{5}{2}\right) = 1$."
+  wrong={{ 1: 'A number and its reciprocal have the **same** sign.', 2: 'That is the opposite, not the reciprocal.', 3: 'Flip the fraction: numerator and denominator swap.' }}
+/>
 
 <Practice client:visible lesson="1.6" skill="reciprocal" compact />
 
@@ -119,6 +139,21 @@ But $\dfrac{-a}{-b} = \dfrac{a}{b}$ — two negatives cancel.
 
 <Practice client:visible lesson="1.6" skill="signs" compact />
 
+## Applications
+
+<StepReveal
+  client:visible
+  title="Average daily change"
+  problem="Over $4$ days a stock price fell a total of $28$ riyals, by the same amount each day. What was the change per day?"
+  steps={[
+    { show: 'Total change: $-28$', why: 'A fall is negative.' },
+    { show: '$\\dfrac{-28}{4} = -7$', why: 'Share the total equally: divide.' },
+    { show: 'Check: $4 \\cdot (-7) = -28$ ✓', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="1.6" skill="apply" compact />
+
 ## Watch out for these
 
 <Callout type="warning" title="Common mistakes">
@@ -133,6 +168,8 @@ But $\dfrac{-a}{-b} = \dfrac{a}{b}$ — two negatives cancel.
 - $\frac{0}{b} = 0$ for ${b \ne 0}$; $\frac{a}{0}$ is **undefined**.
 - Reciprocals multiply to $1$. To divide, multiply by the reciprocal of the divisor.
 - $-\frac{a}{b} = \frac{-a}{b} = \frac{a}{-b}$.
+
+**Next, in 1.7:** the properties of real numbers — the rules that let us rearrange expressions.
 
 ## Practice
 

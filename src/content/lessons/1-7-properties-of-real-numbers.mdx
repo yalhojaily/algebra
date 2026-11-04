@@ -9,10 +9,12 @@ objectives:
   - Use the distributive law to multiply expressions such as 3(x − 4).
   - Factor expressions such as 12x + 18 by taking out the greatest common factor.
   - Collect like terms.
+  - Write and simplify expressions for perimeters and totals.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import AreaModel from '../../components/AreaModel.tsx';
 import LikeTerms from '../../components/LikeTerms.tsx';
 import Practice from '../../components/Practice.tsx';
@@ -53,6 +55,15 @@ A memory aid: you **commute** when you travel — things change **places**. **As
 $7 - 3 \ne 3 - 7$ and $8 \div 2 \ne 2 \div 8$. The commutative and associative laws work only for **addition** and **multiplication**. (That's one reason to rewrite subtraction as adding the opposite.)
 </Callout>
 
+<QuickCheck
+  client:visible
+  question="$\;3 + (x + 5) = (3 + x) + 5\;$ is an example of …"
+  options={['The associative law of addition', 'The commutative law of addition', 'The distributive law', 'The identity property of $0$']}
+  answer={0}
+  explain="The order is the same; only the **grouping** changed."
+  wrong={{ 1: 'The numbers are in the same order — only the parentheses moved.', 2: 'No multiplication is distributed here.', 3: 'Nothing is added to $0$.' }}
+/>
+
 <Practice client:visible lesson="1.7" skill="property" compact />
 
 ## The distributive law
@@ -82,6 +93,15 @@ Why is it true? Think of area. A rectangle that is $a$ wide and $(b + c)$ long c
 <Callout type="warning" title="Distribute to every term">
 $3(x + 5)$ is $3x + 15$, not $3x + 5$. The number outside multiplies **everything** inside.
 </Callout>
+
+<QuickCheck
+  client:visible
+  question="Multiply: $\;-3(x - 4)$"
+  options={['$-3x + 12$', '$-3x - 12$', '$-3x - 4$', '$3x + 12$']}
+  answer={0}
+  explain="$(-3)(x) + (-3)(-4) = -3x + 12$."
+  wrong={{ 1: '$(-3)(-4) = +12$.', 2: 'The $-3$ multiplies **both** terms.', 3: '$(-3)(x) = -3x$.' }}
+/>
 
 <Practice client:visible lesson="1.7" skill="distribute" compact />
 
@@ -135,6 +155,21 @@ To **collect** (or *combine*) like terms, add their coefficients. This is the di
 
 <Practice client:visible lesson="1.7" skill="like" compact />
 
+## Applications
+
+<StepReveal
+  client:visible
+  title="A perimeter"
+  problem="A rectangular garden is $x + 5$ m long and $x$ m wide. Write its perimeter as a simplified expression, and find it when $x = 3$."
+  steps={[
+    { show: '$P = 2(x + 5) + 2x$', why: 'Two lengths and two widths.' },
+    { show: '$= 2x + 10 + 2x = 4x + 10$', why: 'Distribute, then collect like terms.' },
+    { show: '$x = 3$: $\\;4(3) + 10 = 22$ m', why: 'Check: sides $8$ and $3$: $8 + 3 + 8 + 3 = 22$ ✓' },
+  ]}
+/>
+
+<Practice client:visible lesson="1.7" skill="apply" compact />
+
 ## Watch out for these
 
 <Callout type="warning" title="Common mistakes">
@@ -150,6 +185,8 @@ To **collect** (or *combine*) like terms, add their coefficients. This is the di
 - **Commutative:** $a + b = b + a$, $\;ab = ba$. **Associative:** $(a + b) + c = a + (b + c)$, $\;(ab)c = a(bc)$.
 - **Distributive:** $a(b + c) = ab + ac$. Used forwards to **multiply**, and backwards to **factor**.
 - **Like terms** have the same variable part; combine them by adding coefficients.
+
+**Next, in 1.8:** removing parentheses, exponents, and the order of operations.
 
 ## Practice
 

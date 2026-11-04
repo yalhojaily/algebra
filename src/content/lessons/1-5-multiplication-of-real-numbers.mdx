@@ -12,6 +12,7 @@ objectives:
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import SignPattern from '../../components/SignPattern.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -68,6 +69,15 @@ The pattern only continues if a negative times a negative is **positive**. Mathe
   ]}
 />
 
+<QuickCheck
+  client:visible
+  question="Multiply: $\;(-6)(-4)$"
+  options={['$24$', '$-24$', '$-10$', '$10$']}
+  answer={0}
+  explain="Same signs → positive: $6 \cdot 4 = 24$."
+  wrong={{ 1: 'Two negatives multiply to a **positive**.', 2: 'That adds instead of multiplying.', 3: 'Multiply: $6 \\cdot 4 = 24$.' }}
+/>
+
 <Practice client:visible lesson="1.5" skill="integers" compact />
 
 <Practice client:visible lesson="1.5" skill="rational" compact />
@@ -91,6 +101,15 @@ If none of the factors is $0$:
     { show: '$2 \\cdot 3 \\cdot 1 \\cdot 5 = 30$', why: 'Multiply the absolute values.' },
     { show: '$(-2)(-3)(-1)(5) = -30$', why: '' },
   ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="What is the sign of $\;(-1)(-2)(-3)(-4)(-5)$?"
+  options={['Negative', 'Positive', 'Zero', 'It depends on the order']}
+  answer={0}
+  explain="Five negative factors — an odd number — so the product is negative ($-120$)."
+  wrong={{ 1: 'Count the negatives: five is odd.', 2: 'No factor is $0$.', 3: 'The order of factors never changes a product.' }}
 />
 
 <Practice client:visible lesson="1.5" skill="sign" compact />
@@ -125,6 +144,8 @@ If none of the factors is $0$:
 - Same signs → positive product. Different signs → negative product.
 - For many factors, count the negatives: even → positive, odd → negative (unless a factor is $0$).
 - Repeated change = number of times × change each time.
+
+**Next, in 1.6:** division — the same sign rules, plus reciprocals and division by zero.
 
 ## Practice
 

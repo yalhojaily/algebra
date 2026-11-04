@@ -8,10 +8,12 @@ objectives:
   - Remove parentheses and collect like terms, including expressions like 5x − 3(x − 4).
   - Write repeated multiplication with exponents, and evaluate powers of negative numbers.
   - Simplify numeric expressions using the order of operations, including nested grouping symbols.
+  - Use the order of operations to calculate totals and change.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import OrderStepper from '../../components/OrderStepper.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -86,6 +88,15 @@ $$(-3)^2 = (-3)(-3) = 9 \qquad\text{but}\qquad -3^2 = -(3 \cdot 3) = -9$$
 In $-3^2$ the base is $3$, not $-3$. Also, $(2x)^2 = 4x^2$, but $2x^2$ means $2 \cdot x \cdot x$.
 </Callout>
 
+<QuickCheck
+  client:visible
+  question="What is $\;-2^4$?"
+  options={['$-16$', '$16$', '$-8$', '$8$']}
+  answer={0}
+  explain="The exponent applies only to $2$: $-(2^4) = -16$."
+  wrong={{ 1: 'That is $(-2)^4$. Without parentheses the minus sign is not part of the base.', 2: '$2^4 = 2 \\cdot 2 \\cdot 2 \\cdot 2 = 16$, not $2 \\cdot 4$.', 3: 'An exponent is repeated multiplication, not $2 \\cdot 4$.' }}
+/>
+
 <Practice client:visible lesson="1.8" skill="exponents" compact />
 
 ## The order of operations
@@ -116,6 +127,15 @@ Type any expression below, or pick one, and step through it. The ladder on the l
   ]}
 />
 
+<QuickCheck
+  client:visible
+  question="Simplify: $\;2 + 3 \cdot 4$"
+  options={['$14$', '$20$', '$24$', '$9$']}
+  answer={0}
+  explain="Multiply first: $3 \cdot 4 = 12$, then $2 + 12 = 14$."
+  wrong={{ 1: 'That goes left to right. Multiplication comes before addition.', 2: 'That multiplies everything.', 3: 'That adds everything.' }}
+/>
+
 <Practice client:visible lesson="1.8" skill="order" compact />
 
 ## Nested grouping symbols
@@ -136,6 +156,21 @@ When grouping symbols are inside other grouping symbols, start with the **innerm
 
 <Practice client:visible lesson="1.8" skill="grouping" compact />
 
+## Applications
+
+<StepReveal
+  client:visible
+  title="Change from a purchase"
+  problem="You buy $3$ notebooks at $12$ riyals each and $2$ pens at $5$ riyals each, and pay with $100$ riyals. How much change do you get?"
+  steps={[
+    { show: '$100 - (3 \\cdot 12 + 2 \\cdot 5)$', why: 'The whole cost is subtracted, so it goes in parentheses.' },
+    { show: '$= 100 - (36 + 10) = 100 - 46$', why: 'Inside the parentheses: multiply, then add.' },
+    { show: '$= 54$ riyals', why: 'Without parentheses, $100 - 36 + 10 = 74$ — the wrong change.' },
+  ]}
+/>
+
+<Practice client:visible lesson="1.8" skill="apply" compact />
+
 ## Watch out for these
 
 <Callout type="warning" title="Common mistakes">
@@ -150,6 +185,8 @@ When grouping symbols are inside other grouping symbols, start with the **innerm
 - $-(a + b - c) = -a - b + c$: a minus sign in front changes **every** sign inside.
 - $a^n$ means $n$ factors of $a$. The exponent applies only to the base right in front of it.
 - **Order of operations:** grouping (innermost first) → exponents → multiply & divide (left to right) → add & subtract (left to right).
+
+**Next, in Chapter 2:** solving equations and inequalities.
 
 ## Practice
 

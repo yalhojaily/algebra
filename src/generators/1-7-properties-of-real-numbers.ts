@@ -138,11 +138,37 @@ function likeTerms(): Problem {
   };
 }
 
+function perimeterWords(): Problem {
+  const a = randInt(2, 12), b = randInt(1, 9);
+  const [thing] = pick([['garden'], ['photo frame'], ['parking lot'], ['tabletop']]);
+  if (Math.random() < 0.5) {
+    return {
+      skill: 'apply',
+      prompt: `A rectangular ${thing} is $x + ${a}$ m long and $x$ m wide. Write its perimeter, $2(x + ${a}) + 2x$, as a simplified expression.`,
+      answer: { type: 'expression', value: `4x + ${2 * a}`, maxTerms: 2 },
+      hints: ['Unknown: the perimeter. Key words: perimeter = the distance around = $2 \\cdot$ length $+ 2 \\cdot$ width.', `Distribute: $2(x + ${a}) = 2x + ${2 * a}$. Then collect like terms.`],
+      solution: [`$2(x + ${a}) + 2x = 2x + ${2 * a} + 2x$`, `$= 4x + ${2 * a}$`],
+      placeholder: '4x + 10',
+    };
+  }
+  const n = randInt(3, 9);
+  return {
+    skill: 'apply',
+    prompt: `Each of $${n}$ friends orders a sandwich for $s$ riyals and a juice for $${b + 3}$ riyals. Write the total cost, $${n}(s + ${b + 3})$, without parentheses.`,
+    answer: { type: 'expression', value: `${n}s + ${n * (b + 3)}`, maxTerms: 2 },
+    hints: ['Unknown: the total cost. Key words: "each of" the friends pays the same, so multiply one person\'s cost by the number of friends.', `Distribute $${n}$ to **both** terms inside the parentheses.`],
+    solution: [`$${n}(s + ${b + 3}) = ${n}s + ${n * (b + 3)}$`],
+    mistakes: [{ answer: `${n}s + ${b + 3}`, feedback: `The $${n}$ multiplies **both** terms: each friend also buys a juice.` }],
+    placeholder: '4s + 20',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'property', label: 'Name the property', generate: identifyProperty },
   { id: 'distribute', label: 'Distribute', generate: distribute },
   { id: 'factor', label: 'Factor', generate: factor },
   { id: 'like', label: 'Collect like terms', generate: likeTerms },
+  { id: 'apply', label: 'Word problems', generate: perimeterWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

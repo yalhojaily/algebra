@@ -108,12 +108,32 @@ function signsOfFractions(): Problem {
   };
 }
 
+function averageChange(): Problem {
+  const n = randInt(3, 8), per = -randInt(2, 15), T = n * per;
+  const [what, unit, period] = pick([
+    ['A stock price', 'riyals', 'days'],
+    ['The temperature', 'degrees', 'hours'],
+    ['The water level in a tank', 'cm', 'hours'],
+    ['A diver\'s depth', 'm', 'minutes'],
+  ]);
+  return {
+    skill: 'apply',
+    prompt: `${what} changed by a total of $${T}$ ${unit} over $${n}$ ${period}, by the same amount each time. What was the change per ${period.slice(0, -1)}?`,
+    answer: { type: 'number', value: per },
+    hints: [`Unknown: the change per ${period.slice(0, -1)}. Key words: "the same amount each time" — share the total equally, so divide.`, `$${T} \\div ${n}$: different signs give a negative quotient.`],
+    solution: [`$\\dfrac{${T}}{${n}} = ${per}$`, `Check: $${n} \\cdot (${per}) = ${T}$ ✓`, `A change of $${per}$ ${unit} per ${period.slice(0, -1)} — it went **down** $${-per}$ each time.`],
+    mistakes: [{ answer: String(-per), feedback: 'Keep the sign: the total change is negative, so each equal share is negative too.' }],
+    placeholder: 'e.g. -7',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'integers', label: 'Divide integers', generate: divIntegers },
   { id: 'zero', label: 'Zero & undefined', generate: zero },
   { id: 'reciprocal', label: 'Reciprocals', generate: reciprocal },
   { id: 'fractions', label: 'Divide fractions', generate: divFractions },
   { id: 'signs', label: 'Signs of fractions', generate: signsOfFractions },
+  { id: 'apply', label: 'Word problems', generate: averageChange },
 ];
 
 export const masterySet = makeMasterySet(skills);

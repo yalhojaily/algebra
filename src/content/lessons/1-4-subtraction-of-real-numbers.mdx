@@ -12,6 +12,7 @@ objectives:
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import JumpLine from '../../components/JumpLine.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -71,6 +72,15 @@ On the number line, subtracting a positive moves you **left**, and subtracting a
 In $5 - (-2)$, the first "$-$" means **subtract** and the second means **negative**. They are different symbols doing different jobs. Rewrite before you calculate: $5 - (-2) = 5 + 2 = 7$.
 </Callout>
 
+<QuickCheck
+  client:visible
+  question="Subtract: $\;5 - (-3)$"
+  options={['$8$', '$2$', '$-8$', '$-2$']}
+  answer={0}
+  explain="$5 - (-3) = 5 + 3 = 8$."
+  wrong={{ 1: 'Subtracting a negative means **adding** its opposite: $5 + 3$.', 2: 'The first number, $5$, stays positive.', 3: '$5 + 3 = 8$ is positive.' }}
+/>
+
 <Practice client:visible lesson="1.4" skill="rewrite" compact />
 
 <Practice client:visible lesson="1.4" skill="integers" compact />
@@ -105,6 +115,15 @@ When an expression has several additions and subtractions, rewrite **every** sub
     { show: '$= 18 + (-2)$', why: 'Add the positives: $8 + 4 + 4 + 2 = 18$.' },
     { show: '$= 16$', why: '' },
   ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Subtract: $\;-2 - 7$"
+  options={['$-9$', '$5$', '$-5$', '$9$']}
+  answer={0}
+  explain="$-2 + (-7) = -9$: same signs, add and keep the negative sign."
+  wrong={{ 1: 'The $-2$ stays negative; only the $7$ changes sign.', 2: '$-2 + (-7)$: both negative, so add $2 + 7$.', 3: 'Both numbers are negative after rewriting.' }}
 />
 
 <Practice client:visible lesson="1.4" skill="chain" compact />
@@ -143,6 +162,8 @@ A **difference** or a **change** is found by subtracting:
 - Subtracting a **negative** is the same as adding a positive: $a - (-b) = a + b$.
 - Rewrite every subtraction as addition, then use the addition rules from Lesson 1.3.
 - Ranges and changes are differences: high − low, new − old.
+
+**Next, in 1.5:** multiplication — and why a negative times a negative is positive.
 
 ## Practice
 

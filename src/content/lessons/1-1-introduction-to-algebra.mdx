@@ -13,6 +13,7 @@ objectives:
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import ExpressionLab from '../../components/ExpressionLab.tsx';
 import TranslateLab from '../../components/TranslateLab.tsx';
 import BalanceCheck from '../../components/BalanceCheck.tsx';
@@ -125,6 +126,15 @@ Move the sliders below. Watch how each letter is replaced by its value, and how 
 
 **Your turn.** Each "New problem" gives you a fresh one.
 
+<QuickCheck
+  client:visible
+  question="Evaluate $\;3x + 2\;$ when $x = 5$."
+  options={['$17$', '$37$', '$25$', '$10$']}
+  answer={0}
+  explain="$3x$ means $3 \cdot 5 = 15$; then $15 + 2 = 17$."
+  wrong={{ 1: '$3x$ means $3 \\cdot 5$, not the digits $3$ and $5$ side by side.', 2: 'Multiply before adding: $3 \\cdot 5 + 2$, not $(3 + 2) \\cdot 5$.', 3: '$3x$ is a product, not $3 + x$.' }}
+/>
+
 <Practice client:visible lesson="1.1" skill="evaluate" compact />
 
 ## Translating phrases into expressions
@@ -163,6 +173,15 @@ It is **not** $5 - x$. Test it with a real number: "$5$ less than $20$" is $15$,
   answer="$2(n + 9)$. Compare: **the sum of twice a number and 9** is $2n + 9$ — a different expression!"
 />
 
+<QuickCheck
+  client:visible
+  question="Translate: **4 less than a number $n$**."
+  options={['$n - 4$', '$4 - n$', '$4n$', '$n + 4$']}
+  answer={0}
+  explain="“Less than” flips the order: start with $n$, take $4$ away."
+  wrong={{ 1: 'Test with $n = 10$: "4 less than 10" is $6$, but $4 - 10 = -6$.', 2: '"Less than" means subtract, not multiply.', 3: '"Less" means take away.' }}
+/>
+
 <Practice client:visible lesson="1.1" skill="translate" compact />
 
 ## Equations and solutions
@@ -190,6 +209,15 @@ Think of an equation as a **balance scale**. The left side goes on one pan and t
     { show: 'Try $9$: $\\;3 \\cdot 9 = 27$', why: '$27 = 24$ is **false**, so $9$ is **not** a solution.' },
   ]}
   answer="$8$ is a solution; $9$ is not."
+/>
+
+<QuickCheck
+  client:visible
+  question="Is $6$ a solution of $\;2x - 3 = 9$?"
+  options={['Yes', 'No', 'Only if $x$ is positive', 'It can\'t be decided']}
+  answer={0}
+  explain="$2 \cdot 6 - 3 = 12 - 3 = 9$ — true, so $6$ is a solution."
+  wrong={{ 1: 'Substitute: $2 \\cdot 6 - 3 = 9$, which is true.', 2: '$6$ is a specific number; just substitute it.', 3: 'Substitute and check whether both sides are equal.' }}
 />
 
 <Practice client:visible lesson="1.1" skill="solution" compact />
@@ -241,6 +269,8 @@ Many word problems become an equation once you notice that **"is"**, **"equals"*
 - To **evaluate** an expression, substitute values for the variables and calculate.
 - Translate phrases using key words — and remember that "less than" and "subtracted from" **flip the order**.
 - An **equation** says two expressions are equal. A **solution** is a value that makes it true; check it by substituting.
+
+**Next, in 1.2:** the real numbers — all the kinds of numbers a variable can stand for.
 
 ## Practice
 

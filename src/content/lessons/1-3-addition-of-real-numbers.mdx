@@ -12,6 +12,7 @@ objectives:
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import JumpLine from '../../components/JumpLine.tsx';
 import ZeroPairs from '../../components/ZeroPairs.tsx';
 import Practice from '../../components/Practice.tsx';
@@ -79,6 +80,15 @@ Think of $+1$ and $-1$ as counters that cancel each other, because $1 + (-1) = 0
   ]}
 />
 
+<QuickCheck
+  client:visible
+  question="Add: $\;-8 + 3$"
+  options={['$-5$', '$-11$', '$5$', '$11$']}
+  answer={0}
+  explain="Different signs: $8 - 3 = 5$, and $-8$ has the larger absolute value, so the sum is $-5$."
+  wrong={{ 1: 'Different signs → subtract the absolute values.', 2: 'The number with the larger absolute value is negative, so the answer is negative.', 3: 'The signs are different, so don\'t add $8$ and $3$.' }}
+/>
+
 <Practice client:visible lesson="1.3" skill="integers" compact />
 
 <Practice client:visible lesson="1.3" skill="rational" compact />
@@ -105,6 +115,15 @@ $-x$ means *the opposite of $x$*, not *a negative number*. If $x = -6$, then $-x
     { show: '$-x = -(-13) = 13$', why: 'The opposite of $-13$ is $13$.' },
     { show: '$-(-x) = x = -13$', why: 'The opposite of the opposite is the number itself.' },
   ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="If $x = -4$, what is $-x$?"
+  options={['$4$', '$-4$', '$0$', '$\\frac{1}{4}$']}
+  answer={0}
+  explain="$-x$ is the opposite of $x$: $-(-4) = 4$."
+  wrong={{ 1: '$-x$ means "the opposite of $x$", and the opposite of $-4$ is $4$.', 2: '$x + (-x) = 0$, but $-x$ itself is $4$.', 3: 'That is the reciprocal of $4$, not the opposite of $-4$.' }}
 />
 
 <Practice client:visible lesson="1.3" skill="opposites" compact />
@@ -159,6 +178,8 @@ Addition can be done in any order and with any grouping (you'll see why in Lesso
 - **Same signs:** add absolute values, keep the sign. **Different signs:** subtract absolute values, take the sign of the larger.
 - **Opposites** add to $0$: $x + (-x) = 0$, and $-(-x) = x$.
 - With many numbers, add the positives, add the negatives, then combine.
+
+**Next, in 1.4:** subtraction — which turns out to be adding the opposite.
 
 ## Practice
 
