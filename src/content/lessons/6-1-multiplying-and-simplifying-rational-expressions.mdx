@@ -2,16 +2,18 @@
 id: "6.1"
 title: Multiplying and Simplifying Rational Expressions
 summary: A rational expression is a fraction of polynomials. Factor, cancel common factors, and keep track of the values that are not allowed.
-minutes: 40
+minutes: 45
 objectives:
   - Find the values that make a rational expression undefined.
   - Simplify rational expressions by cancelling common factors.
   - Recognize opposite factors, like a − b and b − a.
   - Multiply rational expressions and simplify.
+  - Simplify rational expressions that come from applications, such as average cost.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import RationalLab from '../../components/RationalLab.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -33,6 +35,15 @@ A **rational expression** is a quotient of two polynomials, such as $\frac{x + 1
     { show: '$(x - 7)(x + 2) = 0$', why: 'Factor.' },
     { show: '$x = 7$ or $x = -2$', why: 'These two values are not allowed.' },
   ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="For which values of $x$ is $\;\dfrac{x}{x^2 - 9}\;$ undefined?"
+  options={['$x = 3$ and $x = -3$', '$x = 0$', '$x = 9$', '$x = 3$ only']}
+  answer={0}
+  explain="Set the denominator equal to $0$: $x^2 - 9 = 0$, so $x = 3$ or $x = -3$."
+  wrong={{ 1: '$x = 0$ makes the **numerator** $0$ — that is allowed (the value is just $0$).', 2: '$x^2 = 9$ means $x = 3$ or $x = -3$, not $x = 9$.', 3: '$(-3)^2 = 9$ too.' }}
 />
 
 <Practice client:visible lesson="6.1" skill="excluded" compact />
@@ -63,6 +74,15 @@ Try it below. Use the slider to test the original and the simplified expression 
 $\dfrac{x + 3}{x}$ is **not** $3$. The $x$ on top is a *term* (it is added), not a factor of the whole numerator. Only things that **multiply** the entire numerator and the entire denominator can cancel. Check with a number: if $x = 1$, then $\frac{1 + 3}{1} = 4$, not $3$.
 </Callout>
 
+<QuickCheck
+  client:visible
+  question="Simplify: $\;\dfrac{2x + 6}{x + 3}$"
+  options={['$2$', '$2x + 2$', 'It can\'t be simplified', '$2x$']}
+  answer={0}
+  explain="$2x + 6 = 2(x + 3)$, so $\frac{2(x + 3)}{x + 3} = 2$ (for $x \ne -3$)."
+  wrong={{ 1: 'Cancelling the $3$ in $6$ against the $3$ in $x + 3$ cancels **terms**, not factors.', 2: 'Factor the numerator first: $2(x + 3)$.', 3: 'The $6$ is part of the factor $2(x + 3)$; it can\'t be dropped.' }}
+/>
+
 <Practice client:visible lesson="6.1" skill="simplify" compact />
 
 ## Opposite factors
@@ -89,7 +109,51 @@ Multiply rational expressions like fractions — numerators times numerators, de
   ]}
 />
 
+<StepReveal
+  client:visible
+  title="Multiply with opposite factors"
+  problem="Multiply: $\;\dfrac{x^2 - 25}{3x} \cdot \dfrac{6x}{5 - x}$"
+  steps={[
+    { show: '$= \\dfrac{(x - 5)(x + 5) \\cdot 6x}{3x \\cdot (5 - x)}$', why: 'Factor and write one fraction.' },
+    { show: '$= \\dfrac{2(x + 5)(x - 5)}{5 - x}$', why: '$\\frac{6x}{3x} = 2$.' },
+    { show: '$= -2(x + 5)$', why: '$\\frac{x - 5}{5 - x} = -1$.' },
+  ]}
+/>
+
 <Practice client:visible lesson="6.1" skill="multiply" compact />
+
+## In a real context
+
+<StepReveal
+  client:visible
+  title="Average cost"
+  problem="Making $x$ bicycles costs $C = 2x^2 + 50x$ dollars. Write the average cost per bicycle as a simplified expression, and find it for $100$ bicycles."
+  steps={[
+    { show: '**Familiarize.** Average cost = total cost ÷ number of bicycles.', why: '' },
+    { show: '**Translate.** $\\dfrac{2x^2 + 50x}{x}$', why: '' },
+    { show: '**Solve.** $= \\dfrac{x(2x + 50)}{x} = 2x + 50$', why: 'Cancel the common factor $x$ ($x \\ne 0$).' },
+    { show: '$x = 100$: $\\;2(100) + 50 = 250$', why: '' },
+    { show: '**Check.** $C(100) = 20{,}000 + 5000 = 25{,}000$, and $25{,}000 \\div 100 = 250$ ✓', why: '' },
+    { show: '**State.** The average cost is $2x + 50$ dollars; $250$ dollars per bicycle for $100$ bicycles.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="6.1" skill="apply" compact />
+
+
+## Common mistakes
+
+<Callout type="warning" title="Opposites cancel to −1, not 1">
+$\dfrac{x - 5}{5 - x} = -1$. Forgetting the $-1$ flips the sign of the whole answer.
+</Callout>
+
+<Callout type="warning" title="Excluded values stay excluded">
+$\dfrac{x^2 - 4}{x - 2} = x + 2$ **only for** $x \ne 2$. The simplified form hides that restriction, but it is still there.
+</Callout>
+
+<Callout type="warning" title="Multiplying out first">
+Multiplying everything out before cancelling gives big polynomials that must then be factored again. Factor and cancel first.
+</Callout>
 
 ## Summary
 
@@ -101,6 +165,8 @@ Multiply rational expressions like fractions — numerators times numerators, de
 <Callout type="tip" title="Typing fractions">
 Type answers with parentheses around the whole numerator and denominator: `(x - 2)/(x + 3)`. Without them, `x - 2/x + 3` means $x - \frac{2}{x} + 3$.
 </Callout>
+
+**Next, in 6.2:** dividing rational expressions — multiply by the reciprocal.
 
 ## Practice
 

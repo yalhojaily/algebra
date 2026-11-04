@@ -11,6 +11,7 @@ objectives:
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import VariationExplorer from '../../components/VariationExplorer.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -41,6 +42,15 @@ $k$ is called the **constant of variation**.
   ]}
 />
 
+<QuickCheck
+  client:visible
+  question="$y$ varies directly as $x$, and $y = 10$ when $x = 2$. What is $y$ when $x = 5$?"
+  options={['$25$', '$4$', '$13$', '$50$']}
+  answer={0}
+  explain="$k = \frac{10}{2} = 5$, so $y = 5x = 25$."
+  wrong={{ 1: 'That is inverse variation ($xy$ constant). Here $\\frac{y}{x}$ is constant.', 2: 'Variation multiplies; it doesn\'t add $3$.', 3: '$k = 5$, so $y = 5 \\cdot 5 = 25$.' }}
+/>
+
 <Practice client:visible lesson="6.9" skill="direct" compact />
 
 <StepReveal
@@ -65,15 +75,54 @@ $k$ is called the **constant of variation**.
 Direct: more of one means **more** of the other. Inverse: more of one means **less** of the other. If 4 workers need 6 hours, 8 workers should need **fewer** hours — 3, not 12.
 </Callout>
 
+<QuickCheck
+  client:visible
+  question="Which situation is **inverse** variation?"
+  options={['Time to drive $100$ km vs. speed', 'Pay vs. hours worked', 'Cost of apples vs. kilograms bought', 'Distance vs. time at a steady speed']}
+  answer={0}
+  explain="Driving faster takes less time: $t = \frac{100}{r}$."
+  wrong={{ 1: 'More hours, more pay — direct.', 2: 'More kilograms, more cost — direct.', 3: '$d = rt$: more time, more distance — direct.' }}
+/>
+
+<StepReveal
+  client:visible
+  title="Workers and time"
+  problem="$4$ workers can paint a hall in $6$ hours. How long would $3$ workers take?"
+  steps={[
+    { show: '**Familiarize.** Fewer workers, **more** time: inverse variation, $t = \\dfrac{k}{n}$.', why: '' },
+    { show: '**Translate.** $k = nt = 4 \\cdot 6 = 24$', why: 'The total work is 24 worker-hours.' },
+    { show: '**Solve.** $t = \\dfrac{24}{3} = 8$ hours', why: '' },
+    { show: '**Check.** $3 \\cdot 8 = 24$ ✓, and $8 > 6$ as expected.', why: '' },
+    { show: '**State.** $3$ workers need $8$ hours.', why: '' },
+  ]}
+/>
+
 <Practice client:visible lesson="6.9" skill="apply" compact />
 
 <Practice client:visible lesson="6.9" skill="inverseapply" compact />
+
+## Common mistakes
+
+<Callout type="warning" title="Direct or inverse?">
+Ask: when one quantity grows, does the other grow (direct) or shrink (inverse)? Using the wrong model gives $12$ hours where $3$ is right.
+</Callout>
+
+<Callout type="warning" title="Finding k the wrong way">
+Direct: $k = \frac{y}{x}$. Inverse: $k = xy$.
+</Callout>
+
+<Callout type="warning" title="Stopping at k">
+$k$ is a tool, not the answer. Write the equation and use it to answer the question.
+</Callout>
+
 
 ## Summary
 
 - Direct: $y = kx$, $\frac{y}{x} = k$; the graph is a line through the origin.
 - Inverse: $y = \frac{k}{x}$, $xy = k$; as $x$ increases, $y$ decreases.
 - Find $k$ from one pair of values, then use the equation.
+
+**Next, in Chapter 7:** functions — a new language for how one quantity depends on another.
 
 ## Practice
 

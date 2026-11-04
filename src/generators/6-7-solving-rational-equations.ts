@@ -83,11 +83,28 @@ function extraneous(): Problem {
   }
 }
 
+function fractionWords(): Problem {
+  for (;;) {
+    const q = randInt(3, 9), p = randInt(1, q - 1);
+    if (gcd(p, q) !== 1) continue;
+    const d = q - p, m = randInt(1, 6), n = d * m, x = p * m;
+    return {
+      skill: 'apply',
+      prompt: `The denominator of a fraction is $${n}$ more than its numerator. The fraction is equal to $\\frac{${p}}{${q}}$. Find the numerator.`,
+      answer: { type: 'number', value: x },
+      hints: [`Unknown: the numerator $x$; then the denominator is $x + ${n}$. Key words: "is equal to" gives $\\frac{x}{x + ${n}} = \\frac{${p}}{${q}}$.`, `Multiply both sides by the LCD $${q}(x + ${n})$.`],
+      solution: [`$${q}x = ${p}(x + ${n})$`, `$${q}x = ${p === 1 ? '' : p}x + ${p * n} \;\\Rightarrow\; ${d === 1 ? '' : d}x = ${p * n} \;\\Rightarrow\; x = ${x}$`, `Check: $\\frac{${x}}{${x + n}} = \\frac{${p}}{${q}}$ ✓`],
+      placeholder: 'e.g. 6',
+    };
+  }
+}
+
 export const skills: Skill[] = [
   { id: 'clear', label: 'Clear the fractions', generate: clearFractions },
   { id: 'variable', label: 'Variable in a denominator', generate: reciprocals },
   { id: 'quadratic', label: 'Equations that become quadratic', generate: quadratic },
   { id: 'extraneous', label: 'Check for extra "solutions"', generate: extraneous },
+  { id: 'apply', label: 'Word problems', generate: fractionWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

@@ -1,5 +1,5 @@
 // Practice problem generators for Lesson 6.2 — Division and Reciprocals.
-import { cancelTex, ptex, dfrac, makeMasterySet, monicFactors, pick, Poly, randInt, ratAnswer, ratTex, simplify } from './helpers';
+import { cancelTex, gcd, ptex, dfrac, makeMasterySet, monicFactors, pick, Poly, randInt, ratAnswer, ratTex, simplify } from './helpers';
 import type { Problem, Skill } from './types';
 
 const V = () => pick(['x', 'x', 'a', 'y', 't']);
@@ -63,10 +63,28 @@ function monomials(): Problem {
   };
 }
 
+function divideWords(): Problem {
+  const [p, q] = pick([[1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [2, 5], [3, 5], [1, 6], [5, 6], [3, 8]]);
+  const k = randInt(3, 16);
+  const g = gcd(k * p, q);
+  const T = `\\frac{${(k * p) / g}}{${q / g}}`;
+  const Ttex = q / g === 1 ? `${(k * p) / g}` : T;
+  const [what, unit, piece, verb] = pick([['ribbon', 'm', 'piece', 'is'], ['bag of rice', 'kg', 'portion', 'holds'], ['jug of juice', 'L', 'glass', 'holds'], ['board', 'm', 'shelf', 'is']]);
+  return {
+    skill: 'apply',
+    prompt: `A ${what} ${verb} $${Ttex}$ ${unit}${verb === 'is' ? ' long' : ''}. Each ${piece} uses $\\frac{${p}}{${q}}$ ${unit}. How many ${piece}s can be made?`,
+    answer: { type: 'number', value: k },
+    hints: [`Unknown: the number of ${piece}s. Key words: "how many … in" means divide the total by the size of one ${piece}.`, `Dividing by $\\frac{${p}}{${q}}$ is multiplying by its reciprocal, $\\frac{${q}}{${p}}$.`],
+    solution: [`$${Ttex} \\div \\frac{${p}}{${q}} = ${Ttex} \\cdot \\frac{${q}}{${p}} = ${k}$`, `$${k}$ ${piece}s.`],
+    placeholder: 'e.g. 8',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'reciprocal', label: 'Reciprocals', generate: reciprocal },
   { id: 'monomial', label: 'Divide monomial fractions', generate: monomials },
   { id: 'divide', label: 'Divide and simplify', generate: divide },
+  { id: 'apply', label: 'Word problems', generate: divideWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

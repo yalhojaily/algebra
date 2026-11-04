@@ -2,15 +2,17 @@
 id: "6.7"
 title: Solving Rational Equations
 summary: Multiply both sides by the LCD to clear the fractions, solve — and then check, because some "solutions" make a denominator zero.
-minutes: 40
+minutes: 45
 objectives:
   - Clear fractions by multiplying both sides of an equation by the LCD.
   - Solve rational equations that lead to linear or quadratic equations.
   - Reject values that make a denominator zero.
+  - Solve applied problems that lead to rational equations.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import RationalEquation from '../../components/RationalEquation.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -40,6 +42,15 @@ In 6.4–6.6 you **simplified expressions** — no equals sign, and the denomina
   ]}
 />
 
+<QuickCheck
+  client:visible
+  question="To solve $\;\dfrac{x}{3} - \dfrac{x}{5} = 2$, multiply both sides by …"
+  options={['$15$', '$8$', '$3$', '$2$']}
+  answer={0}
+  explain="The LCD of $3$ and $5$ is $15$: $5x - 3x = 30$, so $x = 15$."
+  wrong={{ 1: '$3 + 5$ is not a multiple of either denominator.', 2: '$3$ clears only the first fraction.', 3: 'Multiply by the LCD of the **denominators**.' }}
+/>
+
 <Practice client:visible lesson="6.7" skill="clear" compact />
 
 ## The variable in a denominator
@@ -60,6 +71,27 @@ When the variable appears in a denominator, start by noting which values are **n
   ]}
 />
 
+<StepReveal
+  client:visible
+  title="A quadratic with both solutions valid"
+  problem="Solve: $\;x + \dfrac{6}{x} = 5$"
+  steps={[
+    { show: '$x \\ne 0$', why: '' },
+    { show: '$x^2 + 6 = 5x$', why: 'Multiply **every** term by $x$.' },
+    { show: '$x^2 - 5x + 6 = 0 \\;\\Rightarrow\\; (x - 2)(x - 3) = 0$', why: '' },
+    { show: '$x = 2$ or $x = 3$', why: 'Check: $2 + 3 = 5$ ✓ and $3 + 2 = 5$ ✓ — neither is excluded.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Solving $\;\dfrac{3}{x - 2} = \dfrac{x + 1}{x - 2}\;$ gives the candidate $x = 2$. What is the solution?"
+  options={['No solution', '$x = 2$', '$x = 3$', 'All real numbers']}
+  answer={0}
+  explain="$x = 2$ makes the denominators $0$, so it must be rejected. No other candidate exists."
+  wrong={{ 1: 'Substitute $x = 2$: the denominators become $0$.', 2: 'Multiplying by $x - 2$ gives $3 = x + 1$, so $x = 2$ — not $3$.', 3: 'Most values make the two sides different, e.g. $x = 0$: $-\\frac{3}{2} \\ne -\\frac{1}{2}$.' }}
+/>
+
 <Practice client:visible lesson="6.7" skill="variable" compact />
 
 <Practice client:visible lesson="6.7" skill="quadratic" compact />
@@ -70,11 +102,45 @@ When the variable appears in a denominator, start by noting which values are **n
 Sometimes every candidate fails the check — for example $\frac{x}{x - 2} = \frac{2}{x - 2} + 3$ leads only to $x = 2$, which is not allowed. Then the equation has **no solution**.
 </Callout>
 
+## In a real context
+
+<StepReveal
+  client:visible
+  title="A mystery fraction"
+  problem="The denominator of a fraction is $6$ more than its numerator. The fraction equals $\frac{2}{5}$. Find the fraction."
+  steps={[
+    { show: '**Familiarize.** Numerator $x$, denominator $x + 6$.', why: '' },
+    { show: '**Translate.** $\\dfrac{x}{x + 6} = \\dfrac{2}{5}$', why: '' },
+    { show: '**Solve.** Multiply by $5(x + 6)$: $\\;5x = 2(x + 6) = 2x + 12$, so $x = 4$', why: '' },
+    { show: '**Check.** $\\dfrac{4}{10} = \\dfrac{2}{5}$ ✓, and $x + 6 \\ne 0$.', why: '' },
+    { show: '**State.** The fraction is $\\dfrac{4}{10}$.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="6.7" skill="apply" compact />
+
+
+## Common mistakes
+
+<Callout type="warning" title="Multiplying only some terms">
+In $\dfrac{x}{4} + \dfrac{x}{6} = 5$, the $5$ must be multiplied by $12$ too.
+</Callout>
+
+<Callout type="warning" title="Skipping the check">
+Multiplying by an expression like $x - 1$ can create a false solution. Substitute every candidate back.
+</Callout>
+
+<Callout type="warning" title="Clearing fractions in an expression">
+Multiplying by the LCD is only allowed in an **equation** (both sides). In an expression like $\dfrac{x}{2} + \dfrac{x}{3}$ it changes the value.
+</Callout>
+
 ## Summary
 
 - List the values that make a denominator $0$.
 - Multiply **both sides** by the LCD; solve the equation that's left.
 - Check every candidate. Reject any that make a denominator $0$.
+
+**Next, in 6.8:** applications — work, motion and proportions.
 
 ## Practice
 

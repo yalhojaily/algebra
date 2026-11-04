@@ -102,11 +102,27 @@ function twoVariables(): Problem {
   };
 }
 
+function avgSpeedWords(): Problem {
+  const [a, b] = pick([[30, 60], [40, 60], [20, 30], [60, 90], [12, 24], [10, 15], [6, 12], [45, 90], [50, 75]]);
+  const avg = (2 * a * b) / (a + b);
+  const [who, how] = pick([['A cyclist', 'rides'], ['A driver', 'travels'], ['A runner', 'runs']]);
+  return {
+    skill: 'apply',
+    prompt: `${who} ${how} to a town at $${a}$ km/h and returns the same way at $${b}$ km/h. What is the average speed for the whole round trip (in km/h)?`,
+    answer: { type: 'number', value: avg },
+    hints: ['Unknown: the average speed. Key words: average speed = **total distance ÷ total time**, not the average of the two speeds.', `Call the one-way distance $d$: average $= \\dfrac{2d}{\\frac{d}{${a}} + \\frac{d}{${b}}}$. Simplify this complex fraction — $d$ cancels.`],
+    solution: [`$\\dfrac{2d}{\\frac{d}{${a}} + \\frac{d}{${b}}} = \\dfrac{2}{\\frac{1}{${a}} + \\frac{1}{${b}}}$`, `Multiply top and bottom by $${a * b / gcd(a, b)}$: $\;\\dfrac{${(2 * a * b) / gcd(a, b)}}{${b / gcd(a, b)} + ${a / gcd(a, b)}} = ${avg}$`, `The average speed is $${avg}$ km/h.`],
+    mistakes: [{ answer: String((a + b) / 2), feedback: 'That is the average of the two speeds, but more time is spent at the slower speed. Use total distance ÷ total time.' }],
+    placeholder: 'e.g. 40',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'numeric', label: 'Numbers', generate: numeric },
   { id: 'lcd', label: 'Multiply by the LCD', generate: linearOverLinear },
   { id: 'squares', label: 'Factor after clearing', generate: differenceOfSquares },
   { id: 'twovar', label: 'Two variables', generate: twoVariables },
+  { id: 'apply', label: 'Word problems', generate: avgSpeedWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

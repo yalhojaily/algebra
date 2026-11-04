@@ -109,11 +109,41 @@ function multiply(): Problem {
   };
 }
 
+function quotientWords(): Problem {
+  if (Math.random() < 0.5) {
+    const r = randInt(1, 9);
+    let s = randInt(1, 9);
+    while (s === r) s = randInt(1, 9);
+    const L = lin(1, r, 'x'), W = lin(1, s, 'x'), A = L.mul(W);
+    const sm = simplify(A, L, 'x');
+    return {
+      skill: 'apply',
+      prompt: `A rectangle has area $${A.tex()}$ m² and length $${L.tex()}$ m. Its width is $${dfrac(A.tex(), L.tex())}$. Simplify this expression to find the width.`,
+      answer: ratAnswer(sm),
+      hints: ['Unknown: the width. Key words: width = area ÷ length.', `Factor the numerator: $${A.tex()} = (${L.tex()})(${W.tex()})$, then remove the common factor.`],
+      solution: [`$${dfrac(`(${L.tex()})(${W.tex()})`, L.tex())} = ${W.tex()}$`, `The width is $${W.tex()}$ m.`],
+      placeholder: 'x + 4',
+    };
+  }
+  const k = randInt(2, 40), m = pick([1, 1, 2, 5]);
+  const C = Poly.fromCoefs([m, k, 0], 'x');
+  const sm = simplify(C, Poly.mono(1, { x: 1 }), 'x');
+  return {
+    skill: 'apply',
+    prompt: `Making $x$ chairs costs $C = ${C.tex()}$ dollars. The average cost per chair is $${dfrac(C.tex(), 'x')}$. Simplify this expression.`,
+    answer: ratAnswer(sm),
+    hints: ['Unknown: the average cost. Key words: average cost = total cost ÷ number of items.', `Factor out $x$ in the numerator: $${C.tex()} = x(${lin(m, k, 'x').tex()})$, then remove the common factor $x$ (for $x \\ne 0$).`],
+    solution: [`$${dfrac(`x(${lin(m, k, 'x').tex()})`, 'x')} = ${lin(m, k, 'x').tex()}$`, `The average cost is $${lin(m, k, 'x').tex()}$ dollars per chair.`],
+    placeholder: '2x + 15',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'excluded', label: 'Values that are not allowed', generate: excluded },
   { id: 'simplify', label: 'Simplify', generate: simplifyOne },
   { id: 'opposite', label: 'Opposite factors', generate: opposites },
   { id: 'multiply', label: 'Multiply and simplify', generate: multiply },
+  { id: 'apply', label: 'Word problems', generate: quotientWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

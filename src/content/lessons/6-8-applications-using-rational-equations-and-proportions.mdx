@@ -11,6 +11,7 @@ objectives:
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import WorkRate from '../../components/WorkRate.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -38,6 +39,15 @@ $$\frac{t}{a} + \frac{t}{b} = 1$$
   ]}
 />
 
+<QuickCheck
+  client:visible
+  question="Pipe A fills a tank in $2$ hours; pipe B in $3$ hours. How long do they take together?"
+  options={['$1.2$ hours', '$5$ hours', '$2.5$ hours', '$6$ hours']}
+  answer={0}
+  explain="$\frac{t}{2} + \frac{t}{3} = 1 \Rightarrow 3t + 2t = 6 \Rightarrow t = \frac{6}{5} = 1.2$ hours."
+  wrong={{ 1: 'Together they must be **faster** than either one alone.', 2: 'Averaging the times doesn\'t work — rates add, times don\'t.', 3: '$6$ is the LCD, not the time.' }}
+/>
+
 <Practice client:visible lesson="6.8" skill="work" compact />
 
 ## Motion problems
@@ -56,19 +66,65 @@ Use $\text{time} = \dfrac{\text{distance}}{\text{speed}}$. When two trips take t
   ]}
 />
 
+<QuickCheck
+  client:visible
+  question="A plane flies $600$ km with a $50$ km/h tailwind. Its speed in still air is $r$. How long does the flight take?"
+  options={['$\\dfrac{600}{r + 50}$', '$\\dfrac{600}{r - 50}$', '$600(r + 50)$', '$\\dfrac{r + 50}{600}$']}
+  answer={0}
+  explain="A tailwind adds to the speed: $r + 50$. Time = distance ÷ speed."
+  wrong={{ 1: 'A **tail**wind helps, so the speeds add.', 2: 'Time is distance **divided** by speed.', 3: 'That is speed ÷ distance — upside down.' }}
+/>
+
 <Practice client:visible lesson="6.8" skill="motion" compact />
 
 ## Proportions
 
 A **proportion** says two ratios are equal: $\frac{a}{b} = \frac{c}{d}$. Cross-multiplying gives $ad = bc$. Keep the same order in both ratios (cups to cookies on both sides, for example).
 
+<StepReveal
+  client:visible
+  title="Fuel use"
+  problem="A car uses $8$ L of fuel per $100$ km. How much fuel does it need for $350$ km?"
+  steps={[
+    { show: '$\\dfrac{8}{100} = \\dfrac{x}{350}$', why: 'Liters over kilometers on both sides.' },
+    { show: '$100x = 8 \\cdot 350 = 2800$', why: 'Cross-multiply.' },
+    { show: '$x = 28$ L', why: 'Check: $350$ km is $3.5$ times $100$ km, and $3.5 \\cdot 8 = 28$ ✓' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="$3$ cups of flour make $24$ cookies. How many cups are needed for $40$ cookies?"
+  options={['$5$', '$320$', '$19$', '$8$']}
+  answer={0}
+  explain="$\frac{3}{24} = \frac{c}{40} \Rightarrow 24c = 120 \Rightarrow c = 5$."
+  wrong={{ 1: 'Keep the same order on both sides: cups over cookies.', 2: 'That adds $16$ to $3$; a proportion multiplies.', 3: '$8$ is the number of cookies per cup.' }}
+/>
+
 <Practice client:visible lesson="6.8" skill="proportion" compact />
+
+## Common mistakes
+
+<Callout type="warning" title="Adding the times">
+Two painters taking $3$ h and $6$ h don't need $9$ h together. Add the **rates** $\frac{1}{3} + \frac{1}{6}$.
+</Callout>
+
+<Callout type="warning" title="Mixed-up ratios">
+$\dfrac{\text{cups}}{\text{cookies}} = \dfrac{\text{cups}}{\text{cookies}}$. Switching the order on one side gives a wrong answer.
+</Callout>
+
+<Callout type="warning" title="Current and wind">
+Downstream or with a tailwind, **add** the speeds; upstream or into a headwind, **subtract**.
+</Callout>
+
 
 ## Summary
 
 - Work: add the rates, $\frac{t}{a} + \frac{t}{b} = 1$. The combined time is less than either time alone.
 - Motion: $t = \frac{d}{r}$; equal times give a rational equation.
 - Proportions: same order on both sides, then cross-multiply.
+
+**Next, in 6.9:** variation — when one quantity is a constant multiple of another, or of its reciprocal.
 
 ## Practice
 

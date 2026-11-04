@@ -2,15 +2,17 @@
 id: "6.3"
 title: Least Common Multiples and Denominators
 summary: Before you can add fractions with different denominators you need their least common denominator — built from prime factors, or from polynomial factors.
-minutes: 30
+minutes: 35
 objectives:
   - Find the LCM of whole numbers using prime factorizations.
   - Find the LCM of monomials and polynomials.
   - Rewrite a rational expression with the LCD as its denominator.
+  - Use least common multiples to solve problems about repeating events.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import LcdBuilder from '../../components/LcdBuilder.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -37,6 +39,15 @@ The **least common multiple (LCM)** is the smallest number that each of the numb
   ]}
 />
 
+<QuickCheck
+  client:visible
+  question="What is the LCM of $8$ and $12$?"
+  options={['$24$', '$96$', '$4$', '$48$']}
+  answer={0}
+  explain="$8 = 2^3$ and $12 = 2^2 \cdot 3$. Use $2^3$ and $3$: $\;24$."
+  wrong={{ 1: '$8 \\cdot 12$ is a common multiple, but not the least.', 2: '$4$ is the greatest common **factor**.', 3: '$48$ is a common multiple, but $24$ is smaller.' }}
+/>
+
 <Practice client:visible lesson="6.3" skill="lcm" compact />
 
 ## LCM of expressions
@@ -60,6 +71,15 @@ For polynomials, factor each one completely first. Try it — each column counts
   ]}
 />
 
+<QuickCheck
+  client:visible
+  question="What is the LCD of $\;\dfrac{1}{x(x + 1)}\;$ and $\;\dfrac{1}{(x + 1)^2}$?"
+  options={['$x(x + 1)^2$', '$x(x + 1)^3$', '$x(x + 1)$', '$(x + 1)^2$']}
+  answer={0}
+  explain="$x$ appears at most once and $(x + 1)$ at most twice in any one denominator."
+  wrong={{ 1: 'Use each factor the greatest number of times it appears in **one** denominator — don\'t add the counts.', 2: 'The second denominator needs $(x + 1)$ twice.', 3: 'The first denominator needs the factor $x$.' }}
+/>
+
 <Practice client:visible lesson="6.3" skill="lcd" compact />
 
 ## Rewriting with the LCD
@@ -70,11 +90,45 @@ $$\frac{5}{x + 3} = \frac{5}{x + 3} \cdot \frac{x - 1}{x - 1} = \frac{5(x - 1)}{
 
 <Practice client:visible lesson="6.3" skill="rename" compact />
 
+## In a real context
+
+<StepReveal
+  client:visible
+  title="Buses"
+  problem="Two buses leave a station together at 8:00. One leaves every $12$ minutes, the other every $18$ minutes. When do they next leave together?"
+  steps={[
+    { show: '**Familiarize.** We need the first time that is a multiple of both $12$ and $18$.', why: '' },
+    { show: '**Translate.** Find the LCM of $12$ and $18$.', why: '' },
+    { show: '**Solve.** $12 = 2^2 \\cdot 3$, $\\;18 = 2 \\cdot 3^2$, LCM $= 2^2 \\cdot 3^2 = 36$', why: '' },
+    { show: '**Check.** $36 = 3 \\cdot 12 = 2 \\cdot 18$ ✓, and no smaller number works.', why: '' },
+    { show: '**State.** After $36$ minutes, at 8:36.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="6.3" skill="apply" compact />
+
+
+## Common mistakes
+
+<Callout type="warning" title="Multiplying the denominators">
+$12 \cdot 18 = 216$ is a common denominator, but not the **least**. A bigger denominator means more simplifying later.
+</Callout>
+
+<Callout type="warning" title="Counting a repeated factor once">
+The LCD of $\dfrac{1}{x + 2}$ and $\dfrac{1}{(x + 2)^2}$ is $(x + 2)^2$, not $x + 2$.
+</Callout>
+
+<Callout type="warning" title="LCM vs. GCF">
+The LCM uses the **greatest** power of each factor; the GCF uses the **smallest**.
+</Callout>
+
 ## Summary
 
 - Factor each denominator completely.
 - The LCD uses each factor the greatest number of times it appears in any one denominator.
 - Rename a fraction by multiplying top and bottom by the factors its denominator is missing.
+
+**Next, in 6.4:** adding rational expressions with these denominators.
 
 ## Practice
 

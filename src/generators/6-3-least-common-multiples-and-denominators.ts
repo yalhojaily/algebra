@@ -73,11 +73,30 @@ function rename(): Problem {
   };
 }
 
+function lcmWords(): Problem {
+  for (;;) {
+    const a = pick([4, 6, 8, 9, 10, 12, 14, 15, 18, 20]), b = pick([4, 6, 8, 9, 10, 12, 14, 15, 18, 20]);
+    const L = lcm(a, b);
+    if (a === b || L === a || L === b || L > 180) continue;
+    const [things, verb] = pick([['Two buses', 'leave the station'], ['Two lighthouses', 'flash'], ['Two runners on a track', 'pass the start line']]);
+    return {
+      skill: 'apply',
+      prompt: `${things} ${verb} together at 8:00. One does so every $${a}$ minutes, the other every $${b}$ minutes. After how many minutes do they next ${verb.split(' ')[0]} together?`,
+      answer: { type: 'number', value: L },
+      hints: ['Unknown: the first time that is a multiple of both. Key words: "next … together" means the **least common multiple**.', `Factor: $${a} = ${primeTex(a)}$ and $${b} = ${primeTex(b)}$. Take each prime the greatest number of times it appears.`],
+      solution: [`$${a} = ${primeTex(a)}$, $\;${b} = ${primeTex(b)}$`, `LCM $= ${primeTex(L)} = ${L}$`, `They are together again after $${L}$ minutes.`],
+      mistakes: [{ answer: String(a * b), feedback: `$${a} \\cdot ${b}$ is a common multiple, but not the **least** one.` }],
+      placeholder: 'e.g. 36',
+    };
+  }
+}
+
 export const skills: Skill[] = [
   { id: 'lcm', label: 'LCM of numbers', generate: lcmNumbers },
   { id: 'monomial', label: 'LCM of monomials', generate: lcmMonomials },
   { id: 'lcd', label: 'LCD of rational expressions', generate: lcd },
   { id: 'rename', label: 'Rename with the LCD', generate: rename },
+  { id: 'apply', label: 'Word problems', generate: lcmWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

@@ -2,14 +2,16 @@
 id: "6.2"
 title: Division and Reciprocals
 summary: To divide by a rational expression, multiply by its reciprocal — then factor and cancel as before.
-minutes: 30
+minutes: 35
 objectives:
   - Find the reciprocal of a rational expression.
   - Divide rational expressions and simplify.
+  - Use division by a fraction in applications.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import RationalLab from '../../components/RationalLab.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -23,6 +25,15 @@ $\frac{3}{4} \div \frac{1}{2} = \frac{3}{4} \cdot \frac{2}{1} = \frac{3}{2}$ —
 Two expressions are **reciprocals** if their product is $1$. The reciprocal of $\frac{A}{B}$ is $\frac{B}{A}$, and the reciprocal of a polynomial $P$ is $\frac{1}{P}$.
 
 $$\frac{x + 2}{x - 5} \cdot \frac{x - 5}{x + 2} = 1 \qquad (x^2 - 3) \cdot \frac{1}{x^2 - 3} = 1$$
+
+<QuickCheck
+  client:visible
+  question="What is the reciprocal of $\;\dfrac{x - 4}{3}$?"
+  options={['$\\dfrac{3}{x - 4}$', '$-\\dfrac{x - 4}{3}$', '$\\dfrac{x + 4}{3}$', '$\\dfrac{3}{x} - \\dfrac{3}{4}$']}
+  answer={0}
+  explain="Swap the numerator and denominator. Check: $\frac{x - 4}{3} \cdot \frac{3}{x - 4} = 1$."
+  wrong={{ 1: 'That is the **opposite** (additive inverse); the product would not be $1$.', 2: 'Changing a sign is not taking a reciprocal.', 3: 'You can\'t split a fraction over a difference in the **denominator**: $\\frac{3}{x - 4} \\ne \\frac{3}{x} - \\frac{3}{4}$.' }}
+/>
 
 <Practice client:visible lesson="6.2" skill="reciprocal" compact />
 
@@ -49,14 +60,67 @@ Flip **only the second** fraction (the divisor), then multiply, factor and cance
 Only the fraction **after** the $\div$ sign is flipped. Flipping the first one (or both) gives a different answer.
 </Callout>
 
+<QuickCheck
+  client:visible
+  question="Divide: $\;\dfrac{x}{4} \div \dfrac{x}{2}$"
+  options={['$\\dfrac{1}{2}$', '$2$', '$\\dfrac{x^2}{8}$', '$\\dfrac{x}{2}$']}
+  answer={0}
+  explain="$\frac{x}{4} \cdot \frac{2}{x} = \frac{2x}{4x} = \frac{1}{2}$."
+  wrong={{ 1: 'That comes from flipping the **first** fraction.', 2: 'That multiplies without flipping the divisor.', 3: 'Flip the divisor and multiply: the $x$\'s cancel.' }}
+/>
+
+<StepReveal
+  client:visible
+  title="Monomials"
+  problem="Divide: $\;\dfrac{6x^3}{5y} \div \dfrac{3x}{10y^2}$"
+  steps={[
+    { show: '$= \\dfrac{6x^3}{5y} \\cdot \\dfrac{10y^2}{3x}$', why: 'Multiply by the reciprocal.' },
+    { show: '$= \\dfrac{60x^3y^2}{15xy} = 4x^2y$', why: 'Divide coefficients; subtract exponents.' },
+  ]}
+/>
+
 <Practice client:visible lesson="6.2" skill="monomial" compact />
 
 <Practice client:visible lesson="6.2" skill="divide" compact />
+
+## In a real context
+
+<StepReveal
+  client:visible
+  title="Cutting a rope"
+  problem="A rope is $\frac{9}{2}$ m long. How many pieces $\frac{3}{4}$ m long can be cut from it?"
+  steps={[
+    { show: '**Familiarize.** "How many pieces of size $\\frac{3}{4}$ fit in $\\frac{9}{2}$" is a division.', why: 'Guess: about $4.5 \\div 0.75$ — around 6.' },
+    { show: '**Translate.** $\\dfrac{9}{2} \\div \\dfrac{3}{4}$', why: '' },
+    { show: '**Solve.** $= \\dfrac{9}{2} \\cdot \\dfrac{4}{3} = \\dfrac{36}{6} = 6$', why: '' },
+    { show: '**Check.** $6 \\cdot \\dfrac{3}{4} = \\dfrac{18}{4} = \\dfrac{9}{2}$ ✓', why: '' },
+    { show: '**State.** $6$ pieces.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="6.2" skill="apply" compact />
+
+
+## Common mistakes
+
+<Callout type="warning" title="Cancelling across the ÷ sign">
+In $\dfrac{x}{4} \div \dfrac{x}{2}$ you can't cancel the top $x$ with the top $x$. Flip the divisor first; then cancel.
+</Callout>
+
+<Callout type="warning" title="Excluded values from the divisor">
+In $\dfrac{A}{B} \div \dfrac{C}{D}$, $C$ can't be $0$ either — after flipping, it is in the denominator.
+</Callout>
+
+<Callout type="warning" title="Not simplifying">
+After multiplying by the reciprocal, factor and cancel — the job isn't done until nothing more cancels.
+</Callout>
 
 ## Summary
 
 - Reciprocal of $\frac{A}{B}$ is $\frac{B}{A}$.
 - $\frac{A}{B} \div \frac{C}{D} = \frac{A}{B} \cdot \frac{D}{C}$ — then factor and cancel.
+
+**Next, in 6.3:** least common denominators — the setup for adding and subtracting.
 
 ## Practice
 

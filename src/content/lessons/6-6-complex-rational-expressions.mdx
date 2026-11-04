@@ -2,15 +2,17 @@
 id: "6.6"
 title: Complex Rational Expressions
 summary: A fraction whose numerator or denominator contains fractions. Multiply the top and bottom by the LCD of all the little fractions, and they disappear.
-minutes: 35
+minutes: 40
 objectives:
   - Recognize complex rational expressions.
   - Simplify them by multiplying by the LCD.
   - Simplify them by dividing (writing the top and bottom as single fractions).
+  - Use complex fractions to find average speeds.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import ComplexFraction from '../../components/ComplexFraction.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -41,6 +43,15 @@ A **complex rational expression** has rational expressions in its numerator, its
   ]}
 />
 
+<QuickCheck
+  client:visible
+  question="To simplify $\;\dfrac{\frac{1}{2} + \frac{1}{3}}{\frac{1}{6}}$, multiply the top and bottom by …"
+  options={['$6$', '$2$', '$36$', '$\\frac{1}{6}$']}
+  answer={0}
+  explain="The LCD of $2$, $3$ and $6$ is $6$. The result is $\frac{3 + 2}{1} = 5$."
+  wrong={{ 1: '$2$ doesn\'t clear the thirds or the sixths.', 2: '$36$ works but isn\'t the **least** common denominator — more simplifying later.', 3: 'Multiply by the LCD itself, not its reciprocal.' }}
+/>
+
 <Practice client:visible lesson="6.6" skill="numeric" compact />
 
 <Practice client:visible lesson="6.6" skill="lcd" compact />
@@ -55,13 +66,67 @@ Both methods give the same answer — use whichever feels easier.
 
 <Practice client:visible lesson="6.6" skill="squares" compact />
 
+<StepReveal
+  client:visible
+  title="Two variables"
+  problem="Simplify: $\;\dfrac{\frac{x}{y} - \frac{y}{x}}{\frac{1}{x} + \frac{1}{y}}$"
+  steps={[
+    { show: 'LCD $= xy$', why: '' },
+    { show: '$= \\dfrac{x^2 - y^2}{y + x}$', why: 'Multiply every little fraction by $xy$: $\\frac{x}{y} \\cdot xy = x^2$, $\\frac{1}{x} \\cdot xy = y$, …' },
+    { show: '$= \\dfrac{(x + y)(x - y)}{x + y} = x - y$', why: 'Factor and cancel.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Simplify: $\;\dfrac{\frac{2}{x}}{\frac{4}{x^2}}$"
+  options={['$\\dfrac{x}{2}$', '$\\dfrac{8}{x^3}$', '$2x$', '$\\dfrac{2}{x}$']}
+  answer={0}
+  explain="$\frac{2}{x} \cdot \frac{x^2}{4} = \frac{2x^2}{4x} = \frac{x}{2}$."
+  wrong={{ 1: 'That multiplies the two fractions instead of dividing.', 2: '$\\frac{2}{4} = \\frac{1}{2}$, so the coefficient is $\\frac{1}{2}$.', 3: 'Divide by $\\frac{4}{x^2}$: multiply by $\\frac{x^2}{4}$.' }}
+/>
+
 <Practice client:visible lesson="6.6" skill="twovar" compact />
+
+## In a real context
+
+<StepReveal
+  client:visible
+  title="Average speed"
+  problem="A cyclist rides to a town at $40$ km/h and back the same way at $60$ km/h. What is her average speed for the round trip?"
+  steps={[
+    { show: '**Familiarize.** Average speed = total distance ÷ total time. Call the one-way distance $d$.', why: 'Guess: not 50 — she spends longer at the slower speed.' },
+    { show: '**Translate.** $\\dfrac{2d}{\\frac{d}{40} + \\frac{d}{60}}$', why: 'Each time is distance ÷ speed.' },
+    { show: '**Solve.** Multiply top and bottom by $120$: $\\;\\dfrac{240d}{3d + 2d} = \\dfrac{240d}{5d} = 48$', why: '$d$ cancels — the answer doesn\'t depend on the distance.' },
+    { show: '**Check.** With $d = 120$: times $3$ h and $2$ h; $240 \\div 5 = 48$ ✓', why: '' },
+    { show: '**State.** $48$ km/h.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="6.6" skill="apply" compact />
+
+
+## Common mistakes
+
+<Callout type="warning" title="Multiplying only the numerator">
+Multiply the **whole** top and the **whole** bottom by the LCD — that's multiplying by $1$.
+</Callout>
+
+<Callout type="warning" title="Missing a little fraction">
+Every term in the top and bottom gets multiplied, including whole numbers like the $1$ in $1 + \frac{1}{x}$.
+</Callout>
+
+<Callout type="warning" title="Averaging speeds">
+The average speed of a round trip at $40$ and $60$ km/h is $48$ km/h, not $50$.
+</Callout>
 
 ## Summary
 
 - LCD method: multiply top and bottom by the LCD of all the little fractions.
 - Division method: make the top and bottom single fractions, then multiply by the reciprocal.
 - Finish by factoring and cancelling.
+
+**Next, in 6.7:** solving equations that contain rational expressions.
 
 ## Practice
 

@@ -2,15 +2,17 @@
 id: "6.5"
 title: Subtracting Rational Expressions
 summary: Subtraction works like addition — with one trap. The minus sign applies to the whole second numerator.
-minutes: 40
+minutes: 45
 objectives:
   - Subtract rational expressions with the same, opposite, or different denominators.
   - Subtract every term of the second numerator.
   - Combine additions and subtractions in one problem.
+  - Subtract rational expressions in applications, such as comparing travel times.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import AddRational from '../../components/AddRational.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -36,6 +38,15 @@ Put the second numerator in **parentheses** before you subtract.
   ]}
 />
 
+<QuickCheck
+  client:visible
+  question="Subtract: $\;\dfrac{4x}{x - 2} - \dfrac{x + 6}{x - 2}$"
+  options={['$3$', '$\\dfrac{3x + 6}{x - 2}$', '$3x - 6$', '$\\dfrac{5x + 6}{x - 2}$']}
+  answer={0}
+  explain="$4x - (x + 6) = 3x - 6 = 3(x - 2)$, which cancels with the denominator."
+  wrong={{ 1: 'The minus sign applies to the $6$ too: $4x - x - 6$.', 2: 'Keep the denominator — then $\\frac{3(x - 2)}{x - 2}$ simplifies.', 3: 'Subtract the second numerator; don\'t add it.' }}
+/>
+
 <Practice client:visible lesson="6.5" skill="same" compact />
 
 ## Opposite denominators
@@ -51,6 +62,26 @@ $$\frac{x}{x - 5} - \frac{5}{5 - x} = \frac{x}{x - 5} + \frac{5}{x - 5} = \frac{
 The steps are the same as for adding: factor, find the LCD, rewrite each fraction, then subtract the numerators (with parentheses!) and simplify.
 
 <AddRational client:visible op="-" />
+
+<StepReveal
+  client:visible
+  title="Different denominators"
+  problem="Subtract: $\;\dfrac{x}{x - 3} - \dfrac{2}{x + 3}$"
+  steps={[
+    { show: 'LCD $= (x - 3)(x + 3)$', why: '' },
+    { show: '$= \\dfrac{x(x + 3) - 2(x - 3)}{(x - 3)(x + 3)}$', why: 'Rewrite both, then subtract the whole second numerator.' },
+    { show: '$= \\dfrac{x^2 + 3x - 2x + 6}{(x - 3)(x + 3)} = \\dfrac{x^2 + x + 6}{(x - 3)(x + 3)}$', why: '$-2(x - 3) = -2x + 6$.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Simplify the numerator $\;x(x + 3) - 2(x - 3)$."
+  options={['$x^2 + x + 6$', '$x^2 + x - 6$', '$x^2 + 5x - 6$', '$x^2 + 3x - 2x - 3$']}
+  answer={0}
+  explain="$x^2 + 3x - 2x + 6 = x^2 + x + 6$."
+  wrong={{ 1: '$-2 \\cdot (-3) = +6$.', 2: 'The $-2$ multiplies $x$ to give $-2x$, so $3x - 2x = x$.', 3: 'Distribute the $-2$ to **both** terms: $-2x + 6$.' }}
+/>
 
 <Practice client:visible lesson="6.5" skill="different" compact />
 
@@ -73,11 +104,46 @@ With three or more fractions, rewrite **all** of them with one LCD, then combine
 
 <Practice client:visible lesson="6.5" skill="mixed" compact />
 
+## In a real context
+
+<StepReveal
+  client:visible
+  title="Comparing travel times"
+  problem="A $120$-km trip is driven at $x$ km/h one day and at $x + 20$ km/h the next. Write the extra time the slower trip takes as one fraction, and evaluate it for $x = 40$."
+  steps={[
+    { show: '**Familiarize.** time = distance ÷ speed. "Extra time" means slower time minus faster time.', why: '' },
+    { show: '**Translate.** $\\dfrac{120}{x} - \\dfrac{120}{x + 20}$', why: '' },
+    { show: '**Solve.** $= \\dfrac{120(x + 20) - 120x}{x(x + 20)} = \\dfrac{2400}{x(x + 20)}$', why: 'LCD $x(x + 20)$.' },
+    { show: '$x = 40$: $\\;\\dfrac{2400}{40 \\cdot 60} = 1$ hour', why: '' },
+    { show: '**Check.** $120 \\div 40 = 3$ h and $120 \\div 60 = 2$ h; $3 - 2 = 1$ ✓', why: '' },
+    { show: '**State.** $\\dfrac{2400}{x(x + 20)}$ hours; $1$ hour when $x = 40$.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="6.5" skill="apply" compact />
+
+
+## Common mistakes
+
+<Callout type="warning" title="Not subtracting every term">
+$\dfrac{5x}{x + 1} - \dfrac{2x - 3}{x + 1} = \dfrac{5x - 2x + 3}{x + 1}$. Use parentheses around the second numerator.
+</Callout>
+
+<Callout type="warning" title="Opposite denominators">
+$\dfrac{x}{x - 5} - \dfrac{5}{5 - x}$ becomes $\dfrac{x}{x - 5} + \dfrac{5}{x - 5}$: flipping the denominator flips the operation.
+</Callout>
+
+<Callout type="warning" title="Cancelling terms">
+In $\dfrac{x^2 + x + 6}{(x - 3)(x + 3)}$ nothing cancels: $x^2 + x + 6$ has no factor $x - 3$ or $x + 3$.
+</Callout>
+
 ## Summary
 
 - $\frac{A}{C} - \frac{B}{C} = \frac{A - (B)}{C}$ — subtract every term of $B$.
 - Opposite denominators: subtracting becomes adding.
 - Different denominators: factor → LCD → rewrite → combine → simplify.
+
+**Next, in 6.6:** complex rational expressions — fractions inside fractions.
 
 ## Practice
 

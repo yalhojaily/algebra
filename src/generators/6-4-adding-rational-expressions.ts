@@ -99,11 +99,30 @@ export function factorFirst(op: Op): Problem {
   };
 }
 
+function pipeWords(): Problem {
+  const k = randInt(1, 6);
+  const A = Poly.mono(1, { x: 1 }), B = lin(1, k, 'x');
+  const N = Poly.fromCoefs([2, k], 'x'), D = A.mul(B);
+  const s = simplify(N, D, 'x');
+  const [who, job] = pick([['Pipe A', 'fill a tank'], ['Ana', 'paint a fence'], ['Printer A', 'print a report']]);
+  const other = who === 'Pipe A' ? 'pipe B' : who === 'Ana' ? 'Ben' : 'printer B';
+  return {
+    skill: 'apply',
+    prompt: `${who} can ${job} in $x$ hours; ${other} takes $${B.tex()}$ hours. Working together, what fraction of the job do they do in one hour? Write it as a single fraction.`,
+    answer: ratAnswer(s),
+    hints: [`Unknown: the fraction done per hour together. Key words: in one hour the first does $\\frac{1}{x}$ of the job and the second $\\frac{1}{${B.tex()}}$ — add them.`, `The LCD is $x(${B.tex()})$.`],
+    solution: [`$\\frac{1}{x} + \\frac{1}{${B.tex()}} = \\frac{${B.tex()}}{x(${B.tex()})} + \\frac{x}{x(${B.tex()})}$`, `$= ${ratTex(s)}$`],
+    mistakes: [{ answer: `2/(2x + ${k})`, feedback: 'Denominators are never added. Rewrite both fractions with the LCD $x(x + ' + k + ')$ first.' }],
+    placeholder: '(2x + 3)/(x(x + 3))',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'same', label: 'Same denominator', generate: () => sameDenominator('+') },
   { id: 'opposite', label: 'Opposite denominators', generate: () => oppositeDenominators('+') },
   { id: 'different', label: 'Different denominators', generate: () => differentDenominators('+') },
   { id: 'factor', label: 'Factor to find the LCD', generate: () => factorFirst('+') },
+  { id: 'apply', label: 'Word problems', generate: pipeWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

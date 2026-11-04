@@ -2,16 +2,18 @@
 id: "6.4"
 title: Adding Rational Expressions
 summary: Same denominators — add the numerators. Different denominators — rewrite with the LCD first. Then simplify.
-minutes: 40
+minutes: 45
 objectives:
   - Add rational expressions with the same denominator.
   - Add rational expressions whose denominators are opposites.
   - Add rational expressions with different denominators using the LCD.
   - Simplify the result.
+  - Add rates in work problems.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import AddRational from '../../components/AddRational.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -37,6 +39,15 @@ Add the numerators, keep the denominator — then check whether the result simpl
   ]}
 />
 
+<QuickCheck
+  client:visible
+  question="Add: $\;\dfrac{x}{x + 3} + \dfrac{3}{x + 3}$"
+  options={['$1$', '$\\dfrac{x + 3}{2x + 6}$', '$\\dfrac{3x}{x + 3}$', '$\\dfrac{x}{x + 3}$']}
+  answer={0}
+  explain="$\frac{x + 3}{x + 3} = 1$ (for $x \ne -3$)."
+  wrong={{ 1: 'Keep the denominator — never add it to itself.', 2: 'Add the numerators: $x + 3$, not $3x$.', 3: 'The second numerator, $3$, must be added too.' }}
+/>
+
 <Practice client:visible lesson="6.4" skill="same" compact />
 
 ## Opposite denominators
@@ -56,6 +67,26 @@ $$\frac{3x}{x - 4} + \frac{5}{4 - x} = \frac{3x}{x - 4} + \frac{-5}{x - 4} = \fr
 
 <AddRational client:visible op="+" />
 
+<StepReveal
+  client:visible
+  title="Different denominators"
+  problem="Add: $\;\dfrac{3}{x + 2} + \dfrac{5}{x - 1}$"
+  steps={[
+    { show: 'LCD $= (x + 2)(x - 1)$', why: 'The denominators have no common factor.' },
+    { show: '$= \\dfrac{3(x - 1)}{(x + 2)(x - 1)} + \\dfrac{5(x + 2)}{(x + 2)(x - 1)}$', why: 'Multiply each fraction by its missing factor over itself.' },
+    { show: '$= \\dfrac{3x - 3 + 5x + 10}{(x + 2)(x - 1)} = \\dfrac{8x + 7}{(x + 2)(x - 1)}$', why: '$8x + 7$ doesn\'t factor, so nothing cancels.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="What is the LCD for $\;\dfrac{2}{x} + \dfrac{5}{x + 1}$?"
+  options={['$x(x + 1)$', '$2x + 1$', '$x + 1$', '$x^2 + 1$']}
+  answer={0}
+  explain="The denominators $x$ and $x + 1$ share no factor, so the LCD is their product."
+  wrong={{ 1: 'That adds the denominators; the LCD is a **product** of factors.', 2: '$x + 1$ is not a multiple of $x$.', 3: '$x \\cdot (x + 1) = x^2 + x$, not $x^2 + 1$.' }}
+/>
+
 <Callout type="warning" title="Never add the denominators">
 $\dfrac{3}{x + 2} + \dfrac{5}{x - 1} \ne \dfrac{8}{2x + 1}$. Check with $x = 0$: the left side is $\frac{3}{2} - 5 = -\frac{7}{2}$; the right side is $8$.
 </Callout>
@@ -64,11 +95,46 @@ $\dfrac{3}{x + 2} + \dfrac{5}{x - 1} \ne \dfrac{8}{2x + 1}$. Check with $x = 0$:
 
 <Practice client:visible lesson="6.4" skill="factor" compact />
 
+## In a real context
+
+<StepReveal
+  client:visible
+  title="Painting together"
+  problem="Ana can paint a fence in $x$ hours and Ben takes $2x$ hours. What fraction of the fence do they paint together in one hour? If $x = 3$, how long does the whole fence take them?"
+  steps={[
+    { show: '**Familiarize.** In one hour Ana paints $\\frac{1}{x}$ of the fence and Ben $\\frac{1}{2x}$.', why: '' },
+    { show: '**Translate.** $\\dfrac{1}{x} + \\dfrac{1}{2x}$', why: '' },
+    { show: '**Solve.** LCD $2x$: $\\;\\dfrac{2}{2x} + \\dfrac{1}{2x} = \\dfrac{3}{2x}$', why: '' },
+    { show: '$x = 3$: $\\;\\dfrac{3}{6} = \\dfrac{1}{2}$ of the fence per hour, so the whole fence takes $2$ hours.', why: '' },
+    { show: '**Check.** In 2 hours Ana (3 h alone) paints $\\frac{2}{3}$ and Ben (6 h alone) $\\frac{1}{3}$: together $1$ fence ✓', why: '' },
+    { show: '**State.** $\\dfrac{3}{2x}$ of the fence per hour; $2$ hours when $x = 3$.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="6.4" skill="apply" compact />
+
+
+## Common mistakes
+
+<Callout type="warning" title="Multiplying only the denominator">
+To rewrite $\dfrac{3}{x + 2}$ with denominator $(x + 2)(x - 1)$, multiply the **numerator** by $(x - 1)$ too — that's what keeps the value the same.
+</Callout>
+
+<Callout type="warning" title="Forgetting to simplify">
+After adding, factor the numerator: $\dfrac{3x + 15}{(x + 2)(x + 5)}$ simplifies to $\dfrac{3}{x + 2}$.
+</Callout>
+
+<Callout type="warning" title="Opposite denominators">
+$\dfrac{5}{4 - x} = \dfrac{-5}{x - 4}$. The sign moves to the numerator when you flip the denominator.
+</Callout>
+
 ## Summary
 
 - Same denominator: add numerators, keep the denominator.
 - Opposite denominators: multiply one fraction by $\frac{-1}{-1}$.
 - Different denominators: factor → LCD → rewrite → add → simplify.
+
+**Next, in 6.5:** subtracting — the same steps, plus one sign trap.
 
 ## Practice
 
