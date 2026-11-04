@@ -2,16 +2,18 @@
 id: "5.1"
 title: Introduction to Factoring
 summary: Factoring is multiplication run backwards. Start by pulling out the greatest common factor, and learn to factor four-term polynomials by grouping.
-minutes: 35
+minutes: 40
 objectives:
   - Find the greatest common factor (GCF) of several monomials.
   - Factor out the GCF of a polynomial.
   - Factor out a negative common factor.
   - Factor four-term polynomials by grouping.
+  - Use factoring to rewrite expressions from applications, such as heights and areas.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import GcfFinder from '../../components/GcfFinder.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -42,6 +44,15 @@ The **greatest common factor (GCF)** of some monomials is:
   ]}
 />
 
+<QuickCheck
+  client:visible
+  question="What is the GCF of $\;12x^3\;$ and $\;18x^2$?"
+  options={['$6x^2$', '$6x^3$', '$36x^5$', '$3x^2$']}
+  answer={0}
+  explain="The largest number that divides $12$ and $18$ is $6$; the smallest power of $x$ is $x^2$."
+  wrong={{ 1: 'Use the **smallest** power: $18x^2$ has only two factors of $x$.', 2: 'That is the product of the terms, not their common factor.', 3: '$3$ divides both, but $6$ is greater.' }}
+/>
+
 <Practice client:visible lesson="5.1" skill="gcf" compact />
 
 ## Factoring out the GCF
@@ -62,6 +73,15 @@ Divide each term by the GCF, and write the GCF in front of parentheses. This is 
 <Callout type="warning" title="Don't lose the 1">
 When the GCF is a whole term, that term leaves a $1$ behind: $6x^2(2x^3 - 3x + 1)$, not $6x^2(2x^3 - 3x)$. Multiply back to check — you should get the same number of terms you started with.
 </Callout>
+
+<QuickCheck
+  client:visible
+  question="Factor: $\;8x^2 + 4x$"
+  options={['$4x(2x + 1)$', '$4x(2x)$', '$2x(4x + 2)$', '$4(2x^2 + x)$']}
+  answer={0}
+  explain="The GCF is $4x$: $8x^2 \div 4x = 2x$ and $4x \div 4x = 1$. Check: $4x(2x + 1) = 8x^2 + 4x$ ✓"
+  wrong={{ 1: 'The second term leaves a $1$ behind. Multiply back: $4x \\cdot 2x$ is only $8x^2$.', 2: 'Not complete: $4x + 2$ still has a common factor $2$. Use the **greatest** common factor.', 3: 'Both terms contain $x$ too, so take it out as well.' }}
+/>
 
 <Practice client:visible lesson="5.1" skill="factor" compact />
 
@@ -86,11 +106,52 @@ Sometimes the common factor is a whole **binomial**: $x^2(x + 3) + 5(x + 3) = (x
   ]}
 />
 
+<StepReveal
+  client:visible
+  title="When a group has GCF 1"
+  problem="Factor: $\;2x^3 - 6x^2 + x - 3$"
+  steps={[
+    { show: '$2x^2(x - 3) + 1(x - 3)$', why: 'The second group has GCF $1$ — write the $1$ so the matching binomial is visible.' },
+    { show: '$= (x - 3)(2x^2 + 1)$', why: 'Check: $2x^3 + x - 6x^2 - 3$ ✓' },
+  ]}
+/>
+
 <Callout type="tip" title="Match the binomials">
 If the two groups give different binomials, like $(x + 4)$ and $(-x - 4)$, factor a negative out of the second group. If they still don't match, grouping in that order doesn't work.
 </Callout>
 
 <Practice client:visible lesson="5.1" skill="grouping" compact />
+
+## In a real context
+
+<StepReveal
+  client:visible
+  title="A kicked ball"
+  problem="A ball is kicked straight up from the ground. Its height after $t$ seconds is $-16t^2 + 64t$ feet. Factor the expression completely, and say what the factored form tells you."
+  steps={[
+    { show: '**Familiarize.** Both terms contain $16$ and $t$. The leading coefficient is negative, so take out $-16t$.', why: '' },
+    { show: '**Solve.** $-16t^2 + 64t = -16t(t - 4)$', why: '$-16t^2 \\div (-16t) = t$ and $64t \\div (-16t) = -4$.' },
+    { show: '**Check.** $-16t(t - 4) = -16t^2 + 64t$ ✓', why: '' },
+    { show: '**State.** $-16t(t - 4)$. The height is $0$ when $t = 0$ or $t = 4$ — the ball lands after $4$ seconds.', why: 'A product is $0$ when a factor is $0$ — the idea behind Lesson 5.8.' },
+  ]}
+/>
+
+<Practice client:visible lesson="5.1" skill="apply" compact />
+
+
+## Common mistakes
+
+<Callout type="warning" title="Losing the 1">
+$6x^2 + 3x = 3x(2x + 1)$, not $3x(2x)$. A term that *is* the GCF leaves a $1$ behind.
+</Callout>
+
+<Callout type="warning" title="Not the greatest factor">
+$8x^2 + 4x = 2x(4x + 2)$ is true but not finished: $4x + 2$ still has a factor $2$. Take out the **greatest** common factor.
+</Callout>
+
+<Callout type="warning" title="Signs with a negative GCF">
+$-4x^3 + 8x - 12 = -4(x^3 - 2x + 3)$. **Every** sign inside changes — check by multiplying back.
+</Callout>
 
 ## Summary
 
@@ -98,6 +159,8 @@ If the two groups give different binomials, like $(x + 4)$ and $(-x - 4)$, facto
 - **GCF** = largest common number × each shared variable to its lowest power.
 - Factor it out by dividing each term; check by multiplying back.
 - Four terms → try **grouping** in pairs, then factor out the common binomial.
+
+**Next, in 5.2:** factoring trinomials $x^2 + bx + c$ — FOIL run backwards.
 
 ## Practice
 

@@ -2,14 +2,16 @@
 id: "5.7"
 title: "Factoring: A General Strategy"
 summary: One checklist for every polynomial — common factor first, then let the number of terms tell you which method to use, and keep going until every factor is prime.
-minutes: 35
+minutes: 40
 objectives:
   - Choose a factoring method from the number of terms.
   - Factor polynomials completely, combining several methods.
+  - Factor volumes and areas completely.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import StrategyFlow from '../../components/StrategyFlow.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -34,6 +36,15 @@ Type any polynomial in $x$ and follow the strategy:
 
 <Practice client:visible lesson="5.7" skill="method" compact />
 
+<QuickCheck
+  client:visible
+  question="What should you do first to factor $\;5x^3 - 20x$?"
+  options={['Factor out the GCF $5x$', 'Use a difference of squares', 'Group the terms', 'Nothing — it is prime']}
+  answer={0}
+  explain="Always look for a common factor first: $5x(x^2 - 4) = 5x(x + 2)(x - 2)$."
+  wrong={{ 1: '$5x^3 - 20x$ is not a difference of squares itself — it becomes one after you take out $5x$.', 2: 'Grouping is for four terms.', 3: 'Both terms share the factor $5x$.' }}
+/>
+
 <StepReveal
   client:visible
   title="Several methods in one problem"
@@ -56,15 +67,68 @@ Type any polynomial in $x$ and follow the strategy:
   ]}
 />
 
+<StepReveal
+  client:visible
+  title="Three terms, negative leading coefficient"
+  problem="Factor completely: $\;-2x^2 + 12x - 18$"
+  steps={[
+    { show: '$= -2(x^2 - 6x + 9)$', why: 'Step 1: take out $-2$ so the leading coefficient is positive.' },
+    { show: '$x^2 - 6x + 9 = (x - 3)^2$', why: 'Step 2: three terms — a trinomial square ($2 \\cdot x \\cdot 3 = 6x$).' },
+    { show: '$= -2(x - 3)^2$', why: '' },
+  ]}
+/>
+
 <Callout type="warning" title="Stopping too early">
 The most common error in this lesson is leaving a factor that still factors — like $(x^2 - 9)$ or a GCF hiding inside parentheses, as in $(2x + 4)(x - 1)$, which is $2(x + 2)(x - 1)$.
 </Callout>
 
+<QuickCheck
+  client:visible
+  question="Is $\;(2x + 4)(x - 1)\;$ factored completely?"
+  options={['No — $2x + 4 = 2(x + 2)$', 'Yes', 'No — $x - 1$ factors further', 'No — it should be multiplied out']}
+  answer={0}
+  explain="$2x + 4$ has a common factor $2$, so the complete factorization is $2(x + 2)(x - 1)$."
+  wrong={{ 1: 'Look inside each factor: $2x + 4$ has a common factor.', 2: '$x - 1$ is prime.', 3: 'Factoring means writing it as a product — this is a product, just not a complete one.' }}
+/>
+
 <Practice client:visible lesson="5.7" skill="factor" compact />
+
+## In a real context
+
+<StepReveal
+  client:visible
+  title="A box"
+  problem="The volume of a box is $2x^3 + 14x^2 + 20x$ cm³. Factor the volume completely to find possible dimensions."
+  steps={[
+    { show: '**Familiarize.** Three terms with a common factor — GCF first.', why: '' },
+    { show: '**Solve.** $= 2x(x^2 + 7x + 10) = 2x(x + 2)(x + 5)$', why: 'Then product $10$, sum $7$.' },
+    { show: '**Check.** $x = 1$: $\;2 + 14 + 20 = 36$ and $2 \\cdot 3 \\cdot 6 = 36$ ✓', why: '' },
+    { show: '**State.** The box could measure $2x$ by $x + 2$ by $x + 5$ cm.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="5.7" skill="apply" compact />
+
+
+## Common mistakes
+
+<Callout type="warning" title="Skipping the GCF">
+$3x^2 - 27$ is not a difference of squares as it stands — $3(x^2 - 9) = 3(x + 3)(x - 3)$.
+</Callout>
+
+<Callout type="warning" title="Factoring a sum of squares">
+$x^2 + 4$ is prime. Only differences of squares factor.
+</Callout>
+
+<Callout type="warning" title="Not checking">
+Multiply your answer out. If you don't get the original polynomial back, something went wrong.
+</Callout>
 
 ## Summary
 
 - GCF → count terms → apply the method → check each factor again → check by multiplying.
+
+**Next, in 5.8:** using factoring to **solve** equations.
 
 ## Practice
 

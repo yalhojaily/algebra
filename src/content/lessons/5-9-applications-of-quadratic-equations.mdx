@@ -11,6 +11,7 @@ objectives:
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import Pythagoras from '../../components/Pythagoras.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -38,6 +39,15 @@ The problem-solving steps from Lesson 2.5 still apply: **Familiarize, Translate,
   ]}
 />
 
+<QuickCheck
+  client:visible
+  question="An area equation gives $\;w = -8\;$ or $\;w = 5$. What is the width?"
+  options={['$5$', '$-8$ and $5$', '$-8$', 'There is no width']}
+  answer={0}
+  explain="A width can't be negative, so $-8$ is rejected. Only $w = 5$ makes sense."
+  wrong={{ 1: 'Both solve the equation, but a negative length makes no sense.', 2: 'A width can\'t be negative.', 3: '$w = 5$ is a perfectly good width.' }}
+/>
+
 <Practice client:visible lesson="5.9" skill="area" compact />
 
 ## Consecutive integers
@@ -54,6 +64,15 @@ Consecutive integers are $x$ and $x + 1$; consecutive **even** (or odd) integers
     { show: '$x = 12$ (reject $-13$, which is not positive)', why: '' },
     { show: 'The integers are $12$ and $13$.', why: '' },
   ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="How do you write two consecutive **odd** integers?"
+  options={['$x$ and $x + 2$', '$x$ and $x + 1$', '$2x$ and $2x + 1$', '$x$ and $x + 3$']}
+  answer={0}
+  explain="Odd integers are $2$ apart, like $7$ and $9$, so they are $x$ and $x + 2$ (with $x$ odd)."
+  wrong={{ 1: '$x$ and $x + 1$ are consecutive integers — one of them is even.', 2: '$2x$ is always even.', 3: 'Consecutive odd integers are $2$ apart, not $3$.' }}
 />
 
 <Practice client:visible lesson="5.9" skill="consecutive" compact />
@@ -78,6 +97,15 @@ $$a^2 + b^2 = c^2$$
   ]}
 />
 
+<QuickCheck
+  client:visible
+  question="The legs of a right triangle are $6$ and $8$. What is the hypotenuse?"
+  options={['$10$', '$14$', '$100$', '$48$']}
+  answer={0}
+  explain="$6^2 + 8^2 = 36 + 64 = 100 = c^2$, so $c = 10$."
+  wrong={{ 1: 'Add the **squares**, not the sides: $a^2 + b^2 = c^2$.', 2: '$100$ is $c^2$; take the square root.', 3: 'That is $6 \\cdot 8$.' }}
+/>
+
 <Practice client:visible lesson="5.9" skill="pythagorean" compact />
 
 ## Falling objects
@@ -90,11 +118,28 @@ $$5t^2 - 80 = 0 \;\Rightarrow\; 5(t + 4)(t - 4) = 0 \;\Rightarrow\; t = 4 \text{
 
 <Practice client:visible lesson="5.9" skill="falling" compact />
 
+## Common mistakes
+
+<Callout type="warning" title="Keeping impossible solutions">
+Lengths, times and counts can't be negative. Solve the equation, then reject what doesn't fit.
+</Callout>
+
+<Callout type="warning" title="The wrong side as the hypotenuse">
+The hypotenuse $c$ is the longest side, opposite the right angle: $a^2 + b^2 = c^2$, not $a^2 + c^2 = b^2$.
+</Callout>
+
+<Callout type="warning" title="Answering a different question">
+If you're asked for **both** dimensions or **both** integers, give both — $w = 5$ alone doesn't finish the problem.
+</Callout>
+
+
 ## Summary
 
 - Translate → standard form → factor → zero products.
 - Check each solution against the situation: lengths, times and counts can't be negative.
 - Right triangles: $a^2 + b^2 = c^2$, with $c$ the hypotenuse.
+
+**Next, in Chapter 6:** rational expressions — fractions with polynomials, where factoring is the main tool.
 
 ## Practice
 

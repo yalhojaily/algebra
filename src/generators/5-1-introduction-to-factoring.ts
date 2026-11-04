@@ -96,11 +96,39 @@ function negativeGCF(): Problem {
   };
 }
 
+function factorWords(): Problem {
+  if (Math.random() < 0.5) {
+    const g = randInt(2, 6), m = randInt(1, 4), n = randInt(1, 9);
+    if (gcd(m, n) !== 1) return factorWords();
+    const W = Poly.mono(g, { x: 1 }), L = lin(m, n, 'x'), A = W.mul(L);
+    const thing = pick(['rug', 'garden bed', 'poster', 'tabletop']);
+    return {
+      skill: 'apply',
+      prompt: `A rectangular ${thing} has area $${A.tex()}$ square units and width $${W.tex()}$. Find its length.`,
+      answer: { type: 'expression', value: L.text() },
+      hints: [`Unknown: the length. Key words: area = length × width, so the width $${W.tex()}$ is a factor of the area.`, `Factor out $${W.tex()}$: $${A.tex()} = ${W.tex()}(\;?\;)$.`],
+      solution: [`$${A.tex()} = ${W.tex()}${parTex(L)}$`, `Length $= ${L.tex()}$`, `Check: $${W.tex()}${parTex(L)} = ${A.tex()}$ ✓`],
+      placeholder: '2x + 3',
+    };
+  }
+  const k = randInt(2, 6), v0 = 16 * k;
+  const P = Poly.fromCoefs([-16, v0, 0], 't');
+  return {
+    skill: 'apply',
+    prompt: `A ball is kicked straight up from the ground. Its height after $t$ seconds is $${P.tex()}$ feet. Factor this expression completely, taking out the GCF with a negative coefficient.`,
+    answer: factoredAnswer(`-16t(t - ${k})`),
+    hints: ['Unknown: the factored form. Key words: "factor completely" — take out the greatest common factor of both terms.', `Both terms contain $16$ and $t$; take out $-16t$ so the leading term inside is positive.`],
+    solution: [`$${P.tex()} = -16t(t - ${k})$`, `The factored form shows the height is $0$ when $t = 0$ and when $t = ${k}$ — when the ball is kicked and when it lands.`],
+    placeholder: '-16t(t - 3)',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'gcf', label: 'Find the GCF', generate: gcfMonomials },
   { id: 'factor', label: 'Factor out the GCF', generate: factorOutGCF },
   { id: 'negative', label: 'Factor out a negative', generate: negativeGCF },
   { id: 'grouping', label: 'Factor by grouping', generate: grouping },
+  { id: 'apply', label: 'Word problems', generate: factorWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

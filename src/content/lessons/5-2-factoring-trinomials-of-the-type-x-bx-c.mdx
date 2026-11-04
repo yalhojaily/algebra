@@ -2,16 +2,18 @@
 id: "5.2"
 title: "Factoring Trinomials of the Type x² + bx + c"
 summary: "To factor x² + bx + c, find two numbers whose product is c and whose sum is b."
-minutes: 35
+minutes: 40
 objectives:
   - "Factor trinomials of the form x² + bx + c by finding a factor pair of c that adds to b."
   - Use the sign of c and b to narrow the search.
   - Factor out a common factor first.
   - Recognize prime trinomials.
+  - Factor trinomials that describe areas and other quantities.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import FactorPairs from '../../components/FactorPairs.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -43,6 +45,15 @@ Then $x^2 + bx + c = (x + p)(x + q)$.
   ]}
 />
 
+<QuickCheck
+  client:visible
+  question="Factor: $\;x^2 + 7x + 12$"
+  options={['$(x + 3)(x + 4)$', '$(x + 2)(x + 6)$', '$(x + 1)(x + 12)$', '$(x - 3)(x - 4)$']}
+  answer={0}
+  explain="$3 \cdot 4 = 12$ and $3 + 4 = 7$. Check: $x^2 + 4x + 3x + 12$ ✓"
+  wrong={{ 1: '$2 \\cdot 6 = 12$, but $2 + 6 = 8$, not $7$.', 2: '$1 + 12 = 13$, not $7$.', 3: 'The sum must be $+7$, so both numbers are positive.' }}
+/>
+
 <StepReveal
   client:visible
   title="Negative c"
@@ -58,6 +69,16 @@ Then $x^2 + bx + c = (x + p)(x + q)$.
 - $c > 0$: both numbers have the sign of $b$.
 - $c < 0$: one positive, one negative; the one with the larger absolute value has the sign of $b$.
 </Callout>
+
+
+<QuickCheck
+  client:visible
+  question="Factor: $\;x^2 - 2x - 15$"
+  options={['$(x - 5)(x + 3)$', '$(x + 5)(x - 3)$', '$(x - 5)(x - 3)$', '$(x - 15)(x + 1)$']}
+  answer={0}
+  explain="Product $-15$, sum $-2$: the numbers are $-5$ and $3$."
+  wrong={{ 1: 'That gives a middle term of $+2x$. Since $b$ is negative, the larger number must be negative.', 2: '$(-5)(-3) = +15$, but $c = -15$.', 3: '$-15 + 1 = -14$, not $-2$.' }}
+/>
 
 <Practice client:visible lesson="5.2" skill="basic" compact />
 
@@ -81,12 +102,45 @@ If **no** factor pair of $c$ adds to $b$, the trinomial cannot be factored using
 
 <Practice client:visible lesson="5.2" skill="prime" compact />
 
+## In a real context
+
+<StepReveal
+  client:visible
+  title="A garden"
+  problem="A rectangular garden has area $x^2 + 9x + 20$ square meters. Its length and width have the form $x + n$. Find them."
+  steps={[
+    { show: '**Familiarize.** Area = length × width, so the sides are the factors of $x^2 + 9x + 20$.', why: '' },
+    { show: '**Solve.** Product $20$, sum $9$: $\;4$ and $5$. So $x^2 + 9x + 20 = (x + 4)(x + 5)$', why: '' },
+    { show: '**Check.** $x = 2$: $\;4 + 18 + 20 = 42$ and $6 \\cdot 7 = 42$ ✓', why: 'Substituting a number is a quick check.' },
+    { show: '**State.** The sides are $x + 4$ and $x + 5$ meters.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="5.2" skill="apply" compact />
+
+
+## Common mistakes
+
+<Callout type="warning" title="Right numbers, wrong signs">
+$x^2 - 9x + 20 = (x - 4)(x - 5)$, not $(x + 4)(x + 5)$. Multiply back and compare the middle term.
+</Callout>
+
+<Callout type="warning" title="Forgetting the GCF">
+$2x^2 + 14x + 24$: take out $2$ first, then $2(x^2 + 7x + 12) = 2(x + 3)(x + 4)$. The $2$ belongs in the answer.
+</Callout>
+
+<Callout type="warning" title="Calling it prime too soon">
+Check **every** factor pair of $c$, including negative pairs, before deciding a trinomial is prime.
+</Callout>
+
 ## Summary
 
 - $x^2 + bx + c = (x + p)(x + q)$ where $pq = c$ and $p + q = b$.
 - Use the signs of $b$ and $c$ to know which pairs to try.
 - Factor out a GCF first.
 - No pair works → the trinomial is prime.
+
+**Next, in 5.3:** what to do when the leading coefficient isn't $1$, as in $3x^2 - 5x - 2$.
 
 ## Practice
 

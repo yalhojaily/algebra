@@ -2,15 +2,17 @@
 id: "5.3"
 title: "Factoring ax² + bx + c, a ≠ 1: The FOIL Method"
 summary: When the leading coefficient isn't 1, run FOIL backwards — try the possible first and last terms and keep the arrangement that gives the right middle term.
-minutes: 40
+minutes: 45
 objectives:
   - "Factor ax² + bx + c by trial and error (reverse FOIL)."
   - Factor out a common factor — including −1 — before trying.
   - Check a factorization by multiplying.
+  - Factor trinomials that describe areas of rectangles.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import TrialFactor from '../../components/TrialFactor.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -44,9 +46,40 @@ Click the candidates below and watch the middle term change.
   ]}
 />
 
+<QuickCheck
+  client:visible
+  question="Factor: $\;2x^2 + 7x + 3$"
+  options={['$(2x + 1)(x + 3)$', '$(2x + 3)(x + 1)$', '$(2x - 1)(x - 3)$', '$(2x + 1)(x - 3)$']}
+  answer={0}
+  explain="Outer $6x$ + Inner $x$ = $7x$ ✓"
+  wrong={{ 1: 'Outer $2x$ + Inner $3x$ = $5x$, not $7x$. The order of the last terms matters.', 2: 'Two negatives give a middle term of $-7x$.', 3: 'The last term would be $-3$, not $+3$.' }}
+/>
+
 <Callout type="tip" title="Narrow the search">
 If $a$, $b$, $c$ have no common factor, then **neither binomial** can have a common factor. So $(2x + 4)$ is never a candidate when factoring $2x^2 + \ldots$ with no GCF — skip it.
 </Callout>
+
+
+<StepReveal
+  client:visible
+  title="More candidates"
+  problem="Factor: $\;6x^2 + x - 12$"
+  steps={[
+    { show: 'First terms: $(6x \\quad)(x \\quad)$ or $(3x \\quad)(2x \\quad)$', why: 'Factor pairs of $6$.' },
+    { show: 'Last terms: a factor pair of $-12$ with opposite signs', why: 'Skip any binomial with a common factor, such as $(6x - 4)$ or $(2x + 6)$.' },
+    { show: '$(3x - 4)(2x + 3)$: Outer $9x$, Inner $-8x$, total $x$ ✓', why: '' },
+    { show: '$= (3x - 4)(2x + 3)$', why: '' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Factoring $\;3x^2 + 10x + 8\;$ (no common factor), which binomial can you skip?"
+  options={['$3x + 6$', '$3x + 4$', '$x + 2$', '$3x + 2$']}
+  answer={0}
+  explain="$3x + 6 = 3(x + 2)$ has a common factor $3$, but $3x^2 + 10x + 8$ has none — so none of its factors can. (The answer is $(3x + 4)(x + 2)$.)"
+  wrong={{ 1: '$(3x + 4)(x + 2)$ is in fact the factorization.', 2: '$x + 2$ has no common factor, so it is a possible factor.', 3: '$3x + 2$ has no common factor, so it must be tried.' }}
+/>
 
 <Practice client:visible lesson="5.3" skill="foil" compact />
 
@@ -69,11 +102,45 @@ When the leading coefficient is negative, factor out $-1$ first: $-2x^2 + x + 6 
 
 <Practice client:visible lesson="5.3" skill="negative" compact />
 
+## In a real context
+
+<StepReveal
+  client:visible
+  title="A patio"
+  problem="A rectangular patio has area $6x^2 + 17x + 5$ square feet. Its sides are binomials. Find them."
+  steps={[
+    { show: '**Familiarize.** Area = length × width: factor $6x^2 + 17x + 5$. No GCF.', why: '' },
+    { show: '**Solve.** First terms $(3x \\quad)(2x \\quad)$ or $(6x \\quad)(x \\quad)$; last terms $1$ and $5$.', why: '' },
+    { show: '$(3x + 1)(2x + 5)$: Outer $15x$, Inner $2x$, total $17x$ ✓', why: '' },
+    { show: '**Check.** $x = 1$: $\;6 + 17 + 5 = 28$ and $4 \\cdot 7 = 28$ ✓', why: '' },
+    { show: '**State.** The sides are $3x + 1$ and $2x + 5$ feet.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="5.3" skill="apply" compact />
+
+
+## Common mistakes
+
+<Callout type="warning" title="Checking only the ends">
+$(2x + 3)(x + 1)$ has the right first and last terms for $2x^2 + 7x + 3$, but its middle term is $5x$. Always check Outer + Inner.
+</Callout>
+
+<Callout type="warning" title="Dropping the GCF">
+$12x^3 + 10x^2 - 8x = 2x(3x + 4)(2x - 1)$. The $2x$ taken out at the start is part of the answer.
+</Callout>
+
+<Callout type="warning" title="Losing the −1">
+$-2x^2 + x + 6 = -(2x + 3)(x - 2)$. The minus sign stays in front.
+</Callout>
+
 ## Summary
 
 - GCF (and $-1$) first.
 - Try first-term pairs × last-term pairs; keep the one where Outer + Inner $= bx$.
 - Always check by multiplying.
+
+**Next, in 5.4:** the ac-method — a step-by-step alternative to trial and error.
 
 ## Practice
 

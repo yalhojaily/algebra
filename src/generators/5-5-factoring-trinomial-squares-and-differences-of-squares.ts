@@ -1,5 +1,5 @@
 // Practice problem generators for Lesson 5.5 — Factoring Trinomial Squares and Differences of Squares.
-import { choice, factoredAnswer, gcd, makeMasterySet, par, parTex, pick, Poly, randInt } from './helpers';
+import { choice, factoredAnswer, gcd, lin, makeMasterySet, par, parTex, pick, Poly, randInt } from './helpers';
 import type { Problem, Skill } from './types';
 
 const V = () => pick(['x', 'y', 'a', 't']);
@@ -111,11 +111,37 @@ function recognize(): Problem {
   };
 }
 
+function shapeWords(): Problem {
+  if (Math.random() < 0.5) {
+    const a = pick([1, 2, 3, 4, 5]), b = randInt(1, 9);
+    if (gcd(a, b) !== 1) return shapeWords();
+    const S = lin(a, b, 'x'), A = S.mul(S);
+    return {
+      skill: 'apply',
+      prompt: `A square ${pick(['tile', 'patio', 'garden', 'courtyard'])} has area $${A.tex()}$ square meters. Find the length of one side.`,
+      answer: { type: 'expression', value: S.text() },
+      hints: ['Unknown: the side. Key words: the area of a **square** is side², so look for a trinomial square.', `$${A.tex()} = (\;?\;)^2$: the first term is $(${a === 1 ? '' : a}x)^2$, the last is $${b}^2$, and the middle should be $2 \\cdot ${a === 1 ? '' : a}x \\cdot ${b}$.`],
+      solution: [`$${A.tex()} = ${parTex(S)}^2$`, `Side $= ${S.tex()}$ m`],
+      placeholder: '2x + 3',
+    };
+  }
+  const k = randInt(1, 9);
+  return {
+    skill: 'apply',
+    prompt: `A square metal sheet is $x$ cm on a side. A square of side $${k}$ cm is cut out of one corner, leaving area $x^2 - ${k * k}$ cm². Factor the remaining area.`,
+    answer: factoredAnswer(`(x + ${k})(x - ${k})`),
+    hints: ['Unknown: the factored form. Key words: one square **minus** another square — a difference of squares.', `$A^2 - B^2 = (A + B)(A - B)$ with $A = x$, $B = ${k}$.`],
+    solution: [`$x^2 - ${k * k} = x^2 - ${k}^2 = (x + ${k})(x - ${k})$`],
+    placeholder: '(x + 3)(x - 3)',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'recognize', label: 'Recognize the type', generate: recognize },
   { id: 'square', label: 'Trinomial squares', generate: trinomialSquare },
   { id: 'difference', label: 'Differences of squares', generate: differenceOfSquares },
   { id: 'gcf', label: 'Factor completely', generate: withGCF },
+  { id: 'apply', label: 'Word problems', generate: shapeWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

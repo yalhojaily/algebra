@@ -86,11 +86,28 @@ function isPrime(): Problem {
   };
 }
 
+function areaWords(): Problem {
+  let r = randInt(1, 9), s = randInt(1, 9);
+  while (s === r) s = randInt(1, 9);
+  const P = lin(1, r, 'x').mul(lin(1, s, 'x'));
+  const [, b, c] = P.coefs('x');
+  const thing = pick(['rectangular garden', 'rectangular room', 'rectangular parking lot', 'rectangular photo']);
+  return {
+    skill: 'apply',
+    prompt: `A ${thing} has area $${P.tex()}$ square meters. Its length and width are both of the form $x + n$ for whole numbers $n$. Write the area in factored form, (length)(width).`,
+    answer: factoredAnswer(`${par(lin(1, r, 'x'))}${par(lin(1, s, 'x'))}`),
+    hints: [`Unknown: the length and width. Key words: area = length × width, so factor $${P.tex()}$.`, `Find two numbers with product $${c}$ and sum $${b}$.`],
+    solution: [`$${r} \\cdot ${s} = ${c}$ and $${r} + ${s} = ${b}$`, `$${P.tex()} = ${parTex(lin(1, r, 'x'))}${parTex(lin(1, s, 'x'))}$`, `The sides are $x + ${r}$ and $x + ${s}$ meters.`],
+    placeholder: '(x + 2)(x + 5)',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'basic', label: 'Factor x² + bx + c', generate: basic },
   { id: 'gcf', label: 'GCF first', generate: withGCF },
   { id: 'twovars', label: 'Two variables', generate: twoVars },
   { id: 'prime', label: 'Prime or not?', generate: isPrime },
+  { id: 'apply', label: 'Word problems', generate: areaWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

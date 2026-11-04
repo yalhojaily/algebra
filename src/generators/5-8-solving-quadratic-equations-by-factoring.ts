@@ -78,10 +78,36 @@ function intercepts(): Problem {
   };
 }
 
+function solveWords(): Problem {
+  if (Math.random() < 0.5) {
+    const w = randInt(2, 12), k = randInt(1, 8), A = w * (w + k);
+    const thing = pick(['rectangular garden', 'rectangular rug', 'rectangular court', 'rectangular sign']);
+    return {
+      skill: 'apply',
+      prompt: `A ${thing} is $${k}$ m longer than it is wide, and its area is $${A}$ m². Find its width (in meters).`,
+      answer: { type: 'number', value: w },
+      hints: [`Unknown: the width $w$; then the length is $w + ${k}$. Key words: area = length × width.`, `Solve $w(w + ${k}) = ${A}$: write it as $w^2 + ${k === 1 ? '' : k}w - ${A} = 0$ and factor.`],
+      solution: [`$w^2 + ${k === 1 ? '' : k}w - ${A} = 0$`, `$(w - ${w})(w + ${w + k}) = 0$`, `$w = ${w}$ or $w = -${w + k}$; a width can't be negative, so $w = ${w}$ m.`, `Check: $${w} \\cdot ${w + k} = ${A}$ ✓`],
+      placeholder: 'e.g. 7',
+    };
+  }
+  const r = randInt(2, 6);
+  const P = Poly.fromCoefs([-5, 5 * r, 0], 't');
+  return {
+    skill: 'apply',
+    prompt: `A ball is thrown straight up from the ground. Its height after $t$ seconds is $h = ${P.tex()}$ meters. After how many seconds does it land?`,
+    answer: { type: 'number', value: r },
+    hints: ['Unknown: the time $t$ when it lands. Key words: "lands" means the height is $0$.', `Solve $${P.tex()} = 0$ by factoring out $-5t$.`],
+    solution: [`$-5t(t - ${r}) = 0$`, `$t = 0$ (when it is thrown) or $t = ${r}$`, `It lands after $${r}$ seconds.`],
+    placeholder: 'e.g. 3',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'zero', label: 'Zero products', generate: zeroProducts },
   { id: 'solve', label: 'Factor & solve', generate: factorAndSolve },
   { id: 'intercepts', label: 'x-intercepts', generate: intercepts },
+  { id: 'apply', label: 'Word problems', generate: solveWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

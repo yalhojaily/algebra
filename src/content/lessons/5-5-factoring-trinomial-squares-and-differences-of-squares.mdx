@@ -2,16 +2,18 @@
 id: "5.5"
 title: Factoring Trinomial Squares and Differences of Squares
 summary: Two special products from Chapter 4, run backwards — recognize A² ± 2AB + B² and A² − B² on sight and factor them in one step.
-minutes: 35
+minutes: 40
 objectives:
   - Recognize trinomial squares and differences of squares.
   - "Factor A² ± 2AB + B² as (A ± B)²."
   - "Factor A² − B² as (A + B)(A − B)."
   - Factor completely, including a GCF and repeated differences of squares.
+  - Use the patterns to factor areas of squares and of shapes with a square removed.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import SquareArea from '../../components/SquareArea.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -45,6 +47,15 @@ To recognize a trinomial square, check three things:
   ]}
 />
 
+<QuickCheck
+  client:visible
+  question="Is $\;x^2 + 6x + 36\;$ a trinomial square?"
+  options={['No', 'Yes: $(x + 6)^2$', 'Yes: $(x + 3)^2$', 'Yes: $(x - 6)^2$']}
+  answer={0}
+  explain="$A = x$ and $B = 6$, so a trinomial square would need $2AB = 12x$. The middle term is only $6x$."
+  wrong={{ 1: '$(x + 6)^2 = x^2 + 12x + 36$ — the middle term doesn\'t match.', 2: '$(x + 3)^2 = x^2 + 6x + 9$ — the last term doesn\'t match.', 3: '$(x - 6)^2 = x^2 - 12x + 36$.' }}
+/>
+
 <Practice client:visible lesson="5.5" skill="recognize" compact />
 
 <Practice client:visible lesson="5.5" skill="square" compact />
@@ -63,6 +74,15 @@ Two square terms with a **minus** between them.
     { show: '$= (5y)^2 - 7^2$', why: '$A = 5y$, $B = 7$.' },
     { show: '$= (5y + 7)(5y - 7)$', why: '' },
   ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Factor: $\;4x^2 - 9$"
+  options={['$(2x + 3)(2x - 3)$', '$(2x - 3)^2$', '$(4x + 3)(x - 3)$', '$(4x + 9)(x - 1)$']}
+  answer={0}
+  explain="$4x^2 = (2x)^2$ and $9 = 3^2$, so $A = 2x$, $B = 3$: $(A + B)(A - B)$."
+  wrong={{ 1: '$(2x - 3)^2 = 4x^2 - 12x + 9$ has a middle term.', 2: 'Multiply back: that is $4x^2 - 9x - 9$.', 3: 'Multiply back: that is $4x^2 + 5x - 9$.' }}
 />
 
 <Callout type="warning" title="A sum of squares is prime">
@@ -88,11 +108,45 @@ Take out the GCF first, then look for the patterns: $3x^2 - 75 = 3(x^2 - 25) = 3
 
 <Practice client:visible lesson="5.5" skill="gcf" compact />
 
+## In a real context
+
+<StepReveal
+  client:visible
+  title="A garden with a pond"
+  problem="A square garden is $x$ m on a side. A square pond $3$ m on a side is dug in one corner. Write the remaining area in factored form, and find it when $x = 13$."
+  steps={[
+    { show: '**Translate.** Remaining area $= x^2 - 9$', why: 'Garden minus pond.' },
+    { show: '**Solve.** $x^2 - 3^2 = (x + 3)(x - 3)$', why: 'A difference of squares.' },
+    { show: '$x = 13$: $\;(16)(10) = 160$ m²', why: 'The factored form makes the arithmetic easy.' },
+    { show: '**Check.** $13^2 - 9 = 169 - 9 = 160$ ✓', why: '' },
+    { show: '**State.** $(x + 3)(x - 3)$ m²; $160$ m² when $x = 13$.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="5.5" skill="apply" compact />
+
+
+## Common mistakes
+
+<Callout type="warning" title="Checking only the ends">
+$x^2 + 6x + 36$ starts and ends with squares, but it is **not** $(x + 6)^2$: the middle term must be $2AB = 12x$.
+</Callout>
+
+<Callout type="warning" title="A² − B² is not (A − B)²">
+$x^2 - 9 = (x + 3)(x - 3)$. $(x - 3)^2 = x^2 - 6x + 9$ is something else.
+</Callout>
+
+<Callout type="warning" title="Stopping early">
+$x^4 - 16 = (x^2 + 4)(x^2 - 4)$ is not finished — $x^2 - 4$ factors again.
+</Callout>
+
 ## Summary
 
 - $A^2 \pm 2AB + B^2 = (A \pm B)^2$ — check the middle term.
 - $A^2 - B^2 = (A + B)(A - B)$; $A^2 + B^2$ is prime.
 - GCF first; then factor each factor again until nothing more factors.
+
+**Next, in 5.6:** sums and differences of **cubes** — which, unlike squares, both factor.
 
 ## Practice
 

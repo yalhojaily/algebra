@@ -49,10 +49,33 @@ function identify(): Problem {
   };
 }
 
+function cubeWords(): Problem {
+  const k = randInt(1, 6), k3 = k * k * k;
+  if (Math.random() < 0.5) {
+    return {
+      skill: 'apply',
+      prompt: `A wooden cube is $x$ cm on each edge. A smaller cube with edge $${k}$ cm is cut out of one corner, leaving volume $x^3 - ${k3}$ cm³. Factor the remaining volume.`,
+      answer: factoredAnswer(`(x - ${k})(x^2 + ${k}x + ${k * k})`.replace('+ 1x', '+ x')),
+      hints: ['Unknown: the factored form. Key words: one cube **minus** another — a difference of cubes.', `$A^3 - B^3 = (A - B)(A^2 + AB + B^2)$ with $A = x$, $B = ${k}$.`],
+      solution: [`$x^3 - ${k3} = x^3 - ${k}^3 = (x - ${k})(x^2 + ${k === 1 ? '' : k}x + ${k * k})$`],
+      placeholder: '(x - 2)(x^2 + 2x + 4)',
+    };
+  }
+  return {
+    skill: 'apply',
+    prompt: `Two cube-shaped boxes have edges $x$ cm and $${k}$ cm. Their total volume is $x^3 + ${k3}$ cm³. Factor the total volume.`,
+    answer: factoredAnswer(`(x + ${k})(x^2 - ${k}x + ${k * k})`.replace('- 1x', '- x')),
+    hints: ['Unknown: the factored form. Key words: one cube **plus** another — a sum of cubes.', `$A^3 + B^3 = (A + B)(A^2 - AB + B^2)$ with $A = x$, $B = ${k}$.`],
+    solution: [`$x^3 + ${k3} = x^3 + ${k}^3 = (x + ${k})(x^2 - ${k === 1 ? '' : k}x + ${k * k})$`],
+    placeholder: '(x + 2)(x^2 - 2x + 4)',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'identify', label: 'Perfect cubes', generate: identify },
   { id: 'cubes', label: 'Sum or difference of cubes', generate: () => cubes(false) },
   { id: 'gcf', label: 'GCF first', generate: () => cubes(true) },
+  { id: 'apply', label: 'Word problems', generate: cubeWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

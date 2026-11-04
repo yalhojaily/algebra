@@ -109,9 +109,26 @@ function whichMethod(): Problem {
   };
 }
 
+function boxWords(): Problem {
+  let r = randInt(1, 6), s = randInt(1, 6);
+  while (s === r) s = randInt(1, 6);
+  const g = randInt(2, 4);
+  const G = Poly.mono(g, { x: 1 });
+  const P = G.mul(lin(1, r, 'x')).mul(lin(1, s, 'x'));
+  return {
+    skill: 'apply',
+    prompt: `The volume of a box is $${P.tex()}$ cm³. Its height is a monomial and its length and width are binomials $x + n$. Factor the volume completely.`,
+    answer: factoredAnswer(`${g}x${par(lin(1, r, 'x'))}${par(lin(1, s, 'x'))}`),
+    hints: ['Unknown: the three dimensions. Key words: "factor completely" — always look for a common factor **first**.', `Take out $${G.tex()}$, then factor the trinomial that is left.`],
+    solution: [`$= ${G.tex()}(${lin(1, r, 'x').mul(lin(1, s, 'x')).tex()})$`, `$= ${G.tex()}${parTex(lin(1, r, 'x'))}${parTex(lin(1, s, 'x'))}$`, `Height $${G.tex()}$, length and width $x + ${r}$ and $x + ${s}$.`],
+    placeholder: '2x(x + 1)(x + 3)',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'method', label: 'Choose the method', generate: whichMethod },
   { id: 'factor', label: 'Factor completely', generate: factorCompletely },
+  { id: 'apply', label: 'Word problems', generate: boxWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

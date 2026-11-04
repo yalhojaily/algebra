@@ -65,10 +65,30 @@ function negativeLead(): Problem {
   };
 }
 
+export function rectWords(skill: string): Problem {
+  for (;;) {
+    const p = randInt(1, 5), r = randInt(1, 4), q = randInt(1, 7), s = randInt(1, 7);
+    if (p * r === 1 || gcd(p, q) !== 1 || gcd(r, s) !== 1 || (p === r && q === s)) continue;
+    const F1 = lin(p, q, 'x'), F2 = lin(r, s, 'x');
+    const P = F1.mul(F2);
+    const [a, b, c] = P.coefs('x');
+    const thing = pick(['rectangular patio', 'rectangular banner', 'rectangular window', 'rectangular field']);
+    return {
+      skill,
+      prompt: `A ${thing} has area $${P.tex()}$ square feet. Its length and width are binomials with whole-number coefficients. Write the area in factored form, (length)(width).`,
+      answer: factoredAnswer(`${par(F1)}${par(F2)}`),
+      hints: [`Unknown: the two sides. Key words: area = length × width, so factor $${P.tex()}$.`, `Factors of $${a}x^2$ go first in each binomial, factors of $${c}$ last; test pairs until the middle term is $${b}x$.`],
+      solution: [`$${P.tex()} = ${parTex(F1)}${parTex(F2)}$`, `Check with FOIL ✓`, `The sides are $${F1.tex()}$ and $${F2.tex()}$ feet.`],
+      placeholder: '(2x + 3)(x + 4)',
+    };
+  }
+}
+
 export const skills: Skill[] = [
   { id: 'foil', label: 'Factor ax² + bx + c', generate: foilFactor },
   { id: 'gcf', label: 'GCF first', generate: withGCF },
   { id: 'negative', label: 'Negative leading coefficient', generate: negativeLead },
+  { id: 'apply', label: 'Word problems', generate: () => rectWords('apply') },
 ];
 
 export const masterySet = makeMasterySet(skills);

@@ -1,5 +1,5 @@
 // Practice problem generators for Lesson 5.4 — Factoring ax² + bx + c, a ≠ 1: The ac-Method.
-import { randomAC, V } from './5-3-factoring-ax-bx-c-a-1-the-foil-method';
+import { randomAC, rectWords, V } from './5-3-factoring-ax-bx-c-a-1-the-foil-method';
 import { factoredAnswer, factorPairs, makeMasterySet, par, parTex, Poly } from './helpers';
 import type { Problem, Skill } from './types';
 
@@ -45,9 +45,12 @@ function acFactor(): Problem {
   };
 }
 
+
+
 export const skills: Skill[] = [
   { id: 'pair', label: 'Find the ac pair', generate: acPair },
   { id: 'factor', label: 'Factor with the ac-method', generate: acFactor },
+  { id: 'apply', label: 'Word problems', generate: () => rectWords('apply') },
 ];
 
 export const masterySet = makeMasterySet(skills);

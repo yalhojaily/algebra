@@ -2,15 +2,17 @@
 id: "5.6"
 title: Factoring Sums or Differences of Cubes
 summary: "Unlike squares, both sums and differences of cubes factor: A³ ± B³ = (A ± B)(A² ∓ AB + B²)."
-minutes: 30
+minutes: 35
 objectives:
   - Recognize perfect cubes.
   - Factor sums and differences of cubes.
   - Factor out a GCF before using the pattern.
+  - Factor volumes that are sums or differences of cubes.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import CubesPattern from '../../components/CubesPattern.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -24,6 +26,16 @@ $x^2 + 8$ is prime, but $x^3 + 8$ is not: $x^3 + 8 = (x + 2)(x^2 - 2x + 4)$. Cub
 Know the first few cubes: $1, 8, 27, 64, 125, 216, 343, 512, 729, 1000$. A term like $8x^3 = (2x)^3$ or $27y^6 = (3y^2)^3$ is also a perfect cube.
 
 <Practice client:visible lesson="5.6" skill="identify" compact />
+
+
+<QuickCheck
+  client:visible
+  question="Which of these is a perfect cube?"
+  options={['$8x^6$', '$9x^3$', '$16x^3$', '$27x^4$']}
+  answer={0}
+  explain="$8x^6 = (2x^2)^3$: $8 = 2^3$, and the exponent $6$ is a multiple of $3$."
+  wrong={{ 1: '$9$ is a square, not a cube.', 2: '$16$ is not a cube: $2^3 = 8$ and $3^3 = 27$.', 3: 'The exponent $4$ is not a multiple of $3$.' }}
+/>
 
 ## The formulas
 
@@ -50,6 +62,25 @@ A memory aid for the signs is **SOAP**: the binomial has the **S**ame sign as th
 The trinomial factor $A^2 \mp AB + B^2$ is prime (over the integers). Don't try to factor $9x^2 + 6x + 4$ — it is **not** $(3x + 2)^2$, whose middle term would be $12x$.
 </Callout>
 
+<StepReveal
+  client:visible
+  title="Sum of cubes, two variables"
+  problem="Factor: $\;x^3 + 64y^3$"
+  steps={[
+    { show: '$= x^3 + (4y)^3$', why: '$A = x$, $B = 4y$.' },
+    { show: '$= (x + 4y)(x^2 - 4xy + 16y^2)$', why: 'SOAP: same sign, opposite sign, always positive.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Factor: $\;x^3 + 8$"
+  options={['$(x + 2)(x^2 - 2x + 4)$', '$(x + 2)(x^2 + 2x + 4)$', '$(x + 2)^3$', '$(x - 2)(x^2 + 2x + 4)$']}
+  answer={0}
+  explain="SOAP: same sign $(x + 2)$, opposite sign $-2x$, always positive $+4$."
+  wrong={{ 1: 'The middle sign of the trinomial is the **opposite** of the original sign.', 2: '$(x + 2)^3 = x^3 + 6x^2 + 12x + 8$.', 3: 'The binomial has the **same** sign as the original: $+$.' }}
+/>
+
 <Practice client:visible lesson="5.6" skill="cubes" compact />
 
 ## GCF first
@@ -57,6 +88,37 @@ The trinomial factor $A^2 \mp AB + B^2$ is prime (over the integers). Don't try 
 $$2x^4 + 54x = 2x(x^3 + 27) = 2x(x + 3)(x^2 - 3x + 9)$$
 
 <Practice client:visible lesson="5.6" skill="gcf" compact />
+
+## In a real context
+
+<StepReveal
+  client:visible
+  title="A cube with a corner cut out"
+  problem="A wooden cube has edges $x$ cm long. A cube with edges $2$ cm is cut out of one corner. Write the remaining volume in factored form and check it when $x = 5$."
+  steps={[
+    { show: '**Translate.** Volume $= x^3 - 8$', why: 'Big cube minus small cube.' },
+    { show: '**Solve.** $x^3 - 2^3 = (x - 2)(x^2 + 2x + 4)$', why: 'A difference of cubes.' },
+    { show: '**Check.** $x = 5$: $\;125 - 8 = 117$ and $3 \\cdot (25 + 10 + 4) = 3 \\cdot 39 = 117$ ✓', why: '' },
+    { show: '**State.** $(x - 2)(x^2 + 2x + 4)$ cm³.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="5.6" skill="apply" compact />
+
+## Common mistakes
+
+<Callout type="warning" title="The middle sign">
+$x^3 + 8 = (x + 2)(x^2 - 2x + 4)$. The middle sign of the trinomial is the **opposite** of the sign in the original.
+</Callout>
+
+<Callout type="warning" title="A³ + B³ is not (A + B)³">
+$(x + 2)^3 = x^3 + 6x^2 + 12x + 8$ — it has extra terms.
+</Callout>
+
+<Callout type="warning" title="Forgetting the square of B">
+In $27x^3 - 8$, $B = 2$ so $B^2 = 4$; the trinomial is $9x^2 + 6x + 4$, not $9x^2 + 6x + 2$.
+</Callout>
+
 
 ## Summary
 
@@ -66,6 +128,8 @@ $$2x^4 + 54x = 2x(x^3 + 27) = 2x(x + 3)(x^2 - 3x + 9)$$
 | $A^2 + B^2$ | prime |
 | $A^3 - B^3$ | $(A - B)(A^2 + AB + B^2)$ |
 | $A^3 + B^3$ | $(A + B)(A^2 - AB + B^2)$ |
+
+**Next, in 5.7:** one strategy that tells you which method to use for any polynomial.
 
 ## Practice
 

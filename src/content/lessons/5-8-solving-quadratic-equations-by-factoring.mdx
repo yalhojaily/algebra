@@ -2,15 +2,17 @@
 id: "5.8"
 title: Solving Quadratic Equations by Factoring
 summary: "If a product is zero, one of the factors must be zero. Get 0 on one side, factor, and set each factor equal to 0."
-minutes: 40
+minutes: 45
 objectives:
   - Use the principle of zero products.
   - Solve quadratic equations by factoring.
   - Connect solutions to the x-intercepts of a graph.
+  - Solve applied problems, such as when a thrown object reaches a height.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import ParabolaRoots from '../../components/ParabolaRoots.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
@@ -35,6 +37,15 @@ This works **only** for $0$. If $ab = 6$, $a$ and $b$ could be anything that mul
   ]}
 />
 
+<QuickCheck
+  client:visible
+  question="Solve: $\;x(x + 5) = 0$"
+  options={['$x = 0$ or $x = -5$', '$x = -5$ only', '$x = 5$', '$x = 0$ or $x = 5$']}
+  answer={0}
+  explain="Either $x = 0$ or $x + 5 = 0$, so $x = 0$ or $x = -5$."
+  wrong={{ 1: 'The factor $x$ gives a solution too: $x = 0$.', 2: '$x + 5 = 0$ means $x = -5$, and $x = 0$ is missing.', 3: '$x + 5 = 0$ means $x = -5$, not $5$.' }}
+/>
+
 <Practice client:visible lesson="5.8" skill="zero" compact />
 
 ## Solving by factoring
@@ -57,6 +68,26 @@ A **quadratic equation** has the form $ax^2 + bx + c = 0$ with $a \ne 0$. To sol
   ]}
 />
 
+<StepReveal
+  client:visible
+  title="Leading coefficient not 1"
+  problem="Solve: $\;2x^2 + 7x = 4$"
+  steps={[
+    { show: '$2x^2 + 7x - 4 = 0$', why: 'Standard form first.' },
+    { show: '$(2x - 1)(x + 4) = 0$', why: 'Check: Outer $8x$, Inner $-x$, total $7x$ ✓' },
+    { show: '$x = \\tfrac{1}{2}$ or $x = -4$', why: 'Check: $2 \\cdot \\tfrac{1}{4} + \\tfrac{7}{2} = 4$ ✓ and $32 - 28 = 4$ ✓' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="To solve $\;(x - 1)(x + 2) = 4$, a student writes $x - 1 = 4$ or $x + 2 = 4$. What is wrong?"
+  options={['Zero products works only when the product is $0$', 'Nothing', 'They should divide by $x$ first', 'They should use $2$ instead of $4$']}
+  answer={0}
+  explain="Multiply out and get $0$ on one side: $x^2 + x - 6 = 0$, so $(x + 3)(x - 2) = 0$ and $x = -3$ or $x = 2$."
+  wrong={{ 1: 'Check $x = 5$: $(4)(7) = 28 \\ne 4$.', 2: 'Dividing by a variable can lose solutions.', 3: 'A product of $4$ says nothing definite about each factor.' }}
+/>
+
 <Callout type="warning" title="Don't divide by x">
 In $x^2 = 3x$, dividing both sides by $x$ gives just $x = 3$ and **loses** the solution $x = 0$. Instead: $x^2 - 3x = 0$, so $x(x - 3) = 0$, so $x = 0$ or $x = 3$.
 </Callout>
@@ -71,12 +102,46 @@ The solutions of $ax^2 + bx + c = 0$ are the $x$-values where the graph of $y = 
 
 <Practice client:visible lesson="5.8" skill="intercepts" compact />
 
+## In a real context
+
+<StepReveal
+  client:visible
+  title="A thrown ball"
+  problem="A ball is thrown up from the ground. Its height after $t$ seconds is $h = -5t^2 + 20t$ meters. When does it land? When is it $15$ m high?"
+  steps={[
+    { show: '**Familiarize.** "Lands" means $h = 0$; "$15$ m high" means $h = 15$.', why: '' },
+    { show: '**Solve (land).** $-5t^2 + 20t = 0 \;\\Rightarrow\; -5t(t - 4) = 0 \;\\Rightarrow\; t = 0$ or $t = 4$', why: '$t = 0$ is when it is thrown.' },
+    { show: '**Solve (15 m).** $-5t^2 + 20t - 15 = 0 \;\\Rightarrow\; -5(t - 1)(t - 3) = 0 \;\\Rightarrow\; t = 1$ or $t = 3$', why: 'Standard form, take out $-5$, factor.' },
+    { show: '**Check.** $-5 + 20 = 15$ ✓ and $-45 + 60 = 15$ ✓', why: '' },
+    { show: '**State.** It lands after $4$ s. It is $15$ m high twice: at $1$ s (going up) and $3$ s (coming down).', why: 'Both solutions make sense here.' },
+  ]}
+/>
+
+<Practice client:visible lesson="5.8" skill="apply" compact />
+
+
+## Common mistakes
+
+<Callout type="warning" title="Not getting 0 on one side">
+$x^2 = 5x + 14$ must become $x^2 - 5x - 14 = 0$ before you factor.
+</Callout>
+
+<Callout type="warning" title="Sign slips">
+$x + 4 = 0$ gives $x = -4$, not $4$.
+</Callout>
+
+<Callout type="warning" title="Dividing by x">
+Dividing $x^2 = 3x$ by $x$ loses the solution $x = 0$. Factor instead.
+</Callout>
+
 ## Summary
 
 - $ab = 0 \Rightarrow a = 0$ or $b = 0$.
 - Standard form → factor → set each factor to $0$ → check.
 - Never divide by a variable expression; you may lose solutions.
 - Solutions = $x$-intercepts of $y = ax^2 + bx + c$.
+
+**Next, in 5.9:** applications — areas, consecutive integers, right triangles and falling objects.
 
 ## Practice
 
