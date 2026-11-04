@@ -2,35 +2,40 @@
 id: "10.6"
 title: Solving Radical Equations
 summary: Isolate the radical, raise both sides to a power, solve — and check every answer, because squaring can create false solutions.
-minutes: 40
+minutes: 50
 objectives:
+  - Explain why squaring both sides can create extraneous solutions.
   - Solve equations with one radical by isolating it and squaring (or cubing).
   - Identify and reject extraneous solutions.
-  - Solve equations with two radicals.
+  - Solve equations with two radicals, squaring twice when needed.
+  - Solve radical formulas for a quantity under the root.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import RadicalEqGraph from '../../components/RadicalEqGraph.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
 
 <Callout type="why">
-A pendulum's period is $T = 2\pi\sqrt{L/9.8}$. To find the length that gives a 2-second swing you must solve an equation with $L$ under a radical.
+In 10.1 you used $r = 2\sqrt{5L}$ to get a car's speed from its skid marks. Now turn the question around: how long would the skid marks be at 60 mph? The unknown $L$ is **under** the radical, so you need a way to undo a root. There is one — squaring — but it comes with a trap this lesson teaches you to spot.
 </Callout>
 
-## The principle of powers
+## The principle of powers — and its trap
 
 > If $a = b$, then $a^n = b^n$.
 
-But the converse fails: $(-3)^2 = 3^2$ even though $-3 \ne 3$. So raising both sides to an even power can introduce solutions that don't satisfy the original equation — **extraneous** solutions. Every answer must be checked.
+Squaring both sides is allowed, but it is a **one-way** step. The converse fails: $(-3)^2 = 3^2$ even though $-3 \ne 3$. Squaring can turn a false equation into a true one, so the squared equation may have solutions the original doesn't. These are **extraneous** solutions. That's why every answer must be checked in the **original** equation.
+
+Cubing has no such trap: different numbers always have different cubes.
 
 ## One radical
 
-1. Isolate the radical on one side.
-2. Square (or cube) both sides.
-3. Solve.
-4. **Check** in the original equation.
+1. **Isolate** the radical on one side.
+2. **Square** (or cube) both sides.
+3. **Solve** the resulting equation.
+4. **Check** every answer in the original equation.
 
 <StepReveal
   client:visible
@@ -43,9 +48,24 @@ But the converse fails: $(-3)^2 = 3^2$ even though $-3 \ne 3$. So raising both s
   ]}
 />
 
-<Callout type="warning" title="Isolate first">
-Squaring $\sqrt{x - 3} + 5$ as it stands gives $(x - 3) + 10\sqrt{x - 3} + 25$ — the radical doesn't go away. Get the radical alone **before** squaring.
-</Callout>
+<StepReveal
+  client:visible
+  title="A cube root"
+  problem="Solve: $\;\sqrt[3]{2x - 1} = 3$"
+  steps={[
+    { show: '$2x - 1 = 27$', why: 'Cube both sides: $3^3 = 27$.' },
+    { show: '$x = 14$', why: 'Check: $\\sqrt[3]{27} = 3$ ✓. (Cubing never creates false solutions, but checking is still a good habit.)' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Solve: $\;\sqrt{x} = -4$"
+  options={['No solution', '$x = 16$', '$x = -16$', '$x = \\pm 16$']}
+  answer={0}
+  explain="A principal square root is never negative, so $\sqrt{x} = -4$ is impossible. Squaring would give $x = 16$, but $\sqrt{16} = 4 \ne -4$: an extraneous solution."
+  wrong={{ 1: 'Check it: $\\sqrt{16} = 4$, not $-4$. That is an extraneous solution.', 2: '$\\sqrt{-16}$ is not a real number.', 3: 'Neither $16$ nor $-16$ works in the original equation.' }}
+/>
 
 <Practice client:visible lesson="10.6" skill="basic" compact />
 
@@ -53,21 +73,107 @@ Squaring $\sqrt{x - 3} + 5$ as it stands gives $(x - 3) + 10\sqrt{x - 3} + 25$ �
 
 ## Extraneous solutions
 
+When the other side contains $x$, squaring gives a quadratic — and often one of its solutions is false.
+
+<StepReveal
+  client:visible
+  title="Reject a false solution"
+  problem="Solve: $\;\sqrt{x + 7} = x - 5$"
+  steps={[
+    { show: '$x + 7 = (x - 5)^2 = x^2 - 10x + 25$', why: 'The radical is isolated; square both sides. Square the whole right side as a binomial.' },
+    { show: '$x^2 - 11x + 18 = 0 \\;\\Rightarrow\\; (x - 2)(x - 9) = 0$', why: 'Bring everything to one side and factor (Chapter 5).' },
+    { show: '$x = 9$: $\\sqrt{16} = 4$ and $9 - 5 = 4$ ✓', why: 'Check in the **original** equation.' },
+    { show: '$x = 2$: $\\sqrt{9} = 3$ but $2 - 5 = -3$ ✗', why: 'Squaring hid the sign: $3^2 = (-3)^2$. Reject $x = 2$.' },
+    { show: 'The only solution is $x = 9$.', why: '' },
+  ]}
+/>
+
+The graph shows why: the solutions of $\sqrt{x + 7} = x - 5$ are where the two graphs meet — and they meet only once.
+
 <RadicalEqGraph client:visible />
+
+<QuickCheck
+  client:visible
+  question="After squaring both sides of a radical equation, you get $x = 2$ or $x = 9$. What should you do next?"
+  options={['Check both in the original equation', 'Give both as the answer', 'Keep the larger one', 'Keep the positive ones']}
+  answer={0}
+  explain="Squaring can create extraneous solutions. Only checking in the original equation tells you which ones are real."
+  wrong={{ 1: 'One of them may be extraneous. Check first.', 2: 'Size has nothing to do with it — check each one.', 3: 'Both are positive here, yet $x = 2$ fails. Check in the original equation.' }}
+/>
 
 <Practice client:visible lesson="10.6" skill="extraneous" compact />
 
 ## Two radicals
 
-If each side has one radical, squaring removes both: $\sqrt{3x - 4} = \sqrt{2x + 3}$ gives $3x - 4 = 2x + 3$, so $x = 7$. Check that the radicands are not negative.
+If each side has one radical, squaring removes both: $\sqrt{3x - 4} = \sqrt{2x + 3}$ gives $3x - 4 = 2x + 3$, so $x = 7$. Check: both radicands are $17$ ✓.
+
+If two radicals are on the **same** side, isolate one of them, square, and you'll be left with one radical — isolate it and square again.
+
+<StepReveal
+  client:visible
+  title="Square twice"
+  problem="Solve: $\;\sqrt{x - 3} + \sqrt{x + 5} = 4$"
+  steps={[
+    { show: '$\\sqrt{x + 5} = 4 - \\sqrt{x - 3}$', why: 'Isolate one radical.' },
+    { show: '$x + 5 = 16 - 8\\sqrt{x - 3} + (x - 3)$', why: 'Square both sides. The right side is a binomial: $(4 - \\sqrt{x - 3})^2 = 16 - 8\\sqrt{x - 3} + (x - 3)$.' },
+    { show: '$8\\sqrt{x - 3} = 8 \\;\\Rightarrow\\; \\sqrt{x - 3} = 1$', why: 'The $x$-terms cancel. Isolate the remaining radical.' },
+    { show: '$x - 3 = 1 \\;\\Rightarrow\\; x = 4$', why: 'Square again.' },
+    { show: 'Check: $\\sqrt{1} + \\sqrt{9} = 1 + 3 = 4$ ✓', why: '' },
+  ]}
+/>
 
 <Practice client:visible lesson="10.6" skill="two" compact />
 
+## In a real context
+
+<StepReveal
+  client:visible
+  title="Skid marks, the other way"
+  problem="A car's speed $r$ (mph) and skid-mark length $L$ (ft) are related by $r = 2\sqrt{5L}$. How long would the skid marks be for a car going $60$ mph?"
+  steps={[
+    { show: '**Familiarize.** $r = 60$ is given; $L$ is unknown and under the radical.', why: 'In 10.1, $80$ ft of skid gave $40$ mph. Squaring the formula gives $r^2 = 20L$, so $1.5$ times the speed needs $1.5^2 = 2.25$ times the skid: about $180$ ft.' },
+    { show: '**Translate.** $60 = 2\\sqrt{5L}$', why: '' },
+    { show: '**Solve.** $30 = \\sqrt{5L} \\;\\Rightarrow\\; 900 = 5L \\;\\Rightarrow\\; L = 180$', why: 'Divide by $2$ to isolate the radical, then square.' },
+    { show: '**Check.** $2\\sqrt{5 \\cdot 180} = 2\\sqrt{900} = 60$ ✓', why: '' },
+    { show: '**State.** The skid marks would be about $180$ ft long.', why: 'Matches the estimate.' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="How high to see that far?"
+  problem="From a height of $h$ feet, you can see about $d = \sqrt{1.5h}$ miles to the horizon. How high must you be to see $12$ miles?"
+  steps={[
+    { show: '$12 = \\sqrt{1.5h}$', why: 'The radical is already isolated.' },
+    { show: '$144 = 1.5h \\;\\Rightarrow\\; h = 96$', why: 'Square both sides; divide by $1.5$.' },
+    { show: 'Check: $\\sqrt{1.5 \\cdot 96} = \\sqrt{144} = 12$ ✓. You need to be about $96$ ft up.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="10.6" skill="apply" compact />
+
+## Common mistakes
+
+<Callout type="warning" title="Squaring before isolating">
+Squaring $\sqrt{x - 3} + 5$ as it stands gives $(x - 3) + 10\sqrt{x - 3} + 25$ — the radical doesn't go away. Get the radical alone **before** squaring.
+</Callout>
+
+<Callout type="warning" title="Squaring a binomial term by term">
+$(x - 5)^2 = x^2 - 10x + 25$, not $x^2 + 25$, and $(4 - \sqrt{x - 3})^2$ has a middle term $-8\sqrt{x - 3}$.
+</Callout>
+
+<Callout type="warning" title="Skipping the check">
+Squaring can create false solutions. In $\sqrt{x + 7} = x - 5$, $x = 2$ satisfies the squared equation but not the original.
+</Callout>
+
 ## Summary
 
-- Isolate the radical, then raise both sides to the index.
-- Squaring can create extraneous solutions — check every answer in the original equation.
-- Cube roots: cube both sides; no extraneous solutions arise.
+- Squaring both sides is allowed, but it can create **extraneous** solutions, because $a^2 = b^2$ doesn't mean $a = b$.
+- Isolate the radical, raise both sides to the index, solve, and **check every answer in the original equation**.
+- Two radicals on one side: isolate one, square, then isolate the other and square again.
+- Cubing never creates extraneous solutions.
+
+**Next, in 10.7:** the most important radical formula of all — the Pythagorean theorem — and the distance formula built on it.
 
 ## Practice
 

@@ -81,11 +81,38 @@ function twoRadicals(): Problem {
   }
 }
 
+
+/** Word problems: solve a radical formula for the quantity under the root. */
+function radicalEqWords(): Problem {
+  if (Math.random() < 0.5) {
+    const k = randInt(2, 9), r = 10 * k, L = 5 * k * k;
+    return {
+      skill: 'apply',
+      prompt: `The speed $r$ (mph) of a car that leaves skid marks $L$ feet long is about $r = 2\\sqrt{5L}$. A car was going ${r} mph. How long would its skid marks be (ft)?`,
+      answer: { type: 'number', value: L },
+      hints: [`Unknown: the length $L$. Now the formula is an **equation** to solve: $${r} = 2\\sqrt{5L}$.`, `Divide by $2$ to isolate the radical, then square both sides.`],
+      solution: [`$${r / 2} = \\sqrt{5L}$`, `$${(r / 2) ** 2} = 5L$ (square both sides)`, `$L = ${L}$ ft. Check: $2\\sqrt{5 \\cdot ${L}} = 2\\sqrt{${5 * L}} = ${r}$ ✓`],
+      mistakes: [{ answer: String((r / 2) ** 2), feedback: 'You squared correctly, but stopped one step early: divide by 5 as well.' }],
+      placeholder: '125',
+    };
+  }
+  const k = randInt(2, 10), d = 3 * k, h = 6 * k * k;
+  return {
+    skill: 'apply',
+    prompt: `From a height of $h$ feet you can see about $d = \\sqrt{1.5h}$ miles to the horizon. How high must you be to see ${d} miles (ft)?`,
+    answer: { type: 'number', value: h },
+    hints: [`Unknown: the height $h$. Solve $${d} = \\sqrt{1.5h}$ — the radical is already alone.`, 'Square both sides, then divide by 1.5.'],
+    solution: [`$${d * d} = 1.5h$ (square both sides)`, `$h = \\dfrac{${d * d}}{1.5} = ${h}$ ft. Check: $\\sqrt{1.5 \\cdot ${h}} = \\sqrt{${1.5 * h}} = ${d}$ ✓`],
+    placeholder: '96',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'basic', label: 'One radical', generate: basic },
   { id: 'extraneous', label: 'Check for false solutions', generate: extraneous },
   { id: 'cube', label: 'Cube roots', generate: cubeRoot },
   { id: 'two', label: 'Two radicals', generate: twoRadicals },
+  { id: 'apply', label: 'Word problems', generate: radicalEqWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

@@ -71,11 +71,33 @@ function conjugates(): Problem {
   };
 }
 
+
+/** Perimeters with radical side lengths: simplify, then combine like radicals. */
+function perimeterWords(): Problem {
+  for (;;) {
+    const r = pick([2, 3, 5]);
+    const a = randInt(1, 5), b = randInt(2, 5);
+    if (a === b) continue;
+    const L = a * a * r, W = b * b * r;
+    const P = 2 * (a + b);
+    return {
+      skill: 'apply',
+      prompt: `A rectangular frame is $\\sqrt{${L}}$ cm long and $\\sqrt{${W}}$ cm wide. Find its perimeter in simplest radical form (cm).`,
+      answer: { type: 'expression', value: radText(P, r), radical: true },
+      hints: ['Unknown: the perimeter $P = 2L + 2W$. Simplify each radical first — then you will see like radicals.', `$\\sqrt{${L}} = ${radTex(a, r)}$ and $\\sqrt{${W}} = ${radTex(b, r)}$.`],
+      solution: [`$\\sqrt{${L}} = ${radTex(a, r)}$, $\;\\sqrt{${W}} = ${radTex(b, r)}$`, `$P = 2(${radTex(a, r)}) + 2(${radTex(b, r)}) = ${radTex(2 * a, r)} + ${radTex(2 * b, r)} = ${radTex(P, r)}$ cm`],
+      mistakes: [{ answer: `2sqrt(${L + W})`, feedback: 'Radicands never add: $\\sqrt{a} + \\sqrt{b} \\neq \\sqrt{a + b}$. Simplify each radical first.' }],
+      placeholder: '14sqrt(2)',
+    };
+  }
+}
+
 export const skills: Skill[] = [
   { id: 'like', label: 'Like radicals', generate: likeRadicals },
   { id: 'distribute', label: 'Distribute', generate: distribute },
   { id: 'foil', label: 'FOIL with radicals', generate: foil },
   { id: 'conjugate', label: 'Conjugates', generate: conjugates },
+  { id: 'apply', label: 'Word problems', generate: perimeterWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

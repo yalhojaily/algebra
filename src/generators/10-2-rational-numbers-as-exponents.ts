@@ -74,11 +74,39 @@ function laws(): Problem {
   };
 }
 
+
+/** Word problems with formulas that use rational exponents. */
+function exponentWords(): Problem {
+  if (Math.random() < 0.5) {
+    const [W, r] = pick([[16, 8], [81, 27], [1, 1], [256, 64], [625, 125], [10000, 1000]] as [number, number][]);
+    const animal = W <= 1 ? 'a 1-kg rabbit' : W <= 16 ? `a ${W}-kg dog` : W <= 81 ? `an ${W}-kg person` : W <= 256 ? `a ${W}-kg deer` : W <= 625 ? `a ${W}-kg horse` : `a ${W.toLocaleString('en-US')}-kg elephant`;
+    return {
+      skill: 'apply',
+      prompt: `Kleiber's law estimates the daily energy an animal needs: $E = 70W^{3/4}$ kilocalories, where $W$ is its mass in kilograms. Estimate $E$ for ${animal}.`,
+      answer: { type: 'number', value: 70 * r },
+      hints: [`Unknown: the energy $E$. Substitute $W = ${W}$: $E = 70 \\cdot ${W}^{3/4}$.`, `$${W}^{3/4} = \\left(\\sqrt[4]{${W}}\\right)^3$: take the 4th root first, then cube.`],
+      solution: [`$\\sqrt[4]{${W}} = ${Math.round(W ** 0.25)}$, so $${W}^{3/4} = ${Math.round(W ** 0.25)}^3 = ${r}$`, `$E = 70 \\cdot ${r} = ${70 * r}$ kilocalories per day`],
+      mistakes: [{ answer: String(70 * W * 0.75), feedback: 'The exponent $\\frac{3}{4}$ is not “multiply by $\\frac{3}{4}$”. It means: 4th root, then cube.' }],
+      placeholder: '560',
+    };
+  }
+  const s = randInt(2, 8), V = s ** 3, S = 6 * s * s;
+  return {
+    skill: 'apply',
+    prompt: `A cube has volume $V$ cm³. Its surface area is $S = 6V^{2/3}$ cm². Find $S$ for a cube with volume ${V} cm³.`,
+    answer: { type: 'number', value: S },
+    hints: [`Unknown: the surface area $S$. $V^{2/3} = \\left(\\sqrt[3]{V}\\right)^2$ — the cube root of the volume is the edge length.`, `$\\sqrt[3]{${V}} = ${s}$.`],
+    solution: [`$${V}^{2/3} = \\left(\\sqrt[3]{${V}}\\right)^2 = ${s}^2 = ${s * s}$`, `$S = 6 \\cdot ${s * s} = ${S}$ cm²`],
+    placeholder: '54',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'evaluate', label: 'Evaluate', generate: evaluate },
   { id: 'toradical', label: 'Exponent → radical', generate: toRadical },
   { id: 'toexponent', label: 'Radical → exponent', generate: toExponent },
   { id: 'laws', label: 'Laws of exponents', generate: laws },
+  { id: 'apply', label: 'Word problems', generate: exponentWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

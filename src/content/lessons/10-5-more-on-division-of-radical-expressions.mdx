@@ -2,34 +2,80 @@
 id: "10.5"
 title: More on Division of Radical Expressions
 summary: Divide radicals with the quotient rule, and rationalize denominators — with the radical itself for one-term denominators, with the conjugate for two-term ones.
-minutes: 35
+minutes: 45
 objectives:
   - "Use √a / √b = √(a/b) to divide and simplify."
-  - Rationalize denominators containing one term.
+  - Explain why rationalizing doesn't change the value.
+  - Rationalize denominators containing one term, including cube roots.
   - Rationalize denominators containing two terms, using conjugates.
+  - Give exact side lengths with rational denominators.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import RadicalSteps from '../../components/RadicalSteps.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
 
 <Callout type="why">
-$\dfrac{1}{\sqrt{2}}$ and $\dfrac{\sqrt{2}}{2}$ are the same number. The second form is the standard one: it's easier to estimate ($1.414 \div 2$), easier to compare, and it's what answers in the back of the book look like.
+$\dfrac{1}{\sqrt{2}}$ and $\dfrac{\sqrt{2}}{2}$ are the same number. The second form is the standard one: it's easier to estimate ($1.414 \div 2 \approx 0.707$, versus dividing by $1.414$ in your head), easier to compare with other answers, and the form you'll see in textbooks and on tests.
 </Callout>
 
 ## The quotient rule
 
-$$\frac{\sqrt{a}}{\sqrt{b}} = \sqrt{\frac{a}{b}} \qquad\text{e.g.}\quad \frac{\sqrt{75}}{\sqrt{3}} = \sqrt{25} = 5$$
+$$\frac{\sqrt{a}}{\sqrt{b}} = \sqrt{\frac{a}{b}} \qquad \frac{\sqrt[3]{a}}{\sqrt[3]{b}} = \sqrt[3]{\frac{a}{b}} \qquad (a \ge 0,\ b > 0)$$
+
+It works for the same reason as the product rule: $\left(\frac{\sqrt{a}}{\sqrt{b}}\right)^2 = \frac{a}{b}$. Use it in either direction — whichever makes the numbers simpler.
+
+<StepReveal
+  client:visible
+  title="Divide radicals"
+  problem="Simplify: $\;\dfrac{\sqrt{75}}{\sqrt{3}},\;\; \dfrac{\sqrt[3]{16}}{\sqrt[3]{2}},\;\; \sqrt{\dfrac{25}{9}},\;\; \dfrac{\sqrt{x^5}}{\sqrt{x}}$"
+  steps={[
+    { show: '$\\dfrac{\\sqrt{75}}{\\sqrt{3}} = \\sqrt{25} = 5$', why: 'Combine into one radical: $\\frac{75}{3} = 25$.' },
+    { show: '$\\dfrac{\\sqrt[3]{16}}{\\sqrt[3]{2}} = \\sqrt[3]{8} = 2$', why: '' },
+    { show: '$\\sqrt{\\dfrac{25}{9}} = \\dfrac{\\sqrt{25}}{\\sqrt{9}} = \\dfrac{5}{3}$', why: 'Here split it the other way.' },
+    { show: '$\\dfrac{\\sqrt{x^5}}{\\sqrt{x}} = \\sqrt{x^4} = x^2$', why: '($x > 0$)' },
+  ]}
+/>
 
 <Practice client:visible lesson="10.5" skill="quotient" compact />
 
 ## Rationalizing one-term denominators
 
-To **rationalize** a denominator means to rewrite the expression so the denominator has no radicals. Multiply the top and bottom by the radical in the denominator — this is multiplying by $1$.
+To **rationalize** a denominator means to rewrite the expression so the denominator has no radicals. Multiply the top and bottom by a radical that makes the bottom a perfect square (or cube). Since $\frac{\sqrt{b}}{\sqrt{b}} = 1$, the **value doesn't change** — only its form.
+
+<StepReveal
+  client:visible
+  title="Square-root denominators"
+  problem="Rationalize: $\;\dfrac{5}{\sqrt{3}}\;$ and $\;\sqrt{\dfrac{2}{5}}$."
+  steps={[
+    { show: '$\\dfrac{5}{\\sqrt{3}}\\cdot\\dfrac{\\sqrt{3}}{\\sqrt{3}} = \\dfrac{5\\sqrt{3}}{3}$', why: '$\\sqrt{3}\\cdot\\sqrt{3} = 3$.' },
+    { show: '$\\sqrt{\\dfrac{2}{5}} = \\dfrac{\\sqrt{2}}{\\sqrt{5}}\\cdot\\dfrac{\\sqrt{5}}{\\sqrt{5}} = \\dfrac{\\sqrt{10}}{5}$', why: 'Split the root of the fraction first.' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="A cube-root denominator"
+  problem="Rationalize: $\;\dfrac{1}{\sqrt[3]{2}}$"
+  steps={[
+    { show: '$\\dfrac{1}{\\sqrt[3]{2}}\\cdot\\dfrac{\\sqrt[3]{4}}{\\sqrt[3]{4}} = \\dfrac{\\sqrt[3]{4}}{\\sqrt[3]{8}}$', why: 'For a cube root, multiply by what makes a perfect **cube**: $2 \\cdot 4 = 8 = 2^3$. Multiplying by $\\sqrt[3]{2}$ would give only $\\sqrt[3]{4}$.' },
+    { show: '$= \\dfrac{\\sqrt[3]{4}}{2}$', why: '' },
+  ]}
+/>
 
 <RadicalSteps client:visible set="rationalize" />
+
+<QuickCheck
+  client:visible
+  question="To rationalize $\;\dfrac{3}{\sqrt{7}}$, multiply the top and bottom by…"
+  options={['$\\sqrt{7}$', '$7$', '$3$', '$\\sqrt{3}$']}
+  answer={0}
+  explain="$\sqrt{7}\cdot\sqrt{7} = 7$, which has no radical. Result: $\frac{3\sqrt{7}}{7}$."
+  wrong={{ 1: '$7\\sqrt{7}$ still has a radical in it.', 2: 'Multiplying by $3$ doesn\'t remove the radical from the denominator.', 3: '$\\sqrt{3}\\sqrt{7} = \\sqrt{21}$ — still a radical.' }}
+/>
 
 <Practice client:visible lesson="10.5" skill="rationalize" compact />
 
@@ -37,26 +83,83 @@ To **rationalize** a denominator means to rewrite the expression so the denomina
 
 ## Two-term denominators: use the conjugate
 
-Multiplying $\sqrt{3} + 1$ by $\sqrt{3}$ doesn't remove the radical. Multiplying by its **conjugate** $\sqrt{3} - 1$ does:
+Multiplying $\sqrt{3} + 1$ by $\sqrt{3}$ gives $3 + \sqrt{3}$ — still a radical. Multiplying by its **conjugate** $\sqrt{3} - 1$ uses the difference of squares from 10.4, and the radical disappears.
 
 <StepReveal
   client:visible
   title="Conjugate"
   problem="Rationalize: $\;\dfrac{6}{\sqrt{5} - 1}$"
   steps={[
-    { show: '$= \\dfrac{6}{\\sqrt{5} - 1}\\cdot\\dfrac{\\sqrt{5} + 1}{\\sqrt{5} + 1}$', why: 'Multiply by the conjugate over itself.' },
+    { show: '$= \\dfrac{6}{\\sqrt{5} - 1}\\cdot\\dfrac{\\sqrt{5} + 1}{\\sqrt{5} + 1}$', why: 'Multiply by the conjugate over itself (that is, by $1$).' },
     { show: '$= \\dfrac{6(\\sqrt{5} + 1)}{5 - 1} = \\dfrac{6(\\sqrt{5} + 1)}{4}$', why: '$(\\sqrt{5} - 1)(\\sqrt{5} + 1) = 5 - 1$.' },
-    { show: '$= \\dfrac{3\\sqrt{5} + 3}{2}$', why: 'Reduce by $2$.' },
+    { show: '$= \\dfrac{3\\sqrt{5} + 3}{2}$', why: 'Reduce: $6$ and $4$ share a factor of $2$.' },
   ]}
+/>
+
+<StepReveal
+  client:visible
+  title="Radicals on top and bottom"
+  problem="Rationalize: $\;\dfrac{\sqrt{3} + 1}{\sqrt{3} - 1}$"
+  steps={[
+    { show: '$= \\dfrac{(\\sqrt{3} + 1)(\\sqrt{3} + 1)}{(\\sqrt{3} - 1)(\\sqrt{3} + 1)}$', why: '' },
+    { show: '$= \\dfrac{3 + 2\\sqrt{3} + 1}{3 - 1} = \\dfrac{4 + 2\\sqrt{3}}{2}$', why: 'The numerator is a square: $(\\sqrt{3} + 1)^2$.' },
+    { show: '$= 2 + \\sqrt{3}$', why: 'Divide **both** terms by $2$.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="What is the conjugate of $\;2 - \sqrt{3}$?"
+  options={['$2 + \\sqrt{3}$', '$-2 + \\sqrt{3}$', '$2 - \\sqrt{3}$', '$\\sqrt{3} - 2$']}
+  answer={0}
+  explain="Change the sign between the terms: $(2 - \sqrt{3})(2 + \sqrt{3}) = 4 - 3 = 1$."
+  wrong={{ 1: 'That is the negative of $2 - \\sqrt{3}$; their product still contains a radical.', 2: 'That is the same expression.', 3: 'That is the negative of $2 - \\sqrt{3}$; the product would be $-(2 - \\sqrt{3})^2$.' }}
 />
 
 <Practice client:visible lesson="10.5" skill="conjugate" compact />
 
+## In a real context
+
+<StepReveal
+  client:visible
+  title="A square photo"
+  problem="A square photo has an area of $\tfrac{2}{3}$ m². Find the exact length of a side, with a rational denominator, and estimate it."
+  steps={[
+    { show: '**Familiarize.** Let $s$ = the side in meters: $s^2 = \\frac{2}{3}$.', why: 'The area is less than $1$, so the side is less than $1$ m too.' },
+    { show: '**Solve.** $s = \\sqrt{\\dfrac{2}{3}} = \\dfrac{\\sqrt{2}}{\\sqrt{3}}\\cdot\\dfrac{\\sqrt{3}}{\\sqrt{3}} = \\dfrac{\\sqrt{6}}{3}$', why: '' },
+    { show: '**Check.** $\\left(\\dfrac{\\sqrt{6}}{3}\\right)^2 = \\dfrac{6}{9} = \\dfrac{2}{3}$ ✓, and $\\dfrac{\\sqrt{6}}{3} \\approx \\dfrac{2.449}{3} \\approx 0.816$', why: 'Rationalized form is easy to estimate.' },
+    { show: '**State.** Each side is $\\dfrac{\\sqrt{6}}{3}$ m, about $0.82$ m.', why: '' },
+  ]}
+/>
+
+<Practice client:visible lesson="10.5" skill="apply" compact />
+
+## Common mistakes
+
+<Callout type="warning" title="Canceling across the radical">
+$\frac{\sqrt{6}}{3} \neq \sqrt{2}$. The $3$ is outside the radical and the $6$ is inside; they don't cancel.
+</Callout>
+
+<Callout type="warning" title="Multiplying only the denominator">
+Multiplying the bottom by $\sqrt{3}$ and not the top changes the value. Always multiply by $\frac{\sqrt{3}}{\sqrt{3}}$, which is $1$.
+</Callout>
+
+<Callout type="warning" title="Using the radical for a two-term denominator">
+For $\frac{6}{\sqrt{5} - 1}$, multiplying by $\frac{\sqrt{5}}{\sqrt{5}}$ gives $\frac{6\sqrt{5}}{5 - \sqrt{5}}$ — still a radical below. Use the **conjugate**.
+</Callout>
+
+<Callout type="warning" title="Reducing only one term">
+$\frac{4 + 2\sqrt{3}}{2} = 2 + \sqrt{3}$: divide **every** term of the numerator by $2$, not just one.
+</Callout>
+
 ## Summary
 
-- $\sqrt{a}/\sqrt{b} = \sqrt{a/b}$.
-- One-term denominator $\sqrt{b}$: multiply by $\frac{\sqrt{b}}{\sqrt{b}}$.
+- $\frac{\sqrt{a}}{\sqrt{b}} = \sqrt{\frac{a}{b}}$; use it in whichever direction helps.
+- Rationalizing multiplies by a form of $1$, so the value is unchanged.
+- One-term denominator: multiply by the radical that makes a perfect square (cube).
 - Two-term denominator: multiply by the conjugate over itself.
+
+**Next, in 10.6:** equations with $x$ under a radical — and answers that look right but aren't.
 
 ## Practice
 

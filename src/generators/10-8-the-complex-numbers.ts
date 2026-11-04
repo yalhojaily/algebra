@@ -85,12 +85,39 @@ function divide(): Problem {
   }
 }
 
+
+/** Electrical engineering: impedances in series add, and Ohm's law V = IZ multiplies. */
+function circuits(): Problem {
+  const a = randInt(1, 6), b = nz(5), c = randInt(1, 6), d = nz(5);
+  if (Math.random() < 0.5) {
+    return {
+      skill: 'apply',
+      prompt: `In AC circuits, resistance is described by a complex number called **impedance** (in ohms). Two parts with impedances $Z_1 = ${cTex(a, b)}$ and $Z_2 = ${cTex(c, d)}$ are connected in series, so the total impedance is $Z = Z_1 + Z_2$. Find $Z$.`,
+      answer: { type: 'complex', re: a + c, im: b + d },
+      hints: ['Unknown: the total impedance $Z$. "In series" means **add**.', 'Add the real parts, then add the imaginary parts.'],
+      solution: [`$Z = (${cTex(a, b)}) + (${cTex(c, d)}) = ${cTex(a + c, b + d)}$ ohms`],
+      placeholder: '5 + 3i',
+    };
+  }
+  const re = a * c - b * d, im = a * d + b * c;
+  return {
+    skill: 'apply',
+    prompt: `Ohm's law for AC circuits is $V = IZ$: voltage = current × impedance, all complex numbers. The current is $I = ${cTex(a, b)}$ amps and the impedance is $Z = ${cTex(c, d)}$ ohms. Find the voltage $V$ (volts).`,
+    answer: { type: 'complex', re, im },
+    hints: ['Unknown: the voltage $V$. Multiply $I \\cdot Z$ with FOIL.', 'Replace $i^2$ with $-1$, then combine the real parts and the imaginary parts.'],
+    solution: [`$V = (${cTex(a, b)})(${cTex(c, d)}) = ${a * c} ${a * d < 0 ? '-' : '+'} ${Math.abs(a * d)}i ${b * c < 0 ? '-' : '+'} ${Math.abs(b * c)}i ${b * d < 0 ? '-' : '+'} ${Math.abs(b * d)}i^2$`, `$= ${cTex(re, im)}$ volts (since $i^2 = -1$)`],
+    mistakes: [{ answer: `${a * c + b * d} + (${im})i`, feedback: 'Remember $i^2 = -1$: the product of the imaginary parts becomes **negative** and joins the real part.' }],
+    placeholder: '8 + i',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'imaginary', label: 'Imaginary numbers', generate: imaginary },
   { id: 'addsub', label: 'Add and subtract', generate: addSub },
   { id: 'multiply', label: 'Multiply', generate: multiply },
   { id: 'powers', label: 'Powers of i', generate: powers },
   { id: 'divide', label: 'Divide', generate: divide },
+  { id: 'apply', label: 'Circuits (applications)', generate: circuits },
 ];
 
 export const masterySet = makeMasterySet(skills);

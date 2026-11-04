@@ -64,11 +64,43 @@ function product(): Problem {
   }
 }
 
+
+/** Geometry answers in simplified radical form. */
+function radicalWords(): Problem {
+  for (;;) {
+    if (Math.random() < 0.5) {
+      const A = pick([8, 12, 18, 20, 24, 27, 28, 32, 45, 48, 50, 72, 75, 80, 98, 108, 125, 147, 200]);
+      const { out, inside } = rootSplit(A);
+      if (out === 1 || inside === 1) continue;
+      return {
+        skill: 'apply',
+        prompt: `A square tile has an area of ${A} cm². Find the exact length of a side, in simplified radical form (cm).`,
+        answer: { type: 'expression', value: radText(out, inside), radical: true },
+        hints: [`Unknown: the side $s$, with $s^2 = ${A}$, so $s = \\sqrt{${A}}$.`, `Simplify: find the largest perfect square that divides $${A}$.`],
+        solution: [`$s = \\sqrt{${A}} = \\sqrt{${out * out} \\cdot ${inside}} = ${radTex(out, inside)}$ cm`],
+        mistakes: [{ answer: `sqrt(${A})`, feedback: 'That is right but not simplified: a perfect square still divides the radicand.' }],
+        placeholder: '3sqrt(2)',
+      };
+    }
+    const s = randInt(2, 12);
+    return {
+      skill: 'apply',
+      prompt: `A square has sides ${s} cm long. Its diagonal is $d = \\sqrt{s^2 + s^2}$. Find the exact length of the diagonal in simplified radical form (cm).`,
+      answer: { type: 'expression', value: radText(s, 2), radical: true },
+      hints: ['Unknown: the diagonal $d$. By the Pythagorean theorem the diagonal is $\\sqrt{s^2 + s^2} = \\sqrt{2s^2}$.', `$\\sqrt{2 \\cdot ${s * s}} = \\sqrt{${s * s}}\\cdot\\sqrt{2}$.`],
+      solution: [`$d = \\sqrt{${s * s} + ${s * s}} = \\sqrt{${2 * s * s}} = \\sqrt{${s * s}}\\sqrt{2} = ${radTex(s, 2)}$ cm`],
+      mistakes: [{ answer: String(2 * s), feedback: `$\\sqrt{${s * s} + ${s * s}}$ is not $${s} + ${s}$: the root of a sum is not the sum of the roots.` }],
+      placeholder: '5sqrt(2)',
+    };
+  }
+}
+
 export const skills: Skill[] = [
   { id: 'numeric', label: 'Square roots of numbers', generate: numeric },
   { id: 'cube', label: 'Cube roots', generate: cube },
   { id: 'variables', label: 'Variables under the radical', generate: variables },
   { id: 'product', label: 'Multiply radicals', generate: product },
+  { id: 'apply', label: 'Word problems', generate: radicalWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

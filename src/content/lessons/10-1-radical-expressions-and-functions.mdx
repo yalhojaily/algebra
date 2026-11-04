@@ -2,51 +2,97 @@
 id: "10.1"
 title: Radical Expressions and Functions
 summary: Square roots, cube roots and radical functions — principal roots, domains, and why √(x²) is |x|.
-minutes: 40
+minutes: 45
 objectives:
-  - Find principal square roots and cube roots.
+  - Find principal square roots and cube roots, and recognize roots that are not real.
   - Evaluate radical functions and find their domains.
-  - "Simplify √(a²) = |a| and ∛(a³) = a."
+  - "Explain and use √(a²) = |a| and ∛(a³) = a."
+  - Use radical formulas in applied problems.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import RootGraph from '../../components/RootGraph.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
 
 <Callout type="why">
-How long is the side of a square with area 50? How fast was a car going if it left a 40-foot skid mark? Questions like these run squaring backwards — they need **roots**.
+How long is the side of a square with area 50 m²? How fast was a car going if it left 80-foot skid marks? How long does a stone take to fall 45 m? Each question runs squaring **backwards** — it needs a **root**. This lesson sets out exactly what the root symbols mean, where they make sense, and one surprise: $\sqrt{x^2}$ is not always $x$.
 </Callout>
 
 ## Square roots
 
-$c$ is a **square root** of $a$ if $c^2 = a$. Every positive number has two square roots: $5$ and $-5$ are both square roots of $25$. The symbol $\sqrt{a}$ means the **principal** (nonnegative) one: $\sqrt{25} = 5$, and $-\sqrt{25} = -5$.
+$c$ is a **square root** of $a$ if $c^2 = a$. Every positive number has **two** square roots: $5$ and $-5$ are both square roots of $25$. But a symbol must stand for **one** number, so $\sqrt{a}$ means the **principal** (nonnegative) square root:
 
-$\sqrt{-25}$ is **not a real number** — no real number squared is negative. (Lesson 10.8 deals with it.)
+$$\sqrt{25} = 5, \qquad -\sqrt{25} = -5, \qquad \sqrt{0} = 0.$$
+
+$\sqrt{-25}$ is **not a real number**: every real number squared is $\ge 0$, so nothing squares to $-25$. (Lesson 10.8 builds new numbers for it.)
+
+## Cube roots and other roots
+
+$c$ is the **cube root** of $a$ if $c^3 = a$. A negative number cubed is negative, so every real number has exactly one real cube root, with the same sign: $\sqrt[3]{-8} = -2$ because $(-2)^3 = -8$.
+
+The same pattern holds for any index $n$: **odd** roots ($\sqrt[3]{\ }$, $\sqrt[5]{\ }$, …) exist for every real number; **even** roots ($\sqrt{\ }$, $\sqrt[4]{\ }$, …) need a radicand $\ge 0$.
+
+<StepReveal
+  client:visible
+  title="Evaluate roots"
+  problem="Evaluate each, or say it is not a real number: $\;\sqrt{\tfrac{36}{25}},\;\; \sqrt{-16},\;\; \sqrt[3]{-27},\;\; \sqrt[4]{81}$"
+  steps={[
+    { show: '$\\sqrt{\\tfrac{36}{25}} = \\tfrac{6}{5}$', why: 'Because $\\left(\\tfrac{6}{5}\\right)^2 = \\tfrac{36}{25}$, and $\\tfrac{6}{5} \\ge 0$.' },
+    { show: '$\\sqrt{-16}$ is not a real number', why: 'An even root of a negative number.' },
+    { show: '$\\sqrt[3]{-27} = -3$', why: '$(-3)^3 = -27$. Odd roots keep the sign.' },
+    { show: '$\\sqrt[4]{81} = 3$', why: '$3^4 = 81$, and the principal 4th root is nonnegative.' },
+  ]}
+/>
 
 To type a root, write `sqrt(25)` or `√25`; for cube roots write `cbrt(8)`.
 
-## Cube roots
+<QuickCheck
+  client:visible
+  question="What is $\sqrt{64}$?"
+  options={['$8$', '$\\pm 8$', '$-8$', '$32$']}
+  answer={0}
+  explain="$\sqrt{\ }$ means the **principal** (nonnegative) square root. Both $8$ and $-8$ square to $64$, but $\sqrt{64} = 8$."
+  wrong={{ 1: '$64$ has two square roots, $\\pm 8$, but the symbol $\\sqrt{64}$ names only the nonnegative one.', 2: '$-8$ is $-\\sqrt{64}$.', 3: 'Square root is not “divide by 2”: $32^2 = 1024$.' }}
+/>
 
-$c$ is the **cube root** of $a$ if $c^3 = a$. Every real number has exactly one real cube root, and negative numbers have negative cube roots: $\sqrt[3]{-8} = -2$.
+<QuickCheck
+  client:visible
+  question="Which of these is **not** a real number?"
+  options={['$\\sqrt{-16}$', '$\\sqrt[3]{-16}$', '$-\\sqrt{16}$', '$\\sqrt{0}$']}
+  answer={0}
+  explain="No real number squares to $-16$. A cube root of a negative number is fine, and $-\sqrt{16} = -4$ is just the negative of a real root."
+  wrong={{ 1: 'Cube roots of negative numbers are real: some negative number cubed is $-16$.', 2: '$-\\sqrt{16} = -4$: take the root of $16$, then the negative.', 3: '$\\sqrt{0} = 0$.' }}
+/>
 
 <Practice client:visible lesson="10.1" skill="roots" compact />
 
 ## Radical functions and their domains
 
-A function like $f(x) = \sqrt{x + 2} + 1$ is a **radical function**. Because the radicand of a square root cannot be negative, its domain is restricted.
+A function like $f(x) = \sqrt{x + 2} + 1$ is a **radical function**. Because the radicand of a square root cannot be negative, its domain is restricted to the $x$-values that make the radicand $\ge 0$. Cube-root functions have no such restriction.
 
 <RootGraph client:visible />
 
 <StepReveal
   client:visible
-  title="Domain of a square-root function"
-  problem="Find the domain of $\;f(x) = \sqrt{2x - 6}$."
+  title="Evaluate a radical function"
+  problem="For $f(x) = \sqrt{x + 2} + 1$, find $f(7)$ and $f(-3)$."
   steps={[
-    { show: '$2x - 6 \\ge 0$', why: 'The radicand must be nonnegative.' },
-    { show: '$x \\ge 3$', why: '' },
-    { show: 'Domain: $[3, \\infty)$', why: '' },
+    { show: '$f(7) = \\sqrt{9} + 1 = 4$', why: '' },
+    { show: '$f(-3) = \\sqrt{-1} + 1$ — not a real number', why: '$-3$ is not in the domain.' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="Domain of a square-root function"
+  problem="Find the domain of $\;f(x) = \sqrt{2x - 6}\;$ and of $\;g(x) = \sqrt{4 - x}$."
+  steps={[
+    { show: '$2x - 6 \\ge 0 \\;\\Rightarrow\\; x \\ge 3$: domain $[3, \\infty)$', why: 'The radicand must be nonnegative. $0$ is allowed: $\\sqrt{0} = 0$.' },
+    { show: '$4 - x \\ge 0 \\;\\Rightarrow\\; x \\le 4$: domain $(-\\infty, 4]$', why: 'Subtract $4$, then multiply by $-1$ and reverse the sign.' },
+    { show: 'By contrast, $h(x) = \\sqrt[3]{x - 1}$ has domain $(-\\infty, \\infty)$.', why: 'Every real number has a cube root.' },
   ]}
 />
 
@@ -54,24 +100,92 @@ A function like $f(x) = \sqrt{x + 2} + 1$ is a **radical function**. Because the
 
 <Practice client:visible lesson="10.1" skill="domain" compact />
 
-## Roots of powers
+## Roots of powers: why √(a²) = |a|
 
 For any real number $a$:
 
 $$\sqrt{a^2} = |a| \qquad \sqrt[3]{a^3} = a$$
 
-<Callout type="warning" title="Why the absolute value?">
-Try $a = -3$: $\sqrt{(-3)^2} = \sqrt{9} = 3$, not $-3$. A principal square root is never negative, so it equals $|a|$. Odd roots like cube roots keep the sign, so they need no absolute value. Type absolute values as `|x|` or `abs(x)`.
-</Callout>
+Try $a = -3$: $\sqrt{(-3)^2} = \sqrt{9} = 3$, not $-3$. Squaring erases the sign, and the principal root is never negative, so the result is the **absolute value**. Cube roots keep the sign, so $\sqrt[3]{(-3)^3} = \sqrt[3]{-27} = -3$ — no absolute value needed.
+
+<StepReveal
+  client:visible
+  title="Simplify roots of powers"
+  problem="Simplify, for any real values: $\;\sqrt{(x - 3)^2},\;\; \sqrt{16x^2},\;\; \sqrt[3]{-8y^3}$"
+  steps={[
+    { show: '$\\sqrt{(x - 3)^2} = |x - 3|$', why: '' },
+    { show: '$\\sqrt{16x^2} = \\sqrt{(4x)^2} = |4x| = 4|x|$', why: '$4$ is already positive, so only $x$ needs the absolute value.' },
+    { show: '$\\sqrt[3]{-8y^3} = \\sqrt[3]{(-2y)^3} = -2y$', why: 'An odd root: no absolute value.' },
+  ]}
+/>
+
+Type absolute values as `|x|` or `abs(x)`.
+
+<QuickCheck
+  client:visible
+  question="What is $\sqrt{(-5)^2}$?"
+  options={['$5$', '$-5$', '$\\pm 5$', '$25$']}
+  answer={0}
+  explain="$(-5)^2 = 25$ and $\sqrt{25} = 5$. That is $|-5|$."
+  wrong={{ 1: 'The square root and the square don\'t simply cancel: $(-5)^2 = 25$, and $\\sqrt{25}$ is the **nonnegative** root.', 2: 'The principal square root is one nonnegative number.', 3: 'You squared, but forgot to take the root.' }}
+/>
 
 <Practice client:visible lesson="10.1" skill="abs" compact />
 
+## In a real context
+
+<StepReveal
+  client:visible
+  title="Skid marks"
+  problem="Police estimate a car's speed $r$ (mph) from the length $L$ (ft) of its skid marks with $r = 2\sqrt{5L}$. A car leaves skid marks $80$ ft long. How fast was it going?"
+  steps={[
+    { show: '**Familiarize.** $L = 80$ is given; $r$ is the unknown speed.', why: 'Longer skids mean higher speed, but the root grows slowly: four times the skid means only twice the speed.' },
+    { show: '**Translate.** $r = 2\\sqrt{5 \\cdot 80}$', why: '' },
+    { show: '**Solve.** $r = 2\\sqrt{400} = 2 \\cdot 20 = 40$', why: '' },
+    { show: '**Check.** $40^2 = 1600$ and $4 \\cdot 5 \\cdot 80 = 1600$ ✓', why: 'Squaring $r = 2\\sqrt{5L}$ gives $r^2 = 20L$.' },
+    { show: '**State.** The car was going about $40$ mph.', why: '' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="A square garden"
+  problem="A square garden has an area of $50$ m². How long is each side?"
+  steps={[
+    { show: '**Familiarize.** Let $s$ = side length in meters; $s^2 = 50$.', why: '$7^2 = 49$, so $s$ is just over $7$.' },
+    { show: '**Solve.** $s = \\sqrt{50} \\approx 7.07$', why: 'Take the **principal** root: $-\\sqrt{50}$ also squares to $50$, but a length can\'t be negative.' },
+    { show: '**State.** Each side is about $7.07$ m.', why: 'In 10.3 you will write $\\sqrt{50}$ exactly as $5\\sqrt{2}$.' },
+  ]}
+/>
+
+<Practice client:visible lesson="10.1" skill="apply" compact />
+
+## Common mistakes
+
+<Callout type="warning" title="√(a²) = a">
+Only when $a \ge 0$. In general $\sqrt{a^2} = |a|$: $\sqrt{(-3)^2} = 3$.
+</Callout>
+
+<Callout type="warning" title="√(−9) = −3">
+No real number squares to $-9$, so $\sqrt{-9}$ is not real. But $-\sqrt{9} = -3$ is fine — the minus sign is outside.
+</Callout>
+
+<Callout type="warning" title="Forgetting that 0 is allowed">
+The radicand must be **at least** $0$, not greater than $0$. The domain of $\sqrt{x - 3}$ is $[3, \infty)$, with a bracket.
+</Callout>
+
+<Callout type="warning" title="Splitting a sum">
+$\sqrt{9 + 16} = \sqrt{25} = 5$, not $\sqrt{9} + \sqrt{16} = 7$. Roots do not distribute over addition.
+</Callout>
+
 ## Summary
 
-- $\sqrt{a}$ is the nonnegative square root; $\sqrt{\text{negative}}$ is not real.
-- Cube roots exist for every real number.
-- Domain of $\sqrt{\ldots}$: radicand $\ge 0$.
-- $\sqrt{a^2} = |a|$, $\sqrt[3]{a^3} = a$.
+- $\sqrt{a}$ is the nonnegative square root; even roots of negative numbers are not real; odd roots exist for all real numbers.
+- Domain of a square-root function: radicand $\ge 0$.
+- $\sqrt{a^2} = |a|$ (squaring erases the sign), $\sqrt[3]{a^3} = a$.
+- In applications, lengths and times take the principal (positive) root.
+
+**Next, in 10.2:** roots written as exponents — $a^{1/2}$, $a^{2/3}$ — so the laws of exponents can do the work.
 
 ## Practice
 

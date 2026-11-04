@@ -2,37 +2,60 @@
 id: "10.8"
 title: The Complex Numbers
 summary: "Define i = √(−1), and square roots of negative numbers make sense. Add, subtract, multiply and divide complex numbers a + bi, and find powers of i."
-minutes: 40
+minutes: 50
 objectives:
   - Write square roots of negative numbers using i.
   - Add, subtract and multiply complex numbers.
   - Find powers of i.
   - Divide complex numbers using conjugates.
+  - Use complex numbers in AC-circuit calculations.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import ComplexPlane from '../../components/ComplexPlane.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
 
 <Callout type="why">
-The equation $x^2 + 1 = 0$ has no real solution. Mathematicians invented a number $i$ with $i^2 = -1$ — and it turned out to be indispensable in electrical engineering, signal processing and quantum physics. In Chapter 11 it will let every quadratic equation have solutions.
+The equation $x^2 + 1 = 0$ has no real solution. Mathematicians invented a number $i$ with $i^2 = -1$ — and it turned out to be indispensable: electrical engineers describe alternating current with complex numbers, and they appear throughout signal processing and quantum physics. In Chapter 11 they will let **every** quadratic equation have solutions.
 </Callout>
 
 ## The number i
 
 $$i = \sqrt{-1}, \qquad i^2 = -1$$
 
-For $p > 0$: $\sqrt{-p} = i\sqrt{p}$. So $\sqrt{-49} = 7i$ and $\sqrt{-5} = i\sqrt{5}$.
+$i$ is not a real number — no real number squares to $-1$ — so it extends the number system, the way negative numbers once extended the counting numbers. With it, for $p > 0$:
 
-A **complex number** has the form $a + bi$: $a$ is the **real part**, $b$ the **imaginary part**. Type answers like `3 - 2i`.
+$$\sqrt{-p} = \sqrt{-1}\cdot\sqrt{p} = i\sqrt{p}, \qquad \text{so } \sqrt{-49} = 7i \text{ and } \sqrt{-20} = i\sqrt{20} = 2i\sqrt{5}.$$
+
+A **complex number** has the form $a + bi$ with $a$ and $b$ real: $a$ is the **real part**, $b$ the **imaginary part**. Real numbers are complex numbers with $b = 0$. Type answers like `3 - 2i`.
+
+<QuickCheck
+  client:visible
+  question="What is $\;i^2$?"
+  options={['$-1$', '$1$', '$i$', '$\\sqrt{-1}$']}
+  answer={0}
+  explain="That is the definition: $i$ is a number whose square is $-1$."
+  wrong={{ 1: 'If $i^2$ were $1$, then $i$ would be $\\pm 1$, a real number.', 2: '$i^2 = i \\cdot i$, which is $-1$, not $i$.', 3: '$\\sqrt{-1}$ is $i$ itself, not $i^2$.' }}
+/>
 
 <Practice client:visible lesson="10.8" skill="imaginary" compact />
 
 ## Adding, subtracting, multiplying
 
 Treat $i$ like a variable — then replace $i^2$ by $-1$.
+
+<StepReveal
+  client:visible
+  title="Add and subtract"
+  problem="Simplify: $\;(3 + 2i) - (5 - 4i)$"
+  steps={[
+    { show: '$= 3 + 2i - 5 + 4i$', why: 'Distribute the minus sign to **both** parts.' },
+    { show: '$= -2 + 6i$', why: 'Combine real parts and imaginary parts separately.' },
+  ]}
+/>
 
 <StepReveal
   client:visible
@@ -45,9 +68,24 @@ Treat $i$ like a variable — then replace $i^2$ by $-1$.
   ]}
 />
 
-<Callout type="warning" title="√a · √b needs care">
-$\sqrt{-4}\cdot\sqrt{-9}$ is **not** $\sqrt{36} = 6$. Write each in terms of $i$ first: $2i \cdot 3i = 6i^2 = -6$.
-</Callout>
+<StepReveal
+  client:visible
+  title="Roots of negatives: convert first"
+  problem="Multiply: $\;\sqrt{-4}\cdot\sqrt{-9}$"
+  steps={[
+    { show: '$= 2i \\cdot 3i$', why: 'Write each in terms of $i$ **before** multiplying.' },
+    { show: '$= 6i^2 = -6$', why: 'The rule $\\sqrt{a}\\sqrt{b} = \\sqrt{ab}$ needs $a, b \\ge 0$. Using it here would give $\\sqrt{36} = 6$ — wrong.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="What is $\;\sqrt{-4}\cdot\sqrt{-9}$?"
+  options={['$-6$', '$6$', '$6i$', '$\\pm 6$']}
+  answer={0}
+  explain="$\sqrt{-4}\cdot\sqrt{-9} = 2i \cdot 3i = 6i^2 = -6$."
+  wrong={{ 1: 'That uses $\\sqrt{a}\\sqrt{b} = \\sqrt{ab}$, which fails for negative radicands. Convert to $i$ first.', 2: 'Two factors of $i$ give $i^2 = -1$, not $i$.', 3: 'The product is one number: $6i^2 = -6$.' }}
+/>
 
 <Practice client:visible lesson="10.8" skill="addsub" compact />
 
@@ -57,33 +95,102 @@ $\sqrt{-4}\cdot\sqrt{-9}$ is **not** $\sqrt{36} = 6$. Write each in terms of $i$
 
 <ComplexPlane client:visible />
 
-$i^1 = i,\ i^2 = -1,\ i^3 = -i,\ i^4 = 1$, then the pattern repeats. To simplify $i^n$, divide $n$ by $4$ and use the remainder.
+$$i^1 = i,\quad i^2 = -1,\quad i^3 = i^2 \cdot i = -i,\quad i^4 = (i^2)^2 = 1,$$
+
+and then the pattern repeats, because $i^5 = i^4 \cdot i = i$. To simplify $i^n$, divide $n$ by $4$: only the remainder matters.
+
+<StepReveal
+  client:visible
+  title="A high power"
+  problem="Simplify: $\;i^{23}$"
+  steps={[
+    { show: '$23 = 4 \\cdot 5 + 3$', why: 'Divide by $4$.' },
+    { show: '$i^{23} = (i^4)^5 \\cdot i^3 = 1 \\cdot (-i) = -i$', why: '' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Simplify $\;i^{10}$."
+  options={['$-1$', '$1$', '$i$', '$-i$']}
+  answer={0}
+  explain="$10 = 4 \cdot 2 + 2$, so $i^{10} = i^2 = -1$."
+  wrong={{ 1: '$1$ comes from exponents that are multiples of $4$. $10$ leaves remainder $2$.', 2: 'Remainder $1$ would give $i$; $10 \\div 4$ leaves remainder $2$.', 3: 'Remainder $3$ would give $-i$; $10 \\div 4$ leaves remainder $2$.' }}
+/>
 
 <Practice client:visible lesson="10.8" skill="powers" compact />
 
 ## Dividing
 
-The **conjugate** of $a + bi$ is $a - bi$, and $(a + bi)(a - bi) = a^2 + b^2$ — a real number. Multiply the top and bottom by the conjugate of the denominator:
+The **conjugate** of $a + bi$ is $a - bi$, and $(a + bi)(a - bi) = a^2 - b^2i^2 = a^2 + b^2$ — a **real** number. So, just like rationalizing in 10.5, multiply the top and bottom by the conjugate of the denominator.
 
 <StepReveal
   client:visible
   title="Divide"
   problem="Divide: $\;\dfrac{5 + i}{1 - i}$"
   steps={[
-    { show: '$= \\dfrac{(5 + i)(1 + i)}{(1 - i)(1 + i)}$', why: 'Multiply by the conjugate $1 + i$.' },
-    { show: '$= \\dfrac{5 + 6i + i^2}{1 - i^2} = \\dfrac{4 + 6i}{2}$', why: '' },
-    { show: '$= 2 + 3i$', why: '' },
+    { show: '$= \\dfrac{(5 + i)(1 + i)}{(1 - i)(1 + i)}$', why: 'Multiply by the conjugate $1 + i$ over itself.' },
+    { show: '$= \\dfrac{5 + 6i + i^2}{1 - i^2} = \\dfrac{4 + 6i}{2}$', why: '$i^2 = -1$ on top and bottom.' },
+    { show: '$= 2 + 3i$', why: 'Divide both parts by $2$ to get the form $a + bi$.' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="A pure-imaginary denominator"
+  problem="Divide: $\;\dfrac{3}{2i}$"
+  steps={[
+    { show: '$= \\dfrac{3}{2i}\\cdot\\dfrac{i}{i} = \\dfrac{3i}{2i^2} = \\dfrac{3i}{-2}$', why: 'Multiplying by $\\frac{i}{i}$ is enough here.' },
+    { show: '$= -\\dfrac{3}{2}i$', why: '' },
   ]}
 />
 
 <Practice client:visible lesson="10.8" skill="divide" compact />
 
+## In a real context
+
+In AC circuits, the "resistance" of a part is a complex number called its **impedance** $Z$ (ohms). Impedances in series **add**, and Ohm's law $V = IZ$ (voltage = current × impedance) **multiplies** complex numbers.
+
+<StepReveal
+  client:visible
+  title="A circuit"
+  problem="Two parts with impedances $Z_1 = 3 + 4i$ and $Z_2 = 2 - i$ ohms are connected in series. A current of $I = 2 + i$ amps flows through a part with impedance $Z = 3 - 2i$. Find the total series impedance and the voltage across $Z$."
+  steps={[
+    { show: '**Series:** $Z_1 + Z_2 = (3 + 4i) + (2 - i) = 5 + 3i$ ohms', why: 'Add real parts and imaginary parts.' },
+    { show: '**Voltage:** $V = (2 + i)(3 - 2i) = 6 - 4i + 3i - 2i^2$', why: 'FOIL.' },
+    { show: '$= 6 - i + 2 = 8 - i$ volts', why: '$-2i^2 = 2$.' },
+    { show: '**State.** The total impedance is $5 + 3i$ ohms and the voltage is $8 - i$ volts.', why: 'Engineers read the real and imaginary parts as the parts of the voltage that are in step and out of step with the current.' },
+  ]}
+/>
+
+<Practice client:visible lesson="10.8" skill="apply" compact />
+
+## Common mistakes
+
+<Callout type="warning" title="i² = 1">
+$i^2 = -1$. In $(2 + 3i)(4 - i)$, the term $-3i^2$ becomes $+3$, not $-3$.
+</Callout>
+
+<Callout type="warning" title="√a · √b with negative radicands">
+$\sqrt{-4}\cdot\sqrt{-9}$ is **not** $\sqrt{36} = 6$. Write each in terms of $i$ first: $2i \cdot 3i = -6$.
+</Callout>
+
+<Callout type="warning" title="Subtracting only the first part">
+$(3 + 2i) - (5 - 4i) = -2 + 6i$: the minus sign applies to $-4i$ too.
+</Callout>
+
+<Callout type="warning" title="Leaving the answer unfinished">
+$\frac{4 + 6i}{2}$ should become $2 + 3i$, in the form $a + bi$.
+</Callout>
+
 ## Summary
 
-- $i = \sqrt{-1}$, $i^2 = -1$; $\sqrt{-p} = i\sqrt{p}$.
-- Add/subtract real and imaginary parts separately; multiply with FOIL and $i^2 = -1$.
-- Powers of $i$ cycle with period 4.
-- Divide using the conjugate of the denominator.
+- $i = \sqrt{-1}$, $i^2 = -1$; $\sqrt{-p} = i\sqrt{p}$ — convert before multiplying roots.
+- Add and subtract real and imaginary parts separately; multiply with FOIL and $i^2 = -1$.
+- Powers of $i$ cycle with period 4: use the remainder of $n \div 4$.
+- Divide using the conjugate of the denominator, then write the answer as $a + bi$.
+
+**Next, in Chapter 11:** quadratic equations — and thanks to $i$, every one of them has solutions.
 
 ## Practice
 

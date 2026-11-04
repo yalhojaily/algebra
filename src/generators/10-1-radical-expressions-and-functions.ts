@@ -105,11 +105,52 @@ function absValue(): Problem {
   };
 }
 
+
+/** Word problems that run squaring backwards. */
+function rootWords(): Problem {
+  const kind = pick(['skid', 'square', 'fall'] as const);
+  if (kind === 'skid') {
+    const k = randInt(2, 9), L = 5 * k * k, r = 10 * k;
+    return {
+      skill: 'apply',
+      prompt: `Police estimate a car's speed from its skid marks with $r = 2\\sqrt{5L}$, where $L$ is the length of the skid marks in feet and $r$ is the speed in miles per hour. A car leaves skid marks ${L} ft long. How fast was it going (mph)?`,
+      answer: { type: 'number', value: r },
+      hints: [`Unknown: the speed $r$. The formula is given — substitute $L = ${L}$.`, `$r = 2\\sqrt{5 \\cdot ${L}} = 2\\sqrt{${5 * L}}$. What number squared is $${5 * L}$?`],
+      solution: [`$r = 2\\sqrt{5 \\cdot ${L}} = 2\\sqrt{${5 * L}} = 2 \\cdot ${5 * k} = ${r}$`, `The car was going about ${r} mph.`],
+      placeholder: '40',
+    };
+  }
+  if (kind === 'square') {
+    const A = randInt(20, 300);
+    const s = Math.sqrt(A);
+    const exact = Number.isInteger(s);
+    return {
+      skill: 'apply',
+      prompt: `A square garden has an area of ${A} m². How long is each side (m)? ${exact ? '' : 'Round to the nearest tenth.'}`,
+      answer: { type: 'number', value: exact ? s : +s.toFixed(1), tol: exact ? undefined : 0.051 },
+      hints: ['Unknown: the side $s$. Area of a square: $s^2 = ' + A + '$.', 'The side is the **principal** (positive) square root — a length can\'t be negative.'],
+      solution: [`$s = \\sqrt{${A}}${exact ? ` = ${s}` : ` \\approx ${s.toFixed(1)}`}$ m`],
+      placeholder: '12.2',
+    };
+  }
+  const h = pick([5, 10, 20, 45, 80, 125]);
+  const t = Math.sqrt(h / 5);
+  return {
+    skill: 'apply',
+    prompt: `A stone dropped from a height of $h$ meters takes about $t = \\sqrt{\\dfrac{h}{5}}$ seconds to land. How long does it take to fall ${h} m (seconds)?`,
+    answer: { type: 'number', value: t },
+    hints: [`Unknown: the time $t$. Substitute $h = ${h}$ into the formula.`, `$\\dfrac{${h}}{5} = ${h / 5}$, so find $\\sqrt{${h / 5}}$.`],
+    solution: [`$t = \\sqrt{\\dfrac{${h}}{5}} = \\sqrt{${h / 5}} = ${t}$ s`],
+    placeholder: '2',
+  };
+}
+
 export const skills: Skill[] = [
   { id: 'roots', label: 'Square and cube roots', generate: roots },
   { id: 'function', label: 'Radical functions', generate: evalFn },
   { id: 'domain', label: 'Domain', generate: domain },
   { id: 'abs', label: 'Roots of squares and cubes', generate: absValue },
+  { id: 'apply', label: 'Word problems', generate: rootWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

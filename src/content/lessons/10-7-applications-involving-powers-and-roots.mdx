@@ -2,36 +2,65 @@
 id: "10.7"
 title: Applications Involving Powers and Roots
 summary: "The Pythagorean theorem, the distance formula, and the special 45°–45°–90° and 30°–60°–90° triangles — with exact answers in radical form."
-minutes: 35
+minutes: 50
 objectives:
+  - Explain why the Pythagorean theorem is true.
   - Use the Pythagorean theorem to find missing sides, giving exact answers.
-  - Find the distance between two points.
-  - Use the side ratios of special right triangles.
+  - Derive and use the distance formula.
+  - Derive and use the side ratios of special right triangles.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import DistanceGrid from '../../components/DistanceGrid.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
 
 <Callout type="why">
-A TV's size is its diagonal. A ramp's length depends on its height and run. A GPS computes straight-line distance from coordinates. All three are the Pythagorean theorem — and the answers are usually square roots.
+A TV's size is its diagonal. A ramp's length depends on its height and run. A phone's GPS computes straight-line distance from coordinates. A builder checks that a corner is square with a 3-4-5 rope. All of these are the Pythagorean theorem — and the answers are usually square roots, which is why this lesson closes the chapter on radicals.
 </Callout>
 
-## Right triangles
+## Right triangles — and why a² + b² = c²
 
-In a right triangle with legs $a$, $b$ and hypotenuse $c$: $a^2 + b^2 = c^2$. Give **exact** answers as simplified radicals; type them like `2sqrt(17)` or `sqrt(68)` (both are accepted here).
+In a right triangle with legs $a$, $b$ and hypotenuse $c$ (the side opposite the right angle, always the longest):
+
+$$a^2 + b^2 = c^2$$
+
+**Why it's true.** Put four copies of the triangle inside a square of side $a + b$, so their hypotenuses form a tilted square of side $c$ in the middle. Count the big square's area two ways:
+
+$$(a + b)^2 = c^2 + 4 \cdot \tfrac{1}{2}ab \quad\Rightarrow\quad a^2 + 2ab + b^2 = c^2 + 2ab \quad\Rightarrow\quad a^2 + b^2 = c^2.$$
+
+Give **exact** answers as simplified radicals; type them like `2sqrt(21)` or `sqrt(84)` (both are accepted here).
 
 <StepReveal
   client:visible
-  title="Exact answer"
-  problem="A ladder 10 ft long leans against a wall with its foot 4 ft from the wall. How high does it reach?"
+  title="A missing leg"
+  problem="A ladder $10$ ft long leans against a wall with its foot $4$ ft from the wall. How high does it reach?"
   steps={[
-    { show: '$4^2 + h^2 = 10^2$', why: 'The ladder is the hypotenuse.' },
-    { show: '$h^2 = 84$', why: '' },
+    { show: '$4^2 + h^2 = 10^2$', why: 'The ladder is the **hypotenuse** (opposite the right angle between wall and ground).' },
+    { show: '$h^2 = 100 - 16 = 84$', why: '' },
     { show: '$h = \\sqrt{84} = 2\\sqrt{21} \\approx 9.17$ ft', why: 'Take the positive root — a length is positive.' },
   ]}
+/>
+
+<StepReveal
+  client:visible
+  title="A TV screen"
+  problem="A TV screen is $48$ in wide and $36$ in tall. What is its size (the diagonal)?"
+  steps={[
+    { show: '$d^2 = 48^2 + 36^2 = 2304 + 1296 = 3600$', why: 'The diagonal is the hypotenuse.' },
+    { show: '$d = 60$ in', why: 'A "60-inch TV".' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="A right triangle has legs $5$ and $12$. How long is the hypotenuse?"
+  options={['$13$', '$17$', '$\\sqrt{119}$', '$7$']}
+  answer={0}
+  explain="$5^2 + 12^2 = 25 + 144 = 169$, and $\sqrt{169} = 13$."
+  wrong={{ 1: 'The legs don\'t simply add: square them, add, then take the root.', 2: 'That is $\\sqrt{144 - 25}$ — what you\'d do if $12$ were the hypotenuse. Here both given sides are legs.', 3: 'The hypotenuse is the **longest** side, so it must be more than $12$.' }}
 />
 
 <Practice client:visible lesson="10.7" skill="hypotenuse" compact />
@@ -40,24 +69,100 @@ In a right triangle with legs $a$, $b$ and hypotenuse $c$: $a^2 + b^2 = c^2$. Gi
 
 ## Distance between two points
 
-$$d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$$
+Two points $(x_1, y_1)$ and $(x_2, y_2)$ are the ends of the hypotenuse of a right triangle whose legs are horizontal and vertical, with lengths $|x_2 - x_1|$ and $|y_2 - y_1|$. The Pythagorean theorem gives
+
+$$d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}.$$
+
+Squaring removes the signs, so the order of the points doesn't matter.
 
 <DistanceGrid client:visible />
+
+<StepReveal
+  client:visible
+  title="Distance on the grid"
+  problem="Find the distance between $(-2, 3)$ and $(4, -5)$."
+  steps={[
+    { show: '$x_2 - x_1 = 4 - (-2) = 6$, $\\;y_2 - y_1 = -5 - 3 = -8$', why: 'Subtract in the same order for both coordinates.' },
+    { show: '$d = \\sqrt{6^2 + (-8)^2} = \\sqrt{36 + 64} = \\sqrt{100} = 10$', why: '' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="What is the distance between $(1, 2)$ and $(4, 6)$?"
+  options={['$5$', '$7$', '$\\sqrt{7}$', '$25$']}
+  answer={0}
+  explain="The legs are $4 - 1 = 3$ and $6 - 2 = 4$, so $d = \sqrt{9 + 16} = 5$."
+  wrong={{ 1: '$3 + 4 = 7$ adds the legs. Square them, add, then take the root.', 2: 'Square the differences before adding: $3^2 + 4^2$.', 3: '$25$ is $d^2$. Take the square root.' }}
+/>
 
 <Practice client:visible lesson="10.7" skill="distance" compact />
 
 ## Special right triangles
 
-- **45°–45°–90°:** legs $a$ and $a$, hypotenuse $a\sqrt{2}$.
-- **30°–60°–90°:** shorter leg $a$, longer leg $a\sqrt{3}$, hypotenuse $2a$.
+Two triangles appear so often that it pays to know their side ratios — and both come straight from the Pythagorean theorem.
+
+- **45°–45°–90°** (half a square): the legs are equal, $a$ and $a$, so $c^2 = a^2 + a^2 = 2a^2$ and the hypotenuse is $a\sqrt{2}$.
+- **30°–60°–90°** (half an equilateral triangle of side $2a$): the hypotenuse is $2a$, the shorter leg (opposite $30°$) is $a$, and the longer leg is $\sqrt{(2a)^2 - a^2} = \sqrt{3a^2} = a\sqrt{3}$.
+
+<StepReveal
+  client:visible
+  title="Use the ratios"
+  problem="(a) A 45°–45°–90° triangle has hypotenuse $10$. Find a leg. (b) A 30°–60°–90° triangle has shorter leg $4$. Find the other sides."
+  steps={[
+    { show: '(a) $a\\sqrt{2} = 10 \\;\\Rightarrow\\; a = \\dfrac{10}{\\sqrt{2}} = \\dfrac{10\\sqrt{2}}{2} = 5\\sqrt{2}$', why: 'Rationalize the denominator (10.5).' },
+    { show: '(b) longer leg $4\\sqrt{3}$, hypotenuse $2 \\cdot 4 = 8$', why: 'Check: $4^2 + (4\\sqrt{3})^2 = 16 + 48 = 64 = 8^2$ ✓.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="A 45°–45°–90° triangle has legs of length $7$. How long is its hypotenuse?"
+  options={['$7\\sqrt{2}$', '$14$', '$7\\sqrt{3}$', '$\\sqrt{14}$']}
+  answer={0}
+  explain="$c^2 = 7^2 + 7^2 = 98 = 49 \cdot 2$, so $c = 7\sqrt{2}$."
+  wrong={{ 1: 'Doubling is the 30°–60°–90° rule for the **hypotenuse from the short leg**. Here use $a\\sqrt{2}$.', 2: '$\\sqrt{3}$ belongs to the 30°–60°–90° triangle.', 3: 'Square the legs before adding: $49 + 49 = 98$.' }}
+/>
 
 <Practice client:visible lesson="10.7" skill="special" compact />
 
+## In a real context
+
+<StepReveal
+  client:visible
+  title="Home plate to second base"
+  problem="A baseball diamond is a square with sides of $90$ ft. How far does the catcher throw from home plate to second base?"
+  steps={[
+    { show: '**Familiarize.** Home to second is the **diagonal** of the square.', why: 'A sketch helps: the diagonal and two sides form a 45°–45°–90° triangle.' },
+    { show: '**Translate.** $d = 90\\sqrt{2}$', why: 'Hypotenuse $= a\\sqrt{2}$ with $a = 90$. (Or: $d^2 = 90^2 + 90^2$.)' },
+    { show: '**Solve.** $d = 90\\sqrt{2} \\approx 127.3$ ft', why: '' },
+    { show: '**Check.** $127.3^2 \\approx 16{,}200 = 90^2 + 90^2$ ✓', why: '' },
+    { show: '**State.** The throw is about $127$ ft.', why: '' },
+  ]}
+/>
+
+## Common mistakes
+
+<Callout type="warning" title="Using the hypotenuse as a leg">
+The hypotenuse is opposite the right angle and is always the longest side. In the ladder problem, $4^2 + 10^2 = h^2$ is wrong: the ladder ($10$) is the hypotenuse.
+</Callout>
+
+<Callout type="warning" title="Adding the sides instead of their squares">
+$c \neq a + b$. With legs $3$ and $4$, the hypotenuse is $5$, not $7$.
+</Callout>
+
+<Callout type="warning" title="Mixing up the 30°–60°–90° legs">
+The **shorter** leg is opposite $30°$; the **longer** leg is $\sqrt{3}$ times it; the hypotenuse is **twice** it.
+</Callout>
+
 ## Summary
 
-- $a^2 + b^2 = c^2$; give exact answers in simplified radical form.
-- Distance formula = Pythagorean theorem on the grid.
+- $a^2 + b^2 = c^2$ (area argument: $(a + b)^2 = c^2 + 2ab$); the hypotenuse is opposite the right angle.
+- Distance formula = Pythagorean theorem on the grid: $d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$.
 - 45°–45°–90°: $a, a, a\sqrt{2}$. 30°–60°–90°: $a, a\sqrt{3}, 2a$.
+- Give exact answers in simplified radical form, and estimate to check.
+
+**Next, in 10.8:** what to do with $\sqrt{-1}$ — the complex numbers.
 
 ## Practice
 

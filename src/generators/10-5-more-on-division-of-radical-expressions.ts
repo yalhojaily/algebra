@@ -69,11 +69,33 @@ function fractionRoot(): Problem {
   };
 }
 
+
+/** Side of a square with a fractional area, rationalized. */
+function fractionWords(): Problem {
+  for (;;) {
+    const a = randInt(1, 9), b = pick([2, 3, 5, 6, 7, 8, 10, 12]);
+    if (gcd(a, b) > 1 || a >= b * 3) continue;
+    const { out, inside } = rootSplit(a * b);
+    if (inside === 1) continue;
+    const g = gcd(out, b), num = out / g, den = b / g;
+    const value = den === 1 ? radText(num, inside) : `(${radText(num, inside)})/${den}`;
+    return {
+      skill: 'apply',
+      prompt: `A square photo has an area of $\\dfrac{${a}}{${b}}$ m². Find the exact length of a side, with a rational denominator (m).`,
+      answer: { type: 'expression', value, radical: true },
+      hints: [`Unknown: the side $s = \\sqrt{\\dfrac{${a}}{${b}}} = \\dfrac{\\sqrt{${a}}}{\\sqrt{${b}}}$.`, `Multiply top and bottom by $\\sqrt{${b}}$ to clear the radical from the denominator.`],
+      solution: [`$s = \\dfrac{\\sqrt{${a}}}{\\sqrt{${b}}} \\cdot \\dfrac{\\sqrt{${b}}}{\\sqrt{${b}}} = \\dfrac{\\sqrt{${a * b}}}{${b}}${out > 1 ? ` = \\dfrac{${radTex(out, inside)}}{${b}}` : ''}${g > 1 ? ` = ${den === 1 ? radTex(num, inside) : `\\dfrac{${radTex(num, inside)}}{${den}}`}` : ''}$ m`],
+      placeholder: 'sqrt(6)/3',
+    };
+  }
+}
+
 export const skills: Skill[] = [
   { id: 'quotient', label: 'Quotients of radicals', generate: quotient },
   { id: 'rationalize', label: 'Rationalize one-term denominators', generate: rationalize },
   { id: 'fraction', label: 'Roots of fractions', generate: fractionRoot },
   { id: 'conjugate', label: 'Use the conjugate', generate: conjugate },
+  { id: 'apply', label: 'Word problems', generate: fractionWords },
 ];
 
 export const masterySet = makeMasterySet(skills);

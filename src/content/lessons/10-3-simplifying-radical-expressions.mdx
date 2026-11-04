@@ -2,28 +2,33 @@
 id: "10.3"
 title: Simplifying Radical Expressions
 summary: "Pull perfect squares (or cubes) out from under the radical using √(ab) = √a·√b, and multiply radicals by multiplying radicands."
-minutes: 35
+minutes: 45
 objectives:
+  - Explain the product rule for radicals.
   - Simplify square and cube roots of numbers by factoring out perfect powers.
   - Simplify radicals containing variables.
   - Multiply radicals and simplify the result.
+  - Give exact lengths in simplified radical form.
 ---
 
 import Callout from '../../components/Callout.astro';
 import StepReveal from '../../components/StepReveal.tsx';
+import QuickCheck from '../../components/QuickCheck.tsx';
 import RadicalSimplifier from '../../components/RadicalSimplifier.tsx';
 import Practice from '../../components/Practice.tsx';
 import MasteryCheck from '../../components/MasteryCheck.tsx';
 
 <Callout type="why">
-$\sqrt{72}$ and $6\sqrt{2}$ are the same number, but $6\sqrt{2}$ tells you much more: it's a bit more than $6 \times 1.4 \approx 8.5$. **Simplified form** also makes it possible to spot like radicals and combine them in 10.4.
+$\sqrt{72}$ and $6\sqrt{2}$ are the same number, but $6\sqrt{2}$ tells you much more: it's a bit more than $6 \times 1.4 \approx 8.5$. **Simplified form** is the standard way to write exact answers — the diagonal of a $5$-cm square is $5\sqrt{2}$ cm — and in 10.4 it is what lets you spot like radicals and combine them.
 </Callout>
 
-## The product rule
+## The product rule — and why it works
 
-$$\sqrt{ab} = \sqrt{a}\cdot\sqrt{b} \qquad \sqrt[3]{ab} = \sqrt[3]{a}\cdot\sqrt[3]{b}$$
+$$\sqrt{ab} = \sqrt{a}\cdot\sqrt{b} \qquad \sqrt[3]{ab} = \sqrt[3]{a}\cdot\sqrt[3]{b} \qquad (a, b \ge 0 \text{ for square roots})$$
 
-To simplify, write the radicand as a **perfect square** (or cube) times what's left:
+Why? Square the right side: $\left(\sqrt{a}\sqrt{b}\right)^2 = \left(\sqrt{a}\right)^2\left(\sqrt{b}\right)^2 = ab$. So $\sqrt{a}\sqrt{b}$ is a nonnegative number whose square is $ab$ — exactly what $\sqrt{ab}$ means.
+
+To simplify, write the radicand as a **perfect square** (or cube) times what's left, and take the root of the perfect part:
 
 <RadicalSimplifier client:visible />
 
@@ -32,26 +37,68 @@ To simplify, write the radicand as a **perfect square** (or cube) times what's l
   title="Simplify a square root"
   problem="Simplify $\;\sqrt{180}$."
   steps={[
-    { show: '$180 = 36 \\cdot 5$', why: '$36$ is the largest perfect-square factor.' },
-    { show: '$\\sqrt{180} = \\sqrt{36}\\cdot\\sqrt{5} = 6\\sqrt{5}$', why: '' },
+    { show: '$180 = 36 \\cdot 5$', why: '$36$ is the **largest** perfect-square factor. (Perfect squares to try: $4, 9, 16, 25, 36, 49, \\ldots$)' },
+    { show: '$\\sqrt{180} = \\sqrt{36}\\cdot\\sqrt{5} = 6\\sqrt{5}$', why: 'Check: $6\\sqrt{5} \\approx 6(2.24) = 13.4$, and $13.4^2 \\approx 180$ ✓.' },
   ]}
 />
 
+<StepReveal
+  client:visible
+  title="Using prime factors"
+  problem="Simplify $\;\sqrt{72}$."
+  steps={[
+    { show: '$72 = 2 \\cdot 2 \\cdot 2 \\cdot 3 \\cdot 3$', why: 'If you can\'t spot the largest perfect square, factor into primes.' },
+    { show: '$= (2 \\cdot 2)(3 \\cdot 3) \\cdot 2$', why: 'Each **pair** of equal primes is a perfect square.' },
+    { show: '$\\sqrt{72} = 2 \\cdot 3 \\cdot \\sqrt{2} = 6\\sqrt{2}$', why: 'Each pair comes out as one factor.' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="What is the largest perfect-square factor of $48$?"
+  options={['$16$', '$4$', '$8$', '$24$']}
+  answer={0}
+  explain="$48 = 16 \cdot 3$, so $\sqrt{48} = 4\sqrt{3}$. Using $4$ instead gives $2\sqrt{12}$, which still needs simplifying."
+  wrong={{ 1: '$4$ is a perfect-square factor, but not the largest: $\\sqrt{48} = 2\\sqrt{12}$ is not finished.', 2: '$8$ is not a perfect square.', 3: '$24$ is not a perfect square.' }}
+/>
+
 <Practice client:visible lesson="10.3" skill="numeric" compact />
+
+For cube roots, look for perfect **cubes**: $8, 27, 64, 125, \ldots$
+
+<StepReveal
+  client:visible
+  title="A cube root"
+  problem="Simplify $\;\sqrt[3]{54}$."
+  steps={[
+    { show: '$54 = 27 \\cdot 2$', why: '$27 = 3^3$ is a perfect cube.' },
+    { show: '$\\sqrt[3]{54} = \\sqrt[3]{27}\\cdot\\sqrt[3]{2} = 3\\sqrt[3]{2}$', why: '' },
+  ]}
+/>
 
 <Practice client:visible lesson="10.3" skill="cube" compact />
 
 ## Variables under the radical
 
-Assuming the variables are nonnegative, $\sqrt{x^2} = x$, $\sqrt{x^4} = x^2$, and in general an even power comes out with half its exponent. An odd power leaves one factor inside: $\sqrt{x^5} = \sqrt{x^4}\sqrt{x} = x^2\sqrt{x}$.
+Assuming the variables are nonnegative, an **even** power comes out of a square root with **half** its exponent: $\sqrt{x^2} = x$, $\sqrt{x^4} = x^2$, $\sqrt{x^{10}} = x^5$. An **odd** power leaves one factor inside: $\sqrt{x^5} = \sqrt{x^4}\sqrt{x} = x^2\sqrt{x}$. For cube roots, take out multiples of $3$.
 
 <StepReveal
   client:visible
   title="Variables"
   problem="Simplify $\;\sqrt{50x^3}$ ($x \ge 0$)."
   steps={[
-    { show: '$= \\sqrt{25x^2 \\cdot 2x}$', why: 'Split into a perfect square and what remains.' },
+    { show: '$= \\sqrt{25x^2 \\cdot 2x}$', why: 'Split into a perfect square ($25x^2$) and what remains ($2x$).' },
     { show: '$= 5x\\sqrt{2x}$', why: '' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="A cube root with variables"
+  problem="Simplify $\;\sqrt[3]{16y^5}$."
+  steps={[
+    { show: '$= \\sqrt[3]{8y^3 \\cdot 2y^2}$', why: '$8y^3 = (2y)^3$ is a perfect cube; $y^5 = y^3 \\cdot y^2$.' },
+    { show: '$= 2y\\sqrt[3]{2y^2}$', why: '' },
   ]}
 />
 
@@ -63,15 +110,83 @@ Type `5x sqrt(2x)` — the parentheses show exactly what is under the radical. `
 
 ## Multiplying radicals
 
-$\sqrt{a}\cdot\sqrt{b} = \sqrt{ab}$ — then simplify: $\sqrt{6}\cdot\sqrt{10} = \sqrt{60} = 2\sqrt{15}$.
+Read the product rule the other way: $\sqrt{a}\cdot\sqrt{b} = \sqrt{ab}$ — then simplify. Coefficients multiply with coefficients.
+
+<StepReveal
+  client:visible
+  title="Multiply, then simplify"
+  problem="Multiply: $\;\sqrt{6}\cdot\sqrt{10}\;$ and $\;3\sqrt{2}\cdot 4\sqrt{6}$."
+  steps={[
+    { show: '$\\sqrt{6}\\cdot\\sqrt{10} = \\sqrt{60} = \\sqrt{4 \\cdot 15} = 2\\sqrt{15}$', why: '' },
+    { show: '$3\\sqrt{2}\\cdot 4\\sqrt{6} = 12\\sqrt{12} = 12 \\cdot 2\\sqrt{3} = 24\\sqrt{3}$', why: 'Outside numbers times outside numbers ($3 \\cdot 4$), radicands times radicands ($2 \\cdot 6$).' },
+  ]}
+/>
+
+<QuickCheck
+  client:visible
+  question="Is $\;4\sqrt{8}\;$ in simplified form?"
+  options={['No — it equals $8\\sqrt{2}$', 'Yes', 'No — it equals $\\sqrt{32}$', 'No — it equals $2\\sqrt{8}$']}
+  answer={0}
+  explain="$8 = 4 \cdot 2$ has a perfect-square factor: $4\sqrt{8} = 4 \cdot 2\sqrt{2} = 8\sqrt{2}$."
+  wrong={{ 1: '$8$ has the perfect-square factor $4$, so it can be simplified.', 2: '$4\\sqrt{8} = \\sqrt{16 \\cdot 8} = \\sqrt{128}$, and that is the opposite of simplifying.', 3: '$4\\sqrt{8}$ is not equal to $2\\sqrt{8}$.' }}
+/>
 
 <Practice client:visible lesson="10.3" skill="product" compact />
 
+## In a real context
+
+Exact answers for lengths are written in simplified radical form.
+
+<StepReveal
+  client:visible
+  title="A square tile"
+  problem="A square tile has an area of $72$ cm². Find the exact length of a side, and estimate it."
+  steps={[
+    { show: '**Familiarize.** Let $s$ = the side in cm: $s^2 = 72$.', why: '$8^2 = 64$ and $9^2 = 81$, so $s$ is between $8$ and $9$.' },
+    { show: '**Solve.** $s = \\sqrt{72} = 6\\sqrt{2}$', why: 'Principal root: a length is positive.' },
+    { show: '**Check.** $6\\sqrt{2} \\approx 6(1.414) = 8.49$, between $8$ and $9$ ✓', why: '' },
+    { show: '**State.** The side is exactly $6\\sqrt{2}$ cm, about $8.49$ cm.', why: '' },
+  ]}
+/>
+
+<StepReveal
+  client:visible
+  title="The diagonal of a square"
+  problem="A square has sides of $5$ cm. Find the exact length of its diagonal."
+  steps={[
+    { show: '$d = \\sqrt{5^2 + 5^2} = \\sqrt{50}$', why: 'The diagonal is the hypotenuse of a right triangle with legs $5$ and $5$.' },
+    { show: '$= \\sqrt{25 \\cdot 2} = 5\\sqrt{2}$ cm', why: 'Every square\'s diagonal is its side times $\\sqrt{2}$ — you\'ll meet this again in 10.7.' },
+  ]}
+/>
+
+<Practice client:visible lesson="10.3" skill="apply" compact />
+
+## Common mistakes
+
+<Callout type="warning" title="Not using the largest perfect square">
+$\sqrt{72} = 2\sqrt{18}$ is true but unfinished: $18 = 9 \cdot 2$, so keep going to $6\sqrt{2}$. Using the largest perfect square gets there in one step.
+</Callout>
+
+<Callout type="warning" title="Splitting a sum">
+The product rule is about **products**: $\sqrt{9 + 16} \neq \sqrt{9} + \sqrt{16}$.
+</Callout>
+
+<Callout type="warning" title="Odd powers">
+$\sqrt{x^5} = x^2\sqrt{x}$, not $x^{5/2}$ left inside or $x^2$ alone. Split off the largest even power.
+</Callout>
+
+<Callout type="warning" title="Mixing up inside and outside">
+In $3\sqrt{2}\cdot 4\sqrt{6}$, the $3$ and $4$ multiply each other; they never go under the radical.
+</Callout>
+
 ## Summary
 
-- $\sqrt{ab} = \sqrt{a}\sqrt{b}$: take out perfect-square (perfect-cube) factors.
-- Simplified form: no perfect-power factors left under the radical.
-- Multiply radicals by multiplying radicands, then simplify.
+- $\sqrt{ab} = \sqrt{a}\sqrt{b}$, because $(\sqrt{a}\sqrt{b})^2 = ab$.
+- Simplify by taking out the largest perfect-square (perfect-cube) factor; prime factors help: each pair (triple) comes out once.
+- Even powers of variables come out of square roots with half the exponent.
+- Multiply radicals: coefficients with coefficients, radicands with radicands, then simplify.
+
+**Next, in 10.4:** adding and subtracting radicals — which only works once they are simplified.
 
 ## Practice
 
